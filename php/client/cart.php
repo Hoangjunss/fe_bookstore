@@ -159,6 +159,11 @@
               <strong class="text-black total">0 VND</strong>
             </div>
           </div>
+          <div class="row">
+    <div class="col-md-12 text-right">
+        <a href="checkout.html" class="btn btn-primary">Đặt hàng</a>
+    </div>
+</div>
         </div>
       </div>
     </div>
