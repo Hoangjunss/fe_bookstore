@@ -26,6 +26,18 @@
             max-width: 200px;
             max-height: 200px;
         }
+
+        /* Thêm style cho thông báo lỗi */
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        /* Style nút trở lại danh sách */
+        .btn-light a {
+            color: inherit;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -39,6 +51,7 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
+            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
@@ -55,8 +68,9 @@
             </li>
 
 
+            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -66,62 +80,23 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                                    <span class="float-right">
-                                        <a href="#" class="text-dark">
-                                            <small>Xoá hết</small>
-                                        </a>
-                                    </span>Thông báo
+                                <span class="float-right">
+                                    <a href="#" class="text-dark">
+                                        <small>Xoá hết</small>
+                                    </a>
+                                </span>Thông báo
                         </h5>
                     </div>
 
                     <div class="slimscroll noti-scroll">
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
+                        <!-- Notification items... -->
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);"
+                       class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -129,6 +104,7 @@
                 </div>
             </li>
 
+            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -155,6 +131,7 @@
                 </div>
             </li>
 
+            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -169,10 +146,8 @@
             <a href="#" class="logo text-center">
                         <span class="logo-lg">
                             <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                            <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                 <span class="logo-sm">
-                            <!-- <span class="logo-sm-text-dark">U</span> -->
                             <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                         </span>
             </a>
@@ -293,22 +268,22 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form class="parsley-examples" action="/admin/category/save.html" id="myForm"
-                                  method="post" enctype="multipart/form-data">
+                            <form id="myForm" class="parsley-examples" novalidate>
                                 <div class="form-group">
-                                    <label>Tên loại sản phẩm</label>
+                                    <label for="name">Tên loại sản phẩm <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Nhập tên loại sản phẩm" name="categoryName" id="categoryName"/>
+                                           placeholder="Nhập tên loại sản phẩm" name="name" id="name"/>
+                                    <div class="error-message" id="error-name"></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Trạng thái</label>
-                                    <div>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
-                                    </div>
+                                    <label for="status">Trạng thái <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option value="1">ACTIVE</option>
+                                        <option value="0">INACTIVE</option>
+                                    </select>
+                                    <div class="error-message" id="error-status"></div>
                                 </div>
 
                                 <div class="form-group mb-0">
@@ -317,9 +292,14 @@
                                             Lưu thay đổi
                                         </button>
                                         <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-category.php" style="color: inherit; text-decoration: none;">Danh sách loại sản phẩm</a>
+                                            <a href="list-category.php">Danh sách loại sản phẩm</a>
                                         </button>
                                     </div>
+                                </div>
+
+                                <!-- Thông báo lỗi chung -->
+                                <div class="form-group mt-3">
+                                    <div class="error-message" id="error-message"></div>
                                 </div>
                             </form>
                         </div>
@@ -399,44 +379,7 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
+                <!-- Inbox items... -->
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -463,28 +406,5 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
-<script>
-    // Đảm bảo rằng các phần tử với ID 'salePrice', 'price' và 'error-message' tồn tại trước khi thêm sự kiện
-    document.addEventListener('DOMContentLoaded', function () {
-        var salePriceInput = document.getElementById('salePrice');
-        var priceInput = document.getElementById('price');
-        var errorMessageDiv = document.getElementById('error-message');
-
-        if (salePriceInput && priceInput && errorMessageDiv) {
-            salePriceInput.addEventListener('input', function () {
-                var price = parseFloat(priceInput.value);
-                var salePrice = parseFloat(this.value);
-
-                if (isNaN(price) || isNaN(salePrice) || salePrice < price) {
-                    errorMessageDiv.textContent = 'Giá bán phải lớn hơn hoặc bằng giá.';
-                    this.setCustomValidity('Giá bán phải lớn hơn hoặc bằng giá.');
-                } else {
-                    errorMessageDiv.textContent = '';
-                    this.setCustomValidity('');
-                }
-            });
-        }
-    });
-</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8"/>
     <title>Danh sách đơn hàng</title>
@@ -18,6 +18,27 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/admin/order/list-order.js"></script>
+
+    <style>
+        .btn-success a, .btn-light a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .btn-warning, .btn-danger {
+            margin-right: 5px;
+        }
+        .pagination li a {
+            cursor: pointer;
+        }
+        .status-select {
+            width: 100%;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,11 +51,12 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
+            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
-                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1"
+                         height="12"> <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
@@ -46,8 +68,9 @@
             </li>
 
 
+            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -57,62 +80,23 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                            <span class="float-right">
-                                <a href="#" class="text-dark">
-                                    <small>Xoá hết</small>
-                                </a>
-                            </span>Thông báo
+                                <span class="float-right">
+                                    <a href="#" class="text-dark">
+                                        <small>Xoá hết</small>
+                                    </a>
+                                </span>Thông báo
                         </h5>
                     </div>
 
                     <div class="slimscroll noti-scroll">
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
+                        <!-- Notification items... -->
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);"
+                       class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -120,6 +104,7 @@
                 </div>
             </li>
 
+            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -146,6 +131,7 @@
                 </div>
             </li>
 
+            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -160,10 +146,8 @@
             <a href="#" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -262,15 +246,47 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                    <li class="breadcrumb-item active">Danh Sách Đơn Hàng</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Danh Sách Đơn Hàng</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box table-responsive">
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="email">Email:</label>
-                                    <input type="text" class="form-control" id="email" placeholder="Nhập email">
+
+                            <!-- Nút Thêm Mới Đơn Hàng (Nếu cần thiết) -->
+                            <!-- <div class="d-flex justify-content-end mb-3">
+                                <button class="btn btn-success">
+                                    <a href="insert-order.php" style="color: white; text-decoration: none;">Thêm đơn hàng</a>
+                                </button>
+                            </div> -->
+
+                            <!-- Form Tìm Kiếm -->
+                            <div class="mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="email">Email:</label>
+                                        <input type="text" class="form-control" id="email" placeholder="Nhập email">
+                                    </div>
                                 </div>
+                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
+
+                            <!-- Bảng Danh Sách Đơn Hàng -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -288,11 +304,12 @@
                                 </thead>
                                 <tbody>
 
-
                                 </tbody>
                             </table>
-                            <nav aria-label="...">
-                                <ul class="pagination" id="pageId" style="float: right;">
+                            <!-- Phân Trang -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end" id="pageId">
+                                    <!-- Các nút phân trang sẽ được thêm vào đây bằng JavaScript -->
                                 </ul>
                             </nav>
                         </div>
@@ -369,44 +386,7 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
+                <!-- Inbox items... -->
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -441,135 +421,12 @@
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
-<script>
-    // Hàm xóa đơn hàng
-    document.querySelectorAll('.delete-button').forEach(function (button) {
-        button.addEventListener('click', function () {
-            let id = this.getAttribute('data-id');
-            if (confirm("Bạn có chắc chắn là muốn xoá?")) {
-                window.location.href = '/admin/product/deleteProduct/' + id + '.html';
-            }
-        });
-    });
+
+<!-- Axios JS (Nếu cần sử dụng Axios thay vì Fetch) -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 
-    $(document).ready(function () {
-        initData();
-    });
-
-
-    function initData() {
-        let page = 0;
-        let size = 5;
-        let objFilter = {
-            name: null
-        };
-        getOrders(page, size, objFilter);
-    }
-
-    function getOrders(page, size, objectFilter) {
-        let bodyTable = $('#datatable-buttons > tbody');
-        bodyTable.empty();
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/orderListAdmin?page=" + page + "&size=" + size,
-            contentType: "application/json",
-            data: JSON.stringify(objectFilter),
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                let users = response?.data?.content;
-                for (let i = 0; i < users.length; i++) {
-                    let data = users[i];
-                    let row = '<tr>' +
-                        '<td>' + data.id + '</td>' +
-                        '<td>' + data.email + '</td>' +
-                        '<td>' + (data.detailCount !== null ? data.detailCount : 0) + '</td>' +
-                        '<td>' + (data.totalCost !== null ? formatCurrency(data.totalCost) : '0 VND') + '</td>' +
-                        '<td>' + (data.shippingFee !== null ? formatCurrency(data.shippingFee) : '0 VND') + '</td>' +
-                        '<td>' + (data.fullCost !== null ? formatCurrency(data.fullCost) : '0 VND') + '</td>' +
-                        '<td>' + data.createdDate + '</td>' +
-                        '<td>' +
-                        '<select id="statusSelect-' + data.id + '" class="status-select" data-order-id="' + data.id + '">' +
-                        '<option value="1" ' + (data.status === 1 ? 'selected' : '') + '>PENDING</option>' +
-                        '<option value="0" ' + (data.status === 0 ? 'selected' : '') + '>CANCELED</option>' +
-                        '<option value="2" ' + (data.status === 2 ? 'selected' : '') + '>SUCCEEDED</option>' +
-                        '</select>' +
-                        '</td></tr>';
-                    $('#datatable-buttons tbody').append(row);
-                }
-
-                // Phân trang
-                let totalPage = response.data.totalPages;
-                let currentPage = response.data.pageable.pageNumber;
-                if (totalPage > 0) {
-                    $("#pageId").empty();
-                    let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1) + ',5,event)" href="#">Previous</a></li>';
-                    for (let i = 0; i < totalPage; i++) {
-                        if (currentPage === i) {
-                            pages += '<li class="page-item active">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        } else {
-                            pages += '<li class="page-item">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        }
-                    }
-                    pages += '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage + 1) + ',5,event)" href="#">Next</a></li>';
-                    $("#pageId").append(pages);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-    }
-
-    // Xử lý khi thay đổi trạng thái đơn hàng
-    $(document).on('change', '.status-select', function () {
-        var orderId = $(this).data('order-id');
-        var newStatus = $(this).val();
-        $.ajax({
-            type: 'POST',
-            url: '/admin/order/updateStatus.html',
-            data: {
-                orderId: orderId,
-                newStatus: newStatus
-            },
-            success: function (response) {
-                console.log('Update successful');
-                // Bạn có thể thêm thông báo thành công ở đây
-            },
-            error: function (error) {
-                console.error('Error updating status:', error.responseText);
-                // Bạn có thể thêm thông báo lỗi ở đây
-            }
-        });
-    });
-
-    // Định dạng tiền tệ
-    function formatCurrency(value) {
-        const formatter = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        });
-
-        return formatter.format(value);
-    }
-
-    // Tìm kiếm theo email
-    function searchCondition(page, size) {
-        let filter = {};
-        filter.email = $("#email").val() === '' ? null : $("#email").val();
-        getOrders(page, size, filter);
-    }
-
-    // Thay đổi trang
-    function changePage(page, size, event) {
-        event.preventDefault();
-        searchCondition(page, size);
-    }
-
-
-</script>
 </body>
 </html>

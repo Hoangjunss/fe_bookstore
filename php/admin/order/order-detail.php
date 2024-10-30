@@ -2,11 +2,11 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8"/>
-    <title>Danh sách user</title>
+    <title>Chi tiết đơn hàng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
-    <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
 
     <!-- Third party CSS -->
     <link href="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
@@ -18,32 +18,25 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/admin/user/list-user.js"></script>
+    <script src="../../../static/call-api/admin/order/order-detail.js"></script>
 
 
     <style>
-        .btn-success a, .btn-light a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .btn-warning, .btn-danger {
-            margin-right: 5px;
-        }
-        .pagination li a {
-            cursor: pointer;
-        }
-        .status-select {
-            width: 100%;
-        }
-        .error-message {
-            color: red;
-            margin-top: 5px;
-        }
         .avatar-img {
             width: 100px;
             height: auto;
             max-height: 100px;
             border-radius: 50%;
+        }
+        .status-select {
+            width: 100%;
+        }
+        .btn-back {
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -260,11 +253,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">User</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách User</li>
+                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                    <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách User</h4>
+                            <h4 class="page-title">Chi tiết đơn hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -275,49 +268,83 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Nút Thêm Mới User (Nếu cần thiết) -->
-                            <!-- <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-success">
-                                    <a href="insert-user.html" style="color: white; text-decoration: none;">Thêm user</a>
+                            <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
+                            <div class="btn-back">
+                                <button class="btn btn-light">
+                                    <a href="list-order.html">Quay lại danh sách đơn hàng</a>
                                 </button>
-                            </div> -->
-
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="email">Email:</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Nhập email để tìm kiếm">
-                                    </div>
-                                </div>
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
 
-                            <!-- Bảng Danh Sách User -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Avatar</th>
-                                    <th>Email</th>
-                                    <th>Số feedback</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Phân trang sẽ được chèn qua JavaScript -->
-                                </ul>
-                            </nav>
+                            <!-- Thông Tin Chung của Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Thông Tin Đơn Hàng</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Đơn Hàng</th>
+                                        <td id="order-id">#</td>
+                                        <th>Email Người Dùng</th>
+                                        <td id="user-email">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số Lượng Sản Phẩm</th>
+                                        <td id="order-quantity">#</td>
+                                        <th>Tổng Giá Trị</th>
+                                        <td id="order-total-price">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phí Ship</th>
+                                        <td id="order-shipping-fee">#</td>
+                                        <th>Tổng Số Tiền Phải Trả</th>
+                                        <td id="order-full-cost">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày Tạo</th>
+                                        <td id="order-created-date">#</td>
+                                        <th>Trạng Thái</th>
+                                        <td>
+                                            <select class="form-control status-select" id="order-status" data-order-id="">
+                                                <option value="PENDING">PENDING</option>
+                                                <option value="CANCELED">CANCELED</option>
+                                                <option value="SUCCEEDED">SUCCEEDED</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Địa Chỉ Giao Hàng</th>
+                                        <td colspan="3" id="order-address">#</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Danh Sách Sản Phẩm trong Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Danh Sách Sản Phẩm</h5>
+                                <table id="order-details-table"
+                                       class="table table-striped table-bordered dt-responsive nowrap"
+                                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>ID Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Số Lượng</th>
+                                        <th>Đơn Giá</th>
+                                        <th>Tổng Giá</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Thông Báo Lỗi Chung -->
+                            <div class="form-group mt-3">
+                                <div class="error-message" id="error-message"></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
