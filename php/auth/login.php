@@ -72,23 +72,60 @@
     <p class="text-center"><a href="register.php">Create an Account</a></p>
 </div>
 <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-        var passwordInput = document.getElementById('password');
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn gửi form mặc định
+
+        // Lấy giá trị từ các trường nhập
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
         var passwordError = document.getElementById('passwordError');
-        var password = passwordInput.value;
+
+        // Kiểm tra mật khẩu có đủ điều kiện không
         if (password.length < 6) {
-            event.preventDefault();
             passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự.';
+            return;
         } else {
             passwordError.textContent = '';
         }
-    });
 
     function isValidPassword(password) {
         var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         return passwordRegex.test(password);
     }
+    var user = {
+            name: username,
+            password: password
+        };
 
+        // Gọi API với fetch
+        fetch('http://localhost:8080/api/v1/user/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Đăng nhập thất bại');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Lưu token vào localStorage
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            alert("Đăng nhập thành công!");
+
+            // Chuyển hướng hoặc thực hiện các thao tác tiếp theo
+            window.location.href = '/home'; // chuyển đến trang chủ hoặc trang mong muốn
+        })
+        .catch(error => {
+            console.error('Lỗi đăng nhập:', error);
+            alert("Đăng nhập thất bại, vui lòng kiểm tra lại thông tin.");
+        });
+    
+    });
     // Đoạn mã kiểm tra số điện thoại không được sử dụng trong form này nên có thể loại bỏ
 </script>
 </body>
