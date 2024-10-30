@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="vi">
 <head>
     <meta charset="UTF-8" />
-    <title>Danh sách sản phẩm</title>
+    <title>Danh sách sách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
@@ -18,8 +18,13 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css" />
 
+    <script src="../../../static/call-api/admin/product/list-product.js"></script>
     <style>
         /* Thêm các kiểu tùy chỉnh nếu cần */
+        .img-thumbnail {
+            max-width: 100px;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -242,7 +247,7 @@
                     <li>
                         <a href="../product/list-product.php">
                             <i class="fe-box"></i>
-                            Quản lý sản phẩm
+                            Quản lý sách
                         </a>
                     </li>
 
@@ -278,34 +283,36 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end mb-3">
 
-                                <button class="btn btn-success mb-1"><a
-                                        href="insert-product.php" style="color: white; text-decoration: none;">Thêm sản
-                                    phẩm</a></button>
+                                <button class="btn btn-success mb-1">
+                                    <a href="insert-book.html" style="color: white; text-decoration: none;">Thêm sách</a>
+                                </button>
                             </div>
 
                             <div>
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="productName">Tên sản phẩm:</label>
-                                        <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
+                                        <label for="bookName">Tên sách:</label>
+                                        <input type="text" class="form-control" id="bookName" placeholder="Nhập tên sách">
                                     </div>
 
                                     <div class="col-md-4 mb-3">
-                                        <label>Khoảng giá bán sản phẩm:</label>
+                                        <label>Khoảng giá bán sách:</label>
                                         <div class="input-group">
                                             <select class="form-control" id="saleStartPrice">
                                                 <option value="">Chọn giá bắt đầu</option>
-                                                <option value="100">100</option>
-                                                <option value="200">200</option>
+                                                <option value="100000">100,000 VND</option>
+                                                <option value="200000">200,000 VND</option>
+                                                <option value="300000">300,000 VND</option>
                                                 <!-- Thêm các lựa chọn khác nếu cần -->
                                             </select>
                                             <span class="input-group-text">đến</span>
                                             <select class="form-control" id="saleEndPrice">
                                                 <option value="">Chọn giá kết thúc</option>
-                                                <option value="500">500</option>
-                                                <option value="1000">1000</option>
+                                                <option value="500000">500,000 VND</option>
+                                                <option value="1000000">1,000,000 VND</option>
+                                                <option value="1500000">1,500,000 VND</option>
                                                 <!-- Thêm các lựa chọn khác nếu cần -->
                                             </select>
                                         </div>
@@ -320,14 +327,14 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label for="category">Loại sản phẩm:</label>
+                                        <label for="category">Thể loại sách:</label>
                                         <select class="form-control mb-4 col-4" id="category"
                                                 aria-label="Default select example">
                                             <option value="0">Tất cả</option>
-                                            <option value="1">Thời trang nam</option>
-                                            <option value="2">Thời trang nữ</option>
-                                            <option value="3">Bé yêu</option>
-                                            <!-- Thêm các loại sản phẩm khác nếu cần -->
+                                            <option value="1">Tiểu thuyết</option>
+                                            <option value="2">Khoa học</option>
+                                            <option value="3">Giáo trình</option>
+                                            <!-- Thêm các thể loại sách khác nếu cần -->
                                         </select>
                                     </div>
                                 </div>
@@ -340,25 +347,24 @@
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 200px;">Ảnh</th>
-                                    <th style="width: 300px;">Tên sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Giá nhập</th>
-                                    <th>Giá bán</th>
-                                    <th>Loại sản phẩm</th>
-                                    <th>Ngày tạo</th>
+                                    <th style="width: 80px;">ID</th>
+                                    <th style="width: 150px;">Hình ảnh</th>
+                                    <th style="width: 200px;">Tên sách</th>
+                                    <th>Tác giả</th>
+                                    <th>Số trang</th>
+                                    <th>Ngày xuất bản</th>
+                                    <th>Thể loại</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
+                                <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
                                 </tbody>
                             </table>
                             <nav aria-label="...">
                                 <ul class="pagination" id="pageId" style="float: right;">
+                                    <!-- Phân trang sẽ được thêm bằng JavaScript -->
                                 </ul>
                             </nav>
                         </div>
@@ -422,112 +428,6 @@
 <!-- Bootstrap JS (Nếu chưa có) -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    // Khi tài liệu đã sẵn sàng
-    $(document).ready(function () {
-        initData();
-    });
-
-    // Hàm khởi tạo dữ liệu
-    function initData() {
-        let page = 0;
-        let size = 5;
-        let objFilter = {
-            name: null
-        };
-        getProducts(page, size, objFilter);
-    }
-
-    // Hàm lấy danh sách sản phẩm
-    function getProducts(page, size, objectFilter) {
-        let bodyTable = $('#datatable-buttons > tbody');
-        bodyTable.empty();
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/productList?page=" + page + "&size=" + size,
-            contentType: "application/json",
-            data: JSON.stringify(objectFilter),
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                let products = response?.data?.content;
-                for (let i = 0; i < products.length; i++) {
-                    let data = products[i];
-                    let row = '<tr>' +
-                        '<td>' + data.id + '</td>' +
-                        '<td><img src="' + data.thumbnail + '" alt="Thumbnail" style="max-width: 100%; max-height: 100%;" ></td>' +
-                        '<td>' + data.productName + '</td>' +
-                        '<td>' + data.amount + '</td>' +
-                        '<td>' + formatDecimal(data.price) + ' VND</td>' +
-                        '<td>' + formatDecimal(data.salePrice) + ' VND</td>' +
-                        '<td>' + data.categoryName + '</td>' +
-                        '<td>' + data.createdDate + '</td>' +
-                        '<td>' +
-                        '<span>' + (data.status === 1 ? 'ACTIVE' : 'INACTIVE') + '</span>' +
-                        '</td>' +
-                        '<td> <a href="/admin/product/updateProduct/' + data.id + '" class="btn btn-warning">Chi tiết</a> ' +
-                        '<button class="btn btn-danger delete-button" data-id="' + data.id + '">Xóa</button> ' +
-                        '<a href="/admin/product/detail/' + data.id + '" class="btn btn-warning">Đến bình luận</a> </td>' +
-                        '</tr>';
-                    $('#datatable-buttons > tbody').append(row);
-                }
-
-                // Gán sự kiện cho các nút Xóa sau khi thêm vào DOM
-                $('.delete-button').off('click').on('click', function () {
-                    let id = $(this).data('id');
-                    if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này không?")) {
-                        window.location.href = '/admin/product/deleteProduct/' + id;
-                    }
-                });
-
-                // Phân trang
-                let totalPage = response.data.totalPages;
-                let currentPage = response.data.pageable.pageNumber;
-                if (totalPage > 0) {
-                    $("#pageId").empty();
-                    let pages = '<li class="page-item ' + (currentPage === 0 ? 'disabled' : '') + '"><a class="page-link" onclick="changePage(' + (currentPage - 1) + ',5,event)" href="#">Previous</a></li>';
-                    for (let i = 0; i < totalPage; i++) {
-                        if (currentPage === i) {
-                            pages += '<li class="page-item active">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        } else {
-                            pages += '<li class="page-item">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        }
-                    }
-                    pages += '<li class="page-item ' + (currentPage === totalPage - 1 ? 'disabled' : '') + '"><a class="page-link" onclick="changePage(' + (currentPage + 1) + ',5,event)" href="#">Next</a></li>';
-                    $("#pageId").append(pages);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        })
-    }
-
-    // Hàm định dạng số thập phân
-    function formatDecimal(value) {
-        return Number(value).toLocaleString('en-US', {minimumFractionDigits: 0});
-    }
-
-    // Hàm tìm kiếm theo điều kiện
-    function searchCondition(page, size) {
-        let filter = {};
-        filter.productName = $("#productName").val() === '' ? null : $("#productName").val();
-        filter.saleStartPrice = $("#saleStartPrice").val() === '' ? null : $("#saleStartPrice").val();
-        filter.saleEndPrice = $("#saleEndPrice").val() === '' ? null : $("#saleEndPrice").val();
-        filter.status = $("#status").val() === '' || $("#status").val() === '0' ? null : parseInt($("#status").val());
-        filter.categoryId = $("#category").val() === '0' ? null : parseInt($("#category").val());
-        console.log(filter);
-        getProducts(page, size, filter);
-    }
-
-    // Hàm thay đổi trang
-    function changePage(page, size, event) {
-        event.preventDefault();
-        searchCondition(page, size);
-    }
-</script>
 
 </body>
 

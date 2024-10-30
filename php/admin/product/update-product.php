@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Cập nhật sản phẩm</title>
+    <title>Cập Nhật Sản Phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -14,16 +14,23 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/admin/product/update-product.js"></script>
+
     <style>
-        .profile-picture img {
+        .profile-picture img, .form-group img {
             max-width: 200px;
             max-height: 200px;
             width: auto;
             height: auto;
         }
-        .form-group img {
+        .image-preview {
+            margin-top: 10px;
             max-width: 200px;
             max-height: 200px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -38,11 +45,12 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
+            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
-                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1"
+                         height="12"> <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
@@ -54,8 +62,9 @@
             </li>
 
 
+            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -65,11 +74,11 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                            <span class="float-right">
-                                <a href="#" class="text-dark">
-                                    <small>Xoá hết</small>
-                                </a>
-                            </span>Thông báo
+                                <span class="float-right">
+                                    <a href="#" class="text-dark">
+                                        <small>Xoá hết</small>
+                                    </a>
+                                </span>Thông báo
                         </h5>
                     </div>
 
@@ -77,50 +86,20 @@
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1
+                                min
                                 ago</small></p>
                         </a>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
+                        <!-- More notification items... -->
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);"
+                       class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -128,6 +107,7 @@
                 </div>
             </li>
 
+            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -154,6 +134,7 @@
                 </div>
             </li>
 
+            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -168,10 +149,8 @@
             <a href="#" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -278,11 +257,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                                    <li class="breadcrumb-item active">Form Validation</li>
+                                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                                    <li class="breadcrumb-item active">Cập Nhật Sản Phẩm</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Cập nhật thông tin sản phẩm</h4>
+                            <h4 class="page-title">Cập Nhật Thông Tin Sản Phẩm</h4>
                         </div>
                     </div>
                 </div>
@@ -292,125 +271,163 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form class="parsley-examples" action="/admin/product/update.html" id="myForm"
-                                  method="post" enctype="multipart/form-data">
+                            <form id="updateProductForm" enctype="multipart/form-data">
                                 <input type="hidden" name="id" id="id" value="">
 
+                                <!-- Tên sản phẩm -->
                                 <div class="form-group">
-                                    <label>Tên sản phẩm</label>
+                                    <label for="productName">Tên sản phẩm <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Type something" name="productName" id="productName"/>
+                                           placeholder="Nhập tên sản phẩm" name="name" id="productName"/>
                                 </div>
 
+                                <!-- Mô tả sản phẩm -->
                                 <div class="form-group">
-                                    <label>Ảnh thumbnail</label>
+                                    <label for="description">Mô tả <span style="color: red;">*</span></label>
+                                    <textarea class="form-control" id="description" name="description" rows="5"
+                                              placeholder="Nhập mô tả sản phẩm" required></textarea>
+                                </div>
+
+                                <!-- Tác giả -->
+                                <div class="form-group">
+                                    <label for="author">Tác giả <span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" required
+                                           placeholder="Nhập tên tác giả" name="author" id="author"/>
+                                </div>
+
+                                <!-- Số trang -->
+                                <div class="form-group">
+                                    <label for="page">Số trang <span style="color: red;">*</span></label>
+                                    <input type="number" class="form-control" required
+                                           placeholder="Nhập số trang" name="page" id="page"/>
+                                </div>
+
+                                <!-- Ngày xuất bản -->
+                                <div class="form-group">
+                                    <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
+                                    <input type="date" class="form-control" required
+                                           name="datePublic" id="datePublic"/>
+                                </div>
+
+                                <!-- Thể loại sản phẩm -->
+                                <div class="form-group">
+                                    <label for="category">Thể loại sản phẩm <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="category" name="categoryId" required>
+                                        <option value="">Chọn thể loại sản phẩm</option>
+                                        <option value="1">Thời trang nam</option>
+                                        <option value="2">Thời trang nữ</option>
+                                        <option value="3">Bé yêu</option>
+                                        <!-- Thêm các loại sản phẩm khác nếu cần -->
+                                    </select>
+                                </div>
+
+                                <!-- Nhà cung cấp -->
+                                <div class="form-group">
+                                    <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="supply" name="supplyId" required>
+                                        <option value="">Chọn nhà cung cấp</option>
+                                        <option value="1">Nhà cung cấp A</option>
+                                        <option value="2">Nhà cung cấp B</option>
+                                        <option value="3">Nhà cung cấp C</option>
+                                        <!-- Thêm các nhà cung cấp khác nếu cần -->
+                                    </select>
+                                </div>
+
+                                <!-- Kích thước sản phẩm -->
+                                <div class="form-group">
+                                    <label for="size">Kích thước sản phẩm (ví dụ: 15x23 cm)</label>
+                                    <input type="text" class="form-control" placeholder="Nhập kích thước sản phẩm"
+                                           name="size" id="size"/>
+                                </div>
+
+                                <!-- Ảnh thumbnail -->
+                                <div class="form-group">
+                                    <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
                                     <br>
-                                    <img id="thumbnailPreview" src="../../../static/assets_admin/images/default-thumbnail.png" alt="Thumbnail" class="image">
-                                    <br>
-                                    <br>
-                                    <label for="fileThumbnail">Chọn ảnh:</label>
-                                    <input type="file" name="fileThumbnail" id="fileThumbnail" onchange="previewThumbnail(this)"/>
+                                    <img id="imagePreview" src="../../../static/assets_admin/images/default-thumbnail.png"
+                                         alt="Thumbnail" class="image-preview">
+                                    <br><br>
+                                    <input type="file" name="image" id="image" accept="image/*"
+                                           onchange="previewImage(this)" required/>
                                 </div>
 
-                                <script>
-                                    function previewThumbnail(input) {
-                                        let preview = document.getElementById('thumbnailPreview');
-                                        let file = input.files[0];
-
-                                        if (file) {
-                                            let reader = new FileReader();
-
-                                            reader.onload = function (e) {
-                                                preview.src = e.target.result;
-                                            }
-                                            reader.readAsDataURL(file);
-                                        }
-                                    }
-                                </script>
-
+                                <!-- Số lượng -->
                                 <div class="form-group">
-                                    <label>Số lượng</label>
-                                    <div>
-                                        <input type="number" id="amount" class="form-control" required
-                                               name="amount" placeholder="Nhập số lượng sản phẩm"/>
-                                    </div>
+                                    <label for="amount">Số lượng <span style="color: red;">*</span></label>
+                                    <input type="number" class="form-control" required
+                                           placeholder="Nhập số lượng sản phẩm" name="amount" id="amount"/>
                                 </div>
 
+                                <!-- Giá nhập -->
                                 <div class="form-group">
-                                    <label>Giá nhập</label>
-                                    <div>
-                                        <input type="text" id="price" class="form-control" required
-                                               placeholder="100.000 VND"
-                                               onfocus="clearValue(this)"
-                                               oninput="formatCurrencyPrice(this)"/>
-                                    </div>
+                                    <label for="price">Giá nhập <span style="color: red;">*</span></label>
+                                    <input type="text" id="price" class="form-control" required
+                                           placeholder="100.000 VND"
+                                           onfocus="clearValue(this)"
+                                           oninput="formatCurrencyPrice(this)"/>
                                 </div>
 
+                                <!-- Giá bán -->
                                 <div class="form-group">
-                                    <label>Giá bán</label>
-                                    <div>
-                                        <input type="text" id="salePrice" class="form-control" required
-                                               placeholder="100.000 VND"
-                                               onfocus="clearValue(this)"
-                                               oninput="formatCurrencySalePrice(this)"/>
-                                        <div id="error-message" style="color: red;"></div>
-                                    </div>
+                                    <label for="salePrice">Giá bán <span style="color: red;">*</span></label>
+                                    <input type="text" id="salePrice" class="form-control" required
+                                           placeholder="100.000 VND"
+                                           onfocus="clearValue(this)"
+                                           oninput="formatCurrencySalePrice(this)"/>
+                                    <div id="error-message" class="error-message"></div>
                                 </div>
 
+                                <!-- Ẩn giá nhập và giá bán để gửi dữ liệu thực tế -->
                                 <input type="hidden" id="hiddenPrice" name="price" value=""/>
                                 <input type="hidden" id="hiddenSalePrice" name="salePrice" value=""/>
 
-                                <script>
-                                    function formatCurrencyPrice(input) {
-                                        let numericValue = input.value.replace(/[^\d]/g, '');
-                                        input.value = formatNumberWithCommas(numericValue);
-
-                                        document.getElementById('hiddenPrice').value = numericValue;
-                                    }
-
-                                    function formatCurrencySalePrice(input) {
-                                        let numericValue = input.value.replace(/[^\d]/g, '');
-                                        input.value = formatNumberWithCommas(numericValue);
-
-                                        document.getElementById('hiddenSalePrice').value = numericValue;
-                                    }
-
-                                    function formatNumberWithCommas(value) {
-                                        return Number(value).toLocaleString('en-US');
-                                    }
-
-                                    function clearValue(input) {
-                                        input.value = '';
-                                    }
-                                </script>
-
-
+                                <!-- Trạng thái -->
                                 <div class="form-group">
-                                    <label>Loại sản phẩm</label>
-                                    <div>
-                                        <select class="form-control mb-4 col-4" id="category" name="categoryId"
-                                                aria-label="Default select example">
-                                            <option value="0">Tất cả</option>
-                                            <option value="1">Thời trang nam</option>
-                                            <option value="2">Thời trang nữ</option>
-                                            <option value="3">Bé yêu</option>
-                                            <!-- Thêm các loại sản phẩm khác nếu cần -->
-                                        </select>
+                                    <label for="status">Trạng thái <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="1">ACTIVE</option>
+                                        <option value="0">INACTIVE</option>
+                                    </select>
+                                </div>
+
+                                <!-- Danh sách hình ảnh sản phẩm (nếu có) -->
+                                <div class="form-group">
+                                    <label>Danh sách hình ảnh sản phẩm</label>
+                                    <div id="imagesContainer">
+                                        <!-- Đây là ví dụ về một hình ảnh, bạn có thể thêm nhiều hình ảnh theo cách này hoặc sử dụng JavaScript để nạp dữ liệu động -->
+                                        <div class="profile-picture single-file-preview">
+                                            <img src="../../../static/assets_admin/images/products/sample-image.jpg" alt="Sample Image" class="image">
+                                            <div class="description">
+                                                <p>Mô tả hình ảnh</p>
+                                            </div>
+                                            <div class="input">
+                                                <input name="file1" type="file" class="d-none">
+                                                <input value="1" type="hidden" class="d-none" name="imageId" id="imageId1">
+                                                <button type="button" class="btn-edit btn btn-warning"
+                                                        onclick="showEditForm('1')">Sửa
+                                                </button>
+                                                <div class="edit-reply-form" id="editForm_1" style="display: none;">
+                                                    <form action="/admin/image/update.html" method="post">
+                                                        <input type="hidden" value="1" name="imageId" id="imageId">
+                                                        <input type="hidden" value="" name="productIdEditDesc" id="productIdEditDesc">
+                                                        <textarea name="editedContent" id="editedContent1" class="form-control" rows="3" placeholder="Nhập mô tả mới"></textarea>
+                                                        <button type="submit" class="btn btn-success mt-2">Xác nhận</button>
+                                                        <button type="button" class="btn btn-danger mt-2" onclick="hideEditForm('1')">Đóng</button>
+                                                    </form>
+                                                </div>
+                                                <button class="btn btn-danger delete-button btn-sm mt-2" type="button" onclick="deleteImage(1, 1)">
+                                                    Xóa
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Thêm các hình ảnh khác tương tự -->
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Trạng thái</label>
-                                    <div>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!-- Thông báo lỗi -->
+                                <div id="error-message" class="error-message"></div>
 
-
-
+                                <!-- Nút submit và reset -->
                                 <div class="form-group mb-0">
                                     <div>
                                         <button type="submit" class="btn btn-gradient waves-effect waves-light">
@@ -422,103 +439,21 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="form-group">
-                                <!-- Phần danh sách hình ảnh sản phẩm -->
-                                <div id="imagesContainer">
-                                    <!-- Đây là ví dụ về một hình ảnh, bạn có thể thêm nhiều hình ảnh theo cách này hoặc sử dụng JavaScript để nạp dữ liệu động -->
-                                    <div class="profile-picture single-file-preview">
-                                        <img src="../../../static/assets_admin/images/products/sample-image.jpg" alt="Sample Image" class="image">
-                                        <div class="description">
-                                            <p>Mô tả hình ảnh</p>
-                                        </div>
-                                        <div class="input">
-                                            <input name="file1" type="file" class="d-none">
-                                            <input value="1" type="hidden" class="d-none" name="imageId" id="imageId1">
-                                            <button type="button" class="btn-edit" style="background-color: yellow; color: black"
-                                                    onclick="showEditForm('1')">Sửa
-                                            </button>
-                                            <div class="edit-reply-form" id="editForm_1" style="display: none;">
-                                                <form action="/admin/image/update.html" method="post">
-                                                    <input type="hidden" value="1" name="imageId" id="imageId">
-                                                    <input type="hidden" value="" name="productIdEditDesc" id="productIdEditDesc">
-                                                    <textarea name="editedContent" id="editedContent"></textarea>
-                                                    <button type="submit" class="btn-confirm"
-                                                            style="background-color: green; color: white">Xác nhận
-                                                    </button>
-                                                    <button type="button" class="btn-close"
-                                                            style="background-color: red; color: white"
-                                                            onclick="hideEditForm('1')">Đóng
-                                                    </button>
-                                                </form>
-                                            </div>
-                                            <button class="btn btn-danger delete-button" type="button" onclick="deleteImage(1, 1)">
-                                                Xóa
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- Thêm các hình ảnh khác tương tự -->
-                                </div>
-                            </div>
 
-                            <script>
-                                function showEditForm(id) {
-                                    console.log('editForm_' + id);
-                                    document.getElementById('editForm_' + id).style.display = 'block';
-                                }
-
-                                function hideEditForm(id) {
-                                    document.getElementById('editForm_' + id).style.display = 'none';
-                                }
-
-                                function deleteImage(productId, imageId) {
-                                    var confirmation = confirm("Bạn có chắc chắn muốn xóa ảnh này?");
-                                    if (confirmation) {
-                                        window.location.href = '/admin/product/deleteImage/' + productId + '/' + imageId + '.html';
-                                    }
-                                }
-                            </script>
-
-                            <br>
-                            <br>
-
+                            <!-- Quản lý upload hình ảnh (nếu cần) -->
                             <form action="/admin/product/upload.html" id="uploadForm" method="post" enctype="multipart/form-data">
                                 <input type="hidden" id="idInput" name="idInput" value=""/>
                                 <label for="editor">Viết mô tả:</label>
                                 <div id="editor"></div>
 
                                 <label for="imageInput">Chọn ảnh:</label>
-                                <input type="file" name="file" id="imageInput"/>
-                                <button type="submit">Upload Image</button>
+                                <input type="file" name="file" id="imageInput" required/>
+                                <button type="submit" class="btn btn-primary mt-2">Upload Image</button>
 
                                 <input id="contentTextArea" name="content" type="hidden"/>
                             </form>
 
-
-
-                            <script>
-                                document.getElementById('uploadForm').addEventListener('submit', function (event) {
-                                    let fileInput = document.getElementById('imageInput');
-                                    let file = fileInput.files[0];
-
-                                    if (file) {
-                                        let maxSize = 2;
-                                        if (file.size > maxSize * 1024 * 1024) {
-                                            alert('Kích thước file không được vượt quá 2MB.');
-                                            event.preventDefault();
-                                            return;
-                                        }
-
-                                        let allowedFormats = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-                                        if (allowedFormats.indexOf(file.type) === -1) {
-                                            alert('Định dạng file không được hỗ trợ. Vui lòng chọn ảnh có định dạng JPEG, PNG hoặc GIF.');
-                                            event.preventDefault();
-                                            return;
-                                        }
-                                    }
-                                });
-                            </script>
-
-
+                            <!-- CKEditor Initialization -->
                             <script>
                                 window.addEventListener("load", (e) => {
                                     ClassicEditor
@@ -555,7 +490,6 @@
                                         });
                                 });
                             </script>
-
 
                         </div>
                     </div>
@@ -709,28 +643,13 @@
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
-<script>
-    document.getElementById('salePrice').addEventListener('input', function () {
-        var price = parseFloat(document.getElementById('hiddenPrice').value);
-        var salePrice = parseFloat(document.getElementById('hiddenSalePrice').value);
-        var errorMessageDiv = document.getElementById('error-message');
 
-        if (isNaN(price) || isNaN(salePrice) || salePrice < price) {
-            errorMessageDiv.textContent = 'Giá bán phải lớn hơn hoặc bằng giá.';
-            this.setCustomValidity('Giá bán phải lớn hơn hoặc bằng giá.');
-        } else {
-            errorMessageDiv.textContent = '';
-            this.setCustomValidity('');
-        }
-    });
+<!-- Axios JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    function deleteImage(productId, imageId) {
-        var confirmation = confirm("Bạn có chắc chắn muốn xóa ảnh này?");
-        if (confirmation) {
-            window.location.href = '/admin/product/deleteImage/' + productId + '/' + imageId + '.html';
-        }
-    }
 
-</script>
+
 </body>
 </html>

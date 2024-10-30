@@ -18,6 +18,18 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <style>
+        .btn-success a {
+            color: white;
+            text-decoration: none;
+        }
+        .btn-warning, .btn-danger {
+            margin-right: 5px;
+        }
+        .pagination li a {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,6 +42,7 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
+            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
@@ -46,8 +59,9 @@
             </li>
 
 
+            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -69,50 +83,20 @@
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1
+                                min
                                 ago</small></p>
                         </a>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
+                        <!-- More notification items... -->
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);"
+                       class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -120,6 +104,7 @@
                 </div>
             </li>
 
+            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -146,6 +131,7 @@
                 </div>
             </li>
 
+            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -158,14 +144,12 @@
         <!-- LOGO -->
         <div class="logo-box">
             <a href="#" class="logo text-center">
-                    <span class="logo-lg">
-                        <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                        <!-- <span class="logo-lg-text-light">UBold</span> -->
-                    </span>
+                <span class="logo-lg">
+                    <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                </span>
                 <span class="logo-sm">
-                        <!-- <span class="logo-sm-text-dark">U</span> -->
-                        <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
-                    </span>
+                    <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
+                </span>
             </a>
         </div>
 
@@ -262,16 +246,37 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                                    <li class="breadcrumb-item active">Danh Sách Loại Sản Phẩm</li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">Danh Sách Loại Sản Phẩm</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-success mb-1"><a
-                                        href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a></button>
+                            <!-- Nút Thêm Mới Loại Sản Phẩm -->
+                            <div class="d-flex justify-content-end mb-3">
+                                <button class="btn btn-success">
+                                    <a href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a>
+                                </button>
                             </div>
 
-                            <div>
+                            <!-- Form Tìm Kiếm -->
+                            <div class="mb-3">
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
                                         <label for="name">Tên loại sản phẩm:</label>
@@ -281,14 +286,16 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="status">Trạng thái:</label>
                                         <select class="form-control" id="status" name="status">
+                                            <option value="">Tất cả</option>
                                             <option value="1">ACTIVE</option>
                                             <option value="0">INACTIVE</option>
                                         </select>
                                     </div>
                                 </div>
-                                <button id="btnSearch" onclick="searchCondition(0,5)" class="btn btn-primary">Tìm kiếm</button>
+                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
 
+                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -299,15 +306,18 @@
                                     <th>Số sản phẩm</th>
                                     <th>Ngày tạo</th>
                                     <th>Trạng thái</th>
-                                    <th></th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 </tbody>
                             </table>
-                            <nav aria-label="...">
-                                <ul class="pagination" id="pageId" style="float: right;">
+
+                            <!-- Phân Trang -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end" id="pageId">
+                                    <!-- Các nút phân trang sẽ được thêm vào đây bằng JavaScript -->
                                 </ul>
                             </nav>
                         </div>
@@ -455,100 +465,12 @@
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
-<script>
-    $(document).ready(function () {
-        initData();
-    });
 
-    function initData() {
-        let page = 0;
-        let size = 5;
-        let objFilter = {
-            name: null,
-            status: null
-        };
-        getCategories(page, size, objFilter);
-    }
+<!-- Axios JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    function getCategories(page, size, objectFilter) {
-        let bodyTable = $('#datatable-buttons > tbody');
-        bodyTable.empty();
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8080/categoryList?page=" + page + "&size=" + size,
-            contentType: "application/json",
-            data: JSON.stringify(objectFilter),
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                let categories = response?.data?.content;
-                for (let i = 0; i < categories.length; i++) {
-                    let data = categories[i];
-                    let row = '<tr>' +
-                        '<td>' + data.id + '</td>' +
-                        '<td>' + data.categoryName + '</td>' +
-                        '<td>' + data.countProducts + '</td>' +
-                        '<td>' + data.createdDate + '</td>' +
-                        '<td>' +
-                        '<span>' + (data.status === 1 ? 'ACTIVE' : 'INACTIVE') + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<a href="/admin/category/updateCategory/' + data.id + '.html" class="btn btn-warning">Chi tiết</a> ' +
-                        '<button class="btn btn-danger delete-button" data-id="' + data.id + '">Xóa</button>' +
-                        '</td>' +
-                        '</tr>';
-                    $('#datatable-buttons tbody').append(row);
-                }
-
-                // Thêm sự kiện xóa sau khi thêm hàng mới
-                $('.delete-button').off('click').on('click', function () {
-                    let id = $(this).data('id');
-                    if (confirm("Bạn có chắc chắn muốn xoá loại sản phẩm này không?")) {
-                        window.location.href = '/admin/category/deleteCategory/' + id + '.html';
-                    }
-                });
-
-                // Phân trang
-                let totalPage = response.data.totalPages;
-                let currentPage = response.data.pageable.pageNumber;
-                if (totalPage > 0) {
-                    $("#pageId").empty();
-                    let pages = '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage - 1) + ',5,event)" href="#">Previous</a></li>';
-                    for (let i = 0; i < totalPage; i++) {
-                        if (currentPage === i) {
-                            pages += '<li class="page-item active">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        } else {
-                            pages += '<li class="page-item">' +
-                                '<a class="page-link" onclick="changePage(' + i + ',5,event)" href="#">' + (i + 1) + '</a></li>';
-                        }
-                    }
-                    pages += '<li class="page-item"><a class="page-link" onclick="changePage(' + (currentPage + 1) + ',5,event)" href="#">Next</a></li>';
-                    $("#pageId").append(pages);
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
-    function formatDecimal(value) {
-        return value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
-
-    function searchCondition(page, size) {
-        let filter = {};
-        filter.name = $("#name").val() === '' ? null : $("#name").val();
-        filter.status = $("#status").val() === '' ? null : $("#status").val();
-        getCategories(page, size, filter);
-    }
-
-    function changePage(page, size, event) {
-        event.preventDefault();
-        searchCondition(page, size);
-    }
-</script>
 
 </body>
 

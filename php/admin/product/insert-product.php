@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <title>Thêm sản phẩm</title>
+    <meta charset="UTF-8"/>
+    <title>Tạo Mới Sách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -14,17 +14,22 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/admin/product/insert-product.js"></script>
     <style>
-        .profile-picture img {
+        .profile-picture img, .form-group img {
             max-width: 200px;
             max-height: 200px;
             width: auto;
             height: auto;
         }
-
-        .form-group img {
+        .image-preview {
+            margin-top: 10px;
             max-width: 200px;
             max-height: 200px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -39,24 +44,26 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
+            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
-                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1"
+                         height="12"> <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12">
-                        <span class="align-middle">English</span>
+                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1"
+                             height="12"> <span class="align-middle">English</span>
                     </a>
                 </div>
             </li>
 
 
+            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -66,11 +73,11 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                            <span class="float-right">
-                                <a href="#" class="text-dark">
-                                    <small>Xoá hết</small>
-                                </a>
-                            </span>Thông báo
+                                <span class="float-right">
+                                    <a href="#" class="text-dark">
+                                        <small>Xoá hết</small>
+                                    </a>
+                                </span>Thông báo
                         </h5>
                     </div>
 
@@ -78,51 +85,20 @@
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1
+                                min
                                 ago</small></p>
                         </a>
 
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days
-                                ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
+                        <!-- More notification items... -->
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);"
+                       class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -130,6 +106,7 @@
                 </div>
             </li>
 
+            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -156,6 +133,7 @@
                 </div>
             </li>
 
+            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -168,14 +146,12 @@
         <!-- LOGO -->
         <div class="logo-box">
             <a href="#" class="logo text-center">
-                        <span class="logo-lg">
-                            <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                            <!-- <span class="logo-lg-text-light">UBold</span> -->
-                        </span>
+                <span class="logo-lg">
+                    <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                </span>
                 <span class="logo-sm">
-                            <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
-                        </span>
+                    <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
+                </span>
             </a>
         </div>
 
@@ -238,9 +214,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
+                        <a href="../product/list-book.html">
+                            <i class="fe-book"></i>
+                            Quản lý sách
                         </a>
                     </li>
 
@@ -280,11 +256,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
-                                    <li class="breadcrumb-item active">Form Validation</li>
+                                    <li class="breadcrumb-item"><a href="#">Sách</a></li>
+                                    <li class="breadcrumb-item active">Tạo Mới Sách</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Thêm thông tin sản phẩm</h4>
+                            <h4 class="page-title">Tạo Mới Thông Tin Sách</h4>
                         </div>
                     </div>
                 </div>
@@ -294,130 +270,104 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form class="parsley-examples" action="/admin/product/save.html" id="myForm"
-                                  method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="id" id="id" value="">
-
+                            <form id="createBookForm" enctype="multipart/form-data">
+                                <!-- Tên sách -->
                                 <div class="form-group">
-                                    <label>Tên sản phẩm</label>
+                                    <label for="bookName">Tên sách <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Type something" name="productName" id="productName"/>
+                                           placeholder="Nhập tên sách" name="name" id="bookName"/>
                                 </div>
 
+                                <!-- Mô tả sách -->
                                 <div class="form-group">
-                                    <label>Ảnh thumbnail</label>
+                                    <label for="description">Mô tả <span style="color: red;">*</span></label>
+                                    <textarea class="form-control" id="description" name="description" rows="5"
+                                              placeholder="Nhập mô tả sách" required></textarea>
+                                </div>
+
+                                <!-- Tác giả -->
+                                <div class="form-group">
+                                    <label for="author">Tác giả <span style="color: red;">*</span></label>
+                                    <input type="text" class="form-control" required
+                                           placeholder="Nhập tên tác giả" name="author" id="author"/>
+                                </div>
+
+                                <!-- Số trang -->
+                                <div class="form-group">
+                                    <label for="page">Số trang <span style="color: red;">*</span></label>
+                                    <input type="number" class="form-control" required
+                                           placeholder="Nhập số trang" name="page" id="page"/>
+                                </div>
+
+                                <!-- Ngày xuất bản -->
+                                <div class="form-group">
+                                    <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
+                                    <input type="date" class="form-control" required
+                                           name="datePublic" id="datePublic"/>
+                                </div>
+
+                                <!-- Thể loại sách -->
+                                <div class="form-group">
+                                    <label for="category">Thể loại sách <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="category" name="categoryId" required>
+                                        <option value="">Chọn thể loại sách</option>
+                                        <option value="1">Tiểu thuyết</option>
+                                        <option value="2">Khoa học</option>
+                                        <option value="3">Giáo trình</option>
+                                        <!-- Thêm các thể loại sách khác nếu cần -->
+                                    </select>
+                                </div>
+
+                                <!-- Nhà cung cấp -->
+                                <div class="form-group">
+                                    <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="supply" name="supplyId" required>
+                                        <option value="">Chọn nhà cung cấp</option>
+                                        <option value="1">Nhà cung cấp A</option>
+                                        <option value="2">Nhà cung cấp B</option>
+                                        <option value="3">Nhà cung cấp C</option>
+                                        <!-- Thêm các nhà cung cấp khác nếu cần -->
+                                    </select>
+                                </div>
+
+                                <!-- Ảnh thumbnail -->
+                                <div class="form-group">
+                                    <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
                                     <br>
-                                    <img id="thumbnailPreview" src="../../../static/assets_admin/images/default-thumbnail.png" alt="Thumbnail" class="image">
-                                    <br>
-                                    <br>
-                                    <label for="fileThumbnail">Chọn ảnh:</label>
-                                    <input type="file" name="fileThumbnail" id="fileThumbnail" onchange="previewThumbnail(this)"/>
+                                    <img id="imagePreview" src="../../../static/assets_admin/images/default-thumbnail.png"
+                                         alt="Thumbnail" class="image-preview">
+                                    <br><br>
+                                    <input type="file" name="image" id="image" accept="image/*"
+                                           onchange="previewImage(this)" required/>
                                 </div>
 
-                                <script>
-                                    function previewThumbnail(input) {
-                                        let preview = document.getElementById('thumbnailPreview');
-                                        let file = input.files[0];
-
-                                        if (file) {
-                                            let reader = new FileReader();
-
-                                            reader.onload = function (e) {
-                                                preview.src = e.target.result;
-                                            }
-                                            reader.readAsDataURL(file);
-                                        }
-                                    }
-                                </script>
-
+                                <!-- Kích thước sách (nếu cần) -->
                                 <div class="form-group">
-                                    <label>Số lượng</label>
-                                    <div>
-                                        <input type="number" id="amount" class="form-control" required
-                                               name="amount" placeholder="Nhập số lượng sản phẩm"/>
-                                    </div>
+                                    <label for="size">Kích thước sách (ví dụ: 15x23 cm)</label>
+                                    <input type="text" class="form-control" placeholder="Nhập kích thước sách"
+                                           name="size" id="size"/>
                                 </div>
 
+                                <!-- Trạng thái -->
                                 <div class="form-group">
-                                    <label>Giá nhập</label>
-                                    <div>
-                                        <input type="text" id="price" class="form-control" required
-                                               placeholder="100.000 VND"
-                                               onfocus="clearValue(this)"
-                                               oninput="formatCurrencyPrice(this)"/>
-                                    </div>
+                                    <label for="status">Trạng thái <span style="color: red;">*</span></label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="1">ACTIVE</option>
+                                        <option value="0">INACTIVE</option>
+                                    </select>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Giá bán</label>
-                                    <div>
-                                        <input type="text" id="salePrice" class="form-control" required
-                                               placeholder="100.000 VND"
-                                               onfocus="clearValue(this)"
-                                               oninput="formatCurrencySalePrice(this)"/>
-                                        <div id="error-message" style="color: red;"></div>
-                                    </div>
-                                </div>
+                                <!-- Thông báo lỗi -->
+                                <div id="error-message" class="error-message"></div>
 
-                                <input type="hidden" id="hiddenPrice" name="price" value=""/>
-                                <input type="hidden" id="hiddenSalePrice" name="salePrice" value=""/>
-
-                                <script>
-                                    function formatCurrencyPrice(input) {
-                                        let numericValue = input.value.replace(/[^\d]/g, '');
-                                        input.value = formatNumberWithCommas(numericValue);
-
-                                        document.getElementById('hiddenPrice').value = numericValue;
-                                    }
-
-                                    function formatCurrencySalePrice(input) {
-                                        let numericValue = input.value.replace(/[^\d]/g, '');
-                                        input.value = formatNumberWithCommas(numericValue);
-
-                                        document.getElementById('hiddenSalePrice').value = numericValue;
-                                    }
-
-                                    function formatNumberWithCommas(value) {
-                                        return Number(value).toLocaleString('en-US');
-                                    }
-
-                                    function clearValue(input) {
-                                        input.value = '';
-                                    }
-                                </script>
-
-
-                                <div class="form-group">
-                                    <label>Loại sản phẩm</label>
-                                    <div>
-                                        <select class="form-control mb-4 col-4" id="category" name="categoryId"
-                                                aria-label="Default select example">
-                                            <option value="0">Tất cả</option>
-                                            <option value="1">Thời trang nam</option>
-                                            <option value="2">Thời trang nữ</option>
-                                            <option value="3">Bé yêu</option>
-                                            <!-- Thêm các loại sản phẩm khác nếu cần -->
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Trạng thái</label>
-                                    <div>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                                <!-- Nút submit và reset -->
                                 <div class="form-group mb-0">
                                     <div>
                                         <button type="submit" class="btn btn-gradient waves-effect waves-light">
                                             Lưu thay đổi
                                         </button>
                                         <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-product.php" style="color: inherit; text-decoration: none;">Danh sách sản phẩm</a>
+                                            <a href="list-book.html" style="color: inherit; text-decoration: none;">Danh sách sách</a>
                                         </button>
                                     </div>
                                 </div>
@@ -456,96 +406,8 @@
 </div>
 <!-- END wrapper -->
 
-<!-- Right Sidebar -->
-<div class="right-bar">
-    <div class="rightbar-title">
-        <a href="javascript:void(0);" class="right-bar-toggle float-right">
-            <i class="mdi mdi-close"></i>
-        </a>
-        <h5 class="m-0 text-white">Settings</h5>
-    </div>
-    <div class="slimscroll-menu">
-        <hr class="mt-0">
-        <h5 class="pl-3">Basic Settings</h5>
-        <hr class="mb-0"/>
-
-
-        <div class="p-3">
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                <label class="custom-control-label" for="customCheck1">Notifications</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck2" checked>
-                <label class="custom-control-label" for="customCheck2">API Access</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                <label class="custom-control-label" for="customCheck3">Auto Updates</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck4" checked>
-                <label class="custom-control-label" for="customCheck4">Online Status</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck5">
-                <label class="custom-control-label" for="customCheck5">Auto Payout</label>
-            </div>
-        </div>
-
-        <!-- Messages -->
-        <hr class="mt-0"/>
-        <h5 class="pl-3 pr-3">Messages <span class="float-right badge badge-pill badge-danger">24</span></h5>
-        <hr class="mb-0"/>
-        <div class="p-3">
-            <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
-            </div> <!-- end inbox-widget -->
-        </div> <!-- end .p-3-->
-
-    </div> <!-- end slimscroll-menu-->
-</div>
-<!-- /Right-bar -->
-
-<!-- Right bar overlay-->
-<div class="rightbar-overlay"></div>
+<!-- Right Sidebar (Optional) -->
+<!-- ... (nếu cần thiết, giữ nguyên hoặc điều chỉnh theo nhu cầu) ... -->
 
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
@@ -556,28 +418,21 @@
 
 <!-- Validation init JS-->
 <script src="../../../static/assets_admin/js/pages/form-validation.init.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- App JS -->
+<script src="../../../static/assets_admin/js/app.min.js"></script>
+
+<!-- jQuery (Nếu chưa có) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JS (Nếu chưa có) -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Axios JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!-- App JS -->
-<script src="../../../static/assets_admin/js/app.min.js"></script>
-<script>
-    document.getElementById('salePrice').addEventListener('input', function () {
-        var price = parseFloat(document.getElementById('hiddenPrice').value);
-        var salePrice = parseFloat(document.getElementById('hiddenSalePrice').value);
-        var errorMessageDiv = document.getElementById('error-message');
 
-        if (isNaN(price) || isNaN(salePrice) || salePrice < price) {
-            errorMessageDiv.textContent = 'Giá bán phải lớn hơn hoặc bằng giá.';
-            this.setCustomValidity('Giá bán phải lớn hơn hoặc bằng giá.');
-        } else {
-            errorMessageDiv.textContent = '';
-            this.setCustomValidity('');
-        }
-    });
-</script>
+
+
 </body>
 </html>
