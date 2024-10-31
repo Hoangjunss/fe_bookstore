@@ -2,8 +2,10 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách đơn hàng</title>
+    <title>Danh sách nhà cung cấp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
@@ -18,11 +20,11 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/admin/order/list-order.js"></script>
+    <script src="../../../static/call-api/admin/supply/list-supply.js"></script>
 
     <style>
-        .btn-success a, .btn-light a {
-            color: inherit;
+        .btn-success a {
+            color: white;
             text-decoration: none;
         }
         .btn-warning, .btn-danger {
@@ -31,17 +33,41 @@
         .pagination li a {
             cursor: pointer;
         }
-        .status-select {
-            width: 100%;
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
-        .error-message {
-            color: red;
-            margin-top: 5px;
+        .notification.show {
+            opacity: 1;
+        }
+        .notification.success {
+            background-color: #28a745;
+        }
+        .notification.error {
+            background-color: #dc3545;
+        }
+        .notification .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
+
+<!-- Notification Container -->
+<div id="notification-container"></div>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -51,26 +77,24 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
-            <!-- Language Dropdown -->
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1"
-                         height="12"> <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
+                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1"
-                             height="12"> <span class="align-middle">English</span>
+                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
+                                class="align-middle">English</span>
                     </a>
                 </div>
             </li>
 
 
-            <!-- Notifications Dropdown -->
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -80,23 +104,62 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                                <span class="float-right">
-                                    <a href="#" class="text-dark">
-                                        <small>Xoá hết</small>
-                                    </a>
-                                </span>Thông báo
+                            <span class="float-right">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
                         </h5>
                     </div>
 
                     <div class="slimscroll noti-scroll">
 
-                        <!-- Notification items... -->
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
+                                ago</small></p>
+                        </a>
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);"
-                       class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -104,11 +167,13 @@
                 </div>
             </li>
 
-            <!-- User Dropdown -->
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">admin@example.com <i class="mdi mdi-chevron-down"></i> </span>
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
+                        admin@example.com <i class="mdi mdi-chevron-down"></i>
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
@@ -123,7 +188,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="/logout.html" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -131,7 +196,6 @@
                 </div>
             </li>
 
-            <!-- Settings -->
             <li class="dropdown notification-list">
                 <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                     <i class="fe-settings noti-icon"></i>
@@ -143,11 +207,13 @@
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="#" class="logo text-center">
+            <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
+                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -202,7 +268,13 @@
                     <li>
                         <a href="../user/list-user.php">
                             <i class="fe-briefcase"></i>
-                            Quản lý user
+                            Quản lý nhân viên
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
                         </a>
                     </li>
                     <li>
@@ -219,9 +291,9 @@
                     </li>
 
                     <li>
-                        <a href="../order/list-order.php">
+                        <a href="#">
                             <i class="fe-layout"></i>
-                            Quản lý đơn hàng
+                            Quản lý nhà cung cấp
                         </a>
                     </li>
                 </ul>
@@ -253,11 +325,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Đơn Hàng</li>
+                                    <li class="breadcrumb-item"><a href="#">Nhà cung cấp</a></li>
+                                    <li class="breadcrumb-item active">Danh Sách Nhà Cung Cấp</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Đơn Hàng</h4>
+                            <h4 class="page-title">Danh Sách Nhà Cung Cấp</h4>
                         </div>
                     </div>
                 </div>
@@ -268,44 +340,62 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Nút Thêm Mới Đơn Hàng (Nếu cần thiết) -->
-                            <!-- <div class="d-flex justify-content-end mb-3">
+                            <!-- Nút Thêm Mới Nhà Cung Cấp -->
+                            <div class="d-flex justify-content-end mb-3">
                                 <button class="btn btn-success">
-                                    <a href="insert-order.php" style="color: white; text-decoration: none;">Thêm đơn hàng</a>
+                                    <a href="insert-supply.html" style="color: white; text-decoration: none;">Thêm nhà cung cấp</a>
                                 </button>
-                            </div> -->
+                            </div>
 
                             <!-- Form Tìm Kiếm -->
                             <div class="mb-3">
                                 <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="email">Email:</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Nhập email">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="name">Tên nhà cung cấp:</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên nhà cung cấp">
+                                    </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label for="address">Địa chỉ:</label>
+                                        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                                    </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label for="phone">Số điện thoại:</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại">
+                                    </div>
+
+                                    <div class="col-md-3 mb-3">
+                                        <label for="status">Trạng thái:</label>
+                                        <select class="form-control" id="status" name="status">
+                                            <option value="">Tất cả</option>
+                                            <option value="true">ACTIVE</option>
+                                            <option value="false">INACTIVE</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
 
-                            <!-- Bảng Danh Sách Đơn Hàng -->
+                            <!-- Bảng Danh Sách Nhà Cung Cấp -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Email</th>
-                                    <th>Số sản phẩm</th>
-                                    <th>Tổng giá trị</th>
-                                    <th>Phí ship</th>
-                                    <th>Số tiền phải trả</th>
-                                    <th>Ngày tạo</th>
+                                    <th style="width: 100px;">ID</th>
+                                    <th style="width: 200px;">Tên nhà cung cấp</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
                                     <th>Trạng thái</th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>
+
                             <!-- Phân Trang -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end" id="pageId">
@@ -326,7 +416,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2017 - 2019 &copy; Abstack theme by <a href="">Coderthemes</a>
+                        2023 &copy; Abstack theme by <a href="">Coderthemes</a>
                     </div>
 
                 </div>
@@ -386,7 +476,44 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <!-- Inbox items... -->
+                <div class="inbox-item">
+                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
+                                                     class="rounded-circle" alt=""></div>
+                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
+                    <p class="inbox-item-text">Hey! there I'm available...</p>
+                    <p class="inbox-item-date">13:40 PM</p>
+                </div>
+                <div class="inbox-item">
+                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
+                                                     class="rounded-circle" alt=""></div>
+                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
+                    <p class="inbox-item-text">I've finished it! See you so...</p>
+                    <p class="inbox-item-date">13:34 PM</p>
+                </div>
+                <div class="inbox-item">
+                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
+                                                     class="rounded-circle" alt=""></div>
+                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
+                    <p class="inbox-item-text">This theme is awesome!</p>
+                    <p class="inbox-item-date">13:17 PM</p>
+                </div>
+
+                <div class="inbox-item">
+                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
+                                                     class="rounded-circle" alt=""></div>
+                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
+                    <p class="inbox-item-text">Nice to meet you</p>
+                    <p class="inbox-item-date">12:20 PM</p>
+
+                </div>
+                <div class="inbox-item">
+                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
+                                                     class="rounded-circle" alt=""></div>
+                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
+                    <p class="inbox-item-text">Hey! there I'm available...</p>
+                    <p class="inbox-item-date">10:15 AM</p>
+
+                </div>
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -411,7 +538,6 @@
 <script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
-
 <!-- Responsive examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
@@ -422,11 +548,10 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- Axios JS (Nếu cần sử dụng Axios thay vì Fetch) -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- Axios JS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
 </body>
+
 </html>

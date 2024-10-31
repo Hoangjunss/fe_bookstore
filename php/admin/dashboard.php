@@ -245,9 +245,15 @@
                     </li>
 
                     <li>
-                        <a href="user/list-user.php">
+                        <a href="employee/list-employee.php">
                             <i class="fe-briefcase"></i>
-                            Quản lý user
+                            Quản lý nhân viên
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
                         </a>
                     </li>
                     <li>
@@ -264,9 +270,9 @@
                     </li>
 
                     <li>
-                        <a href="order/list-order.php">
+                        <a href="supply/list-supply.php">
                             <i class="fe-layout"></i>
-                            Quản lý đơn hàng
+                            Quản lý nhà cung cấp
                         </a>
                     </li>
                 </ul>

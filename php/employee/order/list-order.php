@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách loại sản phẩm</title>
+    <title>Danh sách đơn hàng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -18,9 +18,11 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/employee/order/list-order.js"></script>
+
     <style>
-        .btn-success a {
-            color: white;
+        .btn-success a, .btn-light a {
+            color: inherit;
             text-decoration: none;
         }
         .btn-warning, .btn-danger {
@@ -28,6 +30,13 @@
         }
         .pagination li a {
             cursor: pointer;
+        }
+        .status-select {
+            width: 100%;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -224,46 +233,38 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.phps">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../employee/list-employee.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý nhân viên
+                        <a href="#">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
                         </a>
                     </li>
                     <li>
-                        <a href="../user/list-user.php">
-                            <i class="fas fa-user"></i>
-                            Quản lý khách hàng
+                        <a href="../productsale/list-productsale.php">
+                            <i class="fe-tag"></i>
+                            Quản lý sản phẩm bán
                         </a>
                     </li>
                     <li>
-                        <a href="../category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
+                        <a href="../warehouse/list-warehouse.php">
+                            <i class="fe-archive"></i>
+                            Quản lý kho hàng 
                         </a>
                     </li>
                     <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
+                        <a href="../warehouse/list-warehousereceipt.php">
+                            <i class="fe-file-plus"></i>
+                            Quản lý phiếu nhập 
                         </a>
                     </li>
-
                     <li>
-                        <a href="../supply/list-supply.php">
-                            <i class="fe-layout"></i>
-                            Quản lý nhà cung cấp
+                        <a href="../order/list-order.php">
+                            <i class="fe-percent"></i>
+                            Quản lý Voucher
                         </a>
                     </li>
                 </ul>
 
-                </div>
+            </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -290,11 +291,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Loại Sản Phẩm</li>
+                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                    <li class="breadcrumb-item active">Danh Sách Đơn Hàng</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Loại Sản Phẩm</h4>
+                            <h4 class="page-title">Danh Sách Đơn Hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -305,52 +306,44 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Nút Thêm Mới Loại Sản Phẩm -->
-                            <div class="d-flex justify-content-end mb-3">
+                            <!-- Nút Thêm Mới Đơn Hàng (Nếu cần thiết) -->
+                            <!-- <div class="d-flex justify-content-end mb-3">
                                 <button class="btn btn-success">
-                                    <a href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a>
+                                    <a href="insert-order.php" style="color: white; text-decoration: none;">Thêm đơn hàng</a>
                                 </button>
-                            </div>
+                            </div> -->
 
                             <!-- Form Tìm Kiếm -->
                             <div class="mb-3">
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="name">Tên loại sản phẩm:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
-                                    </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="">Tất cả</option>
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
+                                        <label for="email">Email:</label>
+                                        <input type="text" class="form-control" id="email" placeholder="Nhập email">
                                     </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
 
-                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
+                            <!-- Bảng Danh Sách Đơn Hàng -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 300px;">Tên loại sản phẩm</th>
+                                    <th>ID</th>
+                                    <th>Email</th>
                                     <th>Số sản phẩm</th>
+                                    <th>Tổng giá trị</th>
+                                    <th>Phí ship</th>
+                                    <th>Số tiền phải trả</th>
                                     <th>Ngày tạo</th>
                                     <th>Trạng thái</th>
-                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 </tbody>
                             </table>
-
                             <!-- Phân Trang -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end" id="pageId">
@@ -431,44 +424,7 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
+                <!-- Inbox items... -->
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -493,6 +449,7 @@
 <script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
+
 <!-- Responsive examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
@@ -503,12 +460,11 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+<!-- Axios JS (Nếu cần sử dụng Axios thay vì Fetch) -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 
 </body>
-
 </html>

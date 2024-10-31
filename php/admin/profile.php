@@ -56,17 +56,18 @@
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12"> 
-                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i></span>
+                    <img src="../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
+                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> 
-                        <span class="align-middle">English</span>
+                        <img src="../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
+                                class="align-middle">English</span>
                     </a>
                 </div>
             </li>
+
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
@@ -81,7 +82,7 @@
                         <h5 class="m-0">
                             <span class="float-right">
                                 <a href="" class="text-dark">
-                                    <small>Xoá tất cả</small>
+                                    <small>Clear All</small>
                                 </a>
                             </span>Notification
                         </h5>
@@ -145,7 +146,8 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1"> <!-- Thay thế th:text="${user.email}" bằng nội dung tĩnh hoặc JavaScript -->
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -162,7 +164,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="/logout.html" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -240,9 +242,15 @@
                     </li>
 
                     <li>
-                        <a href="user/list-user.php">
+                        <a href="employee/list-employee.php">
                             <i class="fe-briefcase"></i>
-                            Quản lý user
+                            Quản lý nhân viên
+                        </a>
+                    </li>
+                    <li>
+                        <a href="user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
                         </a>
                     </li>
                     <li>
@@ -259,14 +267,14 @@
                     </li>
 
                     <li>
-                        <a href="order/list-order.php">
+                        <a href="supply/list-supply.php">
                             <i class="fe-layout"></i>
-                            Quản lý đơn hàng
+                            Quản lý nhà cung cấp
                         </a>
                     </li>
                 </ul>
 
-            </div>
+                </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>

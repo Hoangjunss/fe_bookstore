@@ -2,8 +2,10 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách loại sản phẩm</title>
+    <title>Danh sách nhân viên</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
@@ -18,6 +20,8 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/admin/employee/list-employee.js"></script>
+
     <style>
         .btn-success a {
             color: white;
@@ -29,10 +33,47 @@
         .pagination li a {
             cursor: pointer;
         }
+        .avatar-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .notification.success {
+            background-color: #28a745;
+        }
+        .notification.error {
+            background-color: #dc3545;
+        }
+        .notification .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+
+<!-- Notification Container -->
+<div id="notification-container"></div>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -224,14 +265,14 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.phps">
+                        <a href="../dashboard.php">
                             <i class="fe-airplay"></i>
                             <span> Dashboard </span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="../employee/list-employee.php">
+                        <a href="#">
                             <i class="fe-briefcase"></i>
                             Quản lý nhân viên
                         </a>
@@ -263,7 +304,7 @@
                     </li>
                 </ul>
 
-                </div>
+            </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -290,11 +331,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Loại Sản Phẩm</li>
+                                    <li class="breadcrumb-item"><a href="#">Nhân viên</a></li>
+                                    <li class="breadcrumb-item active">Danh Sách Nhân Viên</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Loại Sản Phẩm</h4>
+                            <h4 class="page-title">Danh Sách Nhân Viên</h4>
                         </div>
                     </div>
                 </div>
@@ -305,10 +346,10 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Nút Thêm Mới Loại Sản Phẩm -->
+                            <!-- Nút Thêm Mới Nhân Viên -->
                             <div class="d-flex justify-content-end mb-3">
                                 <button class="btn btn-success">
-                                    <a href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a>
+                                    <a href="insert-employee.php" style="color: white; text-decoration: none;">Thêm nhân viên</a>
                                 </button>
                             </div>
 
@@ -316,38 +357,45 @@
                             <div class="mb-3">
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="name">Tên loại sản phẩm:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
+                                        <label for="fullname">Họ và tên:</label>
+                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
                                     </div>
 
                                     <div class="col-md-4 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Nhập email">
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="role">Chức vụ:</label>
+                                        <select class="form-control" id="role" name="role">
                                             <option value="">Tất cả</option>
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
+                                            <option value="EMPLOYEE">EMPLOYEE</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <!-- Thêm các chức vụ khác nếu cần -->
                                         </select>
                                     </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
 
-                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
+                            <!-- Bảng Danh Sách Nhân Viên -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                 <tr>
                                     <th style="width: 100px;">ID</th>
-                                    <th style="width: 300px;">Tên loại sản phẩm</th>
-                                    <th>Số sản phẩm</th>
+                                    <th style="width: 200px;">Họ và tên</th>
+                                    <th style="width: 200px;">Email</th>
+                                    <th>Chức vụ</th>
                                     <th>Ngày tạo</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>
 
@@ -371,7 +419,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2017 - 2019 &copy; Abstack theme by <a href="">Coderthemes</a>
+                        2023 &copy; Abstack theme by <a href="">Coderthemes</a>
                     </div>
 
                 </div>
@@ -504,10 +552,7 @@
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
 <!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
 

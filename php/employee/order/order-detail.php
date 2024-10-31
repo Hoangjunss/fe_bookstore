@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <title>Danh sách loại sản phẩm</title>
+    <meta charset="UTF-8"/>
+    <title>Chi tiết đơn hàng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -18,16 +18,25 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/employee/order/order-detail.js"></script>
+
+
     <style>
-        .btn-success a {
-            color: white;
-            text-decoration: none;
+        .avatar-img {
+            width: 100px;
+            height: auto;
+            max-height: 100px;
+            border-radius: 50%;
         }
-        .btn-warning, .btn-danger {
-            margin-right: 5px;
+        .status-select {
+            width: 100%;
         }
-        .pagination li a {
-            cursor: pointer;
+        .btn-back {
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -224,22 +233,16 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.phps">
+                        <a href="../dashboard.php">
                             <i class="fe-airplay"></i>
                             <span> Dashboard </span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="../employee/list-employee.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý nhân viên
-                        </a>
-                    </li>
-                    <li>
                         <a href="../user/list-user.php">
-                            <i class="fas fa-user"></i>
-                            Quản lý khách hàng
+                            <i class="fe-briefcase"></i>
+                            Quản lý user
                         </a>
                     </li>
                     <li>
@@ -256,14 +259,14 @@
                     </li>
 
                     <li>
-                        <a href="../supply/list-supply.php">
+                        <a href="../order/list-order.php">
                             <i class="fe-layout"></i>
-                            Quản lý nhà cung cấp
+                            Quản lý đơn hàng
                         </a>
                     </li>
                 </ul>
 
-                </div>
+            </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -290,11 +293,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Loại Sản Phẩm</li>
+                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                    <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Loại Sản Phẩm</h4>
+                            <h4 class="page-title">Chi tiết đơn hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -305,58 +308,83 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Nút Thêm Mới Loại Sản Phẩm -->
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-success">
-                                    <a href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a>
+                            <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
+                            <div class="btn-back">
+                                <button class="btn btn-light">
+                                    <a href="list-order.html">Quay lại danh sách đơn hàng</a>
                                 </button>
                             </div>
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="name">Tên loại sản phẩm:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
-                                    </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="">Tất cả</option>
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
+                            <!-- Thông Tin Chung của Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Thông Tin Đơn Hàng</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Đơn Hàng</th>
+                                        <td id="order-id">#</td>
+                                        <th>Email Người Dùng</th>
+                                        <td id="user-email">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số Lượng Sản Phẩm</th>
+                                        <td id="order-quantity">#</td>
+                                        <th>Tổng Giá Trị</th>
+                                        <td id="order-total-price">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phí Ship</th>
+                                        <td id="order-shipping-fee">#</td>
+                                        <th>Tổng Số Tiền Phải Trả</th>
+                                        <td id="order-full-cost">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày Tạo</th>
+                                        <td id="order-created-date">#</td>
+                                        <th>Trạng Thái</th>
+                                        <td>
+                                            <select class="form-control status-select" id="order-status" data-order-id="">
+                                                <option value="PENDING">PENDING</option>
+                                                <option value="CANCELED">CANCELED</option>
+                                                <option value="SUCCEEDED">SUCCEEDED</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Địa Chỉ Giao Hàng</th>
+                                        <td colspan="3" id="order-address">#</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
-                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 300px;">Tên loại sản phẩm</th>
-                                    <th>Số sản phẩm</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <!-- Danh Sách Sản Phẩm trong Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Danh Sách Sản Phẩm</h5>
+                                <table id="order-details-table"
+                                       class="table table-striped table-bordered dt-responsive nowrap"
+                                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>ID Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Số Lượng</th>
+                                        <th>Đơn Giá</th>
+                                        <th>Tổng Giá</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                </tbody>
-                            </table>
+                            <!-- Thông Báo Lỗi Chung -->
+                            <div class="form-group mt-3">
+                                <div class="error-message" id="error-message"></div>
+                            </div>
 
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Các nút phân trang sẽ được thêm vào đây bằng JavaScript -->
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>
@@ -371,7 +399,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2017 - 2019 &copy; Abstack theme by <a href="">Coderthemes</a>
+                        2017 - 2019 &copy; Abstack theme by <a href="https://coderthemes.com/">Coderthemes</a>
                     </div>
 
                 </div>
@@ -431,44 +459,7 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
+                <!-- Inbox items... -->
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -493,6 +484,7 @@
 <script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
+
 <!-- Responsive examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
@@ -503,12 +495,6 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 
 </body>
-
 </html>

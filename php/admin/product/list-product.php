@@ -41,21 +41,21 @@
             <li class="dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1"
-                         height="12"> <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
+                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1"
-                             height="12"> <span class="align-middle">English</span>
+                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
+                                class="align-middle">English</span>
                     </a>
                 </div>
             </li>
 
 
             <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
@@ -65,11 +65,11 @@
                     <!-- item-->
                     <div class="dropdown-item noti-title">
                         <h5 class="m-0">
-                                <span class="float-right">
-                                    <a href="#" class="text-dark">
-                                        <small>Xoá hết</small>
-                                    </a>
-                                </span>Thông báo
+                            <span class="float-right">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
                         </h5>
                     </div>
 
@@ -77,59 +77,50 @@
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i>
-                            </div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1
-                                min
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
                                 ago</small></p>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours
-                                ago</small>
+                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
                             </p>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3
-                                days
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
                                 ago</small></p>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i>
-                            </div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4
-                                days
+                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
                                 ago</small></p>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days
-                                ago</small>
+                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
                             </p>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13
-                                days
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
                                 ago</small></p>
                         </a>
 
                     </div>
 
                     <!-- All-->
-                    <a href="javascript:void(0);"
-                       class="dropdown-item text-center text-primary notify-item notify-all">
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                         View all
                         <i class="fi-arrow-right"></i>
                     </a>
@@ -140,7 +131,10 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">admin@example.com <i class="mdi mdi-chevron-down"></i> </span>
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
+                        admin@example.com <i class="mdi mdi-chevron-down"></i>
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
@@ -155,7 +149,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="/logout.html" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -174,7 +168,7 @@
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="#" class="logo text-center">
+            <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
@@ -226,16 +220,22 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.php">
+                        <a href="../dashboard.phps">
                             <i class="fe-airplay"></i>
                             <span> Dashboard </span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="../user/list-user.php">
+                        <a href="../employee/list-employee.php">
                             <i class="fe-briefcase"></i>
-                            Quản lý user
+                            Quản lý nhân viên
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
                         </a>
                     </li>
                     <li>
@@ -245,21 +245,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../product/list-product.php">
+                        <a href="">
                             <i class="fe-box"></i>
-                            Quản lý sách
+                            Quản lý sản phẩm
                         </a>
                     </li>
 
                     <li>
-                        <a href="../order/list-order.php">
+                        <a href="../supply/list-supply.php">
                             <i class="fe-layout"></i>
-                            Quản lý đơn hàng
+                            Quản lý nhà cung cấp
                         </a>
                     </li>
                 </ul>
 
-            </div>
+                </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -286,7 +286,7 @@
                             <div class="d-flex justify-content-end mb-3">
 
                                 <button class="btn btn-success mb-1">
-                                    <a href="insert-book.html" style="color: white; text-decoration: none;">Thêm sách</a>
+                                    <a href="insert-product.php" style="color: white; text-decoration: none;">Thêm sách</a>
                                 </button>
                             </div>
 
