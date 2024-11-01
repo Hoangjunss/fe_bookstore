@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <title>Danh sách sản phẩm giảm giá</title>
+    <meta charset="UTF-8"/>
+    <title>Chi tiết Product Sale</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Quản lý sản phẩm giảm giá cho cửa hàng" name="description"/>
-    <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
@@ -20,53 +18,34 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/employee/productsale/productsale-detail.js"></script>
 
     <style>
-        .btn-success a {
-            color: white;
-            text-decoration: none;
+        .avatar-img {
+            width: 100px;
+            height: auto;
+            max-height: 100px;
+            border-radius: 50%;
         }
-        .btn-warning, .btn-danger {
-            margin-right: 5px;
+        .status-badge {
+            font-size: 1rem;
         }
-        .pagination li a {
-            cursor: pointer;
+        .btn-back {
+            margin-bottom: 20px;
         }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px;
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+        .product-image {
+            width: 150px;
+            height: auto;
             border-radius: 5px;
-            color: #fff;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .notification.show {
-            opacity: 1;
-        }
-        .notification.success {
-            background-color: #28a745;
-        }
-        .notification.error {
-            background-color: #dc3545;
-        }
-        .notification .close {
-            margin-left: 10px;
-            cursor: pointer;
-            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-
-<!-- Notification Container -->
-<div id="notification-container"></div>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -169,8 +148,7 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
-                        <!-- Ví dụ: admin@example.com -->
+                    <span class="ml-1">
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -209,10 +187,8 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -258,33 +234,42 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
+                        <a href="../dashboard.php">
+                            <i class="fe-airplay"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fe-briefcase"></i>
+                            Quản lý user
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../category/list-category.php">
+                            <i class="fe-disc"></i>
+                            Quản lý loại sản phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../product/list-product.php">
+                            <i class="fe-box"></i>
+                            Quản lý sản phẩm
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="../order/list-order.php">
-                            <i class="fe-shopping-cart"></i>
+                            <i class="fe-layout"></i>
                             Quản lý đơn hàng
                         </a>
                     </li>
+
                     <li>
-                        <a href="#">
+                        <a href="../productsale/list-productsale.php">
                             <i class="fe-tag"></i>
-                            Quản lý sản phẩm bán
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../warehouse/list-warehouse.php">
-                            <i class="fe-archive"></i>
-                            Quản lý kho hàng 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../warehouse/list-warehousereceipt.php">
-                            <i class="fe-file-plus"></i>
-                            Quản lý phiếu nhập 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../order/list-order.php">
-                            <i class="fe-percent"></i>
-                            Quản lý Voucher
+                            Quản lý Product Sale
                         </a>
                     </li>
                 </ul>
@@ -309,7 +294,6 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -318,10 +302,10 @@
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="#">Product Sale</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Sản Phẩm Giảm Giá</li>
+                                    <li class="breadcrumb-item active">Chi tiết Product Sale</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Sản Phẩm Giảm Giá</h4>
+                            <h4 class="page-title">Chi tiết Product Sale</h4>
                         </div>
                     </div>
                 </div>
@@ -332,57 +316,70 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-3 mb-3">
-                                        <label for="productName">Tên sản phẩm:</label>
-                                        <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="quantity">Số lượng:</label>
-                                        <input type="number" class="form-control" id="quantity" placeholder="Nhập số lượng" min="0">
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="">Tất cả</option>
-                                            <option value="true">ACTIVE</option>
-                                            <option value="false">INACTIVE</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
+                            <!-- Nút Quay Lại Danh Sách Product Sale -->
+                            <div class="btn-back">
+                                <button class="btn btn-light">
+                                    <a href="list-productsale.php">Quay lại danh sách Product Sale</a>
+                                </button>
                             </div>
 
-                            <!-- Bảng Danh Sách Product Sale -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 200px;">Tên sản phẩm</th>
-                                    <th>Số lượng</th>
-                                    <th>Trạng thái</th>
-                                    <th>Giá</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
+                            <!-- Thông Tin Chung của Product Sale -->
+                            <div class="mb-4">
+                                <h5>Thông Tin Product Sale</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Product Sale</th>
+                                        <td id="productsale-id">#</td>
+                                        <th>Giá Bán</th>
+                                        <td id="productsale-price">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số Lượng</th>
+                                        <td id="productsale-quantity">#</td>
+                                        <th>Trạng Thái</th>
+                                        <td id="productsale-status" class="status-badge">#</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Các nút phân trang sẽ được thêm vào đây bằng JavaScript -->
-                                </ul>
-                            </nav>
+                            <!-- Thông Tin Sản Phẩm -->
+                            <div class="mb-4">
+                                <h5>Thông Tin Sản Phẩm</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Sản Phẩm</th>
+                                        <td id="product-id">#</td>
+                                        <th>Tên Sản Phẩm</th>
+                                        <td id="product-name">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tác Giả</th>
+                                        <td id="product-author">#</td>
+                                        <th>Ngày Xuất Bản</th>
+                                        <td id="product-date-public">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mô Tả</th>
+                                        <td colspan="3" id="product-description">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hình Ảnh</th>
+                                        <td colspan="3" id="product-image">
+                                            <!-- Hình ảnh sẽ được chèn qua JavaScript -->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Thông Báo Lỗi Chung -->
+                            <div class="form-group mt-3">
+                                <div class="error-message" id="error-message"></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -397,7 +394,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2023 &copy; Dashboard theme by <a href="">SWP391</a>
+                        2017 - 2019 &copy; Abstack theme by <a href="https://coderthemes.com/">Coderthemes</a>
                     </div>
 
                 </div>
@@ -482,6 +479,7 @@
 <script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
+
 <!-- Responsive examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
@@ -492,11 +490,6 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- Axios JS -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<script src="../../../static/call-api/employee/productsale/list-productsale.js"></script>
 
 </body>
-
 </html>

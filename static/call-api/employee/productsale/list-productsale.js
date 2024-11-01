@@ -118,6 +118,7 @@
                 <td>
                     <button class="btn btn-warning btn-sm edit-button" data-id="${ps.id}">Sửa</button>
                     <button class="btn btn-info btn-sm detail-button" data-id="${ps.id}">Chi tiết</button>
+                    <button class="btn btn-danger btn-sm add-button" data-id="${ps.id}">Nhập hàng</button>
                 </td>
             `;
 
@@ -135,7 +136,14 @@
         document.querySelectorAll('.detail-button').forEach(button => {
             button.addEventListener('click', function () {
                 const productSaleId = this.getAttribute('data-id');
-                deleteProductSale(productSaleId);
+                window.location.href = `productsale-detail.php?id=${productSaleId}`;
+            });
+        });
+
+        document.querySelectorAll('.add-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const productSaleId = this.getAttribute('data-id');
+                window.location.href = `add-productsale.php?id=${productSaleId}`;
             });
         });
     }

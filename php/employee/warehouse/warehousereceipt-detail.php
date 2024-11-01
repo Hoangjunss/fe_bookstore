@@ -166,7 +166,6 @@
 
                 </div>
             </li>
-
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -394,11 +393,7 @@
                             <!-- Các Chức Năng Hành Động -->
                             <div class="d-flex justify-content-between">
                                 <button class="btn btn-primary" onclick="window.history.back();">Quay lại</button>
-                                <button class="btn btn-warning" id="btnEdit">
-                                    Sửa Phiếu Nhập Kho
-                                </button>
                             </div>
-
                         </div>
                     </div>
                 </div>

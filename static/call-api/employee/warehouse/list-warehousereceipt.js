@@ -120,8 +120,6 @@
                 <td>${formatDate(wh.date)}</td>
                 <td>
                     <button class="btn btn-info btn-sm view-button" data-id="${wh.id}">Xem</button>
-                    <button class="btn btn-warning btn-sm edit-button" data-id="${wh.id}">Sửa</button>
-                    <button class="btn btn-danger btn-sm delete-button" data-id="${wh.id}">Xóa</button>
                 </td>
             `;
 

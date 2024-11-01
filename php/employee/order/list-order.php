@@ -84,6 +84,19 @@
 
 <body>
 
+<!-- Loading Overlay -->
+<div id="loading-overlay" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.8) url('../../../static/assets_admin/images/loading.gif') no-repeat center center;
+    z-index: 9999;
+    display: none;
+"></div>
+
+
 <!-- Begin page -->
 <div id="wrapper">
 
@@ -355,15 +368,26 @@
                             </div> -->
 
                             <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="email">Email:</label>
-                                        <input type="text" class="form-control" id="email" placeholder="Nhập email">
+                                <div class="mb-3">
+                                    <div class="form-row">
+                                        <!-- Tìm kiếm theo Email -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="email">Email:</label>
+                                            <input type="text" class="form-control" id="email" placeholder="Nhập email">
+                                        </div>
+                                        <!-- Lọc theo Trạng Thái -->
+                                        <div class="col-md-4 mb-3">
+                                            <label for="status">Trạng thái:</label>
+                                            <select class="form-control" id="status" required>
+                                                <option value="PENDING">PENDING</option>
+                                                <option value="REJECT">REJECT</option>
+                                                <option value="ACCESS">ACCESS</option>
+                                                <option value="SUCCESS">SUCCESS</option>
+                                            </select>
+                                        </div>
                                     </div>
+                                    <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                                 </div>
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
 
                             <!-- Bảng Danh Sách Đơn Hàng -->
                             <table id="datatable-buttons"
