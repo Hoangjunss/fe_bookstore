@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="../../static/client_assets/css/slick.css">
     <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css">
     <link rel="stylesheet" href="../../static/client_assets/css/style.css">
+
+    <script src="../../static/call-api/client/view-orders.js"></script>
 </head>
 <body>
 <div id="preloader-active">
@@ -51,8 +53,8 @@
                             </div>
                             <div class="header-info-right d-flex">
                                 <ul class="order-list">
-                                    <li><span>Hello, nguyenvana@example.com</span></li>
-                                    <li><a href="/client/order.php">Track Your Order</a></li>
+                                    <li><span id="userEmail">Hello, user@example.com</span></li>
+                                    <li><a href="/client/track-order.html">Track Your Order</a></li>
                                 </ul>
                                 <ul class="header-social">
                                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -71,13 +73,15 @@
             <div class="container">
                 <div class="menu-wrapper">
                     <div class="logo">
-                        <a href="/client/home.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+                        <a href="/client/home.html"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
                     </div>
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
-                                <li><a href="/client/home.php">Home</a></li>
-                                <li><a href="/client/product.php">Products</a></li>
+                                <li><a href="/client/home.html">Home</a></li>
+                                <li><a href="/client/product.html">Products</a></li>
+                                <li><a href="/client/orders.html">Orders</a></li>
+                                <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
                         </nav>
                     </div>
@@ -90,13 +94,13 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="/client/profile.php"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="/client/cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="/client/profile.html"><span class="flaticon-user"></span></a></li>
+                            <li class="cart"><a href="/client/cart.html"><span class="flaticon-shopping-cart"></span></a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="search_input" id="search_input_box">
-                    <form class="search-inner d-flex justify-content-between" action="/client/search.php" method="get">
+                    <form class="search-inner d-flex justify-content-between" action="/client/search.html" method="get">
                         <input type="text" class="form-control" id="search_input" name="query" placeholder="Search Here" required />
                         <button type="submit" class="btn"><i class="fas fa-search"></i></button>
                         <span class="ti-close" id="close_search" title="Close Search"></span>
@@ -124,7 +128,7 @@
                                 <h2>Orders</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="/client/home.php">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/client/home.html">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Orders</li>
                                     </ol>
                                 </nav>
@@ -143,24 +147,12 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                         <div id="orderContainer" class="blog_container">
-                       
+                           <!-- Orders sẽ được hiển thị tại đây -->
                         </div>
                         <!-- Pagination -->
-                        <nav aria-label="...">
-                            <ul class="pagination" id="pageId" style="float: right;">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination" style="float: right;">
+                                <!-- Các nút phân trang sẽ được tạo động bằng JavaScript -->
                             </ul>
                         </nav>
                     </div>
@@ -168,7 +160,7 @@
                 <!-- Right Sidebar -->
                 <div class="col-lg-4">
                     <!-- Sidebar Content -->
-                    <!-- Add other static sidebar content as needed -->
+                    <!-- Thêm các nội dung sidebar tĩnh khác nếu cần -->
                 </div>
             </div>
         </div>
@@ -206,66 +198,7 @@
     gtag("js", new Date());
     gtag("config", "UA-23581568-13");
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchOrders();
-    });
-    
-    function fetchOrders() {
-        fetch("http://localhost:8080/qapi/v1/order", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then(data => {
-            renderOrders(data);
-        })
-        .catch(error => {
-            console.error("There was a problem with the fetch operation:", error);
-        });
-    }
-    
-    function renderOrders(orders) {
-        const orderContainer = document.getElementById("orderContainer");
-        orderContainer.innerHTML = ""; // Clear existing content
-    
-        orders.forEach(order => {
-            const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalCost);
-            const formattedFullCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.fullCost);
-            const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
-    
-            const orderItem = document.createElement("article");
-            orderItem.className = "blog_item";
-            orderItem.innerHTML = `
-                <div class="blog_item_img">
-                    <a href="#" class="blog_item_date">
-                        <h3>${order.day}</h3>
-                        <p>${order.month}</p>
-                    </a>
-                </div>
-                <div class="blog_details">
-                    <a class="d-inline-block" href="/client/order_detail.php?id=${order.id}">
-                        <h2 class="order-head" style="color: #2d2d2d">Số tiền phải trả: ${formattedTotalCost}</h2>
-                    </a>
-                    <p>Tổng số tiền: ${formattedFullCost}</p>
-                    <ul class="order-info-link">
-                        <li><a href="#">Phí ship: ${formattedShippingFee}</a></li>
-                        <li><a href="#">Tổng số sản phẩm của đơn hàng: ${order.detailCount}</a></li>
-                        <li><a href="#">Trạng thái: ${order.orderStatus}</a></li>
-                    </ul>
-                </div>
-            `;
-            orderContainer.appendChild(orderItem);
-        });
-    }
-    </script>
-    
+
+
 </body>
 </html>

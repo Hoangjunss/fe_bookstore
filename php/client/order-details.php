@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="../../static/client_assets/css/slick.css">
     <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css">
     <link rel="stylesheet" href="../../static/client_assets/css/style.css">
+
+    <script src="../../static/call-api/client/order-details.js"></script>
 </head>
 <body>
 <div id="preloader-active">
@@ -52,7 +54,7 @@
                             </div>
                             <div class="header-info-right d-flex">
                                 <ul class="order-list">
-                                    <li><span>Hello, nguyenvana@example.com</span></li>
+                                    <li><span id="userEmail">Hello, nguyenvana@example.com</span></li>
                                     <li><a href="view-orders.php">Track Your Order</a></li>
                                 </ul>
                                 <ul class="header-social">
@@ -79,6 +81,7 @@
                             <ul id="navigation">
                                 <li><a href="client/index.php">Home</a></li>
                                 <li><a href="client/view-products.php">Products</a></li>
+                                <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
                         </nav>
                     </div>
@@ -115,6 +118,7 @@
         </div>
     </div>
 </header>
+
 <main>
     <div class="hero-area section-bg2">
         <div class="container">
@@ -143,21 +147,22 @@
     <section class="blog_area">
         <div class="container">
             <div class="row">
+                <!-- Left Sidebar -->
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
-                        <input type="hidden" value="12345" id="id" name="id">
+                        <!-- Không cần sử dụng input ẩn để lưu ID, lấy từ URL bằng JS -->
 
                         <div class="order-details">
-                            <h2>ORDER: # <span>2023-10-22-XYZ</span></h2>
-                            <p>Ngày: <span>22-10-2023</span></p>
+                            <h2>ORDER: # <span id="orderId">Loading...</span></h2>
+                            <p>Ngày: <span id="orderDate">Loading...</span></p>
 
                             <h3>THÔNG TIN KHÁCH HÀNG</h3>
-                            <p>Họ tên: <span>Nguyễn Văn A</span></p>
-                            <p>Điện thoại: <span>0123456789</span></p>
-                            <p>Địa chỉ: 123 Đường ABC, Phường 1, Quận 1, Thành phố Hồ Chí Minh</p>
+                            <p>Họ tên: <span id="customerName">Loading...</span></p>
+                            <p>Điện thoại: <span id="customerPhone">Loading...</span></p>
+                            <p>Địa chỉ: <span id="customerAddress">Loading...</span></p>
 
                             <h3>THÔNG TIN ĐƠN HÀNG</h3>
-                            <table>
+                            <table class="table table-bordered">
                                 <thead>
                                 <tr>
                                     <th style="width: 100px">STT</th>
@@ -167,14 +172,14 @@
                                     <th style="width: 200px">Thành tiền</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                
+                                <tbody id="orderDetailsBody">
+                                <!-- Order details sẽ được tải tại đây bởi JavaScript -->
                                 </tbody>
                             </table>
 
-                            <p>Phí ship: <span class="shipping-fee"></span></p>
-                            <p>Tổng tiền: <span class="total-cost"></span></p>
-                            <p>Trạng thái đơn hàng: <b class="order-status"></b></p>
+                            <p>Phí ship: <span class="shipping-fee">Loading...</span></p>
+                            <p>Tổng tiền: <span class="total-cost">Loading...</span></p>
+                            <p>Trạng thái đơn hàng: <b class="order-status">Loading...</b></p>
                         </div>
 
                         <nav class="blog-pagination justify-content-center d-flex">
@@ -195,6 +200,7 @@
                         </nav>
                     </div>
                 </div>
+                <!-- Right Sidebar -->
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <!-- Sidebar Widgets Omitted for Brevity -->
@@ -239,64 +245,8 @@
     gtag("js", new Date());
     gtag("config", "UA-23581568-13");
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
-        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
-        data-cf-beacon='{"rayId":"84261bf4bec5079f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
-        crossorigin="anonymous">
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('id'); // Extract order ID from the URL
 
-    if (orderId) {
-        fetchOrderDetails(orderId);
-    } else {
-        console.error("No order ID specified in the URL");
-    }
-});
-
-function fetchOrderDetails(orderId) {
-    fetch(`http://localhost:8080/api/v1/order/${orderId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => renderOrderDetails(data))
-        .catch(error => {
-            console.error("Fetch operation failed: ", error);
-        });
-}
-
-function renderOrderDetails(order) {
-    const orderDetailsTable = document.querySelector(".order-details tbody");
-    orderDetailsTable.innerHTML = ""; // Clear any existing content
-
-    // Populate order details dynamically
-    order.orderDetails.forEach((detail, index) => {
-        const total = detail.priceOfOne * detail.quantity;
-        const formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(total);
-        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(detail.priceOfOne);
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${detail.productEntity.productName}</td>
-            <td>${formattedPrice}</td>
-            <td>${detail.quantity}</td>
-            <td>${formattedTotal}</td>
-        `;
-        orderDetailsTable.appendChild(row);
-    });
-
-    // Update total cost and shipping fee
-    document.querySelector(".order-details .shipping-fee").textContent = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
-    document.querySelector(".order-details .total-cost").textContent = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalCost);
-    document.querySelector(".order-status").textContent = order.orderStatusEnum;
-}
-</script>
+<!-- JavaScript to Fetch Order Details -->
 
 </body>
 </html>
