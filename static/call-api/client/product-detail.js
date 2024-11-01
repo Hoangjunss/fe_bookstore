@@ -83,7 +83,7 @@ function displayProductDetails(productSale) {
 function addToCart(productSaleId) {
   // Đối tượng chứa dữ liệu của sản phẩm để thêm vào giỏ hàng
   const cartDetailCreateDTO = {
-    id: 1,           // ID sẽ do hệ thống tự tạo, nên để null
+    id: null,           // ID sẽ do hệ thống tự tạo, nên để null
     quantity: 1,        // Đặt số lượng mặc định là 1, có thể tùy chỉnh nếu cần
     productSaleId: productSaleId
   };
@@ -95,6 +95,7 @@ function addToCart(productSaleId) {
     alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
     return; // Dừng hàm nếu không có token
   }
+  console.log(token);
   // Gọi API POST để thêm sản phẩm vào giỏ hàng
   fetch('http://localhost:8080/api/v1/cart-details', {  // Điều chỉnh URL API theo cấu hình backend của bạn
     
@@ -105,16 +106,28 @@ function addToCart(productSaleId) {
     },
     body: JSON.stringify(cartDetailCreateDTO)
   })
-  .then(response => {
+  .then(async response => {
     console.log(response);
     if (response.ok) {
-      return response.json();
+      alert('Đã thêm vào giỏ hàng!');
     } else {
-      throw new Error('Failed to add product to cart');
-    }
-  })
-  .then(data => {
-    alert("Product added to cart successfully!");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          if (errorData.message === 'Invalid quantity') {
+              alert('Sản phẩm đã hết hàng.');
+          } else {
+              throw new Error(`Lỗi xảy ra: ${errorData.message}`);
+          }
+      } else {
+          const errorText = await response.text();
+          if (errorText === 'Invalid quantity') {
+              alert('Sản phẩm đã hết hàng.');
+          } else {
+              throw new Error(`Lỗi xảy ra: ${errorText}`);
+          }
+      }
+  }
   })
   .catch(error => {
     console.error("Error adding product to cart:", error);

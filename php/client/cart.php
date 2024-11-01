@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Shop | eCommerce</title>
-  <meta name="description" content="" />
+  <meta name="description" content="" />  
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" type="image/x-icon" href="../../static/client_assets/img/icon/favicon.png">
   <link rel="stylesheet" href="../../static/client_assets/css/bootstrap.min.css">
@@ -34,6 +34,7 @@
       border: 1px solid #ccc;
       background-color: #fff;
       cursor: pointer;
+      color: #000;
     }
     .quantity-container input {
       width: 50px;
@@ -102,8 +103,8 @@
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
-                                <li><a href="client/index.php">Home</a></li>
-                                <li><a href="client/view-products.php">Products</a></li>
+                                <li><a href="index.php">Home</a></li>
+                                <li><a href="view-products.php">Products</a></li>
                                 <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
                         </nav>
@@ -117,8 +118,8 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="client/profile.php"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="client/cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                            <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -179,7 +180,7 @@
             </tbody>
           </table>
           <div class="checkout_btn_inner float-right">
-            <a class="btn" href="/client/product">Continue Shopping</a>
+            <a class="btn" href="view-products.php">Continue Shopping</a>
           </div>
         </div>
       </div>

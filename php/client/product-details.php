@@ -10,6 +10,7 @@
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="../../static/client_assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../static/client_assets/css/flaticon.css"> <!-- Flaticon CSS -->
   <link rel="stylesheet" href="../../static/client_assets/css/style.css">
 
   <script src="../../static/call-api/client/product-detail.js"></script>

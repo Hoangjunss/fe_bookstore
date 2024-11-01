@@ -26,7 +26,7 @@
     <style>
         .add-to-cart-link {
             display: inline-block;
-            padding: 10px 15px;
+            /* padding: 10px 15px; */
             background-color: #4CAF50; /* Green color */
             color: white;
             text-decoration: none;
@@ -105,7 +105,7 @@
                         <nav>
                             <ul id="navigation">
                                 <li><a href="client/index.php">Home</a></li>
-                                <li><a href="client/view-products.php">Products</a></li>
+                                <li><a href="view-products.php">Products</a></li>
                                 <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
                         </nav>
@@ -121,8 +121,8 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="client/profile.php"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="client/cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                            <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -405,6 +405,14 @@
 </div>
 
 <!-- JS Libraries -->
+<!-- Tải jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Tải ionRangeSlider CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ion-rangeslider/css/ion.rangeSlider.min.css">
+
+<!-- Tải ionRangeSlider JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 <!-- Vendor Libraries -->
 <script src="../../static/client_assets/js/vendor/modernizr-3.5.0.min.js"></script> <!-- Modernizr: Detects HTML5 and CSS3 features -->
 <script src="../../static/client_assets/js/vendor/jquery-1.12.4.min.js"></script> <!-- jQuery: JavaScript library -->
