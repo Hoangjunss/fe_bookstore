@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
@@ -14,7 +14,7 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/admin/product/update-product.js"></script>
+    <script src="../../../static/call-api/admin/product/update-product.js" defer></script>
 
     <style>
         .profile-picture img, .form-group img {
@@ -138,8 +138,7 @@
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
-                        <!-- Ví dụ: admin@example.com -->
+                    <span class="ml-1">
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -178,10 +177,8 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -222,51 +219,51 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
 
-<ul class="metismenu" id="side-menu">
+                <ul class="metismenu" id="side-menu">
 
-    <li class="menu-title">QUẢN LÝ</li>
+                    <li class="menu-title">QUẢN LÝ</li>
 
-    <li>
-        <a href="../dashboard.phps">
-            <i class="fe-airplay"></i>
-            <span> Dashboard </span>
-        </a>
-    </li>
+                    <li>
+                        <a href="../dashboard.php">
+                            <i class="fe-airplay"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
 
-    <li>
-        <a href="../employee/list-employee.php">
-            <i class="fe-briefcase"></i>
-            Quản lý nhân viên
-        </a>
-    </li>
-    <li>
-        <a href="../user/list-user.php">
-            <i class="fas fa-user"></i>
-            Quản lý khách hàng
-        </a>
-    </li>
-    <li>
-        <a href="../category/list-category.php">
-            <i class="fe-disc"></i>
-            Quản lý loại sản phẩm
-        </a>
-    </li>
-    <li>
-        <a href="">
-            <i class="fe-box"></i>
-            Quản lý sản phẩm
-        </a>
-    </li>
+                    <li>
+                        <a href="../employee/list-employee.php">
+                            <i class="fe-briefcase"></i>
+                            Quản lý nhân viên
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../category/list-category.php">
+                            <i class="fe-disc"></i>
+                            Quản lý loại sản phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../product/list-product.php">
+                            <i class="fe-box"></i>
+                            Quản lý sản phẩm
+                        </a>
+                    </li>
 
-    <li>
-        <a href="../supply/list-supply.php">
-            <i class="fe-layout"></i>
-            Quản lý nhà cung cấp
-        </a>
-    </li>
-</ul>
+                    <li>
+                        <a href="../supply/list-supply.php">
+                            <i class="fe-layout"></i>
+                            Quản lý nhà cung cấp
+                        </a>
+                    </li>
+                </ul>
 
-</div>
+            </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -315,7 +312,7 @@
                                 <div class="form-group">
                                     <label for="productName">Tên sản phẩm <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Nhập tên sản phẩm" name="name" id="productName"/>
+                                           placeholder="Nhập tên sản phẩm" name="name" id="productName" readonly/>
                                 </div>
 
                                 <!-- Mô tả sản phẩm -->
@@ -351,23 +348,17 @@
                                     <label for="category">Thể loại sản phẩm <span style="color: red;">*</span></label>
                                     <select class="form-control" id="category" name="categoryId" required>
                                         <option value="">Chọn thể loại sản phẩm</option>
-                                        <option value="1">Thời trang nam</option>
-                                        <option value="2">Thời trang nữ</option>
-                                        <option value="3">Bé yêu</option>
-                                        <!-- Thêm các loại sản phẩm khác nếu cần -->
+                                        <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                     </select>
+                                    <div id="category-error" class="error-message"></div>
                                 </div>
 
                                 <!-- Nhà cung cấp -->
                                 <div class="form-group">
                                     <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="supply" name="supplyId" required>
-                                        <option value="">Chọn nhà cung cấp</option>
-                                        <option value="1">Nhà cung cấp A</option>
-                                        <option value="2">Nhà cung cấp B</option>
-                                        <option value="3">Nhà cung cấp C</option>
-                                        <!-- Thêm các nhà cung cấp khác nếu cần -->
-                                    </select>
+                                    supply
+                                    <input type="text" class="form-control" required
+                                           name="supply" id="supply" readonly/>
                                 </div>
 
                                 <!-- Kích thước sản phẩm -->
@@ -381,42 +372,12 @@
                                 <div class="form-group">
                                     <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
                                     <br>
-                                    <img id="imagePreview" src="../../../static/assets_admin/images/default-thumbnail.png"
+                                    <img id="imagePreview" src="../../../static/client_assets/img/products/defbookcover-min.jpg"
                                          alt="Thumbnail" class="image-preview">
                                     <br><br>
                                     <input type="file" name="image" id="image" accept="image/*"
                                            onchange="previewImage(this)" required/>
                                 </div>
-
-                                <!-- Số lượng -->
-                                <div class="form-group">
-                                    <label for="amount">Số lượng <span style="color: red;">*</span></label>
-                                    <input type="number" class="form-control" required
-                                           placeholder="Nhập số lượng sản phẩm" name="amount" id="amount"/>
-                                </div>
-
-                                <!-- Giá nhập -->
-                                <div class="form-group">
-                                    <label for="price">Giá nhập <span style="color: red;">*</span></label>
-                                    <input type="text" id="price" class="form-control" required
-                                           placeholder="100.000 VND"
-                                           onfocus="clearValue(this)"
-                                           oninput="formatCurrencyPrice(this)"/>
-                                </div>
-
-                                <!-- Giá bán -->
-                                <div class="form-group">
-                                    <label for="salePrice">Giá bán <span style="color: red;">*</span></label>
-                                    <input type="text" id="salePrice" class="form-control" required
-                                           placeholder="100.000 VND"
-                                           onfocus="clearValue(this)"
-                                           oninput="formatCurrencySalePrice(this)"/>
-                                    <div id="error-message" class="error-message"></div>
-                                </div>
-
-                                <!-- Ẩn giá nhập và giá bán để gửi dữ liệu thực tế -->
-                                <input type="hidden" id="hiddenPrice" name="price" value=""/>
-                                <input type="hidden" id="hiddenSalePrice" name="salePrice" value=""/>
 
                                 <!-- Trạng thái -->
                                 <div class="form-group">
@@ -428,38 +389,7 @@
                                 </div>
 
                                 <!-- Danh sách hình ảnh sản phẩm (nếu có) -->
-                                <div class="form-group">
-                                    <label>Danh sách hình ảnh sản phẩm</label>
-                                    <div id="imagesContainer">
-                                        <!-- Đây là ví dụ về một hình ảnh, bạn có thể thêm nhiều hình ảnh theo cách này hoặc sử dụng JavaScript để nạp dữ liệu động -->
-                                        <div class="profile-picture single-file-preview">
-                                            <img src="../../../static/assets_admin/images/products/sample-image.jpg" alt="Sample Image" class="image">
-                                            <div class="description">
-                                                <p>Mô tả hình ảnh</p>
-                                            </div>
-                                            <div class="input">
-                                                <input name="file1" type="file" class="d-none">
-                                                <input value="1" type="hidden" class="d-none" name="imageId" id="imageId1">
-                                                <button type="button" class="btn-edit btn btn-warning"
-                                                        onclick="showEditForm('1')">Sửa
-                                                </button>
-                                                <div class="edit-reply-form" id="editForm_1" style="display: none;">
-                                                    <form action="/admin/image/update.html" method="post">
-                                                        <input type="hidden" value="1" name="imageId" id="imageId">
-                                                        <input type="hidden" value="" name="productIdEditDesc" id="productIdEditDesc">
-                                                        <textarea name="editedContent" id="editedContent1" class="form-control" rows="3" placeholder="Nhập mô tả mới"></textarea>
-                                                        <button type="submit" class="btn btn-success mt-2">Xác nhận</button>
-                                                        <button type="button" class="btn btn-danger mt-2" onclick="hideEditForm('1')">Đóng</button>
-                                                    </form>
-                                                </div>
-                                                <button class="btn btn-danger delete-button btn-sm mt-2" type="button" onclick="deleteImage(1, 1)">
-                                                    Xóa
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Thêm các hình ảnh khác tương tự -->
-                                    </div>
-                                </div>
+                               
 
                                 <!-- Thông báo lỗi -->
                                 <div id="error-message" class="error-message"></div>
@@ -476,57 +406,6 @@
                                     </div>
                                 </div>
                             </form>
-
-                            <!-- Quản lý upload hình ảnh (nếu cần) -->
-                            <form action="/admin/product/upload.html" id="uploadForm" method="post" enctype="multipart/form-data">
-                                <input type="hidden" id="idInput" name="idInput" value=""/>
-                                <label for="editor">Viết mô tả:</label>
-                                <div id="editor"></div>
-
-                                <label for="imageInput">Chọn ảnh:</label>
-                                <input type="file" name="file" id="imageInput" required/>
-                                <button type="submit" class="btn btn-primary mt-2">Upload Image</button>
-
-                                <input id="contentTextArea" name="content" type="hidden"/>
-                            </form>
-
-                            <!-- CKEditor Initialization -->
-                            <script>
-                                window.addEventListener("load", (e) => {
-                                    ClassicEditor
-                                        .create(document.querySelector('#editor'), {
-                                            // CKEditor config
-                                            toolbar: {
-                                                items: [
-                                                    'heading', '|',
-                                                    'fontfamily', 'fontsize', '|',
-                                                    'alignment', '|',
-                                                    'fontColor', 'fontBackgroundColor', '|',
-                                                    'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-                                                    'link', '|',
-                                                    'bulletedList', 'numberedList', 'todoList', '|',
-                                                    'code', 'codeBlock', 'blockQuote', '|',
-                                                    'undo', 'redo'
-                                                ],
-                                                shouldNotGroupWhenFull: true
-                                            }
-                                        })
-                                        .then(editor => {
-                                            editor.model.document.on('change:data', () => {
-                                                const content = editor.getData();
-                                                const tempElement = document.createElement('div');
-                                                tempElement.innerHTML = content;
-
-                                                const textContent = tempElement.querySelector('p') ? tempElement.querySelector('p').textContent : '';
-
-                                                document.getElementById('contentTextArea').value = textContent;
-                                            });
-                                        })
-                                        .catch(error => {
-                                            console.error(error);
-                                        });
-                                });
-                            </script>
 
                         </div>
                     </div>

@@ -20,7 +20,7 @@
     async function getBooks(page, size, objectFilter) {
         try {
             // Tạo URL với tham số trang và kích thước
-            let url = new URL('http://localhost:8080/product');
+            let url = new URL(`http://localhost:8080/api/v1/product?page=${page}&size=${size}`);
             url.searchParams.append('page', page);
             url.searchParams.append('size', size);
 
@@ -100,7 +100,7 @@
 
                 // Thể loại
                 const categoryCell = document.createElement('td');
-                categoryCell.textContent = book.categoryName;
+                categoryCell.textContent = book.category;
                 row.appendChild(categoryCell);
 
                 // Trạng thái
@@ -113,25 +113,18 @@
 
                 // Nút Chi tiết (Cập nhật)
                 const detailLink = document.createElement('a');
-                detailLink.href = `update-book.html?id=${book.id}`;
-                detailLink.classList.add('btn', 'btn-warning', 'mr-2');
+                detailLink.href = `update-product.php?id=${book.id}`;
+                detailLink.classList.add('btn', 'btn-info', 'mr-2');
                 detailLink.textContent = 'Chi tiết';
                 actionCell.appendChild(detailLink);
 
                 // Nút Xóa
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
-                deleteButton.textContent = 'Xóa';
-                deleteButton.dataset.id = book.id;
-                deleteButton.addEventListener('click', deleteBook);
-                actionCell.appendChild(deleteButton);
-
-                // Nút Đến bình luận (Nếu có)
-                const commentLink = document.createElement('a');
-                commentLink.href = `comment-list.html?bookId=${book.id}`;
-                commentLink.classList.add('btn', 'btn-info');
-                commentLink.textContent = 'Đến bình luận';
-                actionCell.appendChild(commentLink);
+                // const deleteButton = document.createElement('button');
+                // deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
+                // deleteButton.textContent = 'Xóa';
+                // deleteButton.dataset.id = book.id;
+                // deleteButton.addEventListener('click', deleteBook);
+                // actionCell.appendChild(deleteButton);
 
                 row.appendChild(actionCell);
 
@@ -247,134 +240,6 @@
     }
 
 
-
-async function getBooks(page, size, objectFilter) {
-    try {
-        // Tạo URL với tham số trang và kích thước
-        let url = new URL('http://localhost:8080/product');
-        url.searchParams.append('page', page);
-        url.searchParams.append('size', size);
-
-        // Thêm các bộ lọc vào URL nếu có
-        if (objectFilter.name) {
-            url.searchParams.append('name', objectFilter.name);
-        }
-        if (objectFilter.saleStartPrice) {
-            url.searchParams.append('saleStartPrice', objectFilter.saleStartPrice);
-        }
-        if (objectFilter.saleEndPrice) {
-            url.searchParams.append('saleEndPrice', objectFilter.saleEndPrice);
-        }
-        if (objectFilter.status !== null) {
-            url.searchParams.append('status', objectFilter.status);
-        }
-        if (objectFilter.categoryId) {
-            url.searchParams.append('categoryId', objectFilter.categoryId);
-        }
-
-        // Gửi yêu cầu GET tới API
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-
-        // Xóa nội dung bảng hiện tại
-        const bodyTable = document.querySelector('#datatable-buttons tbody');
-        bodyTable.innerHTML = '';
-
-        // Duyệt qua danh sách sách và thêm vào bảng
-        data.content.forEach(book => {
-            const row = document.createElement('tr');
-
-            // ID
-            const idCell = document.createElement('td');
-            idCell.textContent = book.id;
-            row.appendChild(idCell);
-
-            // Hình ảnh
-            const imageCell = document.createElement('td');
-            const img = document.createElement('img');
-            img.src = book.imageUrl ? book.imageUrl : '../../../static/assets_admin/images/no-image.png';
-            img.alt = 'Thumbnail';
-            img.classList.add('img-thumbnail');
-            imageCell.appendChild(img);
-            row.appendChild(imageCell);
-
-            // Tên sách
-            const nameCell = document.createElement('td');
-            nameCell.textContent = book.name;
-            row.appendChild(nameCell);
-
-            // Tác giả
-            const authorCell = document.createElement('td');
-            authorCell.textContent = book.author;
-            row.appendChild(authorCell);
-
-            // Số trang
-            const pageCell = document.createElement('td');
-            pageCell.textContent = book.page;
-            row.appendChild(pageCell);
-
-            // Ngày xuất bản
-            const dateCell = document.createElement('td');
-            dateCell.textContent = new Date(book.datePublic).toLocaleDateString('vi-VN');
-            row.appendChild(dateCell);
-
-            // Thể loại
-            const categoryCell = document.createElement('td');
-            categoryCell.textContent = book.categoryName;
-            row.appendChild(categoryCell);
-
-            // Trạng thái
-            const statusCell = document.createElement('td');
-            statusCell.textContent = book.status ? 'ACTIVE' : 'INACTIVE';
-            row.appendChild(statusCell);
-
-            // Hành động
-            const actionCell = document.createElement('td');
-
-            // Nút Chi tiết (Cập nhật)
-            const detailLink = document.createElement('a');
-            detailLink.href = `update-book.html?id=${book.id}`;
-            detailLink.classList.add('btn', 'btn-warning', 'mr-2');
-            detailLink.textContent = 'Chi tiết';
-            actionCell.appendChild(detailLink);
-
-            // Nút Xóa
-            const deleteButton = document.createElement('button');
-            deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
-            deleteButton.textContent = 'Xóa';
-            deleteButton.dataset.id = book.id;
-            deleteButton.addEventListener('click', deleteBook);
-            actionCell.appendChild(deleteButton);
-
-            // Nút Đến bình luận (Nếu có)
-            const commentLink = document.createElement('a');
-            commentLink.href = `comment-list.html?bookId=${book.id}`;
-            commentLink.classList.add('btn', 'btn-info');
-            commentLink.textContent = 'Đến bình luận';
-            actionCell.appendChild(commentLink);
-
-            row.appendChild(actionCell);
-
-            bodyTable.appendChild(row);
-        });
-
-        // Phân trang
-        renderPagination(data.totalPages, data.number, size);
-    } finally{
-
-    }
-}
 
 
 // Hàm xóa sách

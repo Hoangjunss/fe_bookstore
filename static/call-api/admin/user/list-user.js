@@ -25,13 +25,11 @@
         bodyTable.innerHTML = ''; // Xóa dữ liệu cũ
 
         try {
-            // Gửi yêu cầu POST tới backend để lấy danh sách user
-            let response = await fetch(`http://localhost:8080/api/users/search?page=${page}&size=${size}`, {
-                method: 'POST',
+            let response = await fetch(`http://localhost:8080/api/v1/users?role=CUSTOMER&page=${page}&size=${size}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(objectFilter)
             });
 
             if (!response.ok) {

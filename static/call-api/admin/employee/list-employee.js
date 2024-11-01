@@ -49,15 +49,13 @@
         const role = document.getElementById('role').value;
 
         const params = {
+            role: 'EMPLOYEE',
             page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
             size: size,
-            fullname: fullname || null,
-            email: email || null,
-            role: role || null
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/employees', { params });
+            const response = await axios.get('http://localhost:8080/api/v1/users', { params });
 
             const data = response.data;
             console.log(data);
