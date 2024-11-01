@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách đơn hàng</title>
+    <title>Danh sách đơn hàng chờ duyệt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -18,7 +18,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/employee/order/list-order.js"></script>
 
     <style>
         .btn-light a {
@@ -376,10 +375,7 @@
                                     <th>Email</th>
                                     <th>Số sản phẩm</th>
                                     <th>Tổng giá trị</th>
-                                    <th>Phí ship</th>
-                                    <th>Số tiền phải trả</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -501,6 +497,9 @@
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
+
+<script src="../../../static/call-api/employee/order/list-order.js"></script>
+
 
 <!-- Axios JS (Nếu cần sử dụng Axios thay vì Fetch) -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"

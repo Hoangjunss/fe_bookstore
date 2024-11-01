@@ -44,7 +44,7 @@
      */
     async function fetchProducts() {
         try {
-            const response = await axios.get('http://localhost:8080/product?page=0&size=100');
+            const response = await axios.get('http://localhost:8080/api/v1/product?page=0&size=10');
             const products = response.data.content;
 
             const productSelect = document.getElementById('productName');
@@ -79,7 +79,7 @@
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/productsales', { params });
+            const response = await axios.get('http://localhost:8080/api/v1/productsales', { params });
 
             const data = response.data;
             console.log(data);
@@ -117,7 +117,7 @@
                 <td>${formatPrice(ps.price)}</td>
                 <td>
                     <button class="btn btn-warning btn-sm edit-button" data-id="${ps.id}">Sửa</button>
-                    <button class="btn btn-danger btn-sm delete-button" data-id="${ps.id}">Xóa</button>
+                    <button class="btn btn-info btn-sm detail-button" data-id="${ps.id}">Chi tiết</button>
                 </td>
             `;
 
@@ -132,7 +132,7 @@
             });
         });
 
-        document.querySelectorAll('.delete-button').forEach(button => {
+        document.querySelectorAll('.detail-button').forEach(button => {
             button.addEventListener('click', function () {
                 const productSaleId = this.getAttribute('data-id');
                 deleteProductSale(productSaleId);
@@ -227,7 +227,7 @@
     async function deleteProductSale(productSaleId) {
         if (confirm("Bạn có chắc chắn là muốn xoá sản phẩm giảm giá này không?")) {
             try {
-                const response = await axios.delete(`http://localhost:8080/api/productsales/${productSaleId}`);
+                const response = await axios.delete(`http://localhost:8080/api/v1//productsales/${productSaleId}`);
 
                 if (response.status === 200) {
                     showNotification('Xóa sản phẩm giảm giá thành công!', 'success');

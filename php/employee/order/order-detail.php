@@ -311,7 +311,7 @@
                             <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
                             <div class="btn-back">
                                 <button class="btn btn-light">
-                                    <a href="list-order.html">Quay lại danh sách đơn hàng</a>
+                                    <a href="list-order.php">Quay lại danh sách đơn hàng</a>
                                 </button>
                             </div>
 
@@ -333,21 +333,11 @@
                                         <td id="order-total-price">#</td>
                                     </tr>
                                     <tr>
-                                        <th>Phí Ship</th>
-                                        <td id="order-shipping-fee">#</td>
-                                        <th>Tổng Số Tiền Phải Trả</th>
-                                        <td id="order-full-cost">#</td>
-                                    </tr>
-                                    <tr>
                                         <th>Ngày Tạo</th>
                                         <td id="order-created-date">#</td>
                                         <th>Trạng Thái</th>
                                         <td>
-                                            <select class="form-control status-select" id="order-status" data-order-id="">
-                                                <option value="PENDING">PENDING</option>
-                                                <option value="CANCELED">CANCELED</option>
-                                                <option value="SUCCEEDED">SUCCEEDED</option>
-                                            </select>
+                                        PENDING
                                         </td>
                                     </tr>
                                     <tr>

@@ -20,7 +20,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/employee/warehouse/list-warehousereceipt.js"></script>
 
     <style>
         .btn-success a {
@@ -511,6 +510,8 @@
 
 <!-- Axios JS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="../../../static/call-api/employee/warehouse/list-warehousereceipt.js"></script>
 
 
 </body>

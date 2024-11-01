@@ -8,7 +8,7 @@
         } else {
             alert('Không tìm thấy ID đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.html';
+            window.location.href = 'list-order.php';
         }
     });
 
@@ -18,7 +18,7 @@
      */
     async function getOrderDetails(orderId) {
         try {
-            let response = await fetch(`http://localhost:8080/api/orders/${orderId}`, {
+            let response = await fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +39,7 @@
             console.error(error);
             alert('Có lỗi xảy ra khi tải dữ liệu đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.html';
+            window.location.href = 'list-order.php';
         }
     }
 
@@ -48,19 +48,18 @@
      * @param {object} order - Đối tượng đơn hàng
      */
     function displayOrderInfo(order) {
+        console.log(order);
         document.getElementById('order-id').textContent = order.id;
         document.getElementById('user-email').textContent = order.username;
         document.getElementById('order-quantity').textContent = order.quantity;
         document.getElementById('order-total-price').textContent = formatCurrency(order.totalPrice);
-        document.getElementById('order-shipping-fee').textContent = formatCurrency(order.shippingFee);
-        document.getElementById('order-full-cost').textContent = formatCurrency(order.fullCost);
         document.getElementById('order-created-date').textContent = formatDate(order.createdDate);
-        document.getElementById('order-address').textContent = formatAddress(order.address);
+        document.getElementById('order-address').textContent = order.address.address;
 
         // Cập nhật trạng thái đơn hàng
-        const statusSelect = document.getElementById('order-status');
-        statusSelect.value = order.orderStatus;
-        statusSelect.setAttribute('data-order-id', order.id);
+        // const statusSelect = document.getElementById('order-status');
+        // statusSelect.value = order.orderStatus;
+        // statusSelect.setAttribute('data-order-id', order.id);
     }
 
     /**

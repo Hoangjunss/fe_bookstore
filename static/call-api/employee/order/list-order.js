@@ -9,7 +9,7 @@
         let page = 0;
         let size = 5;
         let objFilter = {
-            email: null
+            status: 'PENDING'
         };
         getOrders(page, size, objFilter);
     }
@@ -23,24 +23,29 @@
     async function getOrders(page, size, objectFilter) {
         let bodyTable = document.querySelector('#datatable-buttons tbody');
         bodyTable.innerHTML = ''; // Xóa dữ liệu cũ
-
+    
         try {
-            // Gửi yêu cầu POST tới backend để lấy danh sách đơn hàng
-            let response = await fetch(`http://localhost:8080/api/orders/search?page=${page}&size=${size}`, {
-                method: 'POST',
+            // Tạo chuỗi tham số truy vấn từ objectFilter
+            const queryParams = new URLSearchParams({
+                page: page,
+                size: size,
+                ...objectFilter // Giả sử objectFilter là một đối tượng chứa các tham số lọc
+            });
+    
+            let response = await fetch(`http://localhost:8080/api/v1/orders?${queryParams.toString()}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(objectFilter)
+                }
             });
-
+    
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
             }
-
+    
             let data = await response.json();
             console.log(data);
-
+    
             let orders = data.content; // Giả sử backend trả về { content: [...], totalPages: X, number: Y }
             orders.forEach(order => {
                 let formattedTotalPrice = formatCurrency(order.totalPrice);
@@ -48,42 +53,52 @@
                 let formattedFullCost = order.fullCost ? formatCurrency(order.fullCost) : '0 VND';
                 let formattedDate = formatDate(order.createdDate);
                 let statusText = getStatusText(order.orderStatus);
-
+    
                 // Tạo một hàng mới trong bảng
                 let row = document.createElement('tr');
-
+    
                 row.innerHTML = `
                     <td>${order.id}</td>
-                    <td>${order.user.email}</td>
+                    <td>${order.username}</td>
                     <td>${order.quantity}</td>
                     <td>${formattedTotalPrice}</td>
-                    <td>${formattedShippingFee}</td>
-                    <td>${formattedFullCost}</td>
-                    <td>${formattedDate}</td>
                     <td>
-                        <select class="form-control status-select" data-order-id="${order.id}">
-                            <option value="PENDING" ${order.orderStatus === 'PENDING' ? 'selected' : ''}>PENDING</option>
-                            <option value="CANCELED" ${order.orderStatus === 'CANCELED' ? 'selected' : ''}>CANCELED</option>
-                            <option value="SUCCEEDED" ${order.orderStatus === 'SUCCEEDED' ? 'selected' : ''}>SUCCEEDED</option>
-                        </select>
+                        <button class="btn btn-success btn-sm accept-button" data-id="${order.id}">Duyệt</button>
+                        <button class="btn btn-danger btn-sm reject-button" data-id="${order.id}">Từ chối</button>
+                        <button class="btn btn-info btn-sm detail-button" data-id="${order.id}">Xem chi tiết</button>
                     </td>
                 `;
-
+    
                 bodyTable.appendChild(row);
             });
-
+    
+            // Thêm sự kiện cho các nút "Xem chi tiết"
+            const detailButtons = document.querySelectorAll('.detail-button');
+            detailButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const orderId = event.target.getAttribute('data-id');
+                    // Chuyển hướng tới trang order-detail.html với tham số orderId
+                    window.location.href = `order-detail.php?orderId=${orderId}`;
+                });
+            });
+    
             // Phân trang
             let totalPage = data.totalPages;
             let currentPage = data.number;
             if (totalPage > 0) {
                 renderPagination(totalPage, currentPage, size);
             }
-
+    
         } catch (error) {
             console.error(error);
             showNotification('Có lỗi xảy ra khi tải dữ liệu.', 'error');
         }
     }
+    
+
+
+
+    
 
     /**
      * Hàm định dạng số thành tiền tệ VND
@@ -239,26 +254,26 @@
      * @param {HTMLElement} selectElement - Thẻ select đã được thay đổi
      */
     async function updateOrderStatus(orderId, newStatus, selectElement) {
-        try {
-            let response = await fetch(`http://localhost:8080/api/orders/${orderId}/status`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ orderStatus: newStatus })
-            });
+        // try {
+        //     let response = await fetch(`http://localhost:8080/api/v1/orders/${orderId}/status`, {
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({ orderStatus: newStatus })
+        //     });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
-            }
+        //     if (!response.ok) {
+        //         throw new Error(`Error: ${response.status} ${response.statusText}`);
+        //     }
 
-            let data = await response.json();
-            console.log('Update successful', data);
-            showNotification('Cập nhật trạng thái đơn hàng thành công!', 'success');
-        } catch (error) {
-            console.error('Error updating status:', error);
-            showNotification('Cập nhật trạng thái đơn hàng thất bại. Vui lòng thử lại.', 'error');
-            // Đặt lại giá trị select về trạng thái cũ nếu có lỗi
-            // Bạn cần lưu trạng thái cũ trước khi thay đổi để có thể đặt lại
-        }
+        //     let data = await response.json();
+        //     console.log('Update successful', data);
+        //     showNotification('Cập nhật trạng thái đơn hàng thành công!', 'success');
+        // } catch (error) {
+        //     console.error('Error updating status:', error);
+        //     showNotification('Cập nhật trạng thái đơn hàng thất bại. Vui lòng thử lại.', 'error');
+        //     // Đặt lại giá trị select về trạng thái cũ nếu có lỗi
+        //     // Bạn cần lưu trạng thái cũ trước khi thay đổi để có thể đặt lại
+        // }
     }
