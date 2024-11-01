@@ -44,7 +44,7 @@
      */
     async function fetchProducts() {
         try {
-            const response = await axios.get('http://localhost:8080/api/products?page=0&size=100');
+            const response = await axios.get('http://localhost:8080/product?page=0&size=100');
             const products = response.data.content;
 
             const productSelect = document.getElementById('productName');

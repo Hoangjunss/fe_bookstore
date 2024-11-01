@@ -44,8 +44,9 @@
      */
     async function fetchProducts() {
         try {
-            const response = await axios.get('http://localhost:8080/api/warehouses/products?page=0&size=100');
+            const response = await axios.get('http://localhost:8080/api/v1/warehouses?page=0&size=100');
             const products = response.data.content;
+            console.log(products);
 
             const productSelect = document.getElementById('productName');
             products.forEach(product => {
@@ -79,7 +80,7 @@
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/warehouses', { params });
+            const response = await axios.get('http://localhost:8080/api/v1/warehouses', { params });
 
             const data = response.data;
             console.log(data);
@@ -117,8 +118,7 @@
                 <td>${getStatusText(wh.status)}</td>
                 <td>${formatDate(wh.date)}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm edit-button" data-id="${wh.id}">Sửa</button>
-                    <button class="btn btn-danger btn-sm delete-button" data-id="${wh.id}">Xóa</button>
+                    <button class="btn btn-warning btn-sm detail-button" data-id="${wh.id}">Chi tiết</button>
                 </td>
             `;
 
@@ -126,10 +126,10 @@
         });
 
         // Thêm sự kiện cho các nút Sửa và Xóa
-        document.querySelectorAll('.edit-button').forEach(button => {
+        document.querySelectorAll('.detail-button').forEach(button => {
             button.addEventListener('click', function () {
                 const warehouseId = this.getAttribute('data-id');
-                window.location.href = `edit-warehouse.html?id=${warehouseId}`;
+                window.location.href = `detail-warehouse.php?id=${warehouseId}`;
             });
         });
 

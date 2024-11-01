@@ -21,7 +21,7 @@
     <script src="../../../static/call-api/employee/order/list-order.js"></script>
 
     <style>
-        .btn-success a, .btn-light a {
+        .btn-light a {
             color: inherit;
             text-decoration: none;
         }
@@ -38,6 +38,48 @@
             color: red;
             margin-top: 5px;
         }
+
+        .btn-success a {
+            color: white;
+            text-decoration: none;
+        }
+        .btn-warning, .btn-danger, .btn-info {
+            margin-right: 5px;
+        }
+        .pagination li a {
+            cursor: pointer;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .notification.success {
+            background-color: #28a745;
+        }
+        .notification.error {
+            background-color: #dc3545;
+        }
+        .notification.info {
+            background-color: #17a2b8;
+        }
+        .notification .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -46,7 +88,7 @@
 <!-- Begin page -->
 <div id="wrapper">
 
-
+<div id="notification-container"></div>
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">

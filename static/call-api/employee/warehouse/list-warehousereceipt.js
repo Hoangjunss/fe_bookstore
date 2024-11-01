@@ -44,7 +44,7 @@
      */
     async function fetchSupplies() {
         try {
-            const response = await axios.get('http://localhost:8080/api/warehousereceipts/supplies?page=0&size=100');
+            const response = await axios.get('http://localhost:8080/api/v1/warehouse-receipts/warehouse?page=0&size=100');
             const supplies = response.data.content;
 
             const supplySelect = document.getElementById('supplyName');
@@ -81,7 +81,7 @@
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/warehousereceipts', { params });
+            const response = await axios.get('http://localhost:8080/api/v1/warehouse-receipts/warehouse', { params });
 
             const data = response.data;
             console.log(data);
@@ -132,7 +132,7 @@
         document.querySelectorAll('.view-button').forEach(button => {
             button.addEventListener('click', function () {
                 const warehouseReceiptId = this.getAttribute('data-id');
-                window.location.href = `view-warehousereceipt.html?id=${warehouseReceiptId}`;
+                window.location.href = `warehousereceipt-detail.php?id=${warehouseReceiptId}`;
             });
         });
 

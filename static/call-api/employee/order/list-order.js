@@ -81,7 +81,7 @@
 
         } catch (error) {
             console.error(error);
-            alert('Có lỗi xảy ra khi tải dữ liệu.');
+            showNotification('Có lỗi xảy ra khi tải dữ liệu.', 'error');
         }
     }
 
@@ -173,6 +173,42 @@
     }
 
     /**
+     * Hàm hiển thị thông báo
+     * @param {string} message - Thông điệp
+     * @param {string} type - Loại thông báo: 'success', 'error', hoặc 'info'
+     */
+    function showNotification(message, type) {
+        const notificationContainer = document.getElementById('notification-container');
+
+        const notification = document.createElement('div');
+        notification.className = `notification ${type} show`;
+        notification.innerHTML = `
+            <span>${message}</span>
+            <span class="close">&times;</span>
+        `;
+
+        notificationContainer.appendChild(notification);
+
+        // Tự động ẩn sau 3 giây
+        setTimeout(() => {
+            notification.classList.remove('show');
+            notification.classList.add('disappear');
+            notification.addEventListener('transitionend', () => {
+                notification.remove();
+            });
+        }, 3000);
+
+        // Thêm sự kiện đóng khi nhấp vào nút close
+        notification.querySelector('.close').addEventListener('click', () => {
+            notification.classList.remove('show');
+            notification.classList.add('disappear');
+            notification.addEventListener('transitionend', () => {
+                notification.remove();
+            });
+        });
+    }
+
+    /**
      * Hàm tìm kiếm đơn hàng theo email
      * @param {number} page - Trang mới
      * @param {number} size - Số lượng đơn hàng mỗi trang
@@ -218,10 +254,10 @@
 
             let data = await response.json();
             console.log('Update successful', data);
-            alert('Cập nhật trạng thái đơn hàng thành công!');
+            showNotification('Cập nhật trạng thái đơn hàng thành công!', 'success');
         } catch (error) {
             console.error('Error updating status:', error);
-            alert('Cập nhật trạng thái đơn hàng thất bại. Vui lòng thử lại.');
+            showNotification('Cập nhật trạng thái đơn hàng thất bại. Vui lòng thử lại.', 'error');
             // Đặt lại giá trị select về trạng thái cũ nếu có lỗi
             // Bạn cần lưu trạng thái cũ trước khi thay đổi để có thể đặt lại
         }
