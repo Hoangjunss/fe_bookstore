@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (productSaleId) {
     // Gọi API để lấy chi tiết sản phẩm sale
-    fetch(`http://localhost:8080/productsales/id?id=${productSaleId}`, {
+    fetch(`http://localhost:8080/api/v1/productsales/id?id=${productSaleId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -41,6 +41,7 @@ function displayProductDetails(productSale) {
   }
 
   const product = productSale.product;
+  console.log(product);
 
   // Lấy URL hình ảnh từ đối tượng Image nếu tồn tại
   const imageUrl = product.image ? product.image.url || '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg' : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
@@ -64,7 +65,7 @@ function displayProductDetails(productSale) {
             <h3>${product.name || 'Sample Product Name'}</h3>
             <div class="price"><span>${formattedPrice}</span></div>
             <p><strong>Author:</strong> ${product.author || 'Unknown Author'}</p>
-            <p><strong>Page Count:</strong> ${product.page || 'N/A'}</p>
+            <p><strong>Page:</strong> ${product.page !== undefined ? product.page : 'N/A'}</p>
             <p><strong>Publication Date:</strong> ${product.datePublic ? new Date(product.datePublic).toLocaleDateString('vi-VN') : 'N/A'}</p>
             <p><strong>Size:</strong> ${product.size || 'N/A'}</p>
             <p><strong>Description:</strong> ${product.description || 'This is a detailed description of the product.'}</p>
@@ -82,21 +83,30 @@ function displayProductDetails(productSale) {
 function addToCart(productSaleId) {
   // Đối tượng chứa dữ liệu của sản phẩm để thêm vào giỏ hàng
   const cartDetailCreateDTO = {
-    id: null,           // ID sẽ do hệ thống tự tạo, nên để null
+    id: 1,           // ID sẽ do hệ thống tự tạo, nên để null
     quantity: 1,        // Đặt số lượng mặc định là 1, có thể tùy chỉnh nếu cần
     productSaleId: productSaleId
   };
 
+  console.log(cartDetailCreateDTO);
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+    return; // Dừng hàm nếu không có token
+  }
   // Gọi API POST để thêm sản phẩm vào giỏ hàng
-  fetch('http://localhost:8080/cart', {  // Điều chỉnh URL API theo cấu hình backend của bạn
+  fetch('http://localhost:8080/api/v1/cart-details', {  // Điều chỉnh URL API theo cấu hình backend của bạn
+    
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
-      // Thêm các header cần thiết nếu có, ví dụ: Authorization
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(cartDetailCreateDTO)
   })
   .then(response => {
+    console.log(response);
     if (response.ok) {
       return response.json();
     } else {
@@ -105,7 +115,6 @@ function addToCart(productSaleId) {
   })
   .then(data => {
     alert("Product added to cart successfully!");
-    // Có thể cập nhật UI giỏ hàng hoặc chuyển hướng người dùng
   })
   .catch(error => {
     console.error("Error adding product to cart:", error);

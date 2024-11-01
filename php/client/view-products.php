@@ -74,7 +74,7 @@
                                 <div class="header-info-right d-flex">
                                     <ul class="order-list">
                                         <li><span id="user-greeting">Hello, Guest</span></li>
-                                        <li><a href="/client/order.html">Track Your Order</a></li>
+                                        <li><a href="/client/order.php">Track Your Order</a></li>
                                     </ul>
                                     <ul class="header-social">
                                         <li>
@@ -105,16 +105,16 @@
                     <div class="menu-wrapper">
     
                         <div class="logo">
-                            <a href="/client/home.html"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+                            <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
                         </div>
     
                         <div class="main-menu d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="/client/home.html">Home</a></li>
-                                    <li><a href="/client/products.html">Products</a></li>
-                                    <li><a href="/client/about.html">About</a></li>
-                                    <li><a href="/client/contact.html">Contact</a></li>
+                                    <li><a href="index.php">Home</a></li>
+                                    <li><a href="view-products.php">Products</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -128,8 +128,8 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li><a href="/client/profile.html"><span class="flaticon-user"></span></a></li>
-                                <li class="cart"><a href="/client/cart.html"><span class="flaticon-shopping-cart"></span></a></li>
+                                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                                <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
                                         <li class="breadcrumb-item">
-                                            <a href="/client/home.html">Home</a>
+                                            <a href="index.php">Home</a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">Category</li>
                                     </ol>
@@ -306,7 +306,7 @@
                             <div class="single-footer-caption mb-50">
                                 <div class="single-footer-caption mb-20">
                                     <div class="footer-logo mb-35">
-                                        <a href="/client/home.html"><img src="../../static/client_assets/img/logo/logo2_footer.png" alt="Footer Logo"></a>
+                                        <a href="index.php"><img src="../../static/client_assets/img/logo/logo2_footer.png" alt="Footer Logo"></a>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +358,7 @@
                                 <div class="footer-tittle">
                                     <h4>Quick Links</h4>
                                     <ul>
-                                        <li><a href="/client/order.html">Track Your Order</a></li>
+                                        <li><a href="order.php">Track Your Order</a></li>
                                         <li><a href="#">Support</a></li>
                                         <li><a href="#">FAQ</a></li>
                                         <li><a href="#">Carrier</a></li>

@@ -46,7 +46,7 @@
                 <div class="header-info-right d-flex">
                   <ul class="order-list">
                     <li><span id="userEmail">Hello, Guest</span></li>
-                    <li><a href="view-orders.html">Track Your Order</a></li>
+                    <li><a href="view-orders.php">Track Your Order</a></li>
                   </ul>
                   <ul class="header-social">
                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -65,14 +65,14 @@
         <div class="container">
           <div class="menu-wrapper">
             <div class="logo">
-              <a href="index.html"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+              <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
             </div>
             <div class="main-menu d-none d-lg-block">
               <nav>
                 <ul id="navigation">
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="view-products.html">Products</a></li>
-                  <li><a href="view-orders.html">Orders</a></li>
+                  <li><a href="index.php">Home</a></li>
+                  <li><a href="view-products.php">Products</a></li>
+                  <li><a href="view-orders.php">Orders</a></li>
                   <!-- Thêm các liên kết khác nếu cần -->
                 </ul>
               </nav>
@@ -86,8 +86,8 @@
                     </a>
                   </div>
                 </li>
-                <li><a href="profile.html"><span class="flaticon-user"></span></a></li>
-                <li class="cart"><a href="cart.html"><span class="flaticon-shopping-cart"></span></a></li>
+                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
               </ul>
             </div>
           </div>
@@ -115,7 +115,7 @@
                   <h2>Product Details</h2>
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
-                      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                      <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                       <li class="breadcrumb-item active" aria-current="page">Product Details</li>
                     </ol>
                   </nav>

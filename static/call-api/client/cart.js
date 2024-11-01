@@ -5,11 +5,12 @@
   // Hàm lấy dữ liệu giỏ hàng
   async function fetchCartData() {
       try {
+            const token = localStorage.getItem('token');
           const response = await fetch('http://localhost:8080/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json',
-                  // Thêm các header cần thiết nếu có, ví dụ: Authorization
+                  'Authorization': `Bearer ${token}`
               }
           });
           if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
