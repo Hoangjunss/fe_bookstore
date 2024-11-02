@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="single-items mb-30">
                     <div class="thumb">
                         <a href="product-details.php?id=${product.id}">
-                            <img src="${product.product.image.url}" alt="${product.product.name}">
+                            <img style="width: 100%; height: 250px;"  src="${product.product.image.url}" alt="${product.product.name}">
                         </a>
                         <div class="actions">
                             <button class="add-to-cart-link" data-id="${product.id}">Add to Cart</button>

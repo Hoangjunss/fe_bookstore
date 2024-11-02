@@ -80,7 +80,7 @@
             row.innerHTML = `
                 <td>${detail.product.id}</td>
                 <td>${detail.product.name}</td>
-                <td><img src="${detail.product.imageUrl}" alt="Product Image" class="avatar-img"></td>
+                <td><img src="${detail.product.image}" alt="Product Image" class="avatar-img"></td>
                 <td>${detail.quantity}</td>
                 <td>${formattedUnitPrice}</td>
                 <td>${formattedTotalPrice}</td>

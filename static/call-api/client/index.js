@@ -53,18 +53,18 @@
 
             const productHTML = `
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-items mb-20">
-                        <div class="items-img">
-                            <img src="${thumbnail}" alt="${productName}">
-                        </div>
-                        <div class="items-details">
-                            <h4><a href="product-details.php?id=${productId}">${productName}</a></h4>
-                            <p>${formattedPrice}</p>
-                            <a href="product-details.php?id=${productId}" class="browse-btn">Shop Now</a>
-                            <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productId})">Add to Cart</a>
+                        <div class="single-items mb-20">
+                            <div class="items-img">
+                                <img src="${thumbnail}" alt="${productName}" class="cart-product-image">
+                            </div>
+                            <div class="items-details">
+                                <h4><a href="product-details.php?id=${productId}">${productName}</a></h4>
+                                <p>${formattedPrice}</p>
+                                <a href="product-details.php?id=${productId}" class="browse-btn">Shop Now</a>
+                                <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productId})">Add to Cart</a>
+                            </div>
                         </div>
                     </div>
-                </div>
             `;
 
             productsContainer.insertAdjacentHTML('beforeend', productHTML);
@@ -83,8 +83,11 @@
             trendingContainer.innerHTML = "<p class='text-center'>Không có sản phẩm nào để hiển thị.</p>";
             return;
         }
-
-        products.forEach(productSale => {
+        const productSale1 = [];
+        productSale1[0]=products[0];
+        productSale1[1]=products[1];
+        productSale1[2]=products[2];
+        productSale1.forEach(productSale => {
             const product = productSale.product;
             const productId = productSale.id;
             const productName = product.name || 'Tên sản phẩm';
@@ -98,7 +101,7 @@
                     <div class="properties-card">
                         <div class="properties-img">
                             <a href="product-details.php?id=${productId}">
-                                <img src="${(thumbnail)}" alt="${productName}" style="max-width: 100%; max-height: 100%;">
+                                <img src="${(thumbnail)}" alt="${productName}" style="max-width: 100%; max-height: 100%; width: 350px;height: 300px;">
                             </a>
                             <div class="socal_icon">
                                 <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productId})"><i class="ti-shopping-cart"></i></a>
@@ -147,7 +150,7 @@
                     <div class="properties-card">
                         <div class="properties-img">
                             <a href="product-details.php?id=${productId}">
-                                <img src="${(thumbnail)}" alt="${productName}" style="max-width: 100%; max-height: 100%;">
+                                <img src="${(thumbnail)}" alt="${productName}" style="max-width: 100%; max-height: 100%; width: 350px;height: 300px;">
                             </a>
 
                             <div class="socal_icon">

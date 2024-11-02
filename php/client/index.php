@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css"> <!-- Nice Select CSS -->
     <link rel="stylesheet" href="../../static/client_assets/css/style.css"> <!-- Main Style CSS -->
 
-    <script src="../../static/call-api/client/index.js"></script>
     <style>
         .add-to-cart-link {
             display: inline-block;
@@ -38,6 +37,30 @@
         .add-to-cart-link:hover {
             background-color: #45a049; /* Darker green on hover */
         }
+        .cart-product-image {
+    /* Các thuộc tính trước đó */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.items-img {
+    position: relative;
+}
+
+.items-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.items-img:hover::after {
+    opacity: 1;
+}
+
     </style>
 </head>
 <body>
@@ -161,14 +184,12 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8  col-sm-10">
-                            <div class="hero-caption text-center">
-                                <span>Fashion Sale</span>
-                                <h1 data-animation="bounceIn" data-delay="0.2s">Minimal Menz Style</h1>
-                                <p data-animation="fadeInUp" data-delay="0.4s">Consectetur adipisicing elit. Laborum
-                                    fuga incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                    earum.</p>
-                                <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
-                            </div>
+                        <div class="hero-caption text-center">
+                            <span>Book Sale</span>
+                            <h1 data-animation="bounceIn" data-delay="0.2s">Discover Your Next Read</h1>
+                            <p data-animation="fadeInUp" data-delay="0.4s">Explore a wide selection of books that will inspire, educate, and entertain. Find the perfect book for every moment.</p>
+                            <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Browse Books</a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -179,14 +200,12 @@
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
-                            <div class="hero-caption text-center">
-                                <span>Fashion Sale</span>
-                                <h1 data-animation="bounceIn" data-delay="0.2s">Minimal Menz Style</h1>
-                                <p data-animation="fadeInUp" data-delay="0.4s">Consectetur adipisicing elit. Laborum
-                                    fuga incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                    earum.</p>
-                                <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Now</a>
-                            </div>
+                        <div class="hero-caption text-center">
+                            <span>Bookstore Exclusive</span>
+                            <h1 data-animation="bounceIn" data-delay="0.2s">Your Next Great Read Awaits</h1>
+                            <p data-animation="fadeInUp" data-delay="0.4s">Discover captivating stories, insightful guides, and inspiring reads across all genres. Dive into the world of books today.</p>
+                            <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Books</a>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -271,24 +290,23 @@
                     <div class="h1-testimonial-active">
 
                         <div class="single-testimonial text-center">
-                            <div class="testimonial-caption ">
-                                <div class="testimonial-top-cap">
-                                    <h2>Customer Testimonial</h2>
-                                    <p>Everybody is different, which is why we offer styles for every body. Laborum fuga
-                                        incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                        earum.</p>
-                                </div>
+                        <div class="testimonial-caption">
+                            <div class="testimonial-top-cap">
+                                <h2>Reader Testimonials</h2>
+                                <p>Books have the power to transform, inspire, and entertain. Hear from our readers about their favorite reads and how our collection has enriched their lives.</p>
+                            </div>
 
-                                <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                    <div class="founder-img">
-                                        <img src="../../static/client_assets/img/gallery/founder-img.png" alt="Founder Image">
-                                    </div>
-                                    <div class="founder-text">
-                                        <span>Petey Cruiser</span>
-                                        <p>Designer at Colorlib</p>
-                                    </div>
+                            <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                                <div class="founder-img">
+                                    <img src="../../static/client_assets/img/gallery/founder-img.png" alt="Reader Image">
+                                </div>
+                                <div class="founder-text">
+                                    <span>Emma Williams</span>
+                                    <p>Avid Reader & Book Enthusiast</p>
                                 </div>
                             </div>
+                        </div>
+
                         </div>
 
                         <div class="single-testimonial text-center">
@@ -441,6 +459,8 @@
 <script src="../../static/client_assets/js/main.js"></script> <!-- Main JS: Custom JavaScript for the site -->
 <script src="../../static/client_assets/js/jquery-3.7.1.min.js"></script> <!-- jQuery 3.7.1 -->
 <script src="../../static/client_assets/js/axios.min.js"></script> <!-- Axios: Promise based HTTP client -->
+
+<script src="../../static/call-api/client/index.js"></script>
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>

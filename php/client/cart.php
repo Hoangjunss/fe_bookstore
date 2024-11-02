@@ -206,7 +206,7 @@
           </div>
           <div class="row">
             <div class="col-md-12 text-right">
-                <a href="checkout.html" class="btn btn-primary">Đặt hàng</a>
+                <a href="checkout.php" class="btn btn-primary">Đặt hàng</a>
             </div>
           </div>
         </div>
