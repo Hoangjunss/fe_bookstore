@@ -105,7 +105,7 @@
         document.querySelectorAll('.edit-button').forEach(button => {
             button.addEventListener('click', function () {
                 const employeeId = this.getAttribute('data-id');
-                window.location.href = `edit-employee.html?id=${employeeId}`;
+                window.location.href = `update-employee.php?id=${employeeId}`;
             });
         });
 

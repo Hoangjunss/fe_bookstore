@@ -18,6 +18,7 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+
     <style>
         .btn-success a {
             color: white;
@@ -340,9 +341,8 @@
                                 <tr>
                                     <th style="width: 100px;">ID</th>
                                     <th style="width: 300px;">Tên loại sản phẩm</th>
-                                    <th>Số sản phẩm</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Trạng thái</th>
+                                    <th>Tổng số sản phẩm</th>
+                                    <th>Số sản phẩm đang bán</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
@@ -502,6 +502,9 @@
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
+
+<script src="../../../static/call-api/admin/category/list-category.js"></script>
+
 
 <!-- Axios JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"

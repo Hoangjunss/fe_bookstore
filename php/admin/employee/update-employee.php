@@ -2,36 +2,38 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách nhà cung cấp</title>
+    <title>Cập Nhật Nhân Viên</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
-    <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
 
-    <!-- Third party CSS -->
-    <link href="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css"/>
-    <link href="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
-
     <!-- App CSS -->
+    <link href="../../../static/assets_admin/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
 
     <style>
-        .btn-success a {
-            color: white;
+        .form-group img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        /* Thêm style cho thông báo lỗi */
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+
+        /* Style nút trở lại danh sách */
+        .btn-light a {
+            color: inherit;
             text-decoration: none;
         }
-        .btn-warning, .btn-danger {
-            margin-right: 5px;
-        }
-        .pagination li a {
-            cursor: pointer;
-        }
+
+        /* Style cho thông báo thành công hoặc lỗi */
         .notification {
             position: fixed;
             top: 20px;
@@ -245,7 +247,7 @@
     <!-- end Topbar -->
 
 
-    <!-- ========== Left Sidebar Start ========== -->
+    <!-- Left Sidebar Start -->
     <div class="left-side-menu">
 
         <div class="slimscroll-menu">
@@ -265,7 +267,7 @@
                     </li>
 
                     <li>
-                        <a href="../user/list-user.php">
+                        <a href="#">
                             <i class="fe-briefcase"></i>
                             Quản lý nhân viên
                         </a>
@@ -290,7 +292,7 @@
                     </li>
 
                     <li>
-                        <a href="#">
+                        <a href="../supply/list-supply.php">
                             <i class="fe-layout"></i>
                             Quản lý nhà cung cấp
                         </a>
@@ -308,15 +310,13 @@
     </div>
     <!-- Left Sidebar End -->
 
-    <!-- ============================================================== -->
     <!-- Start Page Content here -->
-    <!-- ============================================================== -->
-
     <div class="content-page">
         <div class="content">
 
             <!-- Start Content-->
             <div class="container-fluid">
+
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -324,11 +324,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Nhà cung cấp</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Nhà Cung Cấp</li>
+                                    <li class="breadcrumb-item"><a href="#">Nhân viên</a></li>
+                                    <li class="breadcrumb-item active">Cập Nhật Nhân viên</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Danh Sách Nhà Cung Cấp</h4>
+                            <h4 class="page-title">Cập Nhật Thông Tin Nhân Viên</h4>
                         </div>
                     </div>
                 </div>
@@ -336,72 +336,82 @@
 
 
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card-box table-responsive">
+                    <div class="col-lg">
+                        <div class="card-box">
+                            <form id="updateEmployeeForm" class="parsley-examples" novalidate>
+                                <!-- Hidden field để lưu ID nhân viên -->
+                                <input type="hidden" name="id" id="id" value="">
 
-                            <!-- Nút Thêm Mới Nhà Cung Cấp -->
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-success">
-                                    <a href="insert-supply.html" style="color: white; text-decoration: none;">Thêm nhà cung cấp</a>
-                                </button>
-                            </div>
+                                <div class="form-group">
+                                    <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" required
+                                           placeholder="Nhập tên đăng nhập" name="username" id="username"/>
+                                    <div class="error-message" id="error-username"></div>
+                                </div>
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <form id="searchForm">
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-3">
-                                            <label for="title">Tên Nhà Cung Cấp:</label>
-                                            <input type="text" class="form-control" id="title" placeholder="Nhập tên nhà cung cấp">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="categoryId">ID Category:</label>
-                                            <input type="number" class="form-control" id="categoryId" placeholder="Nhập ID category">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleStartPrice">Giá Bắt Đầu:</label>
-                                            <input type="number" class="form-control" id="saleStartPrice" placeholder="Nhập giá bắt đầu">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleEndPrice">Giá Kết Thúc:</label>
-                                            <input type="number" class="form-control" id="saleEndPrice" placeholder="Nhập giá kết thúc">
-                                        </div>
+                                <div class="form-group">
+                                    <label for="email">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" required
+                                           placeholder="Nhập email" name="email" id="email"/>
+                                    <div class="error-message" id="error-email"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fullname">Họ và tên <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" required
+                                           placeholder="Nhập họ và tên" name="fullname" id="fullname"/>
+                                    <div class="error-message" id="error-fullname"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="role">Chức vụ <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="role" name="role" required>
+                                        <option value="">-- Chọn chức vụ --</option>
+                                        <!-- Các tùy chọn chức vụ sẽ được thêm vào đây bằng JavaScript -->
+                                    </select>
+                                    <div class="error-message" id="error-role"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="status">Trạng thái <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="status" name="status" required>
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option value="true">ACTIVE</option>
+                                        <option value="false">INACTIVE</option>
+                                    </select>
+                                    <div class="error-message" id="error-status"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Mật khẩu</label>
+                                    <input type="password" class="form-control"
+                                           placeholder="Nhập mật khẩu mới nếu muốn thay đổi" name="password" id="password"/>
+                                    <div class="error-message" id="error-password"></div>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                    <div>
+                                        <button type="submit" class="btn btn-gradient waves-effect waves-light">
+                                            Lưu thay đổi
+                                        </button>
+                                        <button type="reset" class="btn btn-light waves-effect ml-1">
+                                            <a href="list-employee.php">Danh sách nhân viên</a>
+                                        </button>
                                     </div>
-                                    <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                                </form>
-                            </div>
+                                </div>
 
-                            <!-- Container Cho Thông Báo -->
-                            <div id="notification-container" class="notification-container"></div>
-
-                            <!-- Bảng Danh Sách Nhà Cung Cấp -->
-                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên Nhà Cung Cấp</th>
-                                        <th>Địa Chỉ (SĐT)</th>
-                                        <th>Số Điện Thoại</th>
-                                        <th>Trạng Thái</th>
-                                        <th>Hành Động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
-
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Phân trang sẽ được chèn qua JavaScript -->
-                                </ul>
-                            </nav>
-
+                                <!-- Thông báo lỗi chung -->
+                                <div class="form-group mt-3">
+                                    <div class="error-message" id="error-message"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
+
                 </div>
                 <!-- end row -->
+
+
             </div> <!-- end container-fluid -->
 
         </div> <!-- end content -->
@@ -412,7 +422,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2023 &copy; Abstack theme by <a href="">Coderthemes</a>
+                        2023 &copy; Dashboard theme by <a href="">SWP391</a>
                     </div>
 
                 </div>
@@ -422,98 +432,15 @@
 
     </div>
 
-    <!-- ============================================================== -->
     <!-- End Page content -->
-    <!-- ============================================================== -->
 
 </div>
 <!-- END wrapper -->
 
 <!-- Right Sidebar -->
 <div class="right-bar">
-    <div class="rightbar-title">
-        <a href="javascript:void(0);" class="right-bar-toggle float-right">
-            <i class="mdi mdi-close"></i>
-        </a>
-        <h5 class="m-0 text-white">Settings</h5>
-    </div>
-    <div class="slimscroll-menu">
-        <hr class="mt-0">
-        <h5 class="pl-3">Basic Settings</h5>
-        <hr class="mb-0"/>
-
-
-        <div class="p-3">
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                <label class="custom-control-label" for="customCheck1">Notifications</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck2" checked>
-                <label class="custom-control-label" for="customCheck2">API Access</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                <label class="custom-control-label" for="customCheck3">Auto Updates</label>
-            </div>
-            <div class="custom-control custom-checkbox mb-2">
-                <input type="checkbox" class="custom-control-input" id="customCheck4" checked>
-                <label class="custom-control-label" for="customCheck4">Online Status</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="customCheck5">
-                <label class="custom-control-label" for="customCheck5">Auto Payout</label>
-            </div>
-        </div>
-
-        <!-- Messages -->
-        <hr class="mt-0"/>
-        <h5 class="pl-3 pr-3">Messages <span class="float-right badge badge-pill badge-danger">24</span></h5>
-        <hr class="mb-0"/>
-        <div class="p-3">
-            <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
-            </div> <!-- end inbox-widget -->
-        </div> <!-- end .p-3-->
-
-    </div> <!-- end slimscroll-menu-->
+    <!-- Right Sidebar content... (giống như trang insert-employee.html) -->
+    <!-- ... -->
 </div>
 <!-- /Right-bar -->
 
@@ -523,31 +450,21 @@
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
-<!-- Required datatable js -->
-<script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.min.js"></script>
-<script src="../../../static/assets_admin/libs/jszip/jszip.min.js"></script>
-<script src="../../../static/assets_admin/libs/pdfmake/pdfmake.min.js"></script>
-<script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
-<!-- Responsive examples -->
-<script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+<!-- Plugin JS-->
+<script src="../../../static/assets_admin/assets/libs/parsleyjs/parsley.min.js"></script>
 
-<!-- Datatables init -->
-<script src="../../../static/assets_admin/js/pages/datatables.init.js"></script>
-
+<!-- Validation init JS-->
+<script src="../../../static/assets_admin/assets/js/pages/form-validation.init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- Axios JS -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<script src="../../../static/call-api/admin/supply/list-supply.js"></script>
+<script src="../../../static/call-api/admin/employee/update-employee.js" defer></script>
 
 
 </body>

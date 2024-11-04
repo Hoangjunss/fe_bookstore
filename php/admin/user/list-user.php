@@ -20,7 +20,6 @@
 
     <script src="../../../static/call-api/admin/user/list-user.js"></script>
 
-
     <style>
         .btn-success a, .btn-light a {
             color: inherit;
@@ -340,22 +339,20 @@
                             </div>
 
                             <!-- Bảng Danh Sách User -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Avatar</th>
-                                    <th>Email</th>
-                                    <th>Số feedback</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Avatar</th>
+                                        <th>Email</th>
+                                        <th>Số feedback</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái</th>
+                                        <th>Hành động</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                    <!-- Nội dung bảng sẽ được chèn qua DataTables -->
                                 </tbody>
                             </table>
                             <!-- Phân Trang -->

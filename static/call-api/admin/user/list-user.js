@@ -38,7 +38,10 @@
 
             let data = await response.json();
             console.log(data);
+            let noData = document.querySelector('.dataTables_empty');
+            noData.style.display='none';
 
+            
             let users = data.content; // Giả sử backend trả về { content: [...], totalPages: X, number: Y }
             users.forEach(user => {
                 let avatarUrl = user.avatar ? user.avatar : '../../../static/assets_admin/images/users/default-avatar.png';
@@ -56,18 +59,21 @@
                     <td>${feedbackCount}</td>
                     <td>${formattedDate}</td>
                     <td>
-                        <select class="form-control status-select" data-user-id="${user.id}">
-                            <option value="ACTIVE" ${user.status === 'ACTIVE' ? 'selected' : ''}>ACTIVE</option>
-                            <option value="INACTIVE" ${user.status === 'INACTIVE' ? 'selected' : ''}>INACTIVE</option>
-                        </select>
+                    ${user.status ? 'Hoạt đông' : 'Đã khóa'}
                     </td>
                     <td>
-                        <button class="btn btn-warning btn-sm edit-button" data-user-id="${user.id}">Sửa</button>
-                        <button class="btn btn-danger btn-sm delete-button" data-user-id="${user.id}">Xóa</button>
+                        <button class="btn btn-warning btn-sm edit-button" data-user-id="${user.id}">Thay đổi trạng thái</button>
                     </td>
                 `;
 
                 bodyTable.appendChild(row);
+
+                document.querySelectorAll('.edit-button').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const employeeId = this.getAttribute('data-id');
+                        //window.location.href = `update-employee.php?id=${employeeId}`;
+                    });
+                });
             });
 
             // Phân trang
