@@ -2,9 +2,9 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Danh sách nhà cung cấp</title>
+    <title>Danh sách sản phẩm trong kho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
+    <meta content="Quản lý sản phẩm trong kho cho cửa hàng" name="description"/>
     <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
@@ -258,41 +258,33 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.php">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../user/list-user.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý nhân viên
+                        <a href="../order/list-order.php">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
                         </a>
                     </li>
                     <li>
-                        <a href="../user/list-user.php">
-                            <i class="fas fa-user"></i>
-                            Quản lý khách hàng
+                        <a href="../productsale/list-productsale.php">
+                            <i class="fe-tag"></i>
+                            Quản lý sản phẩm bán
                         </a>
                     </li>
-                    <li>
-                        <a href="../category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
-                        </a>
-                    </li>
-
                     <li>
                         <a href="#">
-                            <i class="fe-layout"></i>
-                            Quản lý nhà cung cấp
+                            <i class="fe-archive"></i>
+                            Quản lý kho hàng 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../warehouse/list-warehousereceipt.php">
+                            <i class="fe-file-plus"></i>
+                            Quản lý phiếu nhập 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../voucher/list-voucher.php">
+                            <i class="fe-percent"></i>
+                            Quản lý Voucher
                         </a>
                     </li>
                 </ul>
@@ -313,96 +305,109 @@
     <!-- ============================================================== -->
 
     <div class="content-page">
-        <div class="content">
+            <div class="content">
 
-            <!-- Start Content-->
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Nhà cung cấp</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Nhà Cung Cấp</li>
-                                </ol>
-                            </div>
-                            <h4 class="page-title">Danh Sách Nhà Cung Cấp</h4>
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="#">Phiếu Nhập</a></li>
+                                <li class="breadcrumb-item active">Tạo Phiếu Nhập</li>
+                            </ol>
                         </div>
+                        <h4 class="page-title">Tạo Phiếu Nhập Hàng</h4>
                     </div>
                 </div>
-                <!-- end page title -->
+            </div>
+            <!-- end page title -->
 
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box table-responsive">
-
-                            <!-- Nút Thêm Mới Nhà Cung Cấp -->
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-success">
-                                    <a href="insert-supply.php" style="color: white; text-decoration: none;">Thêm nhà cung cấp</a>
-                                </button>
+            <div class="row">
+                <div class="col-lg">
+                    <div class="card-box">
+                        <form id="myForm" data-parsley-validate>
+                            <!-- Chọn Nhà Cung Cấp -->
+                            <div class="form-group">
+                                <label for="supply">Nhà Cung Cấp <span class="text-danger">*</span></label>
+                                <select class="form-control" id="supply" name="supply" required>
+                                    <option value="">-- Chọn nhà cung cấp --</option>
+                                    <!-- Các nhà cung cấp sẽ được tải từ backend -->
+                                </select>
+                                <div class="error-message" id="error-supply"></div>
                             </div>
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <form id="searchForm">
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-3">
-                                            <label for="title">Tên Nhà Cung Cấp:</label>
-                                            <input type="text" class="form-control" id="title" placeholder="Nhập tên nhà cung cấp">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="categoryId">ID Category:</label>
-                                            <input type="number" class="form-control" id="categoryId" placeholder="Nhập ID category">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleStartPrice">Giá Bắt Đầu:</label>
-                                            <input type="number" class="form-control" id="saleStartPrice" placeholder="Nhập giá bắt đầu">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleEndPrice">Giá Kết Thúc:</label>
-                                            <input type="number" class="form-control" id="saleEndPrice" placeholder="Nhập giá kết thúc">
-                                        </div>
-                                    </div>
-                                    <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                                </form>
+                            <!-- Ngày Nhập -->
+                            <div class="form-group">
+                                <label for="date">Ngày Nhập <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" required
+                                    name="date" id="date"/>
+                                <div class="error-message" id="error-date"></div>
                             </div>
 
-                            <!-- Container Cho Thông Báo -->
-                            <div id="notification-container" class="notification-container"></div>
+                            <!-- Thêm Sản Phẩm -->
+                            <div class="form-group">
+                                <label for="product-search">Tìm Kiếm Sản Phẩm</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên sản phẩm để tìm kiếm" id="product-search" />
+                                <div id="product-list" class="list-group"></div>
+                            </div>
 
-                            <!-- Bảng Danh Sách Nhà Cung Cấp -->
-                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên Nhà Cung Cấp</th>
-                                        <th>Địa Chỉ (SĐT)</th>
-                                        <th>Số Điện Thoại</th>
-                                        <th>Trạng Thái</th>
-                                        <th>Hành Động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
+                            <!-- Bảng Danh Sách Sản Phẩm Thêm Vào Phiếu Nhập -->
+                            <div class="form-group">
+                                <label>Sản Phẩm</label>
+                                <table class="table table-bordered product-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản Phẩm</th>
+                                            <th>Số Lượng</th>
+                                            <th>Giá Đơn Vị (VND)</th>
+                                            <th>Tổng Giá (VND)</th>
+                                            <th>Hành Động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="product-table-body">
+                                        <!-- Các sản phẩm thêm vào sẽ hiển thị ở đây -->
+                                    </tbody>
+                                </table>
+                                <div class="error-message" id="error-products"></div>
+                            </div>
 
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Phân trang sẽ được chèn qua JavaScript -->
-                                </ul>
-                            </nav>
+                            <!-- Tổng Giá -->
+                            <div class="form-group">
+                                <label for="total-price">Tổng Giá (VND)</label>
+                                <input type="text" class="form-control" id="total-price" name="totalPrice" readonly value="0 VND"/>
+                            </div>
 
-                        </div>
+                            <!-- Thông báo lỗi chung -->
+                            <div class="form-group mt-3">
+                                <div class="error-message" id="error-message"></div>
+                            </div>
+
+                            <!-- Nút submit và reset -->
+                            <div class="form-group mb-0">
+                                <div>
+                                    <button type="submit" class="btn btn-gradient waves-effect waves-light">
+                                        Tạo Phiếu Nhập
+                                    </button>
+                                    <button type="reset" class="btn btn-light waves-effect ml-1">
+                                        <a href="list-warehouse-receipt.html">Danh sách phiếu nhập</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!-- end row -->
-            </div> <!-- end container-fluid -->
+
+            </div>
+            <!-- end row -->
+
+
+        </div> <!-- end container-fluid -->
 
         </div> <!-- end content -->
 
@@ -412,7 +417,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2023 &copy; Abstack theme by <a href="">Coderthemes</a>
+                        2023 &copy; Dashboard theme by <a href="">SWP391</a>
                     </div>
 
                 </div>
@@ -472,44 +477,7 @@
         <hr class="mb-0"/>
         <div class="p-3">
             <div class="inbox-widget">
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-1.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Chadengle</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">13:40 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-2.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Tomaslau</a></p>
-                    <p class="inbox-item-text">I've finished it! See you so...</p>
-                    <p class="inbox-item-date">13:34 PM</p>
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-3.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Stillnotdavid</a></p>
-                    <p class="inbox-item-text">This theme is awesome!</p>
-                    <p class="inbox-item-date">13:17 PM</p>
-                </div>
-
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-4.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Kurafire</a></p>
-                    <p class="inbox-item-text">Nice to meet you</p>
-                    <p class="inbox-item-date">12:20 PM</p>
-
-                </div>
-                <div class="inbox-item">
-                    <div class="inbox-item-img"><img src="../../../static/assets_admin/images/users/avatar-5.jpg"
-                                                     class="rounded-circle" alt=""></div>
-                    <p class="inbox-item-author"><a href="javascript: void(0);">Shahedk</a></p>
-                    <p class="inbox-item-text">Hey! there I'm available...</p>
-                    <p class="inbox-item-date">10:15 AM</p>
-
-                </div>
+                <!-- Inbox items... -->
             </div> <!-- end inbox-widget -->
         </div> <!-- end .p-3-->
 
@@ -547,7 +515,7 @@
 <!-- Axios JS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script src="../../../static/call-api/admin/supply/list-supply.js"></script>
+<script src="../../../static/call-api/employee/warehouse/create-warehouse-receipt.js"></script>
 
 
 </body>

@@ -14,7 +14,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
 
     <style>
         .form-group img {
@@ -342,7 +341,7 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form id="myForm" class="parsley-examples" novalidate>
+                        <form id="myForm" class="parsley-examples" novalidate>
                                 <div class="form-group">
                                     <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
@@ -364,15 +363,39 @@
                                     <div class="error-message" id="error-fullname"></div>
                                 </div>
 
+                                <!-- Thêm trường password -->
                                 <div class="form-group">
-                                    <label for="role">Chức vụ <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="role" name="role" required>
-                                        <option value="">-- Chọn chức vụ --</option>
-                                        <!-- Các tùy chọn chức vụ sẽ được thêm vào đây bằng JavaScript -->
-                                    </select>
+                                    <label for="password">Mật khẩu <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" required
+                                           placeholder="Nhập mật khẩu" name="password" id="password"/>
+                                    <div class="error-message" id="error-password"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="reenter-password">Nhập lại Mật khẩu <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" required
+                                           placeholder="Nhập mật khẩu" name="reenter-password" id="reenter-password"/>
+                                    <div class="error-message" id="error-reenter-password"></div>
+                                </div>
+
+                                <!-- Đặt role là "employee" cố định và ẩn trường -->
+                                <div class="form-group" style="display: none;">
+                                    <label for="role">Chức vụ</label>
+                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
                                     <div class="error-message" id="error-role"></div>
                                 </div>
 
+                                <!-- Nếu bạn vẫn muốn giữ trường role không ẩn, có thể để nó ở dạng read-only -->
+                                <!--
+                                <div class="form-group">
+                                    <label for="role">Chức vụ</label>
+                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
+                                    <div class="error-message" id="error-role"></div>
+                                </div>
+                                -->
+
+                                <!-- Loại bỏ trường status nếu không cần -->
+                                <!--
                                 <div class="form-group">
                                     <label for="status">Trạng thái <span class="text-danger">*</span></label>
                                     <select class="form-control" id="status" name="status" required>
@@ -382,6 +405,7 @@
                                     </select>
                                     <div class="error-message" id="error-status"></div>
                                 </div>
+                                -->
 
                                 <div class="form-group mb-0">
                                     <div>
@@ -503,6 +527,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
+
+<script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
 
 
 </body>

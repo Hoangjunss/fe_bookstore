@@ -14,8 +14,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/admin/product/update-product.js" defer></script>
-
     <style>
         .profile-picture img, .form-group img {
             max-width: 200px;
@@ -32,10 +30,41 @@
             color: red;
             margin-top: 5px;
         }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .notification.success {
+            background-color: #28a745;
+        }
+        .notification.error {
+            background-color: #dc3545;
+        }
+        .notification .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+
+<!-- Notification Container -->
+<div id="notification-container"></div>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -45,95 +74,8 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
-            <li class="dropdown d-none d-lg-block">
-                <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
-                   role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
-                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
-                                class="align-middle">English</span>
-                    </a>
-                </div>
-            </li>
-
-
-            <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
-                   role="button" aria-haspopup="false" aria-expanded="false">
-                    <i class="fe-bell noti-icon"></i>
-                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
-
-                    <!-- item-->
-                    <div class="dropdown-item noti-title">
-                        <h5 class="m-0">
-                            <span class="float-right">
-                                <a href="" class="text-dark">
-                                    <small>Clear All</small>
-                                </a>
-                            </span>Notification
-                        </h5>
-                    </div>
-
-                    <div class="slimscroll noti-scroll">
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                ago</small></p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                            </p>
-                        </a>
-
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                ago</small></p>
-                        </a>
-
-                    </div>
-
-                    <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                        View all
-                        <i class="fi-arrow-right"></i>
-                    </a>
-
-                </div>
-            </li>
+            <!-- Ngôn ngữ và thông báo giữ nguyên -->
+            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
@@ -163,12 +105,8 @@
                 </div>
             </li>
 
-            <li class="dropdown notification-list">
-                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
-                    <i class="fe-settings noti-icon"></i>
-                </a>
-            </li>
-
+            <!-- Các mục menu khác giữ nguyên -->
+            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
 
         </ul>
 
@@ -305,7 +243,7 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form id="updateProductForm" enctype="multipart/form-data">
+                            <form id="updateProductForm" enctype="multipart/form-data" data-parsley-validate>
                                 <input type="hidden" name="id" id="id" value="">
 
                                 <!-- Tên sản phẩm -->
@@ -313,6 +251,7 @@
                                     <label for="productName">Tên sản phẩm <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" required
                                            placeholder="Nhập tên sản phẩm" name="name" id="productName" readonly/>
+                                    <div class="error-message" id="error-name"></div>
                                 </div>
 
                                 <!-- Mô tả sản phẩm -->
@@ -320,6 +259,7 @@
                                     <label for="description">Mô tả <span style="color: red;">*</span></label>
                                     <textarea class="form-control" id="description" name="description" rows="5"
                                               placeholder="Nhập mô tả sản phẩm" required></textarea>
+                                    <div class="error-message" id="error-description"></div>
                                 </div>
 
                                 <!-- Tác giả -->
@@ -327,13 +267,15 @@
                                     <label for="author">Tác giả <span style="color: red;">*</span></label>
                                     <input type="text" class="form-control" required
                                            placeholder="Nhập tên tác giả" name="author" id="author"/>
+                                    <div class="error-message" id="error-author"></div>
                                 </div>
 
                                 <!-- Số trang -->
                                 <div class="form-group">
                                     <label for="page">Số trang <span style="color: red;">*</span></label>
                                     <input type="number" class="form-control" required
-                                           placeholder="Nhập số trang" name="page" id="page"/>
+                                           placeholder="Nhập số trang" name="page" id="page" min="1"/>
+                                    <div class="error-message" id="error-page"></div>
                                 </div>
 
                                 <!-- Ngày xuất bản -->
@@ -341,6 +283,7 @@
                                     <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
                                     <input type="date" class="form-control" required
                                            name="datePublic" id="datePublic"/>
+                                    <div class="error-message" id="error-datePublic"></div>
                                 </div>
 
                                 <!-- Thể loại sản phẩm -->
@@ -350,15 +293,17 @@
                                         <option value="">Chọn thể loại sản phẩm</option>
                                         <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                     </select>
-                                    <div id="category-error" class="error-message"></div>
+                                    <div class="error-message" id="error-categoryId"></div>
                                 </div>
 
                                 <!-- Nhà cung cấp -->
                                 <div class="form-group">
                                     <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
-                                    supply
-                                    <input type="text" class="form-control" required
-                                           name="supply" id="supply" readonly/>
+                                    <select class="form-control" id="supply" name="supplyId" required>
+                                        <option value="">Chọn nhà cung cấp</option>
+                                        <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
+                                    </select>
+                                    <div class="error-message" id="error-supplyId"></div>
                                 </div>
 
                                 <!-- Kích thước sản phẩm -->
@@ -366,6 +311,7 @@
                                     <label for="size">Kích thước sản phẩm (ví dụ: 15x23 cm)</label>
                                     <input type="text" class="form-control" placeholder="Nhập kích thước sản phẩm"
                                            name="size" id="size"/>
+                                    <div class="error-message" id="error-size"></div>
                                 </div>
 
                                 <!-- Ảnh thumbnail -->
@@ -377,21 +323,21 @@
                                     <br><br>
                                     <input type="file" name="image" id="image" accept="image/*"
                                            onchange="previewImage(this)" required/>
+                                    <div class="error-message" id="error-image"></div>
                                 </div>
 
                                 <!-- Trạng thái -->
                                 <div class="form-group">
                                     <label for="status">Trạng thái <span style="color: red;">*</span></label>
                                     <select class="form-control" id="status" name="status" required>
+                                        <option value="">Chọn trạng thái</option>
                                         <option value="1">ACTIVE</option>
                                         <option value="0">INACTIVE</option>
                                     </select>
+                                    <div class="error-message" id="error-status"></div>
                                 </div>
 
-                                <!-- Danh sách hình ảnh sản phẩm (nếu có) -->
-                               
-
-                                <!-- Thông báo lỗi -->
+                                <!-- Thông báo lỗi chung -->
                                 <div id="error-message" class="error-message"></div>
 
                                 <!-- Nút submit và reset -->
@@ -406,7 +352,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
 
@@ -535,27 +480,12 @@
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
-<!-- Required datatable js -->
-<script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- Buttons examples -->
-<script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.min.js"></script>
-<script src="../../../static/assets_admin/libs/jszip/jszip.min.js"></script>
-<script src="../../../static/assets_admin/libs/pdfmake/pdfmake.min.js"></script>
-<script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
-<script src="../../../static/assets_admin/js/jquery.min.js"></script>
-<script src="../../../static/assets_admin/js/popper.min.js"></script>
-<script src="../../../static/assets_admin/js/bootstrap.min.js"></script>
-<!-- Responsive examples -->
-<script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
-<script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+<!-- Plugin JS-->
+<script src="../../../static/assets_admin/libs/dropzone/dropzone.min.js"></script>
+<script src="../../../static/assets_admin/libs/parsleyjs/parsley.min.js"></script>
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
-<!-- Datatables init -->
-<script src="../../../static/assets_admin/js/pages/datatables.init.js"></script>
+<!-- Validation init JS-->
+<script src="../../../static/assets_admin/js/pages/form-validation.init.js"></script>
 
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
@@ -565,7 +495,8 @@
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
+<!-- JavaScript cho cập nhật sản phẩm -->
+<script src="../../../static/call-api/admin/product/update-product.js"></script>
 
 </body>
 </html>

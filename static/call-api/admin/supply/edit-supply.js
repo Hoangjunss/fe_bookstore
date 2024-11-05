@@ -31,8 +31,36 @@ function showNotification(message, type) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Lấy tham số 'id' từ URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const supplyId = urlParams.get('id');
+
+    if (!supplyId) {
+        showNotification('Không tìm thấy ID của nhà cung cấp.', 'error');
+        return;
+    }
+
     // Khởi tạo Parsley cho form
     $('#myForm').parsley();
+
+    // Hàm để lấy dữ liệu nhà cung cấp và populate vào form
+    async function fetchSupplyData(id) {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/supplies/id?id=${id}`);
+            const supply = response.data;
+
+            document.getElementById('name').value = supply.name;
+            document.getElementById('address').value = supply.addressDTO.address;
+            document.getElementById('phone').value = supply.addressDTO.phone;
+            document.getElementById('status').value = supply.status.toString();
+        } catch (error) {
+            console.error(error);
+            showNotification('Có lỗi xảy ra khi lấy thông tin nhà cung cấp.', 'error');
+        }
+    }
+
+    // Gọi hàm lấy dữ liệu khi trang được tải
+    fetchSupplyData(supplyId);
 
     // Xử lý submit form
     document.getElementById('myForm').addEventListener('submit', async function (e) {
@@ -84,30 +112,29 @@ document.addEventListener('DOMContentLoaded', function () {
             return; // Dừng việc gửi form nếu có lỗi
         }
 
-        // Tạo đối tượng SupplyCreateDTO
-        const supplyCreateDTO = {
+        // Tạo đối tượng SupplyDTO
+        const supplyDTO = {
+            id: parseInt(supplyId),
             name: name,
-            addressCreateDTO: {
+            addressDTO: {
+                id: null, // Do mỗi supply có địa chỉ riêng, bạn có thể để null hoặc bỏ qua
                 address: address,
                 phone: phone
             },
+            status: status === "true"
         };
 
-        console.log(supplyCreateDTO);
-
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/supplies', supplyCreateDTO, {
+            const response = await axios.put(`http://localhost:8080/api/v1/supplies/${supplyId}`, supplyDTO, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             if (response.status === 200 || response.status === 201) {
-                showNotification('Thêm nhà cung cấp thành công!', 'success');
-                // Reset form sau khi thêm thành công
-                document.getElementById('myForm').reset();
+                showNotification('Chỉnh sửa nhà cung cấp thành công!', 'success');
             } else {
-                throw new Error('Thêm nhà cung cấp thất bại.');
+                throw new Error('Chỉnh sửa nhà cung cấp thất bại.');
             }
         } catch (error) {
             console.error(error);
@@ -124,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             } else {
-                showNotification('Thêm nhà cung cấp thất bại. Vui lòng thử lại.', 'error');
+                showNotification('Chỉnh sửa nhà cung cấp thất bại. Vui lòng thử lại.', 'error');
             }
         }
     });

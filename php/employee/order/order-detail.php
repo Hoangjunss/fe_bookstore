@@ -233,35 +233,33 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.php">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../user/list-user.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý user
+                        <a href="#">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
                         </a>
                     </li>
                     <li>
-                        <a href="../category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
+                        <a href="../productsale/list-productsale.php">
+                            <i class="fe-tag"></i>
+                            Quản lý sản phẩm bán
                         </a>
                     </li>
                     <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
+                        <a href="../warehouse/list-warehouse.php">
+                            <i class="fe-archive"></i>
+                            Quản lý kho hàng 
                         </a>
                     </li>
-
+                    <li>
+                        <a href="../warehouse/list-warehousereceipt.php">
+                            <i class="fe-file-plus"></i>
+                            Quản lý phiếu nhập 
+                        </a>
+                    </li>
                     <li>
                         <a href="../order/list-order.php">
-                            <i class="fe-layout"></i>
-                            Quản lý đơn hàng
+                            <i class="fe-percent"></i>
+                            Quản lý Voucher
                         </a>
                     </li>
                 </ul>

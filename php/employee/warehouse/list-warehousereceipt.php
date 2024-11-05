@@ -335,7 +335,7 @@
                             <!-- Nút Thêm Mới Warehouse Receipt -->
                             <div class="d-flex justify-content-end mb-3">
                                 <button class="btn btn-success">
-                                    <a href="insert-warehousereceipt.html" style="color: white; text-decoration: none;">Thêm phiếu nhập kho</a>
+                                    <a href="create-warehouse-receipt.php" style="color: white; text-decoration: none;">Thêm phiếu nhập kho</a>
                                 </button>
                             </div>
 

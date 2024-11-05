@@ -20,11 +20,17 @@ function initData() {
 }
 
 function showLoading() {
-    document.getElementById('loading-overlay').style.display = 'block';
+    let loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'block';
+    }
 }
 
 function hideLoading() {
-    document.getElementById('loading-overlay').style.display = 'none';
+    let loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
 }
 
 /**
@@ -35,6 +41,10 @@ function hideLoading() {
  */
 async function getOrders(page, size, objectFilter) {
     let bodyTable = document.querySelector('#datatable-buttons tbody');
+    if (!bodyTable) {
+        console.error("Không tìm thấy tbody trong bảng với id 'datatable-buttons'");
+        return;
+    }
     bodyTable.innerHTML = ''; // Xóa dữ liệu cũ
     showLoading(); 
     try {
@@ -56,41 +66,56 @@ async function getOrders(page, size, objectFilter) {
             throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
 
+        const noData = document.querySelector('.dataTables_empty');
+        if (noData) {
+            noData.style.display = 'none';
+        }
+
         let data = await response.json();
         console.log(data);
 
         let orders = data.content; // Giả sử backend trả về { content: [...], totalPages: X, number: Y }
-        orders.forEach(order => {
-            let formattedTotalPrice = formatCurrency(order.totalPrice);
-            let statusText = getStatusText(order.orderStatus);
+        if (!Array.isArray(orders)) {
+            throw new TypeError("Expected 'content' to be an array");
+        }
 
-            // Tạo một hàng mới trong bảng
-            let row = document.createElement('tr');
-
-            // Kiểm tra trạng thái để quyết định hiển thị các nút hành động
-            let actionButtons = '';
-            if (order.orderStatus === 'PENDING') {
-                actionButtons = `
-                    <button class="btn btn-success btn-sm accept-button" data-id="${order.id}">Duyệt</button>
-                    <button class="btn btn-danger btn-sm reject-button" data-id="${order.id}">Từ chối</button>
-                `;
-            } else {
-                actionButtons = `<span class="badge badge-info">${statusText}</span>`;
+        if (orders.length === 0) {
+            if (noData) {
+                noData.style.display = 'table-row'; // Hiển thị hàng "Không có dữ liệu"
             }
+        } else {
+            orders.forEach(order => {
+                let formattedTotalPrice = formatCurrency(order.totalPrice);
+                let statusText = getStatusText(order.orderStatus);
 
-            row.innerHTML = `
-                <td>${order.id}</td>
-                <td>${order.username}</td>
-                <td>${order.quantity}</td>
-                <td>${formattedTotalPrice}</td>
-                <td>
-                    ${actionButtons}
-                    <button class="btn btn-info btn-sm detail-button" data-id="${order.id}">Xem chi tiết</button>
-                </td>
-            `;
+                // Tạo một hàng mới trong bảng
+                let row = document.createElement('tr');
 
-            bodyTable.appendChild(row);
-        });
+                // Kiểm tra trạng thái để quyết định hiển thị các nút hành động
+                let actionButtons = '';
+                if (order.orderStatus === 'PENDING') {
+                    actionButtons = `
+                        <button class="btn btn-success btn-sm accept-button" data-id="${order.id}">Duyệt</button>
+                        <button class="btn btn-danger btn-sm reject-button" data-id="${order.id}">Từ chối</button>
+                    `;
+                } else {
+                    actionButtons = `<span class="badge badge-info">${statusText}</span>`;
+                }
+
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.username}</td>
+                    <td>${order.quantity}</td>
+                    <td>${formattedTotalPrice}</td>
+                    <td>
+                        ${actionButtons}
+                        <button class="btn btn-info btn-sm detail-button" data-id="${order.id}">Xem chi tiết</button>
+                    </td>
+                `;
+
+                bodyTable.appendChild(row);
+            });
+        }
 
         // Thêm sự kiện cho các nút "Xem chi tiết"
         const detailButtons = document.querySelectorAll('.detail-button');
@@ -175,6 +200,10 @@ function getStatusText(status) {
  */
 function renderPagination(totalPage, currentPage, size) {
     let pagination = document.getElementById('pageId');
+    if (!pagination) {
+        console.error("Không tìm thấy phần tử với id 'pageId' để hiển thị phân trang.");
+        return;
+    }
     pagination.innerHTML = ''; // Xóa các nút phân trang cũ
 
     // Nút Previous
@@ -289,7 +318,7 @@ async function updateOrderStatus(orderId, newStatus) {
         console.log('Update successful', data);
         showNotification('Cập nhật trạng thái đơn hàng thành công!', 'success');
         // Cập nhật lại danh sách đơn hàng
-        getOrders(currentPage, size, { status: newStatus });
+        initData(); // Hoặc gọi getOrders với tham số phù hợp
     } catch (error) {
         console.error('Error updating status:', error);
         showNotification('Cập nhật trạng thái đơn hàng thất bại. Vui lòng thử lại.', 'error');
