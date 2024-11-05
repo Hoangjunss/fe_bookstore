@@ -38,135 +38,189 @@
         .add-to-cart-link:hover {
             background-color: #45a049; /* Màu xanh lá cây đậm hơn khi hover */
         }
+        .notification {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #28a745; /* Màu xanh lá cho thành công */
+        }
+
+        .notification.error {
+            background-color: #dc3545; /* Màu đỏ cho lỗi */
+        }
+
+        .notification.info {
+            background-color: #17a2b8; /* Màu xanh dương cho thông tin */
+        }
+
+        .notification .close-btn {
+            margin-left: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* Điều chỉnh biểu tượng giỏ hàng để hiển thị số lượng */
+        .cart {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="../../static/client_assets/img/icon/loder.png" alt="Loader">
-                </div>
+<div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+<!-- Preloader -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="../../static/client_assets/img/icon/loder.png" alt="Loader">
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-area">
-            <div class="header-top d-none d-sm-block">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div
-                                class="d-flex justify-content-between flex-wrap align-items-center"
-                            >
-                                <div class="header-info-left">
-                                    <ul>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Privacy</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Careers</a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-info-right d-flex">
-                                    <ul class="order-list">
-                                        <li><span id="user-greeting">Hello, Guest</span></li>
-                                        <li><a href="/client/order.php">Track Your Order</a></li>
-                                    </ul>
-                                    <ul class="header-social">
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-youtube"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+<!-- Header -->
+<header>
+    <div class="header-area">
+        <!-- Header Top -->
+        <div class="header-top d-none d-sm-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="d-flex justify-content-between flex-wrap align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right d-flex">
+                                <ul class="order-list">
+                                    <li><span id="userEmail">Hello, user@example.com</span></li>
+                                    <li><a href="view-orders.php">Track Your Order</a></li>
+                                </ul>
+                                <ul class="header-social">
+                                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <div class="header-mid header-sticky">
-                <div class="container">
-                    <div class="menu-wrapper">
-    
-                        <div class="logo">
-                            <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
-                        </div>
-    
-                        <div class="main-menu d-none d-lg-block">
-                            <nav>
-                                <ul id="navigation">
-                                    <li><a href="index.php">Home</a></li>
-                                    <li><a href="view-products.php">Products</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Contact</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-    
-                        <div class="header-right">
-                            <ul>
-                                <li>
-                                    <div class="nav-search search-switch hearer_icon">
-                                        <a id="search_1" href="javascript:void(0)">
-                                            <span class="flaticon-search"></span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
-                                <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+        </div>
+
+        <!-- Header Mid -->
+        <div class="header-mid header-sticky">
+            <div class="container">
+                <div class="menu-wrapper">
+
+                    <!-- Logo -->
+                    <div class="logo">
+                        <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+                    </div>
+
+                    <!-- Main Menu -->
+                    <div class="main-menu d-none d-lg-block">
+                        <nav>
+                            <ul id="navigation">
+                                <li><a href="index.php">Home</a></li>
+                                <li><a href="view-products.php">Products</a></li>
+                                <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
-                        </div>
+                        </nav>
                     </div>
-    
-                    <!-- Search Input Box -->
-                    <div class="search_input" id="search_input_box">
-                        <form class="search-inner d-flex justify-content-between" id="searchForm">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="search_input"
-                                name="query"
-                                placeholder="Search Here"
-                                required
-                            />
-                            <button type="submit" class="btn"><i class="fas fa-search"></i></button>
-                            <span
-                                class="ti-close"
-                                id="close_search"
-                                title="Close Search"
-                            ></span>
-                        </form>
+
+                    <!-- Header Right -->
+                    <!-- Header Right -->
+                   <!-- Header Right -->
+                    <div class="header-right">
+                        <ul>
+                            <li>
+                                <div class="nav-search search-switch hearer_icon">
+                                    <a id="search_1" href="javascript:void(0)">
+                                        <span class="flaticon-search"></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                            <li class="cart">
+                                <a href="cart.php">
+                                    <span class="flaticon-shopping-cart"></span>
+                                    <!-- Bỏ comment để hiển thị số lượng sản phẩm trong giỏ hàng -->
+                                    <!-- <span class="cart-count">0</span> -->
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-    
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
+
+
+                </div>
+
+                <!-- Search Input -->
+                <div class="search_input" id="search_input_box">
+                    <form class="search-inner d-flex justify-content-between">
+                        <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                        <button type="submit" class="btn"></button>
+                        <span class="ti-close" id="close_search" title="Close Search"></span>
+                    </form>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div class="col-12">
+                    <div class="mobile_menu d-block d-lg-none"></div>
                 </div>
             </div>
-            <div class="header-bottom text-center">
-                <p>
-                    Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer
-                    <a href="#" class="browse-btn">Shop Now</a>
-                </p>
-            </div>
         </div>
-    </header>
+
+        <!-- Header Bottom -->
+        <div class="header-bottom text-center">
+            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="browse-btn">Shop Now</a></p>
+        </div>
+    </div>
+</header>
+
 
     <!-- Hero Area -->
     <div class="hero-area section-bg2">

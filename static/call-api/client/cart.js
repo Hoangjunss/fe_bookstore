@@ -2,10 +2,98 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchCartData();
 });
 
-// Hàm lấy dữ liệu giỏ hàng
+/**
+ * Hàm hiển thị thông báo
+ * @param {string} message - Thông điệp thông báo
+ * @param {string} type - Loại thông báo: 'success', 'error', 'info'
+ */
+function showNotification(message, type = 'info') {
+    const notificationContainer = document.getElementById('notification-container');
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button class="close-btn">&times;</button>
+    `;
+
+    notificationContainer.appendChild(notification);
+
+    // Thêm lớp show để kích hoạt animation
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100); // Delay nhỏ để cho phép DOM cập nhật
+
+    // Tự động ẩn sau 3 giây
+    setTimeout(() => {
+        notification.classList.remove('show');
+        // Xóa phần tử sau khi animation kết thúc
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 3000);
+
+    // Thêm sự kiện đóng khi nhấp vào nút close
+    notification.querySelector('.close-btn').addEventListener('click', () => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    });
+}
+
+// Hàm cập nhật số lượng sản phẩm trong giỏ hàng hiển thị trên biểu tượng giỏ hàng
+async function updateCartCount() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        return; // Nếu chưa đăng nhập, không cần cập nhật
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const cart = await response.json();
+        const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+
+        // Cập nhật số lượng trong biểu tượng giỏ hàng
+        const cartCountElement = document.querySelector('.cart-count');
+        if (cartCountElement) {
+            cartCountElement.textContent = cartCount;
+        } else {
+            // Nếu chưa có, tạo phần tử và thêm vào trong .cart
+            const cartIcon = document.querySelector('.cart a');
+            const newCartCount = document.createElement('span');
+            newCartCount.className = 'cart-count';
+            newCartCount.textContent = cartCount;
+            cartIcon.appendChild(newCartCount);
+        }
+    } catch (error) {
+        console.error('Error updating cart count:', error);
+        // Bạn có thể thêm thông báo lỗi nếu muốn
+    }
+}
+
+// Hàm lấy dữ liệu giỏ hàng và render
 async function fetchCartData() {
     try {
         const token = localStorage.getItem('token');
+        if (!token) {
+            showNotification('Bạn chưa đăng nhập. Vui lòng đăng nhập để xem giỏ hàng.', 'error');
+            document.getElementById("cartTableBody").innerHTML = "<tr><td colspan='6' class='text-center'>Bạn chưa đăng nhập.</td></tr>";
+            document.querySelector(".total").innerText = '0 VND';
+            return;
+        }
+
         const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
             method: 'GET',
             headers: {
@@ -17,8 +105,10 @@ async function fetchCartData() {
 
         const cartData = await response.json();
         renderCart(cartData);
+        updateCartCount(); // Cập nhật số lượng giỏ hàng
     } catch (error) {
         console.error('Error fetching cart data:', error);
+        showNotification('Có lỗi xảy ra khi tải dữ liệu giỏ hàng.', 'error');
         alert('Có lỗi xảy ra khi tải dữ liệu giỏ hàng.');
     }
 }
@@ -55,9 +145,9 @@ function renderCart(cart) {
                   <td>${formattedPrice}</td>
                   <td>
                       <div class="quantity-container">
-                          <button onclick="changeQuantity(${detail.id}, -1,${detail.product.id})">-</button>
-                          <input type="text" value="${quantity}" onchange="updateQuantity(${detail.id}, this.value)">
-                          <button onclick="changeQuantity(${detail.id}, 1,${detail.product.id})">+</button>
+                          <button onclick="changeQuantity(${detail.id}, -1, ${detail.product.id})">-</button>
+                          <input type="text" value="${quantity}" onchange="updateQuantityFromInput(${detail.id}, this.value, ${detail.product.id})">
+                          <button onclick="changeQuantity(${detail.id}, 1, ${detail.product.id})">+</button>
                       </div>
                   </td>
                   <td>${formattedTotalPrice}</td>
@@ -85,7 +175,7 @@ async function changeQuantity(cartDetailId, delta, productSaleId) {
         // Tính toán số lượng mới
         const newQuantity = currentQuantity + delta;
         if (newQuantity < 1) {
-            alert('Số lượng tối thiểu là 1.');
+            showNotification('Số lượng tối thiểu là 1.', 'error');
             return;
         }
 
@@ -115,19 +205,25 @@ async function updateQuantity(cartDetailId, newQuantity, productSaleId) {
             })
         });
 
-        console.log(response);
-        console.log(productSaleId);
-
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                const errorData = await response.json();
+                showNotification(`Lỗi: ${errorData.message}`, 'error');
+            } else {
+                const errorText = await response.text();
+                showNotification(`Lỗi xảy ra: ${errorText}`, 'error');
+            }
+            return;
         }
 
         const updatedDetail = await response.json();
-        // Lấy lại dữ liệu giỏ hàng sau khi cập nhật
+        showNotification('Cập nhật số lượng thành công!', 'success');
+        // Cập nhật lại giỏ hàng
         fetchCartData();
     } catch (error) {
         console.error('Error updating quantity:', error);
-        alert('Có lỗi xảy ra khi cập nhật số lượng.');
+        showNotification('Có lỗi xảy ra khi cập nhật số lượng.', 'error');
     }
 }
 
@@ -146,24 +242,35 @@ async function removeFromCart(cartDetailId) {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                const errorData = await response.json();
+                showNotification(`Lỗi: ${errorData.message}`, 'error');
+            } else {
+                const errorText = await response.text();
+                showNotification(`Lỗi xảy ra: ${errorText}`, 'error');
+            }
+            return;
         }
 
-        // Lấy lại dữ liệu giỏ hàng sau khi xóa
+        showNotification('Đã xóa sản phẩm khỏi giỏ hàng!', 'success');
+        // Cập nhật lại giỏ hàng
         fetchCartData();
+        // Cập nhật biểu tượng giỏ hàng
+        updateCartCount();
     } catch (error) {
         console.error('Error removing item from cart:', error);
-        alert('Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.');
+        showNotification('Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.', 'error');
     }
 }
+
 // Hàm cập nhật số lượng thông qua sự kiện onchange của input
-async function updateQuantityFromInput(cartDetailId, newQuantity) {
+async function updateQuantityFromInput(cartDetailId, newQuantity, productSaleId) {
     newQuantity = parseInt(newQuantity);
     if (isNaN(newQuantity) || newQuantity < 1) {
-        alert('Số lượng không hợp lệ.');
-        fetchCartData();
+        showNotification('Số lượng không hợp lệ.', 'error');
+        fetchCartData(); // Lấy lại dữ liệu giỏ hàng để reset giá trị
         return;
     }
-    await updateQuantity(cartDetailId, newQuantity);
-
+    await updateQuantity(cartDetailId, newQuantity, productSaleId);
 }

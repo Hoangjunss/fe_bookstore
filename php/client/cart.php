@@ -49,6 +49,9 @@
   </style>
 </head>
 <body>
+
+<div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
 <div id="preloader-active">
   <div class="preloader d-flex align-items-center justify-content-center">
     <div class="preloader-inner position-relative">
@@ -119,7 +122,14 @@
                                 </div>
                             </li>
                             <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li class="cart">
+                                <a href="cart.php">
+                                    <span class="flaticon-shopping-cart"></span>
+                                    <!-- Thêm số lượng sản phẩm trong giỏ hàng -->
+                                    <span class="cart-count">0</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

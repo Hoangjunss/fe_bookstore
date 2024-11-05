@@ -61,9 +61,71 @@
     opacity: 1;
 }
 
+.notification {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #28a745; /* Màu xanh lá cho thành công */
+        }
+
+        .notification.error {
+            background-color: #dc3545; /* Màu đỏ cho lỗi */
+        }
+
+        .notification.info {
+            background-color: #17a2b8; /* Màu xanh dương cho thông tin */
+        }
+
+        .notification .close-btn {
+            margin-left: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
+
+        /* Điều chỉnh biểu tượng giỏ hàng để hiển thị số lượng */
+        .cart {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+
+<div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
 
 <!-- Preloader -->
 <div id="preloader-active">
@@ -97,7 +159,7 @@
                             <div class="header-info-right d-flex">
                                 <ul class="order-list">
                                     <li><span id="userEmail">Hello, user@example.com</span></li>
-                                    <li><a href="view-orders.php">Track Your Order</a></li>
+                                    <li><a href="client/view-orders.php">Track Your Order</a></li>
                                 </ul>
                                 <ul class="header-social">
                                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -120,7 +182,7 @@
 
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+                        <a href="client/index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
                     </div>
 
                     <!-- Main Menu -->
@@ -128,12 +190,13 @@
                         <nav>
                             <ul id="navigation">
                                 <li><a href="client/index.php">Home</a></li>
-                                <li><a href="view-products.php">Products</a></li>
+                                <li><a href="client/view-products.php">Products</a></li>
                                 <!-- Thêm các liên kết khác nếu cần -->
                             </ul>
                         </nav>
                     </div>
 
+                    <!-- Header Right -->
                     <!-- Header Right -->
                     <div class="header-right">
                         <ul>
@@ -144,10 +207,17 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="client/profile.php"><span class="flaticon-user"></span></a></li>
+                            <li class="cart">
+                                <a href="client/cart.php">
+                                    <span class="flaticon-shopping-cart"></span>
+                                    <!-- Biểu tượng số lượng sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
+                                    <!-- <span class="cart-count">3</span> -->
+                                </a>
+                            </li>
                         </ul>
                     </div>
+
                 </div>
 
                 <!-- Search Input -->
@@ -204,7 +274,7 @@
                             <span>Bookstore Exclusive</span>
                             <h1 data-animation="bounceIn" data-delay="0.2s">Your Next Great Read Awaits</h1>
                             <p data-animation="fadeInUp" data-delay="0.4s">Discover captivating stories, insightful guides, and inspiring reads across all genres. Dive into the world of books today.</p>
-                            <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Books</a>
+                            <a href="client/view-products.php" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Books</a>
                         </div>
                         </div>
                     </div>
