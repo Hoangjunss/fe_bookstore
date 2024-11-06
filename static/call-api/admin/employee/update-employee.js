@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function fetchEmployeeData(employeeId) {
     try {
-        const response = await axios.get(`http://localhost:8080/api/v1/employees/${employeeId}`);
+        const response = await axios.get(`http://localhost:8080/api/v1/user/${employeeId}`);
 
         if (response.status === 200) {
             const employee = response.data;

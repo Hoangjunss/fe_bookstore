@@ -1,6 +1,49 @@
     document.addEventListener('DOMContentLoaded', function () {
         initData();
+        document.getElementById('addCategoryForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Ngăn chặn hành vi mặc định của form
+            addCategory();
+        });
     });
+
+
+    function addCategory() {
+        // Lấy dữ liệu từ form trong modal
+        var nameInput = document.getElementById('categoryName');
+        var name = nameInput.value.trim();
+    
+        // Reset các thông báo lỗi
+        document.getElementById('error-categoryName').textContent = '';
+        document.getElementById('modal-error-message').textContent = '';
+    
+        // Kiểm tra các trường hợp bắt buộc
+        var hasError = false;
+        if (name === "") {
+            document.getElementById('error-categoryName').textContent = 'Vui lòng nhập tên loại sản phẩm.';
+            hasError = true;
+        }
+        if (hasError) {
+            return;
+        }
+    
+        var data = {
+            name: name,
+        };
+
+        axios.post(`http://localhost:8080/api/v1/category`, data)
+            .then(response => {
+                if(response){
+                    alert('Thêm loại sản phẩm thành công!');
+                    window.location.reload();
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error creating category:', error);
+                alert('Thêm loại sản phẩm thất bại. Vui lòng thử lại sau.');
+            });
+    }
+
 
     function initData() {
         let page = 0;
@@ -94,7 +137,7 @@
     }
 
     function deleteCategory(id) {
-        axios.delete(`http://localhost:8080/api/categories/${id}`)
+        axios.delete(`http://localhost:8080/api/v1/categories/${id}`)
             .then(response => {
                 alert('Xóa loại sản phẩm thành công!');
                 // Tải lại danh sách sau khi xóa

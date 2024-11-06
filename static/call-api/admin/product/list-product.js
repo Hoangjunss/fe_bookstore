@@ -1,5 +1,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         initData();
+
     });
 
     // Hàm khởi tạo dữ liệu
@@ -14,6 +15,7 @@
             categoryId: null
         };
         getBooks(page, size, objFilter);
+        fetchCategories();
     }
 
     // Hàm lấy danh sách sách sử dụng Fetch API
@@ -266,6 +268,33 @@ async function deleteBook(event) {
             console.error('Error deleting book:', error);
             alert('Xóa sách thất bại. Vui lòng thử lại sau.');
         }
+    }
+}
+
+async function fetchCategories() {
+    try {
+        const response = await fetch(`http://localhost:8080/api/v1/category`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const categories = response.data;
+
+        const categorySelect = document.getElementById('category');
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id; // Giả sử 'id' là trường định danh
+            option.textContent = category.name;
+            categorySelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error(error);
+        alert('Có lỗi xảy ra khi tải danh sách thể loại.', 'error');
     }
 }
 

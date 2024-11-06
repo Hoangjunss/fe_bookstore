@@ -298,27 +298,6 @@
                                     </div>
 
                                     <div class="col-md-4 mb-3">
-                                        <label>Khoảng giá bán sách:</label>
-                                        <div class="input-group">
-                                            <select class="form-control" id="saleStartPrice">
-                                                <option value="">Chọn giá bắt đầu</option>
-                                                <option value="100000">100,000 VND</option>
-                                                <option value="200000">200,000 VND</option>
-                                                <option value="300000">300,000 VND</option>
-                                                <!-- Thêm các lựa chọn khác nếu cần -->
-                                            </select>
-                                            <span class="input-group-text">đến</span>
-                                            <select class="form-control" id="saleEndPrice">
-                                                <option value="">Chọn giá kết thúc</option>
-                                                <option value="500000">500,000 VND</option>
-                                                <option value="1000000">1,000,000 VND</option>
-                                                <option value="1500000">1,500,000 VND</option>
-                                                <!-- Thêm các lựa chọn khác nếu cần -->
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 mb-3">
                                         <label for="status">Trạng thái:</label>
                                         <select class="form-control" id="status" name="status">
                                             <option value="">Tất cả</option>
@@ -331,9 +310,6 @@
                                         <select class="form-control mb-4 col-4" id="category"
                                                 aria-label="Default select example">
                                             <option value="0">Tất cả</option>
-                                            <option value="1">Tiểu thuyết</option>
-                                            <option value="2">Khoa học</option>
-                                            <option value="3">Giáo trình</option>
                                             <!-- Thêm các thể loại sách khác nếu cần -->
                                         </select>
                                     </div>

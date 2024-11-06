@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchEmployees(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
+    document.getElementById('btnSearch').addEventListener('click', function() {
+        var fullname = document.getElementById('fullname').value.trim();
+        searchEmployees(0, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
+    });
 });
 
 /**
@@ -44,19 +48,26 @@ function showNotification(message, type) {
  * @param {number} size - Số lượng nhân viên mỗi trang
  */
 async function fetchEmployees(page, size) {
-    const fullname = document.getElementById('fullname').value.trim();
-    const email = document.getElementById('email').value.trim();
+
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmMxNSIsInJvbGVzIjpbImVtcGxveWVlIl0sImlhdCI6MTczMDg1Mzk0MywiZXhwIjoxNzMzNDQ1OTQzfQ.JS3tBJV0DynzmlOMFVLtcE_z_-69RfAdj9cvoMdMA5g';
+
 
     const params = {
         role: 'employee', // Nếu không chọn, gửi rỗng hoặc loại bỏ tham số
-        fullname: fullname || '',
-        email: email || '',
         page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
         size: size,
     };
 
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/users', { params });
+        const response = await axios.get('http://localhost:8080/api/v1/users',
+            {
+                params,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+             }
+        );
 
         const data = response.data;
         console.log(data);
@@ -84,7 +95,8 @@ function populateEmployeeTable(employees) {
     }
 
     employees.forEach(employee => {
-        const tr = document.createElement('tr');
+        if(employee.role == 'employee'){
+            const tr = document.createElement('tr');
 
         tr.innerHTML = `
             <td>${employee.id}</td>
@@ -102,6 +114,8 @@ function populateEmployeeTable(employees) {
         `;
 
         tbody.appendChild(tr);
+        }
+        
     });
 
     // Thêm sự kiện cho các nút Sửa và Khóa
@@ -175,23 +189,6 @@ function changePage(page, size, event) {
 }
 
 /**
- * Hàm tìm kiếm nhân viên theo các điều kiện
- * @param {number} page - Trang mới
- * @param {number} size - Số lượng nhân viên mỗi trang
- */
-function searchEmployees(page, size) {
-    fetchEmployees(page, size);
-}
-
-/**
- * Thêm sự kiện tìm kiếm khi nhấn nút "Tìm kiếm"
- */
-document.getElementById('btnSearch').addEventListener('click', function (e) {
-    e.preventDefault();
-    searchEmployees(1, 10); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10
-});
-
-/**
  * Hàm khóa nhân viên
  * @param {number} employeeId - ID nhân viên
  */
@@ -215,3 +212,29 @@ async function lockEmployee(employeeId) {
         }
     }
 }
+
+
+    /**
+     * 
+     * Search nhân viên
+     * @param {fullname}
+     */
+    async function searchEmployees(page, size, fullname){
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/users/search`, {
+                params: {
+                    search: fullname,
+                    page: page,
+                    size: size
+                }
+            });
+            const data = response.data;
+            console.log(data);
+
+            populateEmployeeTable(data.content);
+            renderPagination(data.totalPages, data.number, size);
+        } catch (error) {
+            console.error(error);
+            showNotification('Khóa nhân viên thất bại. Vui lòng thử lại.', 'error');
+        }
+    }

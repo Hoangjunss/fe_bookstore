@@ -308,9 +308,9 @@
 
                             <!-- Nút Thêm Mới Loại Sản Phẩm -->
                             <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-success">
-                                    <a href="insert-category.php" style="color: white; text-decoration: none;">Thêm loại sản phẩm</a>
-                                </button>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#addCategoryModal">
+                                Thêm loại sản phẩm
+                            </button>
                             </div>
 
                             <!-- Form Tìm Kiếm -->
@@ -319,15 +319,6 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="name">Tên loại sản phẩm:</label>
                                         <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
-                                    </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="">Tất cả</option>
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
@@ -510,6 +501,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!-- Modal Thêm Loại Sản Phẩm -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="addCategoryForm" data-parsley-validate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCategoryModalLabel">Thêm Loại Sản Phẩm Mới</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Tên Loại Sản Phẩm -->
+          <div class="form-group">
+            <label for="categoryName">Tên loại sản phẩm <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="categoryName" name="name" required placeholder="Nhập tên loại sản phẩm">
+            <div class="error-message" id="error-categoryName"></div>
+          </div>
+          <!-- Trạng Thái -->
+          <div class="form-group">
+            
+          </div>
+          <!-- Thông báo lỗi chung -->
+          <div class="form-group">
+            <div class="error-message" id="modal-error-message"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 </body>

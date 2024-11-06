@@ -265,11 +265,6 @@
                                         <label for="fullname">Họ và tên:</label>
                                         <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
                                     </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="email">Email:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Nhập email">
-                                    </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                             </div>
