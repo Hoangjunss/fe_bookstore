@@ -895,6 +895,7 @@ hr {
   background: #fff;
   padding: 8px 0px;
   border-bottom: 1px solid #edeff2;
+  z-index: 1000;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .header-area .header-top {
@@ -1163,12 +1164,16 @@ hr {
 .header-area .header-mid .menu-wrapper .header-right .nav-search {
   display: inline-block;
 }
+/* Số lượng giỏ hàng */
 .header-area .header-mid .menu-wrapper .header-right span {
   color: #292621;
   font-size: 24px;
   cursor: pointer;
   padding: 31px 13px;
   font-weight: 400;
+}
+.cart-count{
+  display: none;
 }
 .header-area .header-mid .menu-wrapper .header-right span:hover {
   color: #ff2020;
@@ -1188,7 +1193,8 @@ hr {
 .header-area .header-mid .menu-wrapper .header-right .cart {
   position: relative;
 }
-.header-area .header-mid .menu-wrapper .header-right .cart::after {
+/* Số lượng trên giỏ hàng */
+/* .header-area .header-mid .menu-wrapper .header-right .cart::after {
   -webkit-transition: all 0.4s ease-out 0s;
   -moz-transition: all 0.4s ease-out 0s;
   -ms-transition: all 0.4s ease-out 0s;
@@ -1204,7 +1210,7 @@ hr {
   top: -7px;
   right: 0px;
   padding: 1px 7px;
-}
+} */
 .header-area .header-mid .menu-wrapper .header-right .cart:hover::after {
   top: -9px;
 }

@@ -50,7 +50,7 @@ async function updateCartCount() {
     }
 
     try {
-        const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +63,8 @@ async function updateCartCount() {
         }
 
         const cart = await response.json();
-        const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+        const cartDetails = cart.cartDetails || [];
+        const cartCount = cartDetails.reduce((sum, item) => sum + item.quantity, 0);
 
         // Cập nhật số lượng trong biểu tượng giỏ hàng
         const cartCountElement = document.querySelector('.cart-count');

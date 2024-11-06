@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
     updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+    fetchCategoriesAndDisplayTabs();
 });
 
 /**
@@ -102,7 +103,7 @@ function renderProducts(products) {
                         <h4><a href="product-details.php?id=${productSaleId}">${productName}</a></h4>
                         <p>${formattedPrice}</p>
                         <a href="product-details.php?id=${productSaleId}" class="browse-btn">Shop Now</a>
-                        <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})">Add to Cart</a>
+                        <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})" style="padding: 10px 15px;">Add to Cart</a>
                     </div>
                 </div>
             </div>
@@ -111,6 +112,65 @@ function renderProducts(products) {
         productsContainer.insertAdjacentHTML('beforeend', productHTML);
     });
 }
+
+/**
+ * Hàm lấy danh sách danh mục từ API và hiển thị chúng dưới dạng tab
+ */
+async function fetchCategoriesAndDisplayTabs() {
+    
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return; // Nếu chưa đăng nhập, không cần cập nhật
+        }
+        const response = await fetch("http://localhost:8080/api/v1/category", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            credentials: 'include',
+        });
+        
+        const categories = await response.json();
+        
+        const navTab = document.getElementById("nav-tab");
+        categories.forEach((category, index) => {
+            const isActive = index === 0 ? "active" : ""; // Đánh dấu tab đầu tiên là active
+            const tab = document.createElement("a");
+            tab.className = `nav-link ${isActive}`;
+            tab.id = `nav-${category.id}-tab`;
+            tab.setAttribute("data-bs-toggle", "tab");
+            tab.href = `#category-${category.id}`;
+            tab.role = "tab";
+            tab.setAttribute("aria-controls", `category-${category.id}`);
+            tab.setAttribute("aria-selected", isActive === "active");
+            tab.innerText = category.name;
+
+            tab.addEventListener("click", () => fetchProductsByCategory(category.id));
+            navTab.appendChild(tab);
+        });
+
+        // Gọi lần đầu tiên để hiển thị sản phẩm của tab đầu tiên
+        if (categories.length > 0) {
+            fetchProductsByCategory(categories[0].id);
+        }
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+    }
+}
+
+
+async function fetchProductsByCategory(categoryId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/v1/productsales?categoryId=${categoryId}&page=0&size=12`);
+        const productPage = await response.json();
+        renderTrendingProducts(productPage.content);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    }
+}
+
 
 /**
  * Hàm hiển thị danh sách sản phẩm trong mục "Trending This Week"
@@ -289,7 +349,7 @@ async function updateCartCount() {
     }
 
     try {
-        const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -302,7 +362,8 @@ async function updateCartCount() {
         }
 
         const cart = await response.json();
-        const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+        const cartDetails = cart.cartDetails || [];
+        const cartCount = cartDetails.reduce((sum, item) => sum + item.quantity, 0);
 
         // Kiểm tra xem đã có phần tử .cart-count chưa
         let cartCountElement = document.querySelector('.cart-count');

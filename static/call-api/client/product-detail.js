@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       try {
-          const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+          const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json',
@@ -208,7 +208,8 @@ document.addEventListener("DOMContentLoaded", function() {
           }
 
           const cart = await response.json();
-          const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+          const cartDetails = cart.cartDetails || [];
+          const cartCount = cartDetails.reduce((sum, item) => sum + item.quantity, 0);
 
           // Cập nhật số lượng trong biểu tượng giỏ hàng
           const cartCountElement = document.querySelector('.cart-count');
@@ -309,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Hàm để xử lý thông tin người dùng đã đăng nhập
   function fetchUserInfo() {
-      fetch('http://localhost:8080/api/user/profile') // Thay đổi URL nếu cần
+      fetch('http://localhost:8080/api/v1/user/profile') // Thay đổi URL nếu cần
           .then(response => {
               if (response.ok) {
                   return response.json();
@@ -333,6 +334,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Gọi các hàm khi trang được tải
-  fetchUserInfo();
+  // fetchUserInfo();
   updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
 });

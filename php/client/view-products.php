@@ -53,6 +53,7 @@
             transform: translateX(100%);
             transition: opacity 0.5s ease, transform 0.5s ease;
             position: relative;
+            top: 80px;
         }
 
         .notification.show {

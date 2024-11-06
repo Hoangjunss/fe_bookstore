@@ -46,6 +46,50 @@
     .total {
       font-weight: bold;
     }
+    .notification {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 250px;
+            max-width: 350px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+            top: 80px;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background-color: #28a745; /* Màu xanh lá cho thành công */
+        }
+
+        .notification.error {
+            background-color: #dc3545; /* Màu đỏ cho lỗi */
+        }
+
+        .notification.info {
+            background-color: #17a2b8; /* Màu xanh dương cho thông tin */
+        }
+
+        .notification .close-btn {
+            margin-left: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 16px;
+        }
   </style>
 </head>
 <body>

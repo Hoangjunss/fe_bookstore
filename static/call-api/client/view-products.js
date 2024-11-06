@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchForm = document.getElementById('searchForm');
 
     let currentPage = 0;
-    const pageSize = 10; 
+    const pageSize = 12; 
 
     // Hàm để cập nhật dropdown danh mục
     function populateCategoryDropdown(categories) {
@@ -20,18 +20,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    categorySelect.addEventListener('change', function () {
+        fetchProducts(0, categorySelect.value);
+    });
+
+     // Hàm để lấy và hiển thị danh sách danh mục từ API
+     async function fetchCategories() {
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/category");
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            
+            const categories = await response.json();
+            populateCategoryDropdown(categories);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            showNotification("Có lỗi xảy ra khi tải danh sách danh mục.", "error");
+        }
+    }
+
     // Hàm để lấy và hiển thị sản phẩm
-    function fetchProducts(page = 0) { 
+    function fetchProducts(page = 0, categoryId = null)  { 
         // Lấy giá trị từ form lọc
         const productName = document.getElementById('productName').value.trim();
-        const categoryId = categorySelect.value;
         const saleStartPrice = document.getElementById('saleStartPrice').value;
         const saleEndPrice = document.getElementById('saleEndPrice').value;
+
+        console.log('Fetching products:', page,pageSize);
 
         // Xây dựng URL với các tham số query
         let url = `http://localhost:8080/api/v1/productsales?page=${page}&size=${pageSize}`;
 
-        if (productName) url += `&title=${encodeURIComponent(productName)}`;
+        if (productName) url += `&name=${encodeURIComponent(productName)}`;
         if (categoryId && categoryId !== '0') url += `&categoryId=${categoryId}`;
         if (saleStartPrice) url += `&saleStartPrice=${saleStartPrice}`;
         if (saleEndPrice) url += `&saleEndPrice=${saleEndPrice}`;
@@ -89,10 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             productContainer.appendChild(col);
         });
-
-        // Cập nhật dropdown danh mục
-        const uniqueCategories = Array.from(categoriesSet).map(cat => JSON.parse(cat));
-        populateCategoryDropdown(uniqueCategories);
 
         // Thêm sự kiện cho các nút "Add to Cart"
         document.querySelectorAll('.add-to-cart-link').forEach(button => {
@@ -212,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+            const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -225,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const cart = await response.json();
-            const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+            const cartDetails = cart.cartDetails || [];
+            const cartCount = cartDetails.reduce((sum, item) => sum + item.quantity, 0);
 
             // Cập nhật số lượng trong biểu tượng giỏ hàng
             const cartCountElement = document.querySelector('.cart-count');
@@ -242,6 +258,23 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error('Error updating cart count:', error);
             // Bạn có thể thêm thông báo lỗi nếu muốn
+        }
+    }
+
+    // Hàm để thiết lập phân trang
+    function setupPagination(totalPages, currentPageIndex) {
+        paginationUl.innerHTML = ''; // Xóa phân trang cũ
+
+        for (let i = 0; i < totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = 'page-item' + (i === currentPageIndex ? ' active' : '');
+            li.innerHTML = `<a class="page-link" href="#">${i + 1}</a>`;
+            li.addEventListener('click', function (e) {
+                e.preventDefault();
+                fetchProducts(i);
+            }
+            );
+            paginationUl.appendChild(li);
         }
     }
 
@@ -280,19 +313,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Xử lý sự kiện lọc khi form lọc được submit
-    filterForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        fetchProducts(0);
-    });
+    if (filterForm) {
+        filterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            fetchProducts(0);
+        });
+    }
 
     // Xử lý sự kiện tìm kiếm khi form tìm kiếm được submit
-    searchForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        fetchProducts(0);
-    });
+    if (searchForm) {
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            fetchProducts(0);
+        });
+    }
 
     // Gọi các hàm khi trang được tải
-    fetchProducts();
-    fetchUserInfo();
+    if (productContainer) {
+        fetchProducts();
+    }
+    if (userGreeting) {
+        fetchUserInfo();
+    }
     updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+    fetchCategories();
 });

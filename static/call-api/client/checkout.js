@@ -48,7 +48,7 @@ async function updateCartCount() {
     }
 
     try {
-        const response = await fetch('http://localhost:8080/api/v1/carts', { // Điều chỉnh URL theo cấu hình backend của bạn
+        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
