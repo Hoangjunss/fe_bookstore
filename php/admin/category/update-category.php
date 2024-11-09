@@ -215,51 +215,63 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
 
-                <ul class="metismenu" id="side-menu">
+<ul class="metismenu" id="side-menu">
 
-                    <li class="menu-title">QUẢN LÝ</li>
+    <li class="menu-title">QUẢN LÝ</li>
 
-                    <li>
-                        <a href="../dashboard.phps">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
+    <li>
+        <a href="../dashboard.php">
+            <i class="fe-airplay"></i>
+            <span> Dashboard </span>
+        </a>
+    </li>
 
-                    <li>
-                        <a href="../employee/list-employee.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý nhân viên
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../user/list-user.php">
-                            <i class="fas fa-user"></i>
-                            Quản lý khách hàng
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
-                        </a>
-                    </li>
+    <li>
+        <a href="../order/list-order.php">
+            <i class="fe-shopping-cart"></i>
+            Quản lý đơn hàng
+        </a>
+    </li>
 
-                    <li>
-                        <a href="../supply/list-supply.php">
-                            <i class="fe-layout"></i>
-                            Quản lý nhà cung cấp
-                        </a>
-                    </li>
-                </ul>
+    <li>
+        <a href="../employee/list-employee.php">
+            <i class="fe-briefcase"></i>
+            Quản lý nhân viên
+        </a>
+    </li>
+    <li>
+        <a href="../user/list-user.php">
+            <i class="fas fa-user"></i>
+            Quản lý khách hàng
+        </a>
+    </li>
+    <li>
+        <a href="../category/list-category.php">
+            <i class="fe-disc"></i>
+            Quản lý loại sản phẩm
+        </a>
+    </li>
+    <li>
+        <a href="../product/list-product.php">
+            <i class="fe-box"></i>
+            Quản lý sản phẩm
+        </a>
+    </li>
+    <li>
+        <a href="../voucher/list-voucher.php">
+            <i class="fe-percent"></i>
+            Quản lý Voucher
+        </a>
+    </li>
+    <li>
+        <a href="../supply/list-supply.php">
+            <i class="fe-layout"></i>
+            Quản lý nhà cung cấp
+        </a>
+    </li>
+</ul>
 
-                </div>
+</div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>

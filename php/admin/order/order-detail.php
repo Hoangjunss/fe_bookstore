@@ -1,74 +1,47 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8"/>
-    <title>Thêm nhân viên</title>
+    <meta charset="UTF-8"/>
+    <title>Chi tiết đơn hàng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
 
+    <!-- Third party CSS -->
+    <link href="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.css" rel="stylesheet" type="text/css"/>
+
     <!-- App CSS -->
-    <link href="../../../static/assets_admin/libs/dropzone/dropzone.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/employee/order/order-detail.js"></script>
+
 
     <style>
-        .form-group img {
-            max-width: 200px;
-            max-height: 200px;
+        .avatar-img {
+            width: 100px;
+            height: auto;
+            max-height: 100px;
+            border-radius: 50%;
         }
-
-        /* Thêm style cho thông báo lỗi */
+        .status-select {
+            width: 100%;
+        }
+        .btn-back {
+            margin-bottom: 20px;
+        }
         .error-message {
             color: red;
             margin-top: 5px;
-        }
-
-        /* Style nút trở lại danh sách */
-        .btn-light a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* Style cho thông báo thành công hoặc lỗi */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            color: #fff;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .notification.show {
-            opacity: 1;
-        }
-        .notification.success {
-            background-color: #28a745;
-        }
-        .notification.error {
-            background-color: #dc3545;
-        }
-        .notification .close {
-            margin-left: 10px;
-            cursor: pointer;
-            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-
-<!-- Notification Container -->
-<div id="notification-container"></div>
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -331,7 +304,6 @@
 
             <!-- Start Content-->
             <div class="container-fluid">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -339,11 +311,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Nhân viên</a></li>
-                                    <li class="breadcrumb-item active">Thêm nhân viên</li>
+                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                    <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Thêm thông tin nhân viên</h4>
+                            <h4 class="page-title">Chi tiết đơn hàng</h4>
                         </div>
                     </div>
                 </div>
@@ -351,97 +323,80 @@
 
 
                 <div class="row">
-                    <div class="col-lg">
-                        <div class="card-box">
-                        <form id="myForm" class="parsley-examples" novalidate>
-                                <div class="form-group">
-                                    <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập tên đăng nhập" name="username" id="username"/>
-                                    <div class="error-message" id="error-username"></div>
-                                </div>
+                    <div class="col-12">
+                        <div class="card-box table-responsive">
 
-                                <div class="form-group">
-                                    <label for="email">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" required
-                                           placeholder="Nhập email" name="email" id="email"/>
-                                    <div class="error-message" id="error-email"></div>
-                                </div>
+                            <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
+                            <div class="btn-back">
+                                <button class="btn btn-light">
+                                    <a href="list-order.php">Quay lại danh sách đơn hàng</a>
+                                </button>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="fullname">Họ và tên <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập họ và tên" name="fullname" id="fullname"/>
-                                    <div class="error-message" id="error-fullname"></div>
-                                </div>
+                            <!-- Thông Tin Chung của Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Thông Tin Đơn Hàng</h5>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Đơn Hàng</th>
+                                        <td id="order-id">#</td>
+                                        <th>Email Người Dùng</th>
+                                        <td id="user-email">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số Lượng Sản Phẩm</th>
+                                        <td id="order-quantity">#</td>
+                                        <th>Tổng Giá Trị</th>
+                                        <td id="order-total-price">#</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày Tạo</th>
+                                        <td id="order-created-date">#</td>
+                                        <th>Trạng Thái</th>
+                                        <td>
+                                        PENDING
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Địa Chỉ Giao Hàng</th>
+                                        <td colspan="3" id="order-address">#</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <!-- Thêm trường password -->
-                                <div class="form-group">
-                                    <label for="password">Mật khẩu <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" required
-                                           placeholder="Nhập mật khẩu" name="password" id="password"/>
-                                    <div class="error-message" id="error-password"></div>
-                                </div>
+                            <!-- Danh Sách Sản Phẩm trong Đơn Hàng -->
+                            <div class="mb-4">
+                                <h5>Danh Sách Sản Phẩm</h5>
+                                <table id="order-details-table"
+                                       class="table table-striped table-bordered dt-responsive nowrap"
+                                       style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>ID Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Số Lượng</th>
+                                        <th>Đơn Giá</th>
+                                        <th>Tổng Giá</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="reenter-password">Nhập lại Mật khẩu <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" required
-                                           placeholder="Nhập mật khẩu" name="reenter-password" id="reenter-password"/>
-                                    <div class="error-message" id="error-reenter-password"></div>
-                                </div>
+                            <!-- Thông Báo Lỗi Chung -->
+                            <div class="form-group mt-3">
+                                <div class="error-message" id="error-message"></div>
+                            </div>
 
-                                <!-- Đặt role là "employee" cố định và ẩn trường -->
-                                <div class="form-group" style="display: none;">
-                                    <label for="role">Chức vụ</label>
-                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
-                                    <div class="error-message" id="error-role"></div>
-                                </div>
-
-                                <!-- Nếu bạn vẫn muốn giữ trường role không ẩn, có thể để nó ở dạng read-only -->
-                                <!--
-                                <div class="form-group">
-                                    <label for="role">Chức vụ</label>
-                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
-                                    <div class="error-message" id="error-role"></div>
-                                </div>
-                                -->
-
-                                <!-- Loại bỏ trường status nếu không cần -->
-                                <!--
-                                <div class="form-group">
-                                    <label for="status">Trạng thái <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="status" name="status" required>
-                                        <option value="">-- Chọn trạng thái --</option>
-                                        <option value="true">ACTIVE</option>
-                                        <option value="false">INACTIVE</option>
-                                    </select>
-                                    <div class="error-message" id="error-status"></div>
-                                </div>
-                                -->
-
-                                <div class="form-group mb-0">
-                                    <div>
-                                        <button type="submit" class="btn btn-gradient waves-effect waves-light">
-                                            Lưu thay đổi
-                                        </button>
-                                        <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-employee.php">Danh sách nhân viên</a>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <!-- Thông báo lỗi chung -->
-                                <div class="form-group mt-3">
-                                    <div class="error-message" id="error-message"></div>
-                                </div>
-                            </form>
                         </div>
                     </div>
-
                 </div>
                 <!-- end row -->
-
-
             </div> <!-- end container-fluid -->
 
         </div> <!-- end content -->
@@ -452,7 +407,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        2023 &copy; Dashboard theme by <a href="">SWP391</a>
+                        2017 - 2019 &copy; Abstack theme by <a href="https://coderthemes.com/">Coderthemes</a>
                     </div>
 
                 </div>
@@ -526,23 +481,28 @@
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
-<!-- Plugin JS-->
-<script src="../../../static/assets_admin/assets/libs/parsleyjs/parsley.min.js"></script>
+<!-- Required datatable js -->
+<script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
+<script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>
+<script src="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.min.js"></script>
+<script src="../../../static/assets_admin/libs/jszip/jszip.min.js"></script>
+<script src="../../../static/assets_admin/libs/pdfmake/pdfmake.min.js"></script>
+<script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
+<script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
+<script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
 
-<!-- Validation init JS-->
-<script src="../../../static/assets_admin/assets/js/pages/form-validation.init.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Responsive examples -->
+<script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
+<script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatables init -->
+<script src="../../../static/assets_admin/js/pages/datatables.init.js"></script>
+
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
-
 
 </body>
-
 </html>

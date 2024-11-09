@@ -256,6 +256,9 @@
                                     <!-- <span class="cart-count">0</span> -->
                                 </a>
                             </li>
+                            <li id="auth-button">
+                                    <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
+                                </li>
                         </ul>
                     </div>
 

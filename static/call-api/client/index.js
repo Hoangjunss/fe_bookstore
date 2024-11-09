@@ -48,7 +48,7 @@ function updateAuthButton() {
     } else {
         // Nếu không có token, hiển thị nút Login
         authButtonContainer.innerHTML = `
-            <a href="auth/login.php" id="login-button">
+            <a href="../auth/login.php" id="login-button">
                     <i class="btn btn-light">Login</i>
                 </a>
         `;
@@ -56,7 +56,7 @@ function updateAuthButton() {
         // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
         document.getElementById("login-button").addEventListener("click", function(event) {
             event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-            window.location.href = "auth/login.php";
+            window.location.href = "../auth/login.php";
         });
     }
 }

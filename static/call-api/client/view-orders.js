@@ -1,6 +1,63 @@
     document.addEventListener("DOMContentLoaded", () => {
         fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
+
+        const profileLink = document.querySelector('a[href="/profile.php"]');
+    const cartLink = document.querySelector('a[href="cart.php"]');
+    
+    function checkAuthAndRedirect(link, targetUrl) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = targetUrl;
+        } else {
+            showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
+        }
+    }
+
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
     });
+
+    cartLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(cartLink, "cart.php");
+    });
+        updateAuthButton();
+    });
+
+    function updateAuthButton() {
+        const authButtonContainer = document.getElementById("auth-button");
+        const token = localStorage.getItem('token');
+    
+        if (token) {
+            // Nếu có token, hiển thị nút Logout
+            authButtonContainer.innerHTML = `
+                <a href="javascript:void(0);" id="logout-button">
+                        <i class="btn btn-light"> Logout</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng xuất
+            document.getElementById("logout-button").addEventListener("click", function() {
+                localStorage.removeItem('token');  // Xóa token
+                alert("Đã đăng xuất thành công.");
+                updateAuthButton();  // Cập nhật nút
+            });
+        } else {
+            // Nếu không có token, hiển thị nút Login
+            authButtonContainer.innerHTML = `
+                <a href="../auth/login.php" id="login-button">
+                        <i class="btn btn-light">Login</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+            document.getElementById("login-button").addEventListener("click", function(event) {
+                event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+                window.location.href = "../auth/login.php";
+            });
+        }
+    }
 
     let currentPage = 0;
     let pageSize = 10;

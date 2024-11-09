@@ -2,8 +2,10 @@
 <html lang="vi">
 <head>
     <meta charset="utf-8"/>
-    <title>Thêm nhân viên</title>
+    <title>Thêm voucher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Quản lý voucher cho cửa hàng" name="description"/>
+    <meta content="Coderthemes" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="../../../static/assets_admin/images/favicon.ico" type="image/x-icon"/>
@@ -14,6 +16,7 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
+    <script src="../../../static/call-api/employee/voucher/insert-voucher.js"></script>
 
     <style>
         .form-group img {
@@ -339,11 +342,11 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Nhân viên</a></li>
-                                    <li class="breadcrumb-item active">Thêm nhân viên</li>
+                                    <li class="breadcrumb-item"><a href="#">Voucher</a></li>
+                                    <li class="breadcrumb-item active">Thêm voucher</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Thêm thông tin nhân viên</h4>
+                            <h4 class="page-title">Thêm thông tin voucher</h4>
                         </div>
                     </div>
                 </div>
@@ -353,61 +356,43 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                        <form id="myForm" class="parsley-examples" novalidate>
+                            <form id="myForm" class="parsley-examples" novalidate>
                                 <div class="form-group">
-                                    <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
+                                    <label for="nameVoucher">Tên voucher <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Nhập tên đăng nhập" name="username" id="username"/>
-                                    <div class="error-message" id="error-username"></div>
+                                           placeholder="Nhập tên voucher" name="nameVoucher" id="nameVoucher"/>
+                                    <div class="error-message" id="error-nameVoucher"></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" required
-                                           placeholder="Nhập email" name="email" id="email"/>
-                                    <div class="error-message" id="error-email"></div>
+                                    <label for="percent">Phần trăm giảm (%) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" required
+                                           placeholder="Nhập phần trăm giảm" name="percent" id="percent" min="0" max="100"/>
+                                    <div class="error-message" id="error-percent"></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="fullname">Họ và tên <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập họ và tên" name="fullname" id="fullname"/>
-                                    <div class="error-message" id="error-fullname"></div>
-                                </div>
-
-                                <!-- Thêm trường password -->
-                                <div class="form-group">
-                                    <label for="password">Mật khẩu <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" required
-                                           placeholder="Nhập mật khẩu" name="password" id="password"/>
-                                    <div class="error-message" id="error-password"></div>
+                                    <label for="startDate">Ngày bắt đầu <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" required
+                                           name="startDate" id="startDate"/>
+                                    <div class="error-message" id="error-startDate"></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="reenter-password">Nhập lại Mật khẩu <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" required
-                                           placeholder="Nhập mật khẩu" name="reenter-password" id="reenter-password"/>
-                                    <div class="error-message" id="error-reenter-password"></div>
+                                    <label for="endDate">Ngày kết thúc <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" required
+                                           name="endDate" id="endDate"/>
+                                    <div class="error-message" id="error-endDate"></div>
                                 </div>
 
-                                <!-- Đặt role là "employee" cố định và ẩn trường -->
-                                <div class="form-group" style="display: none;">
-                                    <label for="role">Chức vụ</label>
-                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
-                                    <div class="error-message" id="error-role"></div>
-                                </div>
-
-                                <!-- Nếu bạn vẫn muốn giữ trường role không ẩn, có thể để nó ở dạng read-only -->
-                                <!--
                                 <div class="form-group">
-                                    <label for="role">Chức vụ</label>
-                                    <input type="text" class="form-control" name="role" id="role" value="employee" readonly />
-                                    <div class="error-message" id="error-role"></div>
+                                    <label for="products">Sản phẩm áp dụng <span class="text-danger">*</span></label>
+                                    <select class="form-control" id="products" name="products" multiple required>
+                                        <!-- Các tùy chọn sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+                                    </select>
+                                    <div class="error-message" id="error-products"></div>
                                 </div>
-                                -->
 
-                                <!-- Loại bỏ trường status nếu không cần -->
-                                <!--
                                 <div class="form-group">
                                     <label for="status">Trạng thái <span class="text-danger">*</span></label>
                                     <select class="form-control" id="status" name="status" required>
@@ -417,7 +402,6 @@
                                     </select>
                                     <div class="error-message" id="error-status"></div>
                                 </div>
-                                -->
 
                                 <div class="form-group mb-0">
                                     <div>
@@ -425,7 +409,7 @@
                                             Lưu thay đổi
                                         </button>
                                         <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-employee.php">Danh sách nhân viên</a>
+                                            <a href="list-voucher.php">Danh sách voucher</a>
                                         </button>
                                     </div>
                                 </div>
@@ -540,9 +524,6 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
-
 
 </body>
-
 </html>

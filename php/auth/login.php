@@ -75,70 +75,99 @@
         <p class="text-center"><a href="register.php">Create an Account</a></p>
     </div>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn chặn gửi form mặc định
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn gửi form mặc định
 
-            // Lấy giá trị từ các trường nhập
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-            var passwordError = document.getElementById('passwordError');
+        // Lấy giá trị từ các trường nhập
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var passwordError = document.getElementById('passwordError');
 
-            // Kiểm tra mật khẩu có đủ điều kiện không
-            if (password.length < 6) {
-                passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự.';
-                return;
-            } else {
-                passwordError.textContent = '';
-            }
+        // Kiểm tra mật khẩu có đủ điều kiện không
+        if (password.length < 6) {
+            passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự.';
+            return;
+        } else {
+            passwordError.textContent = '';
+        }
 
-            function isValidPassword(password) {
-                var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-                return passwordRegex.test(password);
-            }
-            var user = {
-                name: username,
-                password: password
-            };
-            console.log(user);
+        function isValidPassword(password) {
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            return passwordRegex.test(password);
+        }
 
-            // Gọi API với fetch
-            fetch('http://localhost:8080/api/v1/users/signin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(user)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.text().then(errorText => {
-                            // Kiểm tra lỗi cụ thể
-                            if (errorText.includes("User not found")) {
-                                alert("Tài khoản chưa tồn tại, vui lòng đăng ký.");
-                            } else {
-                                alert("Sai mật khẩu, vui lòng thử lại.");
-                            }
-                            throw new Error(errorText); // Ngăn không xử lý tiếp nếu có lỗi
-                        });
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Lưu token vào localStorage
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('refreshToken', data.refreshToken);
-                    alert("Đăng nhập thành công!");
+        var user = {
+            name: username,
+            password: password
+        };
 
-                    // Chuyển hướng hoặc thực hiện các thao tác tiếp theo
+        // Gọi API với fetch
+        fetch('http://localhost:8080/api/v1/users/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorText => {
+                        // Kiểm tra lỗi cụ thể
+                        if (errorText.includes("User not found")) {
+                            alert("Tài khoản chưa tồn tại, vui lòng đăng ký.");
+                        } else {
+                            alert("Sai mật khẩu, vui lòng thử lại.");
+                        }
+                        throw new Error(errorText); // Ngăn không xử lý tiếp nếu có lỗi
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Lưu token vào localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('refreshToken', data.refreshToken);
+                alert("Đăng nhập thành công!");
+                
+                // Giải mã và hiển thị thông tin từ token
+                const payload = decodeToken(data.token);
+                if (payload) {
+                    console.log("Thông tin từ token:", payload); // Thông tin payload sẽ hiển thị trong console
+                }
+                if(payload.roles == 'customer'){
                     window.location.href = '../client/index.php'; // chuyển đến trang chủ hoặc trang mong muốn
-                })
-                .catch(error => {
-                    console.error('Lỗi đăng nhập:', error);
-                });
+                }
+                else{
+                    window.location.href = '../admin/dashboard.php'; // chuyển đến trang quản lý hoặc trang mong muốn
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi đăng nhập:', error);
+            });
+    });
 
-        });
-        // Đoạn mã kiểm tra số điện thoại không được sử dụng trong form này nên có thể loại bỏ
-    </script>
+    // Hàm giải mã JWT
+    function decodeToken(token) {
+        try {
+            const base64Url = token.split('.')[1]; // Phần payload là phần thứ hai
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split('')
+                    .map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join('')
+            );
+
+            return JSON.parse(jsonPayload); // Trả về payload dạng object
+        } catch (error) {
+            console.error('Token không hợp lệ:', error);
+            return null;
+        }
+    }
+</script>
+
 </body>
 
 </html>

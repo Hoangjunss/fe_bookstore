@@ -245,6 +245,13 @@
                     </li>
 
                     <li>
+                        <a href="order/list-order.php">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
+                        </a>
+                    </li>
+
+                    <li>
                         <a href="employee/list-employee.php">
                             <i class="fe-briefcase"></i>
                             Quản lý nhân viên
@@ -268,7 +275,12 @@
                             Quản lý sản phẩm
                         </a>
                     </li>
-
+                    <li>
+                        <a href="voucher/list-voucher.php">
+                            <i class="fe-percent"></i>
+                            Quản lý Voucher
+                        </a>
+                    </li>
                     <li>
                         <a href="supply/list-supply.php">
                             <i class="fe-layout"></i>
@@ -398,37 +410,6 @@
                     </div>
                 </div>
                 <!-- end row -->
-
-                <div class="row">
-
-                    <div class="col-lg-4">
-                        <div class="card-box">
-                            <h4 class="header-title mb-3">Các bình luận mới nhất</h4>
-
-                            <div class="comment-list slimscroll" style="max-height: 370px;">
-                                <!-- Thay thế th:each bằng JavaScript hoặc dữ liệu tĩnh -->
-                                <!-- Ví dụ với dữ liệu tĩnh -->
-                                <a href="/admin/product/detail/1.html">
-                                    <div class="comment-box-item">
-                                        <p class="commnet-item-date">2023-10-20</p>
-                                        <h6 class="commnet-item-msg">Sản phẩm này rất tốt!</h6>
-                                        <p class="commnet-item-user">Nguyễn Văn A</p>
-                                    </div>
-                                </a>
-                                <a href="/admin/product/detail/2.html">
-                                    <div class="comment-box-item">
-                                        <p class="commnet-item-date">2023-10-19</p>
-                                        <h6 class="commnet-item-msg">Giao hàng nhanh chóng.</h6>
-                                        <p class="commnet-item-user">Trần Thị B</p>
-                                    </div>
-                                </a>
-                                <!-- Thêm các bình luận khác theo nhu cầu -->
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
 
             </div> <!-- end container-fluid -->
 
