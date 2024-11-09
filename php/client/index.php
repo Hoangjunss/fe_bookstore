@@ -2,7 +2,7 @@
 <html class="no-js" lang="vi">
 
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Shop | eCommerce</title>
     <meta name="description" content="">
@@ -10,23 +10,24 @@
     <link rel="shortcut icon" type="image/x-icon" href="../../static/client_assets/img/icon/favicon.png">
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="../../static/client_assets/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/owl.carousel.min.css"> <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/slicknav.css"> <!-- SlickNav CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/flaticon.css"> <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/animate.min.css"> <!-- Animate CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/price_rangs.css"> <!-- Price Rangs CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/magnific-popup.css"> <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/fontawesome-all.min.css"> <!-- FontAwesome CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/themify-icons.css"> <!-- Themify Icons CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/slick.css"> <!-- Slick Slider CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css"> <!-- Nice Select CSS -->
-    <link rel="stylesheet" href="../../static/client_assets/css/style.css"> <!-- Main Style CSS -->
+    <link rel="stylesheet" href="../../static/client_assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/slicknav.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/flaticon.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/price_rangs.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/themify-icons.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css">
+    <link rel="stylesheet" href="../../static/client_assets/css/style.css">
+    <!-- ionRangeSlider CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ion-rangeslider/css/ion.rangeSlider.min.css">
 
     <style>
         .add-to-cart-link {
             display: inline-block;
-            
             background-color: #4CAF50;
             /* Green color */
             color: white;
@@ -130,6 +131,117 @@
             font-size: 12px;
             font-weight: bold;
         }
+
+        /* Đảm bảo các card sản phẩm có cùng chiều cao */
+        .single-items, .properties-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Căn chỉnh hình ảnh sản phẩm để có cùng kích thước */
+        .items-img img, .properties-img img {
+            width: 100%;
+            height: 300px; /* Điều chỉnh chiều cao theo nhu cầu */
+            object-fit: cover;
+        }
+
+        /* Căn chỉnh phần chi tiết sản phẩm */
+        .items-details, .properties-caption {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        /* Đặt độ rộng của mỗi card sản phẩm */
+        #productsContainer, #trendingProducts, #youMayLikeProducts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Khoảng cách giữa các card */
+            justify-content: center;
+        }
+
+        #productsContainer .single-items,
+        #trendingProducts .properties,
+        #youMayLikeProducts .properties {
+            flex: 0 1 calc(33.333% - 20px); /* 3 sản phẩm mỗi hàng với khoảng cách 20px */
+            box-sizing: border-box;
+        }
+
+        /* Đối với màn hình nhỏ hơn, hiển thị 2 sản phẩm mỗi hàng */
+        @media (max-width: 992px) {
+            #productsContainer .single-items,
+            #trendingProducts .properties,
+            #youMayLikeProducts .properties {
+                flex: 0 1 calc(50% - 20px);
+            }
+        }
+
+        /* Đối với màn hình di động, hiển thị 1 sản phẩm mỗi hàng */
+        @media (max-width: 576px) {
+            #productsContainer .single-items,
+            #trendingProducts .properties,
+            #youMayLikeProducts .properties {
+                flex: 0 1 100%;
+            }
+        }
+
+        /* Giới hạn số lượng tab hiển thị trong "Trending This Week" */
+        .nav-tabs a {
+            display: none; /* Ẩn tất cả các tab */
+        }
+
+        .nav-tabs a:nth-child(-n+3) {
+            display: inline-block; /* Hiển thị chỉ 3 tab đầu tiên */
+        }
+
+        /* Đảm bảo phần tử trong "Trending This Week" hiển thị hàng ngang */
+        .latest-items-active {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Giới hạn số lượng sản phẩm hiển thị trong "You May Like" */
+        #youMayLikeProducts .properties {
+            flex: 0 1 calc(33.333% - 20px); /* 3 sản phẩm mỗi hàng */
+        }
+
+        /* Giới hạn số lượng sản phẩm hiển thị tối đa 6 trong "You May Like" */
+        #youMayLikeProducts .properties:nth-child(n+7) {
+            display: none;
+        }
+
+        /* Optional: Styling for "Add to Cart" and "Shop Now" buttons */
+        .browse-btn, .add-to-cart-link {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .browse-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .browse-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .add-to-cart-link {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .add-to-cart-link:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 
@@ -217,7 +329,7 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                                <li><a href="/profile.php"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">
                                     <a href="cart.php">
                                         <span class="flaticon-shopping-cart"></span>
@@ -248,7 +360,7 @@
 
             <!-- Header Bottom -->
             <div class="header-bottom text-center">
-                <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="browse-btn">Shop Now</a></p>
+                <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="btn btn-light">Shop Now</a></p>
             </div>
         </div>
     </header>
@@ -496,61 +608,46 @@
         </a>
     </div>
 
-    <!-- JS Libraries -->
-    <!-- Tải jQuery -->
+    <!-- JavaScript Libraries -->
+    <!-- Load jQuery first -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-    <!-- Tải ionRangeSlider CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ion-rangeslider/css/ion.rangeSlider.min.css">
-
-    <!-- Tải ionRangeSlider JavaScript -->
+    
+    <!-- ionRangeSlider JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
     <!-- Vendor Libraries -->
-    <script src="../../static/client_assets/js/vendor/modernizr-3.5.0.min.js"></script> <!-- Modernizr: Detects HTML5 and CSS3 features -->
-    <script src="../../static/client_assets/js/vendor/jquery-1.12.4.min.js"></script> <!-- jQuery: JavaScript library -->
-    <script src="../../static/client_assets/js/popper.min.js"></script> <!-- Popper.js: Tooltip & popover positioning engine -->
-    <script src="../../static/client_assets/js/bootstrap.min.js"></script> <!-- Bootstrap JS: Front-end component library -->
+    <script src="../../static/client_assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="../../static/client_assets/js/popper.min.js"></script>
+    <script src="../../static/client_assets/js/bootstrap.min.js"></script>
+    <script src="../../static/client_assets/js/owl.carousel.min.js"></script>
+    <script src="../../static/client_assets/js/slick.min.js"></script>
+    <script src="../../static/client_assets/js/jquery.slicknav.min.js"></script>
+    <script src="../../static/client_assets/js/wow.min.js"></script>
+    <script src="../../static/client_assets/js/jquery.magnific-popup.js"></script>
+    <script src="../../static/client_assets/js/jquery.nice-select.min.js"></script>
+    <script src="../../static/client_assets/js/jquery.counterup.min.js"></script>
+    <script src="../../static/client_assets/js/waypoints.min.js"></script>
+    <script src="../../static/client_assets/js/price_rangs.js"></script>
 
-    <script src="../../static/client_assets/js/owl.carousel.min.js"></script> <!-- Owl Carousel: Carousel slider -->
-    <script src="../../static/client_assets/js/slick.min.js"></script> <!-- Slick Slider: Responsive carousel slider -->
-    <script src="../../static/client_assets/js/jquery.slicknav.min.js"></script> <!-- SlickNav: Responsive mobile menu -->
-
-    <script src="../../static/client_assets/js/wow.min.js"></script> <!-- WOW.js: Reveal animations on scroll -->
-    <script src="../../static/client_assets/js/jquery.magnific-popup.js"></script> <!-- Magnific Popup: Responsive lightbox & dialog script -->
-    <script src="../../static/client_assets/js/jquery.nice-select.min.js"></script> <!-- Nice Select: Custom select box -->
-    <script src="../../static/client_assets/js/jquery.counterup.min.js"></script> <!-- Counter-Up: Animated counters -->
-    <script src="../../static/client_assets/js/waypoints.min.js"></script> <!-- Waypoints: Execute a function when you scroll to an element -->
-    <script src="../../static/client_assets/js/price_rangs.js"></script> <!-- Price Range Slider: Custom price range slider -->
-
-    <script src="../../static/client_assets/js/contact.js"></script> <!-- Contact Form JS: Handles contact form submissions -->
-    <script src="../../static/client_assets/js/jquery.form.js"></script> <!-- jQuery Form: Form handling -->
-    <script src="../../static/client_assets/js/jquery.validate.min.js"></script> <!-- jQuery Validate: Form validation -->
-    <script src="../../static/client_assets/js/mail-script.js"></script> <!-- Mail Script: Handles email subscriptions -->
-    <script src="../../static/client_assets/js/jquery.ajaxchimp.min.js"></script> <!-- AjaxChimp: Integration with MailChimp -->
-
-    <!-- Custom Scripts -->
-    <script src="../../static/client_assets/js/plugins.js"></script> <!-- Plugins JS: Additional plugins -->
-    <script src="../../static/client_assets/js/main.js"></script> <!-- Main JS: Custom JavaScript for the site -->
-    <script src="../../static/client_assets/js/jquery-3.7.1.min.js"></script> <!-- jQuery 3.7.1 -->
-    <script src="../../static/client_assets/js/axios.min.js"></script> <!-- Axios: Promise based HTTP client -->
-
+    <!-- Additional Libraries and Custom Scripts -->
+    <script src="../../static/client_assets/js/contact.js"></script>
+    <script src="../../static/client_assets/js/jquery.form.js"></script>
+    <script src="../../static/client_assets/js/jquery.validate.min.js"></script>
+    <script src="../../static/client_assets/js/mail-script.js"></script>
+    <script src="../../static/client_assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="../../static/client_assets/js/plugins.js"></script>
+    <script src="../../static/client_assets/js/main.js"></script>
+    <script src="../../static/client_assets/js/axios.min.js"></script>
     <script src="../../static/call-api/client/index.js"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'UA-23581568-13');
     </script>
-
-    <!-- JavaScript to Fetch and Display Products -->
 
 </body>
 

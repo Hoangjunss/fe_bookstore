@@ -18,7 +18,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css" />
 
-    <script src="../../../static/call-api/admin/product/list-product.js"></script>
     <style>
         /* Thêm các kiểu tùy chỉnh nếu cần */
         .img-thumbnail {
@@ -296,15 +295,6 @@
                                         <label for="bookName">Tên sách:</label>
                                         <input type="text" class="form-control" id="bookName" placeholder="Nhập tên sách">
                                     </div>
-
-                                    <div class="col-md-4 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="">Tất cả</option>
-                                            <option value="1">ACTIVE</option>
-                                            <option value="0">INACTIVE</option>
-                                        </select>
-                                    </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="category">Thể loại sách:</label>
                                         <select class="form-control mb-4 col-4" id="category"
@@ -314,7 +304,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <button id="btnSearch" onclick="searchCondition(0,5)" class="btn btn-primary">Tìm
+                                <button id="btnSearch" class="btn btn-primary">Tìm
                                     kiếm</button>
                             </div>
 
@@ -388,7 +378,6 @@
 <script src="../../../static/assets_admin/libs/pdfmake/vfs_fonts.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.html5.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.print.min.js"></script>
-
 <!-- Responsive examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.responsive.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
@@ -399,10 +388,15 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- jQuery (Nếu chưa có) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap JS (Nếu chưa có) -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<!-- Axios JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="../../../static/call-api/admin/product/list-product.js"></script>
+
 
 
 </body>

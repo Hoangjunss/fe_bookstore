@@ -86,7 +86,7 @@
             const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
-            const role = "USER"; // Thiết lập vai trò mặc định là "USER"
+            const role = "customer"; // Thiết lập vai trò mặc định là "USER"
 
             // Kiểm tra mật khẩu
             if (password.length < 6 || !isValidPassword(password)) {

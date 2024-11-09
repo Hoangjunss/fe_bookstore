@@ -104,7 +104,7 @@ $customer = [
             <div class="container">
                 <div class="primary-nav">
                     <div class="left">
-                        <a href="/client/home" id="brand"><img src="../../static/assets/img/logo.png" alt="Logo"></a><!-- Đã thay thế th:href bằng href và th:src bằng src với đường dẫn tĩnh -->
+                        <a href="../client/" id="brand"><img src="../../static/assets/img/logo.png" alt="Logo"></a><!-- Đã thay thế th:href bằng href và th:src bằng src với đường dẫn tĩnh -->
                         <a class="nav-trigger" data-toggle="collapse" href="#primary-nav" aria-expanded="false" aria-controls="primary-nav">
                             <i class="fa fa-navicon"></i>
                         </a>
@@ -113,7 +113,7 @@ $customer = [
                     <div class="right">
                         <nav id="primary-nav">
                             <ul>
-                                <li class="active"><a href="/client/home">Trang chủ</a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
+                                <li class="active"><a href="../client/">Trang chủ</a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
                                 <!-- Bạn có thể thêm các mục menu khác ở đây nếu cần -->
                             </ul>
                         </nav>
@@ -284,51 +284,6 @@ $customer = [
         <!--end container-->
     </div>
     <!--end page-content-->
-
-    <footer id="page-footer">
-        <div class="row-one">
-            <div class="container">
-                <div class="logos">
-                    <div class="logo">
-                        <a href="#"><img src="../../static/assets/img/logo-1.png" alt="Logo 1"></a><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-                    </div>
-                    <!--/ .logo-->
-                    <div class="logo">
-                        <a href="#"><img src="../../static/assets/img/logo-2.png" alt="Logo 2"></a><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-                    </div>
-                    <!--/ .logo-->
-                    <div class="logo">
-                        <a href="#"><img src="../../static/assets/img/logo-3.png" alt="Logo 3"></a><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-                    </div>
-                    <!--/ .logo-->
-                    <div class="logo">
-                        <a href="#"><img src="../../static/assets/img/logo-4.png" alt="Logo 4"></a><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-                    </div>
-                    <!--/ .logo-->
-                    <div class="logo">
-                        <a href="#"><img src="../../static/assets/img/logo-5.png" alt="Logo 5"></a><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-                    </div>
-                    <!--/ .logo-->
-                </div>
-                <!--/ .logos-->
-            </div>
-        </div>
-        <!--end row-one-->
-        <div class="row-two clearfix">
-            <div class="container">
-                <div class="copyright pull-left">(C) 2016 Your Company, All Rights Reserved</div>
-                <div class="footer-nav pull-right">
-                    <a href="/client/home">Home</a>
-                    <a href="/about-us.php">About Us</a>
-                    <a href="/listing.php">Listing</a>
-                    <a href="/contact-us.php">Contact Us</a>
-                </div>
-            </div>
-            <div class="bg-transfer"><img src="../../static/assets/img/footer-bg.jpg" alt="Footer Background"></div><!-- Thay thế th:src bằng src với đường dẫn tĩnh -->
-        </div>
-        <!--end row-two-->
-    </footer>
-    <!--end page-footer-->
 </div>
 <!--end page-wrapper-->
 <a href="#page-header" class="to-top scroll" data-show-after-scroll="600"><i class="arrow_up"></i></a>
@@ -448,7 +403,6 @@ $customer = [
 <script src="../../static/assets/js/owl.carousel.js"></script> <!-- Owl Carousel -->
 <script src="../../static/assets/js/masonry.pkgd.min.js"></script> <!-- Masonry -->
 <script src="../../static/assets/js/maps.js"></script> <!-- Custom Maps JS -->
-<script src="../../static/assets/js/custom.js"></script> <!-- Custom JS -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Axios -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 3.6.0 -->
 

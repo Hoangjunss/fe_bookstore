@@ -99,6 +99,69 @@
             font-size: 12px;
             font-weight: bold;
         }
+
+        .single-items {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.single-items:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.thumb {
+    position: relative;
+}
+
+.actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.add-to-cart-link {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-link:hover {
+    background-color: #45a049;
+}
+
+.content {
+    padding: 15px;
+    text-align: center;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.author {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.price {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
+
     </style>
 </head>
 <body>
@@ -217,7 +280,7 @@
 
         <!-- Header Bottom -->
         <div class="header-bottom text-center">
-            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="browse-btn">Shop Now</a></p>
+            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="btn btn-light">Shop Now</a></p>
         </div>
     </div>
 </header>
