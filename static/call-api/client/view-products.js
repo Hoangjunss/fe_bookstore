@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('Fetching products:', page,pageSize);
 
         // Xây dựng URL với các tham số query
-        let url = `http://localhost:8080/api/v1/productsales?page=${page}&size=${pageSize}`;
+        let url = `http://localhost:8080/api/v1/product?page=${page}&size=${pageSize}`;
 
         if (productName) url += `&name=${encodeURIComponent(productName)}`;
         if (categoryId && categoryId !== '0') url += `&categoryId=${categoryId}`;
@@ -82,29 +82,28 @@ document.addEventListener("DOMContentLoaded", function () {
         products.forEach(product => {
             console.log(product);
             categoriesSet.add(JSON.stringify({
-                id: product.product.category.id,
-                name: product.product.category.name
+                id: product.category.id,
+                name: product.category.name
             }));
             const col = document.createElement('div');
             col.className = 'col-lg-4 col-md-6 col-sm-6';
             col.innerHTML = `
-                <div class="single-items mb-30">
-                    <div class="thumb">
-                        <a href="product-details.php?id=${product.id}">
-                            <img style="width: 100%; height: 250px;" src="${product.product.image.url}" alt="${product.product.name}">
-                        </a>
-                        <div class="actions">
-                            <button class="add-to-cart-link" data-id="${product.id}">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h4><a href="product-details.php?id=${product.id}">${product.product.name}</a></h4>
-                        <p>Tác giả: ${product.product.author}</p>
-                        <p class="price">${formatPrice(product.price)} VND</p>
-                        <p>Danh mục: ${product.product.category.name}</p>
-                        <p>Số lượng: ${product.quantity}</p>
-                    </div>
-                </div>
+               <div class="single-items mb-30">
+    <div class="thumb">
+        <a href="product-details.php?id=${product.id}">
+            <img style="width: 100%; height: 250px; object-fit: cover;" src="${product.image}" alt="${product.name}">
+        </a>
+        <div class="actions">
+            <button class="add-to-cart-link" data-id="${product.id}">Add to Cart</button>
+        </div>
+    </div>
+    <div class="content text-center">
+        <h4 class="product-title"><a href="product-details.php?id=${product.id}">${product.name}</a></h4>
+        <p class="author">Tác giả: ${product.author}</p>
+        <p class="price">${formatPrice(product.price)} VND</p>
+    </div>
+</div>
+
             `;
             productContainer.appendChild(col);
         });
@@ -170,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const addedCartDetail = await response.json();
             showNotification('Đã thêm sản phẩm vào giỏ hàng thành công!', 'success');
             // Cập nhật biểu tượng giỏ hàng
-            updateCartCount();
+            //updateCartCount();
         } catch (error) {
             console.error('Error adding to cart:', error);
             showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.', 'error');
@@ -335,6 +334,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userGreeting) {
         fetchUserInfo();
     }
-    updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+    //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
     fetchCategories();
 });

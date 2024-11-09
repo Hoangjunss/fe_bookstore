@@ -7,6 +7,8 @@
     <title>Shop | eCommerce</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="shortcut icon" type="image/x-icon" href="../../static/client_assets/img/icon/favicon.png">
 
     <!-- CSS Libraries -->
@@ -242,6 +244,14 @@
         .add-to-cart-link:hover {
             background-color: #218838;
         }
+        .flaticon-login:before {
+            content: '\f2f6'; /* Thay mã biểu tượng tùy ý */
+        }
+
+        .flaticon-logout:before {
+            content: '\f2f5'; /* Thay mã biểu tượng tùy ý */
+        }
+
     </style>
 </head>
 
@@ -336,6 +346,9 @@
                                         <!-- Biểu tượng số lượng sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
                                         <!-- <span class="cart-count">3</span> -->
                                     </a>
+                                </li>
+                                <li id="auth-button">
+                                    <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
                                 </li>
                             </ul>
                         </div>

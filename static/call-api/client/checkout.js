@@ -826,8 +826,8 @@ async function calculateShippingFee() {
     try {
         const response = await axios.get("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee", {
             headers: {
-                'token': '5f440054-8c34-11ee-af43-6ead57e9219a',
-                'shop_id': 4724045
+                'token': '3c2fc675-9e38-11ef-8e53-0a00184fe694',
+                'shop_id': 195266
             },
             params: {
                 "service_type_id": 2,
@@ -848,6 +848,7 @@ async function calculateShippingFee() {
         }
 
         let shippingFee = response.data.data.total;
+        console.log(shippingFee);
         document.getElementById('shippingFeeText').textContent = `${shippingFee.toLocaleString('vi-VN')} VND`;
         updateTotalPrice(shippingFee);
     } catch (error) {

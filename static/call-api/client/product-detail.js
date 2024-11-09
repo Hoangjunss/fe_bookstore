@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (productSaleId) {
       // Gọi API để lấy chi tiết sản phẩm sale
-      fetch(`http://localhost:8080/api/v1/productsales/id?id=${productSaleId}`, {
+      fetch(`http://localhost:8080/api/v1/product/id?id=${productSaleId}`, {
           method: "GET",
           headers: {
               "Content-Type": "application/json"
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(data => {
           displayProductDetails(data);
           // Sau khi hiển thị chi tiết sản phẩm, fetch các sản phẩm liên quan
-          fetchRelatedProducts(data.product.category.id, productSaleId);
+          //fetchRelatedProducts(data.product.category.id, productSaleId);
       })
       .catch(error => {
           console.error("Error fetching product details:", error);
@@ -36,51 +36,52 @@ document.addEventListener("DOMContentLoaded", function() {
       const productDetailsContainer = document.getElementById("product-details");
 
       // Kiểm tra xem productSale và product có tồn tại không
-      if (!productSale || !productSale.product) {
+      if (!productSale) {
           productDetailsContainer.innerHTML = "<p>Product details are incomplete.</p>";
           return;
       }
 
-      const product = productSale.product;
+      const product = productSale;
       console.log(product);
 
       // Lấy URL hình ảnh từ đối tượng Image nếu tồn tại
-      const imageUrl = product.image ? product.image.url || '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg' : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+      const imageUrl = product.image ? product.image || '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg' : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
       // Định dạng giá tiền
-      const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(productSale.price);
+      const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
 
       // Trạng thái sản phẩm
-      const statusText = productSale.status ? "Available" : "Out of Stock";
+      const statusText = product.status ? "Available" : "Out of Stock";
 
       productDetailsContainer.innerHTML = `
-          <div class="container">
-              <div class="row">
-                  <div class="col-xl-6 col-lg-6">
-                      <div class="image-container">
-                          <img src="${imageUrl}" class="fit-image" alt="${product.name || 'Sample Product'}">
-                      </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6">
-                      <div class="features-caption">
-                          <h3>${product.name || 'Sample Product Name'}</h3>
-                          <div class="price"><span>${formattedPrice}</span></div>
-                          <p><strong>Author:</strong> ${product.author || 'Unknown Author'}</p>
-                          <p><strong>Page:</strong> ${product.page !== undefined ? product.page : 'N/A'}</p>
-                          <p><strong>Publication Date:</strong> ${product.datePublic ? new Date(product.datePublic).toLocaleDateString('vi-VN') : 'N/A'}</p>
-                          <p><strong>Size:</strong> ${product.size || 'N/A'}</p>
-                          <p><strong>Description:</strong> ${product.description || 'This is a detailed description of the product.'}</p>
-                          <p><strong>Status:</strong> ${statusText}</p>
-                          <button class="add-to-cart-link" data-id="${productSale.id}">Add to Cart</button>
-                          <a href="#" class="border-btn share-btn"><i class="fas fa-share-alt"></i></a>
-                      </div>
-                  </div>
-              </div>
-          </div>
+          <div class="container product-details-container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="image-container">
+                <img src="${imageUrl}" alt="${product.name || 'Product Image'}" class="product-image">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="product-info">
+                <h2 class="product-title">${product.name || 'Sample Product'}</h2>
+                <p class="product-price">${formattedPrice} VND</p>
+                <p><strong>Author:</strong> ${product.author || 'Unknown'}</p>
+                <p><strong>Pages:</strong> ${product.page || 'N/A'}</p>
+                <p><strong>Publication Date:</strong> ${product.datePublic || 'N/A'}</p>
+                <p><strong>Size:</strong> ${product.size || 'N/A'}</p>
+                <p><strong>Description:</strong> ${product.description || 'Detailed description of the product.'}</p>
+                <p><strong>Status:</strong> ${statusText}</p>
+                <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                <button class="btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </div>
+    </div>
+</div>
+
       `;
 
       // Thêm sự kiện cho nút "Add to Cart"
-      document.querySelector('.add-to-cart-link').addEventListener('click', function () {
+      document.querySelector('.add-to-cart-btn').addEventListener('click', function () {
           const productId = this.getAttribute('data-id');
           addToCart(productId);
       });
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const addedCartDetail = await response.json();
           showNotification('Đã thêm sản phẩm vào giỏ hàng thành công!', 'success');
           // Cập nhật biểu tượng giỏ hàng
-          updateCartCount();
+          //updateCartCount();
       } catch (error) {
           console.error('Error adding to cart:', error);
           showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.', 'error');
@@ -335,5 +336,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Gọi các hàm khi trang được tải
   // fetchUserInfo();
-  updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+  //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
 });

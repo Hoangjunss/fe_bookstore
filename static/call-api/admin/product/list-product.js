@@ -1,6 +1,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         initData();
-
+        document.getElementById('btnSearch').addEventListener('click', function() {
+            var category = document.getElementById('category').value.trim();
+            var bookName = document.getElementById('bookName').value.trim();
+            fe
+        });
     });
 
     // Hàm khởi tạo dữ liệu
@@ -57,84 +61,7 @@
 
             const data = await response.json();
             console.log(data);
-
-            // Xóa nội dung bảng hiện tại
-            const bodyTable = document.querySelector('#datatable-buttons tbody');
-            bodyTable.innerHTML = '';
-
-            // Duyệt qua danh sách sách và thêm vào bảng
-            data.content.forEach(book => {
-                const row = document.createElement('tr');
-
-                // ID
-                const idCell = document.createElement('td');
-                idCell.textContent = book.id;
-                row.appendChild(idCell);
-
-                // Hình ảnh
-                const imageCell = document.createElement('td');
-                const img = document.createElement('img');
-                img.src = book.imageUrl ? book.imageUrl : '../../../static/assets_admin/images/no-image.png';
-                img.alt = 'Thumbnail';
-                img.classList.add('img-thumbnail');
-                imageCell.appendChild(img);
-                row.appendChild(imageCell);
-
-                // Tên sách
-                const nameCell = document.createElement('td');
-                nameCell.textContent = book.name;
-                row.appendChild(nameCell);
-
-                // Tác giả
-                const authorCell = document.createElement('td');
-                authorCell.textContent = book.author;
-                row.appendChild(authorCell);
-
-                // Số trang
-                const pageCell = document.createElement('td');
-                pageCell.textContent = book.page;
-                row.appendChild(pageCell);
-
-                // Ngày xuất bản
-                const dateCell = document.createElement('td');
-                dateCell.textContent = new Date(book.datePublic).toLocaleDateString('vi-VN');
-                row.appendChild(dateCell);
-
-                // Thể loại
-                const categoryCell = document.createElement('td');
-                categoryCell.textContent = book.category;
-                row.appendChild(categoryCell);
-
-                // Trạng thái
-                const statusCell = document.createElement('td');
-                statusCell.textContent = book.status ? 'ACTIVE' : 'INACTIVE';
-                row.appendChild(statusCell);
-
-                // Hành động
-                const actionCell = document.createElement('td');
-
-                // Nút Chi tiết (Cập nhật)
-                const detailLink = document.createElement('a');
-                detailLink.href = `update-product.php?id=${book.id}`;
-                detailLink.classList.add('btn', 'btn-info', 'mr-2');
-                detailLink.textContent = 'Chi tiết';
-                actionCell.appendChild(detailLink);
-
-                // Nút Xóa
-                // const deleteButton = document.createElement('button');
-                // deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
-                // deleteButton.textContent = 'Xóa';
-                // deleteButton.dataset.id = book.id;
-                // deleteButton.addEventListener('click', deleteBook);
-                // actionCell.appendChild(deleteButton);
-
-                row.appendChild(actionCell);
-
-                bodyTable.appendChild(row);
-            });
-
-            // Phân trang
-            renderPagination(data.totalPages, data.number, size);
+            renderData(data, size);
         } catch (error) {
             console.error('Error fetching books:', error);
             alert('Không thể lấy dữ liệu sách. Vui lòng thử lại sau.');
@@ -189,6 +116,86 @@
     function changePage(page, size, event) {
         event.preventDefault();
         searchCondition(page, size);
+    }
+
+    function renderData(data, size){
+// Xóa nội dung bảng hiện tại
+const bodyTable = document.querySelector('#datatable-buttons tbody');
+bodyTable.innerHTML = '';
+
+// Duyệt qua danh sách sách và thêm vào bảng
+data.content.forEach(book => {
+    const row = document.createElement('tr');
+
+    // ID
+    const idCell = document.createElement('td');
+    idCell.textContent = book.id;
+    row.appendChild(idCell);
+
+    // Hình ảnh
+    const imageCell = document.createElement('td');
+    const img = document.createElement('img');
+    img.src = book.imageUrl ? book.imageUrl : '../../../static/assets_admin/images/no-image.png';
+    img.alt = 'Thumbnail';
+    img.classList.add('img-thumbnail');
+    imageCell.appendChild(img);
+    row.appendChild(imageCell);
+
+    // Tên sách
+    const nameCell = document.createElement('td');
+    nameCell.textContent = book.name;
+    row.appendChild(nameCell);
+
+    // Tác giả
+    const authorCell = document.createElement('td');
+    authorCell.textContent = book.author;
+    row.appendChild(authorCell);
+
+    // Số trang
+    const pageCell = document.createElement('td');
+    pageCell.textContent = book.page;
+    row.appendChild(pageCell);
+
+    // Ngày xuất bản
+    const dateCell = document.createElement('td');
+    dateCell.textContent = new Date(book.datePublic).toLocaleDateString('vi-VN');
+    row.appendChild(dateCell);
+
+    // Thể loại
+    const categoryCell = document.createElement('td');
+    categoryCell.textContent = book.category;
+    row.appendChild(categoryCell);
+
+    // Trạng thái
+    const statusCell = document.createElement('td');
+    statusCell.textContent = book.status ? 'ACTIVE' : 'INACTIVE';
+    row.appendChild(statusCell);
+
+    // Hành động
+    const actionCell = document.createElement('td');
+
+    // Nút Chi tiết (Cập nhật)
+    const detailLink = document.createElement('a');
+    detailLink.href = `update-product.php?id=${book.id}`;
+    detailLink.classList.add('btn', 'btn-info', 'mr-2');
+    detailLink.textContent = 'Chi tiết';
+    actionCell.appendChild(detailLink);
+
+    // Nút Xóa
+    // const deleteButton = document.createElement('button');
+    // deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
+    // deleteButton.textContent = 'Xóa';
+    // deleteButton.dataset.id = book.id;
+    // deleteButton.addEventListener('click', deleteBook);
+    // actionCell.appendChild(deleteButton);
+
+    row.appendChild(actionCell);
+
+    bodyTable.appendChild(row);
+});
+
+// Phân trang
+renderPagination(data.totalPages, data.number, size);
     }
 
     // Hàm render phân trang
@@ -273,16 +280,7 @@ async function deleteBook(event) {
 
 async function fetchCategories() {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/category`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        const response = await axios.get('http://localhost:8080/api/v1/category');
         const categories = response.data;
 
         const categorySelect = document.getElementById('category');
