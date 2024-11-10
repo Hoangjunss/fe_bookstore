@@ -181,8 +181,7 @@ async function fetchCategoriesAndDisplayTabs() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            credentials: 'include',
+            }
         });
         
         const categories = await response.json();

@@ -113,7 +113,7 @@ $customer = [
                     <div class="right">
                         <nav id="primary-nav">
                             <ul>
-                                <li class="active"><a href="../client/">Trang chủ</a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
+                                <li class="active"><a href="../client/index.php">Trang chủ</a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
                                 <!-- Bạn có thể thêm các mục menu khác ở đây nếu cần -->
                             </ul>
                         </nav>

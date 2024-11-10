@@ -130,8 +130,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(userRegistrationData),
-                    credentials: "include"
+                    body: JSON.stringify(userRegistrationData)
                 })
                 .then(response => {
                     console.log(response);

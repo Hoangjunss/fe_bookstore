@@ -401,7 +401,6 @@
     <script src="../../static/client_assets/js/jquery.ajaxchimp.min.js"></script>
     <script src="../../static/client_assets/js/plugins.js"></script>
     <script src="../../static/client_assets/js/main.js"></script>
-    <script src="../../static/client_assets/js/jquery-3.7.1.min.js"></script>
     <script src="../../static/client_assets/js/axios.min.js"></script>
 
     <!-- Google Analytics -->

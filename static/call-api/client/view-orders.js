@@ -1,7 +1,7 @@
     document.addEventListener("DOMContentLoaded", () => {
         fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
 
-        const profileLink = document.querySelector('a[href="/profile.php"]');
+        //const profileLink = document.querySelector('a[href="/profile.php"]');
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -13,10 +13,12 @@
         }
     }
 
-    profileLink.addEventListener("click", function(event) {
-        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-        checkAuthAndRedirect(profileLink, "/profile.php");
-    });
+
+
+    // profileLink.addEventListener("click", function(event) {
+    //     event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+    //     checkAuthAndRedirect(profileLink, "/profile.php");
+    // });
 
     cartLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
@@ -66,15 +68,17 @@
     function fetchOrders(page, size, status) {
         currentPage = page;
         currentStatus = status;
-        const url = `http://localhost:8080/orders?page=${page}&size=${size}&status=${status}`;
+        const url = `http://localhost:8080/api/v1/orders?page=${page}&size=${size}&status=${status}`;
 
-        fetch(url, {
-            method: "GET",
+        const token = localStorage.getItem('token');
+        const options = {
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json"
-                // Thêm các header cần thiết nếu có, ví dụ: Authorization
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
-        })
+        };
+        fetch(url, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");

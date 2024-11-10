@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchCartData();
-    fetchUserInfo();
+    //fetchUserInfo();
     initializeAddressForm();
-    const profileLink = document.querySelector('a[href="/profile.php"]');
+    //const profileLink = document.querySelector('a[href="/profile.php"]');
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    profileLink.addEventListener("click", function(event) {
-        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-        checkAuthAndRedirect(profileLink, "/profile.php");
-    });
+    // profileLink.addEventListener("click", function(event) {
+    //     event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+    //     checkAuthAndRedirect(profileLink, "/profile.php");
+    // });
 
     cartLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
@@ -98,45 +98,45 @@ function showNotification(message, type = 'info') {
 }
 
 // Hàm cập nhật số lượng sản phẩm trong giỏ hàng hiển thị trên biểu tượng giỏ hàng
-async function updateCartCount() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        return; // Nếu chưa đăng nhập, không cần cập nhật
-    }
+// async function updateCartCount() {
+//     const token = localStorage.getItem('token');
+//     if (!token) {
+//         return; // Nếu chưa đăng nhập, không cần cập nhật
+//     }
 
-    try {
-        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
+//     try {
+//         const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${token}`,
+//             },
+//         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
 
-        const cart = await response.json();
-        const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
+//         const cart = await response.json();
+//         const cartCount = cart.cartDetails.reduce((sum, item) => sum + item.quantity, 0);
 
-        // Cập nhật số lượng trong biểu tượng giỏ hàng
-        const cartCountElement = document.querySelector('.cart-count');
-        if (cartCountElement) {
-            cartCountElement.textContent = cartCount;
-        } else {
-            // Nếu chưa có, tạo phần tử và thêm vào trong .cart
-            const cartIcon = document.querySelector('.cart a');
-            const newCartCount = document.createElement('span');
-            newCartCount.className = 'cart-count';
-            newCartCount.textContent = cartCount;
-            cartIcon.appendChild(newCartCount);
-        }
-    } catch (error) {
-        console.error('Error updating cart count:', error);
-        // Bạn có thể thêm thông báo lỗi nếu muốn
-    }
-}
+//         // Cập nhật số lượng trong biểu tượng giỏ hàng
+//         const cartCountElement = document.querySelector('.cart-count');
+//         if (cartCountElement) {
+//             cartCountElement.textContent = cartCount;
+//         } else {
+//             // Nếu chưa có, tạo phần tử và thêm vào trong .cart
+//             const cartIcon = document.querySelector('.cart a');
+//             const newCartCount = document.createElement('span');
+//             newCartCount.className = 'cart-count';
+//             newCartCount.textContent = cartCount;
+//             cartIcon.appendChild(newCartCount);
+//         }
+//     } catch (error) {
+//         console.error('Error updating cart count:', error);
+//         // Bạn có thể thêm thông báo lỗi nếu muốn
+//     }
+// }
 
 // Hàm lấy dữ liệu giỏ hàng và render
 async function fetchCartData() {
@@ -162,7 +162,7 @@ async function fetchCartData() {
 
         const cartData = await response.json();
         renderCart(cartData);
-        updateCartCount(); // Cập nhật số lượng giỏ hàng
+        //updateCartCount(); // Cập nhật số lượng giỏ hàng
     } catch (error) {
         console.error('Error fetching cart data:', error);
         showNotification('Có lỗi xảy ra khi tải dữ liệu giỏ hàng.', 'error');
@@ -185,11 +185,11 @@ function renderCart(cart) {
     }
 
     cart.cartDetailDTOList.forEach((detail, index) => {
-        const product = detail.product.product; // ProductSaleDTO.product là Product
-        const imageUrl = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const product = detail.product; // ProductSaleDTO.product là Product
+        const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
         const productName = product.name || 'Tên sản phẩm';
-        const price = detail.product.price || 0;
-        const quantity = detail.quantity || 0;
+        const price = product.price || 0;
+        const quantity = product.quantity || 0;
         const totalPrice = price * quantity;
         subtotal += totalPrice;
 
@@ -728,35 +728,6 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
     // Gọi hàm placeOrder để tạo đơn hàng
     await placeOrder(orderData);
 });
-
-// Hàm lấy và hiển thị thông tin người dùng đã đăng nhập
-async function fetchUserInfo() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        document.getElementById('userEmail').textContent = 'Hello, Guest';
-        return;
-    }
-
-    try {
-        const response = await fetch('http://localhost:8080/api/v1/user/profile', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const userData = await response.json();
-        document.getElementById('userEmail').textContent = `Hello, ${userData.email}`;
-    } catch (error) {
-        console.error('Error fetching user info:', error);
-        document.getElementById('userEmail').textContent = 'Hello, Guest';
-    }
-}
 
 // Hàm khởi tạo form địa chỉ với các API để lấy tỉnh, quận, phường
 function initializeAddressForm() {

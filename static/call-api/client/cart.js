@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchCartData();
-    const profileLink = document.querySelector('a[href="/profile.php"]');
+    //const profileLink = document.querySelector('a[href="/profile.php"]');
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    profileLink.addEventListener("click", function(event) {
-        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-        checkAuthAndRedirect(profileLink, "/profile.php");
-    });
+    // profileLink.addEventListener("click", function(event) {
+    //     event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+    //     checkAuthAndRedirect(profileLink, "/profile.php");
+    // });
 
     cartLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
@@ -184,8 +184,8 @@ function renderCart(cart) {
     }
 
     cart.cartDetailDTOList.forEach((detail, index) => {
-        const product = detail.product.product; // ProductSaleDTO.product là Product
-        const imageUrl = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const product = detail.product; // ProductSaleDTO.product là Product
+        const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
         const productName = product.name || 'Tên sản phẩm';
         const price = detail.product.price || 0;
         const quantity = detail.quantity || 0;
