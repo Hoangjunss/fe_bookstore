@@ -34,6 +34,11 @@ function showNotification(message, type) {
     });
 }
 
+function getToken() {
+    return localStorage.getItem('token');
+}
+
+
 /**
  * Hàm xử lý gửi form thêm nhân viên
  */
@@ -105,9 +110,18 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
         role: role
         // status: status === "true" // Loại bỏ nếu không cần
     };
-
+    const accessToken = getToken();
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDTO)
+            };
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/users/register', userDTO);
+        
+        const response = await fetch('http://localhost:8080/api/v1/users/register', options);
 
         if (response.status === 200 || response.status === 201) {
             showNotification('Thêm nhân viên thành công!', 'success');

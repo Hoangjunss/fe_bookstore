@@ -255,115 +255,124 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form id="updateProductForm" enctype="multipart/form-data" data-parsley-validate>
-                                <input type="hidden" name="id" id="id" value="">
+                        <form id="updateProductForm" enctype="multipart/form-data" data-parsley-validate>
+    <input type="hidden" name="id" id="id" value="">
 
-                                <!-- Tên sản phẩm -->
-                                <div class="form-group">
-                                    <label for="productName">Tên sản phẩm <span style="color: red;">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập tên sản phẩm" name="name" id="productName" readonly/>
-                                    <div class="error-message" id="error-name"></div>
-                                </div>
+    <!-- Tên sản phẩm -->
+    <div class="form-group">
+        <label for="productName">Tên sản phẩm <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" required
+               placeholder="Nhập tên sản phẩm" name="name" id="productName" readonly/>
+        <div class="error-message" id="error-name"></div>
+    </div>
 
-                                <!-- Mô tả sản phẩm -->
-                                <div class="form-group">
-                                    <label for="description">Mô tả <span style="color: red;">*</span></label>
-                                    <textarea class="form-control" id="description" name="description" rows="5"
-                                              placeholder="Nhập mô tả sản phẩm" required></textarea>
-                                    <div class="error-message" id="error-description"></div>
-                                </div>
+    <!-- Mô tả sản phẩm -->
+    <div class="form-group">
+        <label for="description">Mô tả <span style="color: red;">*</span></label>
+        <textarea class="form-control" id="description" name="description" rows="5"
+                  placeholder="Nhập mô tả sản phẩm" required></textarea>
+        <div class="error-message" id="error-description"></div>
+    </div>
 
-                                <!-- Tác giả -->
-                                <div class="form-group">
-                                    <label for="author">Tác giả <span style="color: red;">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập tên tác giả" name="author" id="author"/>
-                                    <div class="error-message" id="error-author"></div>
-                                </div>
+    <!-- Tác giả -->
+    <div class="form-group">
+        <label for="author">Tác giả <span style="color: red;">*</span></label>
+        <input type="text" class="form-control" required
+               placeholder="Nhập tên tác giả" name="author" id="author"/>
+        <div class="error-message" id="error-author"></div>
+    </div>
 
-                                <!-- Số trang -->
-                                <div class="form-group">
-                                    <label for="page">Số trang <span style="color: red;">*</span></label>
-                                    <input type="number" class="form-control" required
-                                           placeholder="Nhập số trang" name="page" id="page" min="1"/>
-                                    <div class="error-message" id="error-page"></div>
-                                </div>
+    <!-- Số trang -->
+    <div class="form-group">
+        <label for="page">Số trang <span style="color: red;">*</span></label>
+        <input type="number" class="form-control" required
+               placeholder="Nhập số trang" name="page" id="page" min="1"/>
+        <div class="error-message" id="error-page"></div>
+    </div>
 
-                                <!-- Ngày xuất bản -->
-                                <div class="form-group">
-                                    <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
-                                    <input type="date" class="form-control" required
-                                           name="datePublic" id="datePublic"/>
-                                    <div class="error-message" id="error-datePublic"></div>
-                                </div>
+    <!-- Thể loại sản phẩm -->
+    <div class="form-group">
+        <label for="category">Thể loại sản phẩm <span style="color: red;">*</span></label>
+        <select class="form-control" id="category" name="categoryId" required>
+            <option value="">Chọn thể loại sản phẩm</option>
+            <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
+        </select>
+        <div class="error-message" id="error-categoryId"></div>
+    </div>
 
-                                <!-- Thể loại sản phẩm -->
-                                <div class="form-group">
-                                    <label for="category">Thể loại sản phẩm <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="category" name="categoryId" required>
-                                        <option value="">Chọn thể loại sản phẩm</option>
-                                        <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
-                                    </select>
-                                    <div class="error-message" id="error-categoryId"></div>
-                                </div>
+    <!-- Nhà cung cấp -->
+    <div class="form-group">
+        <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
+        <select class="form-control" id="supply" name="supplyId" required>
+            <option value="">Chọn nhà cung cấp</option>
+            <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
+        </select>
+        <div class="error-message" id="error-supplyId"></div>
+    </div>
 
-                                <!-- Nhà cung cấp -->
-                                <div class="form-group">
-                                    <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="supply" name="supplyId" required>
-                                        <option value="">Chọn nhà cung cấp</option>
-                                        <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
-                                    </select>
-                                    <div class="error-message" id="error-supplyId"></div>
-                                </div>
+    <!-- Kích thước sản phẩm -->
+    <div class="form-group">
+        <label for="size">Kích thước sản phẩm (ví dụ: 15x23 cm)</label>
+        <input type="text" class="form-control" placeholder="Nhập kích thước sản phẩm"
+               name="size" id="size"/>
+        <div class="error-message" id="error-size"></div>
+    </div>
 
-                                <!-- Kích thước sản phẩm -->
-                                <div class="form-group">
-                                    <label for="size">Kích thước sản phẩm (ví dụ: 15x23 cm)</label>
-                                    <input type="text" class="form-control" placeholder="Nhập kích thước sản phẩm"
-                                           name="size" id="size"/>
-                                    <div class="error-message" id="error-size"></div>
-                                </div>
+    <!-- Ảnh thumbnail -->
+    <div class="form-group">
+        <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
+        <br>
+        <img id="imagePreview" src="../../../static/client_assets/img/products/defbookcover-min.jpg"
+             alt="Thumbnail" class="image-preview">
+        <br><br>
+        <input type="file" name="image" id="image" accept="image/*"
+               onchange="previewImage(this)" required/>
+        <div class="error-message" id="error-image"></div>
+    </div>
 
-                                <!-- Ảnh thumbnail -->
-                                <div class="form-group">
-                                    <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
-                                    <br>
-                                    <img id="imagePreview" src="../../../static/client_assets/img/products/defbookcover-min.jpg"
-                                         alt="Thumbnail" class="image-preview">
-                                    <br><br>
-                                    <input type="file" name="image" id="image" accept="image/*"
-                                           onchange="previewImage(this)" required/>
-                                    <div class="error-message" id="error-image"></div>
-                                </div>
+    <!-- Số lượng sản phẩm -->
+    <div class="form-group">
+        <label for="quantity">Số lượng sản phẩm <span style="color: red;">*</span></label>
+        <input type="number" class="form-control" required
+               placeholder="Nhập số lượng sản phẩm" name="quantity" id="quantity" min="0"/>
+        <div class="error-message" id="error-quantity"></div>
+    </div>
 
-                                <!-- Trạng thái -->
-                                <div class="form-group">
-                                    <label for="status">Trạng thái <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="status" name="status" required>
-                                        <option value="">Chọn trạng thái</option>
-                                        <option value="1">ACTIVE</option>
-                                        <option value="0">INACTIVE</option>
-                                    </select>
-                                    <div class="error-message" id="error-status"></div>
-                                </div>
+    <!-- Giá sản phẩm -->
+    <div class="form-group">
+        <label for="price">Giá sản phẩm <span style="color: red;">*</span></label>
+        <input type="number" class="form-control" required
+               placeholder="Nhập giá sản phẩm" name="price" id="price" min="0" step="0.01"/>
+        <div class="error-message" id="error-price"></div>
+    </div>
 
-                                <!-- Thông báo lỗi chung -->
-                                <div id="error-message" class="error-message"></div>
+    <!-- Trạng thái -->
+    <div class="form-group">
+        <label for="status">Trạng thái <span style="color: red;">*</span></label>
+        <select class="form-control" id="status" name="status" required>
+            <option value="">Chọn trạng thái</option>
+            <option value="1">ACTIVE</option>
+            <option value="0">INACTIVE</option>
+        </select>
+        <div class="error-message" id="error-status"></div>
+    </div>
 
-                                <!-- Nút submit và reset -->
-                                <div class="form-group mb-0">
-                                    <div>
-                                        <button type="submit" class="btn btn-gradient waves-effect waves-light">
-                                            Lưu thay đổi
-                                        </button>
-                                        <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-product.php" style="color: inherit; text-decoration: none;">Danh sách sản phẩm</a>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+    <!-- Thông báo lỗi chung -->
+    <div id="error-message" class="error-message"></div>
+
+    <!-- Nút submit và reset -->
+    <div class="form-group mb-0">
+        <div>
+            <button type="submit" class="btn btn-gradient waves-effect waves-light">
+                Lưu thay đổi
+            </button>
+            <button type="reset" class="btn btn-light waves-effect ml-1">
+                <a href="list-product.php" style="color: inherit; text-decoration: none;">Danh sách sản phẩm</a>
+            </button>
+        </div>
+    </div>
+</form>
+
                         </div>
                     </div>
 

@@ -24,10 +24,44 @@
             max-width: 100px;
             height: auto;
         }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .notification.success {
+            background-color: #28a745;
+        }
+        .notification.info {
+    background-color: #17a2b8;
+}
+        .notification.error {
+            background-color: #dc3545;
+        }
+        .notification .close {
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+
+<div id="notification-container"></div>
+
 
 <!-- Begin page -->
 <div id="wrapper">
@@ -330,7 +364,7 @@
                                     <th style="width: 200px;">Tên sách</th>
                                     <th>Tác giả</th>
                                     <th>Số trang</th>
-                                    <th>Ngày xuất bản</th>
+                                    <th>Số lượng</th>
                                     <th>Thể loại</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>

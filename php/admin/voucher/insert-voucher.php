@@ -16,7 +16,6 @@
     <link href="../../../static/assets_admin/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../static/assets_admin/css/app.min.css" rel="stylesheet" type="text/css"/>
 
-    <script src="../../../static/call-api/employee/voucher/insert-voucher.js"></script>
 
     <style>
         .form-group img {
@@ -356,7 +355,7 @@
                 <div class="row">
                     <div class="col-lg">
                         <div class="card-box">
-                            <form id="myForm" class="parsley-examples" novalidate>
+                        <form id="myForm" class="parsley-examples" novalidate>
                                 <div class="form-group">
                                     <label for="nameVoucher">Tên voucher <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
@@ -383,14 +382,6 @@
                                     <input type="date" class="form-control" required
                                            name="endDate" id="endDate"/>
                                     <div class="error-message" id="error-endDate"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="products">Sản phẩm áp dụng <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="products" name="products" multiple required>
-                                        <!-- Các tùy chọn sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-                                    </select>
-                                    <div class="error-message" id="error-products"></div>
                                 </div>
 
                                 <div class="form-group">
@@ -506,24 +497,27 @@
 
 <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
+<!-- Vendor JS -->
+<!-- Đảm bảo rằng jQuery được tải trước các plugin khác -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
-<!-- Plugin JS-->
-<script src="../../../static/assets_admin/assets/libs/parsleyjs/parsley.min.js"></script>
 
-<!-- Validation init JS-->
-<script src="../../../static/assets_admin/assets/js/pages/form-validation.init.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
+<!-- Axios JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Custom JS -->
+<script src="../../../static/call-api/admin/voucher/insert-voucher.js" defer></script>
 
 </body>
 </html>

@@ -1,6 +1,11 @@
     document.addEventListener('DOMContentLoaded', function () {
-        fetchProducts(); // Lấy danh sách sản phẩm khi tải trang
+        //fetchProducts(); // Lấy danh sách sản phẩm khi tải trang
     });
+
+    function getToken() {
+        return localStorage.getItem('token');
+    }
+    
 
     /**
      * Hàm hiển thị thông báo
@@ -74,8 +79,6 @@
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         const status = document.getElementById('status').value;
-        const productSelect = document.getElementById('products');
-        const selectedProducts = Array.from(productSelect.selectedOptions).map(option => option.value);
 
         let hasError = false;
 
@@ -108,11 +111,6 @@
             hasError = true;
         }
 
-        if (selectedProducts.length === 0) {
-            document.getElementById('error-products').textContent = 'Vui lòng chọn ít nhất một sản phẩm áp dụng.';
-            hasError = true;
-        }
-
         if (!status) {
             document.getElementById('error-status').textContent = 'Vui lòng chọn trạng thái.';
             hasError = true;
@@ -128,12 +126,20 @@
             percent: parseFloat(percent),
             startDate: startDate,
             endDate: endDate,
-            products: selectedProducts.map(id => ({ id: parseInt(id) })),
             status: status === "true"
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/vouchers', voucherDTO);
+            const accessToken = getToken();
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(voucherDTO)
+            };
+            const response = await fetch('http://localhost:8080/api/v1/voucher', options);
 
             if (response.status === 200 || response.status === 201) {
                 showNotification('Thêm voucher thành công!', 'success');

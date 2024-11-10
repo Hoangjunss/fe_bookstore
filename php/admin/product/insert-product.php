@@ -287,15 +287,6 @@
                                            placeholder="Nhập số trang" name="page" id="page" min="1"/>
                                     <div class="error-message" id="error-page"></div>
                                 </div>
-
-                                <!-- Ngày xuất bản -->
-                                <div class="form-group">
-                                    <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
-                                    <input type="date" class="form-control" required
-                                           name="datePublic" id="datePublic"/>
-                                    <div class="error-message" id="error-datePublic"></div>
-                                </div>
-
                                 <!-- Thể loại sách -->
                                 <div class="form-group">
                                     <label for="category">Thể loại sách <span style="color: red;">*</span></label>
@@ -334,6 +325,22 @@
                                     <input type="text" class="form-control" placeholder="Nhập kích thước sách"
                                            name="size" id="size"/>
                                     <div class="error-message" id="error-size"></div>
+                                </div>
+
+                                <!-- Số lượng sản phẩm -->
+                                <div class="form-group">
+                                    <label for="quantity">Số lượng sản phẩm <span style="color: red;">*</span></label>
+                                    <input type="number" class="form-control" required
+                                        placeholder="Nhập số lượng sản phẩm" name="quantity" id="quantity" min="0"/>
+                                    <div class="error-message" id="error-quantity"></div>
+                                </div>
+
+                                <!-- Giá sản phẩm -->
+                                <div class="form-group">
+                                    <label for="price">Giá sản phẩm <span style="color: red;">*</span></label>
+                                    <input type="number" class="form-control" required
+                                        placeholder="Nhập giá sản phẩm" name="price" id="price" min="0" step="0.01"/>
+                                    <div class="error-message" id="error-price"></div>
                                 </div>
 
                                 <!-- Trạng thái -->

@@ -1,7 +1,12 @@
+
     document.addEventListener('DOMContentLoaded', function () {
         fetchVouchers(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
-        fetchProducts(); // Lấy danh sách sản phẩm để điền vào dropdown tìm kiếm
     });
+
+    
+function getToken() {
+    return localStorage.getItem('token');
+}
 
     /**
      * Hàm hiển thị thông báo
@@ -50,53 +55,37 @@
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         const status = document.getElementById('status').value;
-        const productSelect = document.getElementById('product');
-        const selectedProducts = Array.from(productSelect.selectedOptions).map(option => option.value);
 
         const params = {
             page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
             size: size,
-            name: nameVoucher || null,
+            nameVoucher: nameVoucher || null,
             percent: percent ? parseFloat(percent) : null,
             startDate: startDate || null,
             endDate: endDate || null,
-            status: status === "" ? null : status === "true",
-            productIds: selectedProducts.length > 0 ? selectedProducts : null
+            status: status === "" ? null : status === "true"
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/vouchers', { params });
+            const token = getToken(); // Lấy token từ localStorage
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+            const response = await fetch('http://localhost:8080/api/v1/voucher', options);
 
-            const data = response.data;
-            console.log(data);
-
-            populateVoucherTable(data.content);
-            renderPagination(data.totalPages, data.number, size);
+            if(response.status == 200){
+                const data = await response.json();
+                populateVoucherTable(data.content);
+                renderPagination(data.totalPages, data.number, size);
+            }
 
         } catch (error) {
             console.error(error);
             showNotification('Có lỗi xảy ra khi tải danh sách voucher.', 'error');
-        }
-    }
-
-    /**
-     * Hàm lấy danh sách sản phẩm từ backend để điền vào dropdown
-     */
-    async function fetchProducts() {
-        try {
-            const response = await axios.get('http://localhost:8080/api/products?page=0&size=100');
-            const products = response.data.content;
-
-            const productSelect = document.getElementById('product');
-            products.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product.id;
-                option.textContent = product.name;
-                productSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error(error);
-            showNotification('Có lỗi xảy ra khi tải danh sách sản phẩm.', 'error');
         }
     }
 
@@ -109,15 +98,12 @@
         tbody.innerHTML = ''; // Xóa nội dung cũ
 
         if (vouchers.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" class="text-center">Không tìm thấy dữ liệu.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center">Không tìm thấy dữ liệu.</td></tr>';
             return;
         }
 
         vouchers.forEach(voucher => {
             const tr = document.createElement('tr');
-
-            // Lấy tên sản phẩm áp dụng
-            const productNames = voucher.products.map(product => product.name).join(', ');
 
             tr.innerHTML = `
                 <td>${voucher.id}</td>
@@ -125,13 +111,13 @@
                 <td>${voucher.percent}</td>
                 <td>${formatDate(voucher.startDate)}</td>
                 <td>${formatDate(voucher.endDate)}</td>
-                <td>${productNames}</td>
                 <td>${getStatusText(voucher.status)}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm edit-button" data-id="${voucher.id}">Sửa</button>
+                    
                     <button class="btn btn-danger btn-sm delete-button" data-id="${voucher.id}">Xóa</button>
                 </td>
             `;
+            /* <button class="btn btn-warning btn-sm edit-button" data-id="${voucher.id}">Sửa</button> */
 
             tbody.appendChild(tr);
         });
@@ -245,7 +231,15 @@
     async function deleteVoucher(voucherId) {
         if (confirm("Bạn có chắc chắn là muốn xoá voucher này không?")) {
             try {
-                const response = await axios.delete(`http://localhost:8080/api/vouchers/${voucherId}`);
+                const token = getToken(); // Lấy token từ localStorage
+                const options = {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const response = await fetch(`http://localhost:8080/api/v1/voucher`, options);
 
                 if (response.status === 200) {
                     showNotification('Xóa voucher thành công!', 'success');

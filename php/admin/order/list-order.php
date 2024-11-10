@@ -542,7 +542,7 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<script src="../../../static/call-api/employee/order/list-order.js"></script>
+<script src="../../../static/call-api/admin/order/list-order.js"></script>
 
 
 <!-- Axios JS (Nếu cần sử dụng Axios thay vì Fetch) -->

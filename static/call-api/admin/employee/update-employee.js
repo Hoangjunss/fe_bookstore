@@ -22,15 +22,28 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchRoles();
 });
 
+function getToken() {
+    return localStorage.getItem('token');
+}
+
 /**
  * Hàm fetch dữ liệu nhân viên từ backend và điền vào form
  * @param {number} employeeId - ID nhân viên
  */
 async function fetchEmployeeData(employeeId) {
+    const accessToken = getToken();
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    };
     try {
-        const response = await axios.get(`http://localhost:8080/api/v1/user/${employeeId}`);
+        const response = await fetch(`http://localhost:8080/api/v1/user/${employeeId}`, options);
 
         if (response.status === 200) {
+            const response = await response.json();
             const employee = response.data;
             populateForm(employee);
         } else {
@@ -61,10 +74,19 @@ function populateForm(employee) {
  */
 async function fetchRoles() {
     try {
+        const accessToken = getToken();
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    };
         // Giả sử bạn có endpoint để lấy danh sách chức vụ
-        const response = await axios.get('http://localhost:8080/api/v1/roles');
+        const response = await fetch('http://localhost:8080/api/v1/roles', options);
 
         if (response.status === 200) {
+            const response = await response.json();
             const roles = response.data;
             populateRoleDropdown(roles);
         } else {

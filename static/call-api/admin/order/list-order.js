@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+function getToken() {
+    return localStorage.getItem('token');
+}
+
 /**
  * Hàm khởi tạo dữ liệu khi trang được tải
  */
@@ -40,6 +44,7 @@ function hideLoading() {
  * @param {object} objectFilter - Các điều kiện lọc
  */
 async function getOrders(page, size, objectFilter) {
+    const accessToken = getToken();
     let bodyTable = document.querySelector('#datatable-buttons tbody');
     if (!bodyTable) {
         console.error("Không tìm thấy tbody trong bảng với id 'datatable-buttons'");
@@ -48,19 +53,22 @@ async function getOrders(page, size, objectFilter) {
     bodyTable.innerHTML = ''; // Xóa dữ liệu cũ
     showLoading(); 
     try {
-        // Tạo chuỗi tham số truy vấn từ objectFilter
         const queryParams = new URLSearchParams({
             page: page,
             size: size,
             status: objectFilter.status // Lọc theo trạng thái
         });
-
-        let response = await fetch(`http://localhost:8080/api/v1/orders?${queryParams.toString()}`, {
+        // Tạo chuỗi tham số truy vấn từ objectFilter
+        const options = {
             method: 'GET',
             headers: {
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
             }
-        });
+        };
+        
+
+        let response = await fetch(`http://localhost:8080/api/v1/orders?${queryParams.toString()}`, options);
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -301,14 +309,17 @@ async function updateOrderStatus(orderId, newStatus) {
         showNotification('Thông tin đơn hàng không hợp lệ.', 'error');
         return;
     }
-
-    try {
-        let response = await fetch(`http://localhost:8080/api/v1/orders?id=${orderId}&status=${newStatus}`, {
+    const accessToken = getToken();
+    const options = {
             method: 'PATCH',
             headers: {
+                'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
-            },
-        });
+            }
+        };
+
+    try {
+        let response = await fetch(`http://localhost:8080/api/v1/orders?id=${orderId}&status=${newStatus}`, options);
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status} ${response.statusText}`);

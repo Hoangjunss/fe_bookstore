@@ -2,9 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchEmployees(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
     document.getElementById('btnSearch').addEventListener('click', function() {
         var fullname = document.getElementById('fullname').value.trim();
-        searchEmployees(0, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
+        searchEmployees(1, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
 });
+
+function getToken() {
+    return localStorage.getItem('token');
+}
 
 /**
  * Hàm hiển thị thông báo
@@ -50,21 +54,34 @@ function showNotification(message, type) {
 async function fetchEmployees(page, size) {
     const fullname = document.getElementById('fullname').value.trim();
 
-    const params = {
-        role: 'customer', // Nếu không chọn, gửi rỗng hoặc loại bỏ tham số
-        fullname: fullname || '',
-        page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
-        size: size,
+    const queryParams = new URLSearchParams({
+        role: 'customer', // Lọc theo role 'employee'
+        page: page - 1,    // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
+        size: size
+    });
+
+    const accessToken = getToken();
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
     };
 
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/users', { params });
+        const response = await fetch(`http://localhost:8080/api/v1/users?${queryParams.toString()}`, options);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Tìm kiếm nhân viên thất bại.');
+        }
 
-        const data = response.data;
+        const data = await response.json();
         console.log(data);
 
         populateEmployeeTable(data.content);
-        renderPagination(data.totalPages, data.number, size);
+        renderPagination(data.totalPages, data.number + 1, size); // `data.number` có thể cần cộng thêm 1 nếu bắt đầu từ 0
+
 
     } catch (error) {
         console.error(error);
@@ -95,10 +112,10 @@ function populateEmployeeTable(employees) {
             <td>${employee.email}</td>
             <td>${employee.fullname}</td>
             <td>${employee.role}</td>
-            <td>${getStatusText(employee.status)}</td>
+            <td>${getStatusText(employee.locked)}</td>
             <td>
                 <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-                    ${employee.status === 1 ? 'Khóa' : 'Mở khóa'}
+                ${employee.locked === true ? 'Mở Khóa' : 'Khóa'}
                 </button>
             </td>
         `;
@@ -154,7 +171,7 @@ function renderPagination(totalPage, currentPage, size) {
  * @returns {string} - Văn bản trạng thái
  */
 function getStatusText(status) {
-    return status === 1 ? 'ACTIVE' : 'INACTIVE';
+    return status === false ? 'ACTIVE' : 'INACTIVE';
 }
 
 /**
@@ -173,22 +190,42 @@ function changePage(page, size, event) {
  * @param {number} employeeId - ID nhân viên
  */
 async function lockEmployee(employeeId) {
-    if (confirm("Bạn có chắc chắn là muốn khóa nhân viên này không?")) {
-        try {
-            const response = await axios.post(`http://localhost:8080/api/v1/users/lock`, null, {
-                params: { integer: employeeId } // Tên tham số 'integer' theo BE của bạn
-            });
+    if (confirm("Bạn có chắc chắn là muốn thay đổi trạng thái người dùng này không?")) {
+        const accessToken = getToken();
+        if (!accessToken) {
+            showNotification('Không tìm thấy token xác thực. Vui lòng đăng nhập lại.', 'error');
+            return;
+        }
 
-            if (response) {
-                showNotification('Khóa nhân viên thành công!', 'success');
+        // Tạo chuỗi tham số truy vấn
+        const queryParams = new URLSearchParams({
+            integer: employeeId // Tên tham số 'integer' theo BE của bạn
+        });
+
+        // Định nghĩa các tùy chọn cho fetch
+        const options = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        try {
+            // Gửi yêu cầu fetch với URL chứa tham số truy vấn và options
+            const response = await fetch(`http://localhost:8080/api/v1/users/lock?${queryParams.toString()}`, options);
+
+            if (response.ok) {
+                showNotification('Khóa thành công!', 'success');
                 // Tải lại danh sách nhân viên sau khi khóa
-                fetchEmployees(0, 10);
+                fetchEmployees(1, 10);
             } else {
-                throw new Error('Khóa nhân viên thất bại.');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Khóa thất bại.');
             }
         } catch (error) {
             console.error(error);
-            showNotification('Khóa nhân viên thất bại. Vui lòng thử lại.', 'error');
+            showNotification('Khóa thất bại. Vui lòng thử lại.', 'error');
         }
     }
 }
@@ -198,22 +235,46 @@ async function lockEmployee(employeeId) {
      * Search nhân viên
      * @param {fullname}
      */
-    async function searchEmployees(page, size, fullname){
-        try {
-            const response = await axios.get(`http://localhost:8080/api/v1/users/search`, {
-                params: {
-                    search: fullname,
-                    page: page,
-                    size: size
-                }
-            });
-            const data = response.data;
-            console.log(data);
-
-            populateEmployeeTable(data.content);
-            renderPagination(data.totalPages, data.number, size);
-        } catch (error) {
-            console.error(error);
-            showNotification('Khóa nhân viên thất bại. Vui lòng thử lại.', 'error');
-        }
+async function searchEmployees(page, size, fullname) {
+    const accessToken = getToken();
+    if (!accessToken) {
+        showNotification('Không tìm thấy token xác thực. Vui lòng đăng nhập lại.', 'error');
+        return;
     }
+
+    // Tạo chuỗi tham số truy vấn
+    const queryParams = new URLSearchParams({
+        search: fullname || '', // Nếu fullname trống, gửi rỗng
+        page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
+        size: size
+    });
+
+    // Định nghĩa các tùy chọn cho fetch
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        // Gửi yêu cầu fetch với URL chứa tham số truy vấn và options
+        const response = await fetch(`http://localhost:8080/api/v1/users/search?${queryParams.toString()}`, options);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Tìm kiếm thất bại.');
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        populateEmployeeTable(data.content);
+        renderPagination(data.totalPages, data.number + 1, size); // `data.number` có thể cần cộng thêm 1 nếu bắt đầu từ 0
+
+    } catch (error) {
+        console.error(error);
+        showNotification('Tìm kiếm thất bại. Vui lòng thử lại.', 'error');
+    }
+}

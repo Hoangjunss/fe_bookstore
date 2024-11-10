@@ -119,11 +119,12 @@ function validateForm() {
     const description = document.getElementById('description').value.trim();
     const author = document.getElementById('author').value.trim();
     const page = document.getElementById('page').value;
-    const datePublic = document.getElementById('datePublic').value;
     const categoryId = document.getElementById('category').value;
     const supplyId = document.getElementById('supply').value;
     const image = document.getElementById('image').files[0];
     const status = document.getElementById('status').value;
+    const quantity = document.getElementById('quantity') ? document.getElementById('quantity').value : null;
+    const price = document.getElementById('price') ? document.getElementById('price').value : null;
 
     // Kiểm tra tên sách
     if (!name) {
@@ -151,13 +152,6 @@ function validateForm() {
         document.getElementById('error-page').textContent = 'Số trang phải lớn hơn 0.';
         hasError = true;
     }
-
-    // Kiểm tra ngày xuất bản
-    if (!datePublic) {
-        document.getElementById('error-datePublic').textContent = 'Ngày xuất bản không được để trống.';
-        hasError = true;
-    }
-
     // Kiểm tra thể loại
     if (!categoryId) {
         document.getElementById('error-categoryId').textContent = 'Vui lòng chọn thể loại sách.';
@@ -188,8 +182,31 @@ function validateForm() {
         hasError = true;
     }
 
+    // Kiểm tra số lượng
+    if (quantity !== null) {
+        if (quantity === "") {
+            document.getElementById('error-quantity').textContent = 'Số lượng không được để trống.';
+            hasError = true;
+        } else if (parseInt(quantity) < 0) {
+            document.getElementById('error-quantity').textContent = 'Số lượng không được âm.';
+            hasError = true;
+        }
+    }
+
+    // Kiểm tra giá
+    if (price !== null) {
+        if (price === "") {
+            document.getElementById('error-price').textContent = 'Giá sản phẩm không được để trống.';
+            hasError = true;
+        } else if (parseFloat(price) <= 0) {
+            document.getElementById('error-price').textContent = 'Giá sản phẩm phải lớn hơn 0.';
+            hasError = true;
+        }
+    }
+
     return hasError;
 }
+
 
 /**
  * Hàm tạo mới sản phẩm
@@ -226,3 +243,4 @@ async function createProduct() {
         }
     }
 }
+

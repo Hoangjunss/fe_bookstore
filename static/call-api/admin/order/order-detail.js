@@ -12,18 +12,25 @@
         }
     });
 
+    function getToken() {
+        return localStorage.getItem('token');
+    }
+
     /**
      * Hàm lấy chi tiết đơn hàng từ backend
      * @param {number} orderId - ID đơn hàng
      */
     async function getOrderDetails(orderId) {
         try {
-            let response = await fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, {
+            const accessToken = getToken();
+            const options = {
                 method: 'GET',
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 }
-            });
+            };
+            let response = await fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, options);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -149,13 +156,16 @@
      */
     async function updateOrderStatus(orderId, newStatus, selectElement) {
         try {
-            let response = await fetch(`http://localhost:8080/api/orders/${orderId}/status`, {
+            const accessToken = getToken();
+            const options = {
                 method: 'PATCH',
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ orderStatus: newStatus })
-            });
+                body: JSON.stringify({ orderStatus: newStatus }) // Thêm body vào options
+            };
+            let response = await fetch(`http://localhost:8080/api/v1/orders/${orderId}/status`, options);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status} ${response.statusText}`);

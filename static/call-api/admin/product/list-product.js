@@ -1,11 +1,41 @@
     document.addEventListener('DOMContentLoaded', function () {
         initData();
         document.getElementById('btnSearch').addEventListener('click', function() {
-            var category = document.getElementById('category').value.trim();
-            var bookName = document.getElementById('bookName').value.trim();
-            fe
+            searchCondition(0, 10);
         });
     });
+
+    function showNotification(message, type) {
+        const notificationContainer = document.getElementById('notification-container');
+    
+        const notification = document.createElement('div');
+        notification.className = `notification ${type} show`;
+        notification.innerHTML = `
+            <span>${message}</span>
+            <span class="close">&times;</span>
+        `;
+    
+        notificationContainer.appendChild(notification);
+    
+        // Tự động ẩn sau 3 giây
+        setTimeout(() => {
+            notification.classList.remove('show');
+            notification.classList.add('disappear');
+            notification.addEventListener('transitionend', () => {
+                notification.remove();
+            });
+        }, 3000);
+    
+        // Thêm sự kiện đóng khi nhấp vào nút close
+        notification.querySelector('.close').addEventListener('click', () => {
+            notification.classList.remove('show');
+            notification.classList.add('disappear');
+            notification.addEventListener('transitionend', () => {
+                notification.remove();
+            });
+        });
+    }
+
 
     // Hàm khởi tạo dữ liệu
     function initData() {
@@ -22,49 +52,78 @@
         fetchCategories();
     }
 
+    function getToken() {
+        return localStorage.getItem('token');
+    }
+
     // Hàm lấy danh sách sách sử dụng Fetch API
     async function getBooks(page, size, objectFilter) {
         try {
-            // Tạo URL với tham số trang và kích thước
-            let url = new URL(`http://localhost:8080/api/v1/product?page=${page}&size=${size}`);
-            url.searchParams.append('page', page);
-            url.searchParams.append('size', size);
-
-            // Thêm các bộ lọc vào URL nếu có
+            const accessToken = getToken();
+    
+            if (!accessToken) {
+                showNotification('Không tìm thấy token xác thực. Vui lòng đăng nhập lại.', 'error');
+                return;
+            }
+    
+            // Tạo URL với các tham số truy vấn
+            let url = new URL('http://localhost:8080/api/v1/product');
+            let queryParams = new URLSearchParams({
+                page: page,
+                size: size
+            });
+    
+            // Thêm các bộ lọc vào queryParams nếu có
             if (objectFilter.name) {
-                url.searchParams.append('name', objectFilter.name);
+                queryParams.append('name', objectFilter.name);
             }
-            if (objectFilter.saleStartPrice) {
-                url.searchParams.append('saleStartPrice', objectFilter.saleStartPrice);
+            if (objectFilter.author) { // Thay 'status' bằng 'author' theo backend
+                queryParams.append('author', objectFilter.author);
             }
-            if (objectFilter.saleEndPrice) {
-                url.searchParams.append('saleEndPrice', objectFilter.saleEndPrice);
+            if (objectFilter.minPrice) { // Thay 'saleStartPrice' bằng 'minPrice' theo backend
+                queryParams.append('minPrice', objectFilter.minPrice);
             }
-            if (objectFilter.status !== null) {
-                url.searchParams.append('status', objectFilter.status);
+            if (objectFilter.maxPrice) { // Thay 'saleEndPrice' bằng 'maxPrice' theo backend
+                queryParams.append('maxPrice', objectFilter.maxPrice);
             }
             if (objectFilter.categoryId) {
-                url.searchParams.append('categoryId', objectFilter.categoryId);
+                queryParams.append('categoryId', objectFilter.categoryId);
             }
-
-            // Gửi yêu cầu GET tới API
-            const response = await fetch(url, {
+    
+            // Gắn các tham số truy vấn vào URL
+            url.search = queryParams.toString();
+    
+            // Định nghĩa các tùy chọn cho fetch, bao gồm cả header Authorization
+            const options = {
                 method: 'GET',
                 headers: {
+                    'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
                 }
-            });
-
+            };
+    
+            // Gửi yêu cầu GET tới API
+            const response = await fetch(url.toString(), options);
+    
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(errorData.detail || `HTTP error! Status: ${response.status}`);
             }
-
+    
             const data = await response.json();
             console.log(data);
+    
+            // Kiểm tra nếu không có sách nào được tìm thấy
+            if (!data.content || data.content.length === 0) {
+                showNotification('Không tìm thấy sách nào với tiêu chí lọc đã chọn.', 'info');
+                return;
+            }
+    
+            // Nếu có sách, tiếp tục xử lý
             renderData(data, size);
         } catch (error) {
             console.error('Error fetching books:', error);
-            alert('Không thể lấy dữ liệu sách. Vui lòng thử lại sau.');
+            showNotification('Không thể lấy dữ liệu sách. Vui lòng thử lại sau.', 'error');
         }
     }
 
@@ -74,12 +133,15 @@
         const confirmation = confirm("Bạn có chắc chắn muốn xoá sách này không?");
         if (confirmation) {
             try {
-                const response = await fetch(`http://localhost:8080/product?id=${bookId}`, {
+                const accessToken = getToken();
+                const options = {
                     method: 'DELETE',
                     headers: {
+                        'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'application/json'
                     }
-                });
+                };
+                const response = await fetch(`http://localhost:8080/api/v1/product?id=${bookId}`, options);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -104,9 +166,9 @@
     function searchCondition(page, size) {
         let filter = {};
         filter.name = document.getElementById('bookName').value.trim() === '' ? null : document.getElementById('bookName').value.trim();
-        filter.saleStartPrice = document.getElementById('saleStartPrice').value === '' ? null : parseInt(document.getElementById('saleStartPrice').value);
-        filter.saleEndPrice = document.getElementById('saleEndPrice').value === '' ? null : parseInt(document.getElementById('saleEndPrice').value);
-        filter.status = document.getElementById('status').value === '' ? null : parseInt(document.getElementById('status').value);
+        //filter.saleStartPrice = document.getElementById('saleStartPrice').value === '' ? null : parseInt(document.getElementById('saleStartPrice').value);
+        //filter.saleEndPrice = document.getElementById('saleEndPrice').value === '' ? null : parseInt(document.getElementById('saleEndPrice').value);
+        //filter.status = document.getElementById('status').value === '' ? null : parseInt(document.getElementById('status').value);
         filter.categoryId = document.getElementById('category').value === '0' ? null : parseInt(document.getElementById('category').value);
         console.log(filter);
         getBooks(page, size, filter);
@@ -135,7 +197,7 @@ data.content.forEach(book => {
     // Hình ảnh
     const imageCell = document.createElement('td');
     const img = document.createElement('img');
-    img.src = book.imageUrl ? book.imageUrl : '../../../static/assets_admin/images/no-image.png';
+    img.src = book.image ? book.image : '../../../static/assets_admin/images/no-image.png';
     img.alt = 'Thumbnail';
     img.classList.add('img-thumbnail');
     imageCell.appendChild(img);
@@ -158,7 +220,7 @@ data.content.forEach(book => {
 
     // Ngày xuất bản
     const dateCell = document.createElement('td');
-    dateCell.textContent = new Date(book.datePublic).toLocaleDateString('vi-VN');
+    dateCell.textContent = book.quantity;
     row.appendChild(dateCell);
 
     // Thể loại
@@ -182,12 +244,12 @@ data.content.forEach(book => {
     actionCell.appendChild(detailLink);
 
     // Nút Xóa
-    // const deleteButton = document.createElement('button');
-    // deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
-    // deleteButton.textContent = 'Xóa';
-    // deleteButton.dataset.id = book.id;
-    // deleteButton.addEventListener('click', deleteBook);
-    // actionCell.appendChild(deleteButton);
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('btn', 'btn-danger', 'mr-2');
+    deleteButton.textContent = 'Xóa';
+    deleteButton.dataset.id = book.id;
+    deleteButton.addEventListener('click', deleteBook);
+    actionCell.appendChild(deleteButton);
 
     row.appendChild(actionCell);
 
@@ -247,37 +309,7 @@ renderPagination(data.totalPages, data.number, size);
         nextLi.appendChild(nextLink);
         pagination.appendChild(nextLi);
     }
-
-
-
-
-// Hàm xóa sách
-async function deleteBook(event) {
-    const bookId = event.target.dataset.id;
-    const confirmation = confirm("Bạn có chắc chắn muốn xoá sách này không?");
-    if (confirmation) {
-        try {
-            const response = await fetch(`http://localhost:8080/product?id=${bookId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            alert('Xóa sách thành công!');
-            // Tải lại danh sách sách
-            initData();
-        } catch (error) {
-            console.error('Error deleting book:', error);
-            alert('Xóa sách thất bại. Vui lòng thử lại sau.');
-        }
-    }
-}
-
+    
 async function fetchCategories() {
     try {
         const response = await axios.get('http://localhost:8080/api/v1/category');
