@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const paginationUl = document.getElementById('pagination');
     const userGreeting = document.getElementById('user-greeting');
     const searchForm = document.getElementById('searchForm');
-    //const profileLink = document.querySelector('a[href="/profile.php"]');
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -16,11 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
             showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
         }
     }
-
-    // profileLink.addEventListener("click", function(event) {
-    //     event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-    //     checkAuthAndRedirect(profileLink, "/profile.php");
-    // });
+    
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
+    });
 
     cartLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định

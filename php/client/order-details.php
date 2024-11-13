@@ -94,7 +94,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="client/profile.php"><span class="flaticon-user"></span></a></li>
+                            <li><a href="client/profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                             <li class="cart"><a href="client/cart.php"><span class="flaticon-shopping-cart"></span></a></li>
                             <li id="auth-button">
                                     <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->

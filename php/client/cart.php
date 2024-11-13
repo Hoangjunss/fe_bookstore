@@ -169,7 +169,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                            <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                             <li class="cart">
                                 <a href="cart.php">
                                     <span class="flaticon-shopping-cart"></span>

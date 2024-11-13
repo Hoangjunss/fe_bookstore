@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
     //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
     fetchCategoriesAndDisplayTabs();
-    const profileLink = document.querySelector('a[href="/profile.php"]');
+
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    const profileLink = document.getElementById("profileLink");
     profileLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(profileLink, "/profile.php");

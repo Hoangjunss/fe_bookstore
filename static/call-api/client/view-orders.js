@@ -1,7 +1,6 @@
     document.addEventListener("DOMContentLoaded", () => {
         fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
 
-        //const profileLink = document.querySelector('a[href="/profile.php"]');
     const cartLink = document.querySelector('a[href="cart.php"]');
     
     function checkAuthAndRedirect(link, targetUrl) {
@@ -14,11 +13,11 @@
     }
 
 
-
-    // profileLink.addEventListener("click", function(event) {
-    //     event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-    //     checkAuthAndRedirect(profileLink, "/profile.php");
-    // });
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
+    });
 
     cartLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
