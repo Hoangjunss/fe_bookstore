@@ -43,6 +43,7 @@
                 localStorage.removeItem('token');  // Xóa token
                 alert("Đã đăng xuất thành công.");
                 updateAuthButton();  // Cập nhật nút
+                window.location.href = 'index.php';
             });
         } else {
             // Nếu không có token, hiển thị nút Login
@@ -62,12 +63,12 @@
 
     let currentPage = 0;
     let pageSize = 10;
-    let currentStatus = 'ALL';
+    let currentStatus = 'SUCCESS';
 
     function fetchOrders(page, size, status) {
         currentPage = page;
         currentStatus = status;
-        const url = `http://localhost:8080/api/v1/orders?page=${page}&size=${size}&status=${status}`;
+        const url = `http://localhost:8080/api/v1/orders/current`;
 
         const token = localStorage.getItem('token');
         const options = {
@@ -85,8 +86,8 @@
             return response.json();
         })
         .then(data => {
-            renderOrders(data.content);
-            renderPagination(data);
+            renderOrders(data);
+            //renderPagination(data);
         })
         .catch(error => {
             console.error("There was a problem with the fetch operation:", error);
@@ -116,12 +117,12 @@
             orderItem.innerHTML = `
                 <div class="blog_item_img">
                     <a href="#" class="blog_item_date">
-                        <h3>${new Date(order.createdDate).getDate()}</h3>
-                        <p>${new Date(order.createdDate).toLocaleString('default', { month: 'short' })}</p>
+                        <h3>${new Date().getDate()}</h3>
+                        <p>${new Date().toLocaleString('default', { month: 'short' })}</p>
                     </a>
                 </div>
                 <div class="blog_details">
-                    <a class="d-inline-block" href="/client/order_detail.html?id=${orderId}">
+                    <a class="d-inline-block" href="order-details.php?id=${orderId}">
                         <h2 class="order-head" style="color: #2d2d2d">Số tiền phải trả: ${formattedTotalPrice}</h2>
                     </a>
                     <p>Người dùng: ${username}</p>

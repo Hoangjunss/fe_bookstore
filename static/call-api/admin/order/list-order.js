@@ -4,6 +4,25 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         searchCondition(0, 5); // Khi nhấn tìm kiếm, bắt đầu từ trang 0 với kích thước 5
     });
+    const logoutButton = document.getElementById("logout-btn");
+
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+
+            // Xóa token và refreshToken khỏi localStorage
+            localStorage.removeItem("token");
+            localStorage.removeItem("refreshToken");
+
+            // Thông báo đăng xuất thành công (tùy chọn)
+            alert("Bạn đã đăng xuất thành công!");
+
+            // Chuyển hướng đến trang đăng nhập
+            window.location.href = "../../auth/login.php";
+        });
+    } else {
+        console.error("Phần tử logoutButton không tồn tại trong DOM.");
+    }
 });
 
 function getToken() {

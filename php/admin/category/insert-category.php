@@ -162,7 +162,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="#" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>

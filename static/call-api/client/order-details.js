@@ -50,6 +50,7 @@ function updateAuthButton() {
             localStorage.removeItem('token');  // Xóa token
             alert("Đã đăng xuất thành công.");
             updateAuthButton();  // Cập nhật nút
+            window.location.href = 'index.php';
         });
     } else {
         // Nếu không có token, hiển thị nút Login
@@ -68,13 +69,15 @@ function updateAuthButton() {
 }
 
 function fetchOrderDetails(orderId) {
-    fetch(`http://localhost:8080/orders/id?id=${orderId}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-            // Thêm các header cần thiết nếu có, ví dụ: Authorization
-        }
-    })
+    const token = localStorage.getItem('token');
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+    fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, options)
     .then(response => {
         if (!response.ok) {
             throw new Error("Không thể lấy dữ liệu đơn hàng.");
@@ -137,11 +140,12 @@ function renderOrderDetails(order) {
         const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     } else {
-        // Nếu không có phí ship, bạn có thể tính theo quy định hoặc bỏ qua
-        document.querySelector(".shipping-fee").textContent = "N/A";
+        order.shippingFee = 32000;
+        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
+        document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     }
 
-    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
+    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.shippingFee);
     document.querySelector(".total-cost").textContent = formattedTotalCost;
 
     // Cập nhật trạng thái đơn hàng

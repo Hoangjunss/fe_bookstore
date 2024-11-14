@@ -44,6 +44,7 @@ function updateAuthButton() {
             localStorage.removeItem('token');  // Xóa token
             alert("Đã đăng xuất thành công.");
             updateAuthButton();  // Cập nhật nút
+            window.location.href = 'index.php';
         });
     } else {
         // Nếu không có token, hiển thị nút Login
