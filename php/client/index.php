@@ -60,8 +60,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
-            opacity: 0;
+            background: rgba(0, 0, 0, 0.2);
             transition: opacity 0.3s ease;
         }
 
@@ -391,7 +390,7 @@
                             <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8  col-sm-10">
                                 <div class="hero-caption text-center">
                                     <span>Book Sale</span>
-                                    <h1 data-animation="bounceIn" data-delay="0.2s">Discover Your Next Read</h1>
+                                    <!-- <h1 data-animation="bounceIn" data-delay="0.2s">Discover Your Next Read</h1> -->
                                     <p data-animation="fadeInUp" data-delay="0.4s">Explore a wide selection of books that will inspire, educate, and entertain. Find the perfect book for every moment.</p>
                                     <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Browse Books</a>
                                 </div>
@@ -407,7 +406,7 @@
                             <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
                                 <div class="hero-caption text-center">
                                     <span>Bookstore Exclusive</span>
-                                    <h1 data-animation="bounceIn" data-delay="0.2s">Your Next Great Read Awaits</h1>
+                                    <!-- <h1 data-animation="bounceIn" data-delay="0.2s">Your Next Great Read Awaits</h1> -->
                                     <p data-animation="fadeInUp" data-delay="0.4s">Discover captivating stories, insightful guides, and inspiring reads across all genres. Dive into the world of books today.</p>
                                     <a href="view-products.php" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Books</a>
                                 </div>

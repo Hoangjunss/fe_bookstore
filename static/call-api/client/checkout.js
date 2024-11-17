@@ -190,7 +190,7 @@ function renderCart(cart) {
         const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
         const productName = product.name || 'Tên sản phẩm';
         const price = product.price || 0;
-        const quantity = product.quantity || 0;
+        const quantity = detail.quantity || 0;
         const totalPrice = price * quantity;
         subtotal += totalPrice;
 
