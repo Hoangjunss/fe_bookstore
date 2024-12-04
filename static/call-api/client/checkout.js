@@ -479,12 +479,12 @@ function initializeAddressForm() {
     let toWardCode = '';
 
     const host = "https://online-gateway.ghn.vn/shiip/public-api/master-data/";
-    const tokenGHN = '5f440054-8c34-11ee-af43-6ead57e9219a';
+    const token = 'f40d0301-b206-11ef-81b7-f2563a9a571b';
 
     let callAPI = (api, params = {}) => {
         const config = {
             headers: {
-                'token': tokenGHN
+                'token': token
             },
             params: params
         };
@@ -497,8 +497,8 @@ function initializeAddressForm() {
     let callAPICalculate = (params = {}) => {
         const config = {
             headers: {
-                'token': tokenGHN,
-                'shop_id': 4724045
+                'token': token,
+                'shop_id': 5500083
             },
             params: params
         };
@@ -855,8 +855,8 @@ async function calculateShippingFee() {
     try {
         const response = await axios.get("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee", {
             headers: {
-                'token': '3c2fc675-9e38-11ef-8e53-0a00184fe694',
-                'shop_id': 195266
+                'token': 'f40d0301-b206-11ef-81b7-f2563a9a571b',
+                'shop_id': 5500083
             },
             params: {
                 "service_type_id": 2,
