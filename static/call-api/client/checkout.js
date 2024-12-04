@@ -304,93 +304,186 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
-    // Tạo dữ liệu địa chỉ
-    const address = {
-        address: `${detailAddress}, ${ward}, ${district}, ${province}`,
-        phone: phone
-    };
-
-    // Lấy dữ liệu giỏ hàng
-    let cartItems = [];
-    try {
-        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const cartData = await response.json();
-        cartItems = cartData.cartDetailDTOList.map(item => ({
-            productId: item.product.id,
-            quantity: item.quantity,
-            unitPrice: item.product.price,
-            totalPrice: item.quantity * item.product.price
-        }));
-    } catch (error) {
-        console.error('Error fetching cart data:', error);
-        showNotification('Có lỗi xảy ra khi lấy dữ liệu giỏ hàng.', 'error');
+    // Kiểm tra định dạng Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showNotification('Địa chỉ email không hợp lệ.', 'error');
         return;
     }
 
-    // Tính tổng số lượng và tổng giá
-    const quantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+    // Kiểm tra định dạng Số điện thoại (ví dụ: 10 số)
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+        showNotification('Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.', 'error');
+        return;
+    }
 
-    // Tạo dữ liệu đơn hàng
+    // Kiểm tra phương thức thanh toán
+    if (!paymentMethod) {
+        showNotification('Vui lòng chọn phương thức thanh toán.', 'error');
+        return;
+    }
+
+    const price = calculateTotalPrice(); // Hàm tính tổng giá tiền đơn hàng
+
+    // Tạo đối tượng đơn hàng
     const orderData = {
-        userId: cartData.userId, // Thay đổi theo backend
-        quantity: quantity,
-        totalPrice: totalPrice,
-        address: address,
-        orderDetailCreateDTOS: cartItems,
-        paymentStatus: paymentMethod === 'CASH' ? 'PAID' : 'PENDING',
-        orderStatus: 'PROCESSING'
+        fullName,
+        phone,
+        email,
+        province,
+        district,
+        ward,
+        detailAddress,
+        voucherCode,
+        paymentMethod
+        // Thêm các trường cần thiết khác nếu có
     };
 
-    // Gọi API tạo đơn hàng
+    console.log(orderData);
+
+    // Xử lý dựa trên phương thức thanh toán
+    if (paymentMethod === "CASH") {
+        const ordersCreateDTO = {
+            address: {
+                address: detailAddress,
+                phone: phone
+            },
+            paymentStatus: "CASH",
+            orderStatus: "PENDING"
+        }
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(ordersCreateDTO)
+            });
+
+            if (response.ok) {
+                const data = await response.json(); // Phân tích cú pháp JSON từ phản hồi
+                console.log(data); // Kiểm tra dữ liệu nhận được từ backend
+                alert('Đơn hàng của bạn đã được đặt thành công!');
+                window.location.href = 'http://localhost:8000/php/client/order-details.php?id=' + data.id;
+            } else {
+                const errorData = await response.json();
+                showNotification(errorData.message || 'Đặt hàng thất bại.', 'error');
+            }
+        } catch (error) {
+            console.error('CASH Order Error:', error);
+            showNotification('Đặt hàng thất bại. Vui lòng thử lại sau.', 'error');
+        }
+
+    } else if (paymentMethod === "PAYPAL") {
+        // Xử lý thanh toán khi chọn PayPal
+        // Ví dụ: Gửi đơn hàng lên backend và nhận URL PayPal để redirect
+        try {
+            const response = await fetch('http://localhost:8080/api/paypal/create-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(orderData)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const paypalUrl = data.paymentUrl; // Giả sử backend trả về URL PayPal
+                window.location.href = paypalUrl;
+
+                // Khi redirect thành công, bạn có thể xử lý thêm nếu cần
+                // Ví dụ: Hiển thị thông báo hoặc lưu trạng thái đơn hàng
+            } else {
+                const errorData = await response.json();
+                showNotification(errorData.message || 'Thanh toán PayPal thất bại.', 'error');
+            }
+        } catch (error) {
+            console.error('PAYPAL Error:', error);
+            showNotification('Thanh toán PayPal thất bại. Vui lòng thử lại sau.', 'error');
+        }
+
+    } else if (paymentMethod === "VNPAY") {
+        const ordersCreateDTO = {
+            address: {
+                address: detailAddress,
+                phone: phone
+            },
+            paymentStatus: "CASH",
+            orderStatus: "PENDING"
+        }
+        sessionStorage.setItem('ordersCreateDTO', JSON.stringify(ordersCreateDTO));
+        // Xử lý thanh toán khi chọn VNPAY
+        // Ví dụ: Gọi hàm riêng để xử lý VNPAY
+        // Giả sử bạn có biến price và id đơn hàng, cần xác định cách lấy chúng
+        const id = generateOrderId(); // Hàm tạo hoặc lấy ID đơn hàng
+
+        await callVNPAY(price, id);
+    } else {
+        showNotification('Phương thức thanh toán không hợp lệ.', 'error');
+    }
+});
+
+// Hàm tính tổng giá tiền đơn hàng
+function calculateTotalPrice() {
+    // Implement logic để tính tổng giá tiền từ giỏ hàng
+    // Ví dụ:
+    const subtotal = parseInt(document.getElementById("subtotalText").innerText.replace(/\D/g, '')) || 0;
+    const shippingFee = parseInt(document.getElementById("shippingFeeText").innerText.replace(/\D/g, '')) || 0;
+    return subtotal + shippingFee;
+}
+
+// Hàm tạo hoặc lấy ID đơn hàng
+function generateOrderId() {
+    // Implement logic để lấy hoặc tạo ID đơn hàng
+    // Ví dụ: Lấy từ backend sau khi tạo đơn hàng tạm
+    // Hoặc sử dụng UUID trên frontend
+    return '123456789'; // Thay thế bằng logic thực tế
+}
+
+// Hàm lấy phương thức thanh toán được chọn
+function handlePaymentMethodSelection() {
+    const paymentMethods = document.getElementsByName("paymentMethod");
+    for (let method of paymentMethods) {
+        if (method.checked) {
+            return method.value;
+        }
+    }
+    return null;
+}
+
+// Hàm gọi API VNPAY
+async function callVNPAY(price, id) {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/orders', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'POST',
+        const token = localStorage.getItem('token');
+    if (!token) {
+        return; // Nếu chưa đăng nhập, không cần cập nhật
+    }
+        const response = await fetch(`http://localhost:8080/api/v1/vnpay/pay?price=${price}&id=${id}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify(orderData)
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            showNotification(`Lỗi: ${errorData.message}`, 'error');
-            return;
+            throw new Error('Failed to initiate VNPAY payment.');
         }
 
-        const createdOrder = await response.json();
-        showNotification('Đặt hàng thành công!', 'success');
+        const paymentUrl = await response.text(); // Assuming the backend returns the URL as plain text
+        // Redirect người dùng đến trang thanh toán VNPAY
+        window.location.href = paymentUrl;
 
-        // Nếu thanh toán qua PayPal hoặc VNPay, bạn có thể chuyển hướng người dùng tới gateway tương ứng
-        if (paymentMethod === 'PAYPAL') {
-            // TODO: Redirect to PayPal payment gateway with order details
-            console.log('Redirecting to PayPal...');
-            // window.location.href = 'PAYPAL_GATEWAY_URL';
-        } else if (paymentMethod === 'VNPAY') {
-            // TODO: Redirect to VNPay payment gateway with order details
-            console.log('Redirecting to VNPay...');
-            // window.location.href = 'VNPAY_GATEWAY_URL';
-        } else {
-            // Nếu thanh toán bằng CASH, có thể chuyển hướng tới trang xác nhận đơn hàng
-            window.location.href = 'order-confirmation.php?orderId=' + createdOrder.id;
-        }
-
-        // Làm trống giỏ hàng sau khi đặt hàng thành công
-        await clearCart();
-
+        // Khi redirect thành công, bạn có thể xử lý thêm nếu cần
+        // Ví dụ: Hiển thị thông báo hoặc lưu trạng thái đơn hàng
     } catch (error) {
-        console.error("Error placing order:", error);
-        showNotification('Có lỗi xảy ra khi đặt hàng.', 'error');
+        console.error('VNPAY Error:', error);
+        showNotification('Thanh toán qua VNPAY thất bại. Vui lòng thử lại sau.', 'error');
     }
-});
+}
 
 // Hàm làm trống giỏ hàng sau khi đặt hàng
 async function clearCart() {
@@ -650,86 +743,6 @@ async function clearCart() {
     }
 }
 
-// Hàm xử lý khi người dùng nhấn nút "Place Order"
-document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-        showNotification('Bạn chưa đăng nhập. Vui lòng đăng nhập để đặt hàng.', 'error');
-        return;
-    }
-
-    // Lấy dữ liệu từ form
-    const fullName = document.getElementById("fullName").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const province = document.getElementById("province").value;
-    const district = document.getElementById("district").value;
-    const ward = document.getElementById("ward").value;
-    const detailAddress = document.getElementById("detailAddress").value.trim();
-    const voucherCode = document.getElementById("voucherCode").value.trim();
-    const paymentMethod = handlePaymentMethodSelection();
-
-    // Kiểm tra dữ liệu nhập
-    if (!fullName || !phone || !email || !province || !district || !ward || !detailAddress) {
-        showNotification('Vui lòng điền đầy đủ thông tin.', 'error');
-        return;
-    }
-
-    // Tạo dữ liệu địa chỉ
-    const address = {
-        address: `${detailAddress}, ${ward}, ${district}, ${province}`,
-        phone: phone
-    };
-
-    // Lấy dữ liệu giỏ hàng
-    let cartItems = [];
-    let cartData;
-    try {
-        const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        cartData = await response.json();
-        cartItems = cartData.cartDetailDTOList.map(item => ({
-            productId: item.product.id,
-            quantity: item.quantity,
-            unitPrice: item.product.price,
-            totalPrice: item.quantity * item.product.price
-        }));
-    } catch (error) {
-        console.error('Error fetching cart data:', error);
-        showNotification('Có lỗi xảy ra khi lấy dữ liệu giỏ hàng.', 'error');
-        return;
-    }
-
-    // Tính tổng số lượng và tổng giá
-    const quantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    const subtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
-    const shippingFeeText = document.getElementById("shippingFeeText").textContent.replace(/[^0-9]/g, '');
-    const shippingFee = parseInt(shippingFeeText) || 0;
-    const totalPrice = subtotal + shippingFee;
-
-    // Tạo dữ liệu đơn hàng
-    const orderData = {
-        userId: cartData.userId, // Thay đổi theo backend nếu cần
-        quantity: quantity,
-        totalPrice: totalPrice,
-        address: address,
-        orderDetailCreateDTOS: cartItems,
-        paymentStatus: paymentMethod === 'CASH' ? 'PAID' : 'PENDING',
-        orderStatus: 'PROCESSING'
-    };
-
-    // Gọi hàm placeOrder để tạo đơn hàng
-    await placeOrder(orderData);
-});
-
 // Hàm khởi tạo form địa chỉ với các API để lấy tỉnh, quận, phường
 function initializeAddressForm() {
     // Sử dụng GHN API để lấy danh sách tỉnh, quận, phường như bạn đã làm trong `cart.php`
@@ -945,79 +958,7 @@ async function applyVoucher() {
     }
 }
 
-// Hàm xử lý khi người dùng chọn phương thức thanh toán
-function handlePaymentMethodSelection() {
-    const paymentMethods = document.getElementsByName('paymentMethod');
-    let selectedMethod = 'CASH'; // Mặc định
 
-    paymentMethods.forEach((method) => {
-        if (method.checked) {
-            selectedMethod = method.value;
-        }
-    });
-
-    if (selectedMethod === 'PAYPAL') {
-        // TODO: Thêm logic xử lý PayPal
-        console.log('User selected PayPal. Redirect to PayPal gateway.');
-        // Bạn có thể thêm logic chuyển hướng tới PayPal tại đây
-    } else if (selectedMethod === 'VNPAY') {
-        // TODO: Thêm logic xử lý VNPay
-        console.log('User selected VNPay. Redirect to VNPay gateway.');
-        // Bạn có thể thêm logic chuyển hướng tới VNPay tại đây
-    }
-
-    return selectedMethod;
-}
-
-// Hàm xử lý khi người dùng nhấn nút "Place Order"
-async function placeOrder(orderData) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        showNotification('Bạn chưa đăng nhập. Vui lòng đăng nhập để đặt hàng.', 'error');
-        return;
-    }
-
-    try {
-        const response = await fetch('http://localhost:8080/api/v1/orders', { // Điều chỉnh URL theo cấu hình backend của bạn
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(orderData)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            showNotification(`Lỗi: ${errorData.message}`, 'error');
-            return;
-        }
-
-        const createdOrder = await response.json();
-        showNotification('Đặt hàng thành công!', 'success');
-
-        // Nếu thanh toán qua PayPal hoặc VNPay, bạn có thể chuyển hướng người dùng tới gateway tương ứng
-        if (orderData.paymentMethod === 'PAYPAL') {
-            // TODO: Redirect to PayPal payment gateway with order details
-            console.log('Redirecting to PayPal...');
-            // window.location.href = 'PAYPAL_GATEWAY_URL';
-        } else if (orderData.paymentMethod === 'VNPAY') {
-            // TODO: Redirect to VNPay payment gateway with order details
-            console.log('Redirecting to VNPay...');
-            // window.location.href = 'VNPAY_GATEWAY_URL';
-        } else {
-            // Nếu thanh toán bằng CASH, có thể chuyển hướng tới trang xác nhận đơn hàng
-            window.location.href = `order-confirmation.php?orderId=${createdOrder.id}`;
-        }
-
-        // Làm trống giỏ hàng sau khi đặt hàng thành công
-        await clearCart();
-
-    } catch (error) {
-        console.error("Error placing order:", error);
-        showNotification('Có lỗi xảy ra khi đặt hàng.', 'error');
-    }
-}
 
 // Hàm làm trống giỏ hàng sau khi đặt hàng
 async function clearCart() {

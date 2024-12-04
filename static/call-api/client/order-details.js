@@ -107,8 +107,8 @@ function renderOrderDetails(order) {
     }
 
     document.getElementById("customerName").textContent = order.username;
-    document.getElementById("customerPhone").textContent = order.address.phone;
-    document.getElementById("customerAddress").textContent = order.address.address;
+    document.getElementById("customerPhone").textContent = order.address !=null ? order.address.phone : "Thông tin liên hệ.";
+    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.address : "Thông tin liên hệ.";
 
     // Cập nhật bảng chi tiết đơn hàng
     const orderDetailsBody = document.getElementById("orderDetailsBody");

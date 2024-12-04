@@ -2,13 +2,16 @@
 <html class="no-js" lang="vi">
 
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Shop | eCommerce</title>
-    <meta name="description" content="">
+    <title>Shop | eCommerce - Payment Status</title>
+    <meta name="description" content="Payment Status Page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="../../static/client_assets/img/icon/favicon.png">
 
     <!-- CSS Libraries -->
@@ -24,244 +27,150 @@
     <link rel="stylesheet" href="../../static/client_assets/css/slick.css">
     <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css">
     <link rel="stylesheet" href="../../static/client_assets/css/style.css">
+    
     <!-- ionRangeSlider CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ion-rangeslider/css/ion.rangeSlider.min.css">
 
+    <!-- Custom CSS Styles -->
     <style>
-         .single-items.mb-20:hover .add-to-cart-link {
-            opacity: 1;
-            visibility: visible;
-            display: block;
-        }
-        .add-to-cart-link {
-            display: none;
-            background-color: #4CAF50;
-            /* Green color */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .add-to-cart-link:hover {
-            background-color: #45a049;
-            /* Darker green on hover */
-        }
-
-        .cart-product-image {
-            /* Các thuộc tính trước đó */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .items-img {
-            position: relative;
-        }
-
-        .items-img::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            transition: opacity 0.3s ease;
-        }
-
-        .items-img:hover::after {
-            opacity: 1;
-        }
-
+        /* Notification Styles */
         .notification {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 20px;
+            right: 20px;
             min-width: 250px;
             max-width: 350px;
             padding: 15px 20px;
-            margin-bottom: 10px;
             border-radius: 5px;
             color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transform: translateX(100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
             transition: opacity 0.5s ease, transform 0.5s ease;
-            position: relative;
-            top: 80px;
         }
 
         .notification.show {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             opacity: 1;
             transform: translateX(0);
         }
 
         .notification.success {
             background-color: #28a745;
-            /* Màu xanh lá cho thành công */
         }
 
         .notification.error {
             background-color: #dc3545;
-            /* Màu đỏ cho lỗi */
         }
 
         .notification.info {
             background-color: #17a2b8;
-            /* Màu xanh dương cho thông tin */
         }
 
         .notification .close-btn {
             margin-left: 15px;
             cursor: pointer;
             font-weight: bold;
-            color: #fff;
             background: none;
             border: none;
+            color: #fff;
             font-size: 16px;
         }
 
-        /* Điều chỉnh biểu tượng giỏ hàng để hiển thị số lượng */
-        .cart {
-            position: relative;
+        /* Payment Result Styles */
+        .payment-result-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            text-align: center;
+            padding: 20px;
         }
 
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #dc3545;
-            color: #fff;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
+        .payment-result-card {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .payment-result-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-result-card.success {
+            border-top: 5px solid #28a745;
+            background-color: #e9f7ef;
+        }
+
+        .payment-result-card.error {
+            border-top: 5px solid #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .payment-result-card .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .payment-result-card.success .icon {
+            color: #28a745;
+        }
+
+        .payment-result-card.error .icon {
+            color: #dc3545;
+        }
+
+        .payment-result-card h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
             font-weight: bold;
         }
 
-        /* Đảm bảo các card sản phẩm có cùng chiều cao */
-        .single-items, .properties-card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+        .payment-result-card p {
+            margin-bottom: 25px;
+            font-size: 16px;
         }
 
-        /* Căn chỉnh hình ảnh sản phẩm để có cùng kích thước */
-        .items-img img, .properties-img img {
-            width: 100%;
-            height: 300px; /* Điều chỉnh chiều cao theo nhu cầu */
-            object-fit: cover;
-        }
-
-        /* Căn chỉnh phần chi tiết sản phẩm */
-        .items-details, .properties-caption {
-            width: 100%;
-            flex: 1;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        /* Đặt độ rộng của mỗi card sản phẩm */
-        #productsContainer, #trendingProducts, #youMayLikeProducts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Khoảng cách giữa các card */
-            justify-content: center;
-        }
-
-        #productsContainer .single-items,
-        #trendingProducts .properties,
-        #youMayLikeProducts .properties {
-            flex: 0 1 calc(33.333% - 20px); /* 3 sản phẩm mỗi hàng với khoảng cách 20px */
-            box-sizing: border-box;
-        }
-
-        /* Đối với màn hình nhỏ hơn, hiển thị 2 sản phẩm mỗi hàng */
-        @media (max-width: 992px) {
-            #productsContainer .single-items,
-            #trendingProducts .properties,
-            #youMayLikeProducts .properties {
-                flex: 0 1 calc(50% - 20px);
-            }
-        }
-
-        /* Đối với màn hình di động, hiển thị 1 sản phẩm mỗi hàng */
-        @media (max-width: 576px) {
-            #productsContainer .single-items,
-            #trendingProducts .properties,
-            #youMayLikeProducts .properties {
-                flex: 0 1 100%;
-            }
-        }
-
-        /* Giới hạn số lượng tab hiển thị trong "Trending This Week" */
-        .nav-tabs a {
-            display: none; /* Ẩn tất cả các tab */
-        }
-
-        .nav-tabs a:nth-child(-n+3) {
-            display: inline-block; /* Hiển thị chỉ 3 tab đầu tiên */
-        }
-
-        /* Đảm bảo phần tử trong "Trending This Week" hiển thị hàng ngang */
-        .latest-items-active {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        /* Giới hạn số lượng sản phẩm hiển thị trong "You May Like" */
-        #youMayLikeProducts .properties {
-            flex: 0 1 calc(33.333% - 20px); /* 3 sản phẩm mỗi hàng */
-        }
-
-        /* Giới hạn số lượng sản phẩm hiển thị tối đa 6 trong "You May Like" */
-        #youMayLikeProducts .properties:nth-child(n+7) {
-            display: none;
-        }
-
-        /* Optional: Styling for "Add to Cart" and "Shop Now" buttons */
-        .browse-btn, .add-to-cart-link {
-            padding: 10px 15px;
-            margin-top: 10px;
+        .payment-result-card .btn-custom {
+            padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background-color 0.3s;
+            font-size: 16px;
+            display: inline-block;
         }
 
-        .browse-btn {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .browse-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .add-to-cart-link {
+        .payment-result-card.success .btn-custom {
             background-color: #28a745;
             color: #fff;
-
         }
 
-        .add-to-cart-link:hover {
+        .payment-result-card.success .btn-custom:hover {
             background-color: #218838;
-        }
-        .flaticon-login:before {
-            content: '\f2f6'; /* Thay mã biểu tượng tùy ý */
+            color: #fff;
         }
 
-        .flaticon-logout:before {
-            content: '\f2f5'; /* Thay mã biểu tượng tùy ý */
+        .payment-result-card.error .btn-custom {
+            background-color: #dc3545;
+            color: #fff;
         }
 
+        .payment-result-card.error .btn-custom:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
 
-    <div id="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
 
     <!-- Preloader -->
     <div id="preloader-active">
@@ -333,7 +242,6 @@
                         </div>
 
                         <!-- Header Right -->
-                        <!-- Header Right -->
                         <div class="header-right">
                             <ul>
                                 <li>
@@ -382,163 +290,16 @@
         </div>
     </header>
 
+    <!-- Main Content: Payment Result -->
     <main>
-
-        <!-- Hero Area -->
-        <section class="slider-area ">
-            <div class="slider-active">
-
-                <!-- Single Slider -->
-                <div class="single-slider slider-bg1 slider-height d-flex align-items-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8  col-sm-10">
-                                <div class="hero-caption text-center">
-                                    <span>Book Sale</span>
-                                    <!-- <h1 data-animation="bounceIn" data-delay="0.2s">Discover Your Next Read</h1> -->
-                                    <p data-animation="fadeInUp" data-delay="0.4s">Explore a wide selection of books that will inspire, educate, and entertain. Find the perfect book for every moment.</p>
-                                    <a href="#" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Browse Books</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Slider -->
-                <div class="single-slider slider-bg2 slider-height d-flex align-items-center">
-                    <div class="container">
-                        <div class="row justify-content-end">
-                            <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-8 col-sm-10">
-                                <div class="hero-caption text-center">
-                                    <span>Bookstore Exclusive</span>
-                                    <!-- <h1 data-animation="bounceIn" data-delay="0.2s">Your Next Great Read Awaits</h1> -->
-                                    <p data-animation="fadeInUp" data-delay="0.4s">Discover captivating stories, insightful guides, and inspiring reads across all genres. Dive into the world of books today.</p>
-                                    <a href="view-products.php" class="btn_1 hero-btn" data-animation="fadeInUp" data-delay="0.7s">Shop Books</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Products Section -->
-        <section class="items-product1 pt-30">
-            <div class="container">
-                <div class="row" id="productsContainer">
-                    <!-- Products will be inserted here by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Trending This Week -->
-        <div class="latest-items section-padding fix">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-xl-12">
-                        <div class="nav-button">
-
-                            <nav>
-                                <div class="nav-tittle">
-                                    <h2>Trending This Week</h2>
-                                </div>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                </div>
-                            </nav>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-
-                <div class="tab-content" id="nav-tabContent">
-                    <!-- Men Tab -->
-                    <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-
-                        <div class="latest-items-active" id="trendingProducts">
-                            <!-- Trending products will be inserted here by JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Other tabs can be similarly handled if needed -->
-                </div>
+        <div class="payment-result-container">
+            <div id="paymentResult" class="payment-result-card">
+                <!-- Content sẽ được JavaScript cập nhật -->
             </div>
         </div>
-
-        <!-- You May Like Section -->
-        <section class="latest-items section-padding fix">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section-tittle text-center mb-40">
-                        <h2>You May Like</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="latest-items-active" id="youMayLikeProducts">
-                    <!-- You may like products will be inserted here by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonial Area -->
-        <div class="testimonial-area testimonial-padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-10 col-lg-10 col-md-11">
-
-                        <div class="h1-testimonial-active">
-
-                            <div class="single-testimonial text-center">
-                                <div class="testimonial-caption">
-                                    <div class="testimonial-top-cap">
-                                        <h2>Reader Testimonials</h2>
-                                        <p>Books have the power to transform, inspire, and entertain. Hear from our readers about their favorite reads and how our collection has enriched their lives.</p>
-                                    </div>
-
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                        <div class="founder-img">
-                                            <img src="../../static/client_assets/img/gallery/founder-img.png" alt="Reader Image">
-                                        </div>
-                                        <div class="founder-text">
-                                            <span>Emma Williams</span>
-                                            <p>Avid Reader & Book Enthusiast</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="single-testimonial text-center">
-                                <div class="testimonial-caption ">
-                                    <div class="testimonial-top-cap">
-                                        <h2>Customer Testimonial</h2>
-                                        <p>Everybody is different, which is why we offer styles for every body. Laborum fuga
-                                            incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                            earum.</p>
-                                    </div>
-
-                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                        <div class="founder-img">
-                                            <img src="../../static/client_assets/img/gallery/founder-img.png" alt="Founder Image">
-                                        </div>
-                                        <div class="founder-text">
-                                            <span>Petey Cruiser</span>
-                                            <p>Designer at Colorlib</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Subscribe and Footer Sections Omitted for Brevity -->
-
     </main>
+
+    <!-- Footer -->
     <footer>
         <!-- Footer content remains unchanged -->
         <div class="footer-wrapper gray-bg">
@@ -628,7 +389,7 @@
     <!-- JavaScript Libraries -->
     <!-- Load jQuery first -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    
+
     <!-- ionRangeSlider JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
 
@@ -655,7 +416,7 @@
     <script src="../../static/client_assets/js/plugins.js"></script>
     <script src="../../static/client_assets/js/main.js"></script>
     <script src="../../static/client_assets/js/axios.min.js"></script>
-    <script src="../../static/call-api/client/index.js"></script>
+    <script src="../../static/call-api/client/payment-success.js"></script>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>

@@ -107,8 +107,8 @@
             const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
             const formattedQuantity = order.quantity;
             const username = order.username;
-            const address = order.address.address;
-            const phone = order.address.phone;
+            const address = order.address!= null ? order.address.address : "" ;
+            const phone = order.address!= null ? order.address.phone : "";
             const orderStatus = order.orderStatus;
             const orderId = order.id;
 
