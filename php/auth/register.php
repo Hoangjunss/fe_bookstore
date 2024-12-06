@@ -33,6 +33,7 @@
                                 <div class="form-group">
                                     <label>Địa chỉ email</label>
                                     <input class="form-control" type="email" name="email" id="email" placeholder="Nhập email" required />
+                                    <small class="text-danger error-email"></small>
                                 </div>
                                 <div class="form-group">
                                     <label>Tên đăng nhập</label>
@@ -87,6 +88,14 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
             const role = "customer"; // Thiết lập vai trò mặc định là "USER"
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.querySelector('.error-email').innerText = 'Định dạng Email không hợp lệ.';
+                return;
+            } else {
+                document.querySelector('.error-email').innerText = '';
+            }
 
             // Kiểm tra mật khẩu
             if (password.length < 6 || !isValidPassword(password)) {

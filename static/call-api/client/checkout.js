@@ -318,6 +318,30 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
+    //Tỉnh thành
+    if(province == null || province == ''){
+        showNotification('Vui lòng chọn tỉnh thành.', 'error');
+        return;
+    }
+
+    // Quận huyện
+    if(district == null || district == ''){
+        showNotification('Vui lòng chọn quận huyện.', 'error');
+        return;
+    }
+
+    // Phư��ng xã
+    if(ward == null || ward == ''){
+        showNotification('Vui lòng chọn phường xã.', 'error');
+        return;
+    }
+
+    //Detail address
+    if(detailAddress == null || detailAddress == ''){
+        showNotification('Vui lòng nhập địa chỉ chi tiết.', 'error');
+        return;
+    }
+
     // Kiểm tra phương thức thanh toán
     if (!paymentMethod) {
         showNotification('Vui lòng chọn phương thức thanh toán.', 'error');
@@ -411,7 +435,7 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
                 address: detailAddress,
                 phone: phone
             },
-            paymentStatus: "CASH",
+            paymentStatus: "VNPAY",
             orderStatus: "PENDING"
         }
         sessionStorage.setItem('ordersCreateDTO', JSON.stringify(ordersCreateDTO));

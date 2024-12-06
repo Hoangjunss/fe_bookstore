@@ -83,6 +83,11 @@
         var password = document.getElementById('password').value;
         var passwordError = document.getElementById('passwordError');
 
+        if(username.length ==0){
+            alert('Tên đăng nhập không được để trống.');
+            return;
+        }
+
         // Kiểm tra mật khẩu có đủ điều kiện không
         if (password.length < 6) {
             passwordError.textContent = 'Mật khẩu phải có ít nhất 6 kí tự.';

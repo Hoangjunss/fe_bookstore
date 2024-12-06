@@ -102,6 +102,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const saleStartPrice = document.getElementById('saleStartPrice').value;
         const saleEndPrice = document.getElementById('saleEndPrice').value;
 
+        if(saleStartPrice < 0){
+            alert("Giá bán thấp nhất không được bé hơn 0.");
+            document.getElementById('saleStartPrice').value = '';
+            return;
+        }
+        if(saleEndPrice && saleEndPrice < saleStartPrice){
+            alert("Giá bán đến thấp nhất phải lớn hơn hoặc bằng giá bán từ.");
+            document.getElementById('saleEndPrice').value = '';
+            return;
+        }
+
         console.log('Fetching products:', page,pageSize);
 
         // Xây dựng URL với các tham số query

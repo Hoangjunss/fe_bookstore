@@ -55,7 +55,7 @@
                                 <div class="header-info-right d-flex">
                                     <ul class="order-list">
                                         <li><span id="userEmail">Hello, user@example.com</span></li>
-                                        <li><a href="client/view-orders.php">Track Your Order</a></li>
+                                        <li><a href="view-orders.php">Track Your Order</a></li>
                                     </ul>
                                     <ul class="header-social">
                                         <li><a href="#"><i class="fab fa-facebook"></i></a></li>
