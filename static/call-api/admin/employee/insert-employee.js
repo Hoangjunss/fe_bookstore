@@ -97,7 +97,7 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
     }
 
     // Tạo đối tượng UserRegistrationDTO
-    const userDTO = {
+    const createUserRequest = {
         username: username,
         email: email,
         password: password,
@@ -107,7 +107,7 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
     };
 
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/users/register', userDTO);
+        const response = await axios.post('http://localhost:8080/api/v1/users/employee', createUserRequest);
 
         if (response.status === 200 || response.status === 201) {
             showNotification('Thêm nhân viên thành công!', 'success');

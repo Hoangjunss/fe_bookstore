@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchEmployeeData(employeeId);
     } else {
         alert('Không tìm thấy ID nhân viên.');
-        window.location.href = 'list-employee.php';
+       // window.location.href = 'list-employee.php';
     }
 
     // Xử lý submit form
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Fetch và populate danh sách chức vụ vào dropdown
-    fetchRoles();
+    //fetchRoles();
 });
 
 /**
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function fetchEmployeeData(employeeId) {
     try {
-        const response = await axios.get(`http://localhost:8080/api/v1/user/${employeeId}`);
+        const response = await axios.get(`http://localhost:8080/api/v1/users/${employeeId}`);
 
         if (response.status === 200) {
             const employee = response.data;
@@ -39,7 +39,7 @@ async function fetchEmployeeData(employeeId) {
     } catch (error) {
         console.error('Error fetching employee data:', error);
         alert('Không thể lấy dữ liệu nhân viên. Vui lòng thử lại sau.');
-        window.location.href = 'list-employee.php';
+        //window.location.href = 'list-employee.php';
     }
 }
 
@@ -52,7 +52,6 @@ function populateForm(employee) {
     document.getElementById('username').value = employee.username;
     document.getElementById('email').value = employee.email;
     document.getElementById('fullname').value = employee.fullname;
-    document.getElementById('role').value = employee.role;
     document.getElementById('status').value = employee.status ? 'true' : 'false';
 }
 
@@ -95,6 +94,24 @@ function populateRoleDropdown(roles) {
  * @param {number} employeeId - ID nhân viên
  */
 async function updateEmployee(employeeId) {
+
+        // Lấy từng trường từ form
+        const id = parseInt(document.getElementById('id').value);
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const fullname = document.getElementById('fullname').value.trim();
+        const locked = document.getElementById('status').value === 'true';
+    
+        // Tạo đối tượng userDTO
+        const userDTO = {
+            id: id,
+            username: username,
+            email: email,
+            fullname: fullname,
+            role: 'employee',
+            locked: locked
+        };
+
     const form = document.getElementById('updateEmployeeForm');
     const formData = new FormData(form);
 
@@ -105,9 +122,11 @@ async function updateEmployee(employeeId) {
     }
 
     try {
-        const response = await axios.patch(`http://localhost:8080/api/v1/employees/${employeeId}`, formData, {
+        const response = await axios.patch(`http://localhost:8080/api/v1/users`, userDTO, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json',
+
+
             }
         });
 

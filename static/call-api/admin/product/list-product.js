@@ -1,6 +1,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         initData();
-
+// Thêm sự kiện cho nút "Tìm kiếm"
+document.getElementById('btnSearch').addEventListener('click', function (e) {
+    e.preventDefault(); // Ngăn chặn hành vi mặc định nếu trong form
+    handleSearch();
+});
     });
 
     // Hàm khởi tạo dữ liệu
@@ -74,7 +78,7 @@
                 // Hình ảnh
                 const imageCell = document.createElement('td');
                 const img = document.createElement('img');
-                img.src = book.imageUrl ? book.imageUrl : '../../../static/assets_admin/images/no-image.png';
+                img.src = book.image ? book.image : '../../../static/assets_admin/images/no-image.png';
                 img.alt = 'Thumbnail';
                 img.classList.add('img-thumbnail');
                 imageCell.appendChild(img);
@@ -177,8 +181,8 @@
     function searchCondition(page, size) {
         let filter = {};
         filter.name = document.getElementById('bookName').value.trim() === '' ? null : document.getElementById('bookName').value.trim();
-        filter.saleStartPrice = document.getElementById('saleStartPrice').value === '' ? null : parseInt(document.getElementById('saleStartPrice').value);
-        filter.saleEndPrice = document.getElementById('saleEndPrice').value === '' ? null : parseInt(document.getElementById('saleEndPrice').value);
+        //filter.saleStartPrice = document.getElementById('saleStartPrice').value === '' ? null : parseInt(document.getElementById('saleStartPrice').value);
+        //filter.saleEndPrice = document.getElementById('saleEndPrice').value === '' ? null : parseInt(document.getElementById('saleEndPrice').value);
         filter.status = document.getElementById('status').value === '' ? null : parseInt(document.getElementById('status').value);
         filter.categoryId = document.getElementById('category').value === '0' ? null : parseInt(document.getElementById('category').value);
         console.log(filter);
@@ -283,9 +287,18 @@ async function fetchCategories() {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const categories = response.data;
+
+        // Phân tích phản hồi JSON
+        const categories = await response.json();
+        console.log(categories);
 
         const categorySelect = document.getElementById('category');
+
+        // Kiểm tra xem categories có phải là một mảng không
+        if (!Array.isArray(categories)) {
+            throw new Error('Dữ liệu trả về không phải là một mảng');
+        }
+
         categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id; // Giả sử 'id' là trường định danh
@@ -294,8 +307,40 @@ async function fetchCategories() {
         });
     } catch (error) {
         console.error(error);
-        alert('Có lỗi xảy ra khi tải danh sách thể loại.', 'error');
+        alert('Có lỗi xảy ra khi tải danh sách thể loại.');
     }
 }
 
 
+function handleSearch() {
+    // Lấy giá trị từ các trường nhập liệu
+    const bookName = document.getElementById('bookName').value.trim();
+    const statusValue = document.getElementById('status').value;
+    const categoryValue = document.getElementById('category').value;
+
+    // Chuyển đổi trạng thái từ giá trị chuỗi sang boolean hoặc null
+    let status;
+    if (statusValue === "1") {
+        status = true;
+    } else if (statusValue === "0") {
+        status = false;
+    } else {
+        status = null; // Tất cả các trạng thái
+    }
+
+    // Chuyển đổi category từ giá trị chuỗi sang số nguyên hoặc null
+    let categoryId = categoryValue === "0" ? null : parseInt(categoryValue);
+
+    // Tạo đối tượng chứa các điều kiện tìm kiếm
+    const searchCriteria = {
+        categoryId: categoryId,
+        bookName: bookName,
+        status: status
+    };
+
+    // In ra console để kiểm tra
+    console.log('Thông tin tìm kiếm:', searchCriteria);
+
+    // Bạn có thể gọi hàm tìm kiếm API tại đây với các điều kiện tìm kiếm
+    // ví dụ: searchBooks(searchCriteria);
+}

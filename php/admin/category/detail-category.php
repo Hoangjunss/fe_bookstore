@@ -321,7 +321,6 @@
                                 <div class="col-md-6">
                                     <p><strong>ID:</strong> <span id="category-id"></span></p>
                                     <p><strong>Tên Category:</strong> <span id="category-name"></span></p>
-                                    <p><strong>Trạng Thái:</strong> <span id="category-status"></span></p>
                                 </div>
                                 <!-- Bạn có thể thêm các thông tin khác nếu cần -->
                             </div>
@@ -335,25 +334,6 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box table-responsive">
-
-                            <!-- Form Tìm Kiếm (Nếu cần thiết) -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="productTitle">Tiêu đề sản phẩm:</label>
-                                        <input type="text" class="form-control" id="productTitle" placeholder="Nhập tiêu đề sản phẩm để tìm kiếm">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="saleStartPrice">Giá Bắt Đầu:</label>
-                                        <input type="number" class="form-control" id="saleStartPrice" placeholder="Nhập giá bắt đầu">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="saleEndPrice">Giá Kết Thúc:</label>
-                                        <input type="number" class="form-control" id="saleEndPrice" placeholder="Nhập giá kết thúc">
-                                    </div>
-                                </div>
-                                <button id="btnSearchProduct" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
 
                             <!-- Bảng Danh Sách Sản Phẩm -->
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
@@ -420,6 +400,11 @@
 
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
+<!-- Axios JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 <!-- Required datatable js -->
 <script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
@@ -438,7 +423,7 @@
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
 
 <!-- Your Custom JS -->
-<script src="../../../static/call-api/admin/category/category-details.js"></script>
+<script src="../../../static/call-api/admin/category/detail-category.js"></script>
 
 <!-- Datatables init -->
 <script src="../../../static/assets_admin/js/pages/datatables.init.js"></script>

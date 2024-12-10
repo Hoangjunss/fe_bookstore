@@ -325,22 +325,24 @@
                             </div>
 
                             <!-- Bảng Danh Sách Loại Sản Phẩm -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 300px;">Tên loại sản phẩm</th>
-                                    <th>Tổng số sản phẩm</th>
-                                    <th>Số sản phẩm đang bán</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
+                                <!-- Bảng Danh Sách Loại Sản Phẩm -->
+                                <table id="datatable-buttons"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 100px;">ID</th>
+                                        <th style="width: 300px;">Tên loại sản phẩm</th>
+                                        <th>Tổng số sản phẩm</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dữ liệu sẽ được thêm vào đây thông qua JavaScript -->
+                                    </tbody>
+                                </table>
 
-                                </tbody>
-                            </table>
 
                             <!-- Phân Trang -->
                             <nav aria-label="Page navigation example">
@@ -474,7 +476,6 @@
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
 <!-- Required datatable js -->
-<script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>

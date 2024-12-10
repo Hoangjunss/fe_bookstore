@@ -331,6 +331,7 @@
                                 <h5>Chọn Product Sale</h5>
                                 <select id="productsale-select" class="form-control">
                                     <option value="">-- Chọn Product Sale --</option>
+                                    <option value="">Công chúa bong bóng</option>
                                     <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                 </select>
                             </div>
@@ -342,16 +343,16 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Product Sale</th>
-                                        <td id="productsale-id">#</td>
+                                        <td id="productsale-id">1</td>
                                         <th>Giá Bán</th>
-                                        <td id="productsale-price">#</td>
+                                        <td id="productsale-price">100000</td>
                                     </tr>
                                     <tr>
                                         <th>Số Lượng</th>
-                                        <td id="productsale-quantity">#</td>
+                                        <td id="productsale-quantity">10</td>
                                         <th>Trạng Thái</th>
                                         <td>
-                                            <span id="productsale-status" class="status-badge badge badge-info">#</span>
+                                            <span id="productsale-status" class="status-badge badge badge-info">active</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -374,6 +375,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        <td>1</td>
+                                        <td>Công chúa bong bóng</td>
+                                        <td>100</td>
+                                        <td>90000</td>
+                                        <td>20-12-2004</td>
                                     <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                     </tbody>
                                 </table>

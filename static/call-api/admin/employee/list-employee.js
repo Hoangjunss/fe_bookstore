@@ -62,10 +62,7 @@ async function fetchEmployees(page, size) {
         const response = await axios.get('http://localhost:8080/api/v1/users',
             {
                 params,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
+                
              }
         );
 
@@ -93,7 +90,7 @@ function populateEmployeeTable(employees) {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center">Không tìm thấy dữ liệu.</td></tr>';
         return;
     }
-
+    console.log(employees);
     employees.forEach(employee => {
         if(employee.role == 'employee'){
             const tr = document.createElement('tr');
@@ -104,11 +101,11 @@ function populateEmployeeTable(employees) {
             <td>${employee.email}</td>
             <td>${employee.fullname}</td>
             <td>${employee.role}</td>
-            <td>${getStatusText(employee.status)}</td>
+            <td>${getStatusText(employee.locked)}</td>
             <td>
             <button class="btn btn-primary btn-sm edit-button" data-id="${employee.id}">Sửa</button>
                 <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-                    ${employee.status === 1 ? 'Khóa' : 'Mở khóa'}
+                    ${employee.locked == false ? 'Khóa' : 'Mở khóa'}
                 </button>
             </td>
         `;
@@ -126,7 +123,7 @@ function populateEmployeeTable(employees) {
         });
     });
 
-    document.querySelectorAll('.delete-button').forEach(button => {
+    document.querySelectorAll('.toggle-lock-button').forEach(button => {
         button.addEventListener('click', function () {
             const employeeId = this.getAttribute('data-id');
             lockEmployee(employeeId);
@@ -174,7 +171,7 @@ function renderPagination(totalPage, currentPage, size) {
  * @returns {string} - Văn bản trạng thái
  */
 function getStatusText(status) {
-    return status === 1 ? 'ACTIVE' : 'INACTIVE';
+    return status == false ? 'ACTIVE' : 'INACTIVE';
 }
 
 /**
@@ -200,7 +197,7 @@ async function lockEmployee(employeeId) {
             });
 
             if (response.status === 200) {
-                showNotification('Khóa nhân viên thành công!', 'success');
+                showNotification('Thay đổi trạng thái nhân viên thành công!', 'success');
                 // Tải lại danh sách nhân viên sau khi khóa
                 fetchEmployees(1, 10);
             } else {

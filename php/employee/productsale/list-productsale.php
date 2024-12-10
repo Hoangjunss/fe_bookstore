@@ -341,11 +341,6 @@
                                     </div>
 
                                     <div class="col-md-3 mb-3">
-                                        <label for="quantity">Số lượng:</label>
-                                        <input type="number" class="form-control" id="quantity" placeholder="Nhập số lượng" min="0">
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
                                         <label for="status">Trạng thái:</label>
                                         <select class="form-control" id="status" name="status">
                                             <option value="">Tất cả</option>
@@ -373,10 +368,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <td>1</td>
+                                    <td>Công chúa bong bóng</td>
+                                    <td>10</td>
+                                    <td>Active</td>
+                                    <td>100000</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm edit-button" data-id="${ps.id}">Khóa</button>
+                                        <button class="btn btn-info btn-sm detail-button" data-id="${ps.id}">Chi tiết</button>
+                                        <button class="btn btn-danger btn-sm add-button" data-id="${ps.id}">Nhập hàng</button>
+                                    </td>
                                 <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>
-
                             <!-- Phân Trang -->
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-end" id="pageId">

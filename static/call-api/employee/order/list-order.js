@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    initData();
+    //initData();
     document.getElementById('btnSearch').addEventListener('click', function (e) {
         e.preventDefault();
         searchCondition(0, 5); // Khi nhấn tìm kiếm, bắt đầu từ trang 0 với kích thước 5

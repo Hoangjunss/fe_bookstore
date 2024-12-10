@@ -210,13 +210,13 @@
                     </div>
 
                     <!-- item-->
-                    <a href="../profile.php" class="dropdown-item notify-item">
+                    <!-- <a href="../profile.php" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>Thông tin cá nhân</span>
-                    </a>
+                    </a> -->
 
                     <!-- item-->
-                    <a href="#" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -403,7 +403,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                    <td>1</td>
+                                    <td>abc@example.com</td>
+                                    <td>1</td>
+                                    <td>100000</td>
+                                    <td>
+                                    <button class="btn btn-success btn-sm detail-button" data-id="${order.id}">Duyệt</button>
+                                    <button class="btn btn-danger btn-sm detail-button" data-id="${order.id}">Từ chối</button>
+                                    <button class="btn btn-info btn-sm detail-button" data-id="${order.id}">Xem chi tiết</button>
+                                    </td>
                                 </tbody>
                             </table>
                             <!-- Phân Trang -->

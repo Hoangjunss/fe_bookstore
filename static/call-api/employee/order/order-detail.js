@@ -8,7 +8,7 @@
         } else {
             alert('Không tìm thấy ID đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.php';
+            //window.location.href = 'list-order.php';
         }
     });
 

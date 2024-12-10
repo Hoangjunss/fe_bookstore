@@ -366,14 +366,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="products">Sản phẩm áp dụng <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="products" name="products" multiple required>
-                                        <!-- Các tùy chọn sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-                                    </select>
-                                    <div class="error-message" id="error-products"></div>
-                                </div>
-
-                                <div class="form-group">
                                     <label for="status">Trạng thái <span class="text-danger">*</span></label>
                                     <select class="form-control" id="status" name="status" required>
                                         <option value="">-- Chọn trạng thái --</option>

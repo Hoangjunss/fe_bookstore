@@ -374,12 +374,13 @@
 </div>
 <!-- END wrapper -->
 
-<!-- Vendor JS -->
+<!-- Vendor JS (bao gồm jQuery) -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
 <!-- Required datatable js -->
 <script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
+
 <!-- Buttons examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/buttons.bootstrap4.min.js"></script>
@@ -399,10 +400,6 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<!-- jQuery (Nếu chưa có) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap JS (Nếu chưa có) -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 </body>

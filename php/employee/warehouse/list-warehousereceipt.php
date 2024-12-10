@@ -342,18 +342,7 @@
                             <!-- Form Tìm Kiếm -->
                             <div class="mb-3">
                                 <div class="form-row">
-                                    <div class="col-md-3 mb-3">
-                                        <label for="supplyName">Tên nhà cung cấp:</label>
-                                        <select class="form-control" id="supplyName" name="supplyName">
-                                            <option value="">Tất cả</option>
-                                            <!-- Các tùy chọn nhà cung cấp sẽ được thêm vào đây bằng JavaScript -->
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="quantity">Số lượng:</label>
-                                        <input type="number" class="form-control" id="quantity" placeholder="Nhập số lượng" min="0">
-                                    </div>
+                                    
 
                                     <div class="col-md-3 mb-3">
                                         <label for="status">Trạng thái:</label>
@@ -365,8 +354,12 @@
                                     </div>
 
                                     <div class="col-md-3 mb-3">
-                                        <label for="date">Ngày:</label>
+                                        <label for="date">Từ ngày:</label>
                                         <input type="date" class="form-control" id="date" name="date">
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="date">Đến ngày:</label>
+                                        <input type="date" class="form-control" id="date2" name="date">
                                     </div>
                                 </div>
 
@@ -383,12 +376,21 @@
                                     <th style="width: 200px;">Tên nhà cung cấp</th>
                                     <th>Số lượng</th>
                                     <th>Tổng giá</th>
-                                    <th>Trạng thái</th>
+                                    <!-- <th>Trạng thái</th> -->
                                     <th>Ngày</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <td>1</td>
+                                    <td>XYZ</td>
+                                    <td>100</td>
+                                    <td>10000000</td>
+                                   <!--  <td></td> -->
+                                    <td>24-11-2024</td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm view-button" data-id="${wh.id}">Xem</button>
+                                    </td>
                                 <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>

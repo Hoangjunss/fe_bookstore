@@ -229,50 +229,41 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
 
-                <ul class="metismenu" id="side-menu">
+            <ul class="metismenu" id="side-menu">
 
-                    <li class="menu-title">QUẢN LÝ</li>
+<li class="menu-title">QUẢN LÝ</li>
 
-                    <li>
-                        <a href="../dashboard.php">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../user/list-user.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý user
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../order/list-order.php">
-                            <i class="fe-layout"></i>
-                            Quản lý đơn hàng
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="../productsale/list-productsale.php">
-                            <i class="fe-tag"></i>
-                            Quản lý Product Sale
-                        </a>
-                    </li>
-                </ul>
+<li>
+    <a href="../order/list-order.php">
+        <i class="fe-shopping-cart"></i>
+        Quản lý đơn hàng
+    </a>
+</li>
+<li>
+    <a href="#">
+        <i class="fe-tag"></i>
+        Quản lý sản phẩm bán
+    </a>
+</li>
+<li>
+    <a href="../warehouse/list-warehouse.php">
+        <i class="fe-archive"></i>
+        Quản lý kho hàng 
+    </a>
+</li>
+<li>
+    <a href="../warehouse/list-warehousereceipt.php">
+        <i class="fe-file-plus"></i>
+        Quản lý phiếu nhập 
+    </a>
+</li>
+<li>
+    <a href="../order/list-order.php">
+        <i class="fe-percent"></i>
+        Quản lý Voucher
+    </a>
+</li>
+</ul>
 
             </div>
             <!-- End Sidebar -->
@@ -330,15 +321,15 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Product Sale</th>
-                                        <td id="productsale-id">#</td>
+                                        <td id="productsale-id">1</td>
                                         <th>Giá Bán</th>
-                                        <td id="productsale-price">#</td>
+                                        <td id="productsale-price">100000</td>
                                     </tr>
                                     <tr>
                                         <th>Số Lượng</th>
-                                        <td id="productsale-quantity">#</td>
+                                        <td id="productsale-quantity">10</td>
                                         <th>Trạng Thái</th>
-                                        <td id="productsale-status" class="status-badge">#</td>
+                                        <td id="productsale-status" class="status-badge">active</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -351,23 +342,24 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Sản Phẩm</th>
-                                        <td id="product-id">#</td>
+                                        <td id="product-id">1</td>
                                         <th>Tên Sản Phẩm</th>
-                                        <td id="product-name">#</td>
+                                        <td id="product-name">Công chúa bong bóng</td>
                                     </tr>
                                     <tr>
                                         <th>Tác Giả</th>
-                                        <td id="product-author">#</td>
+                                        <td id="product-author">ABC</td>
                                         <th>Ngày Xuất Bản</th>
-                                        <td id="product-date-public">#</td>
+                                        <td id="product-date-public">11-12-2020</td>
                                     </tr>
                                     <tr>
                                         <th>Mô Tả</th>
-                                        <td colspan="3" id="product-description">#</td>
+                                        <td colspan="3" id="product-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloribus id suscipit deleniti minus quas quod maiores cumque, voluptatibus ad modi unde illo quia voluptatem nesciunt similique. Dolorem, nesciunt non!</td>
                                     </tr>
                                     <tr>
                                         <th>Hình Ảnh</th>
                                         <td colspan="3" id="product-image">
+                                        <img src="../../../static/client_assets/img/products/defbookcover-min.jpg" alt="${product.name}" class="product-image">
                                             <!-- Hình ảnh sẽ được chèn qua JavaScript -->
                                         </td>
                                     </tr>

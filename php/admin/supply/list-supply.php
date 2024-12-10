@@ -354,18 +354,6 @@
                                             <label for="title">Tên Nhà Cung Cấp:</label>
                                             <input type="text" class="form-control" id="title" placeholder="Nhập tên nhà cung cấp">
                                         </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="categoryId">ID Category:</label>
-                                            <input type="number" class="form-control" id="categoryId" placeholder="Nhập ID category">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleStartPrice">Giá Bắt Đầu:</label>
-                                            <input type="number" class="form-control" id="saleStartPrice" placeholder="Nhập giá bắt đầu">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="saleEndPrice">Giá Kết Thúc:</label>
-                                            <input type="number" class="form-control" id="saleEndPrice" placeholder="Nhập giá kết thúc">
-                                        </div>
                                     </div>
                                     <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
                                 </form>

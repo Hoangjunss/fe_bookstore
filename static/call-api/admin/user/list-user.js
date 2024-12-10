@@ -95,10 +95,10 @@ function populateEmployeeTable(employees) {
             <td>${employee.email}</td>
             <td>${employee.fullname}</td>
             <td>${employee.role}</td>
-            <td>${getStatusText(employee.status)}</td>
+            <td>${getStatusText(employee.locked)}</td>
             <td>
-                <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-                    ${employee.status === 1 ? 'Khóa' : 'Mở khóa'}
+                <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.locked}">
+                    ${employee.locked == false ? 'Khóa' : 'Mở khóa'}
                 </button>
             </td>
         `;
@@ -154,7 +154,7 @@ function renderPagination(totalPage, currentPage, size) {
  * @returns {string} - Văn bản trạng thái
  */
 function getStatusText(status) {
-    return status === 1 ? 'ACTIVE' : 'INACTIVE';
+    return status ==false ? 'ACTIVE' : 'INACTIVE';
 }
 
 /**
@@ -182,7 +182,7 @@ async function lockEmployee(employeeId) {
             if (response) {
                 showNotification('Khóa nhân viên thành công!', 'success');
                 // Tải lại danh sách nhân viên sau khi khóa
-                fetchEmployees(0, 10);
+                fetchEmployees(1, 10);
             } else {
                 throw new Error('Khóa nhân viên thất bại.');
             }

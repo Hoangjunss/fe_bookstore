@@ -31,14 +31,13 @@ async function fetchCategoryDetails(categoryId) {
             const category = response.data;
             document.getElementById('category-id').textContent = category.id;
             document.getElementById('category-name').textContent = category.name;
-            document.getElementById('category-status').textContent = category.status === 1 ? 'ACTIVE' : 'INACTIVE';
         } else {
             throw new Error('Không thể lấy thông tin category.');
         }
     } catch (error) {
         console.error('Error fetching category details:', error);
         alert('Không thể lấy thông tin category. Vui lòng thử lại sau.');
-        window.location.href = 'list-category.html';
+        //window.location.href = 'list-category.html';
     }
 }
 
@@ -51,7 +50,7 @@ function initializeDataTable(categoryId) {
         processing: true, // Hiển thị thông báo đang xử lý
         serverSide: true, // Bật chế độ server-side
         ajax: {
-            url: 'http://localhost:8080/api/productsales', // Endpoint để lấy sản phẩm sale
+            url: 'http://localhost:8080/api/v1/productsales', // Endpoint để lấy sản phẩm sale
             type: 'GET',
             data: function (d) {
                 // Chuyển đổi các tham số từ DataTables thành các tham số phù hợp cho API của bạn

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         alert('Không tìm thấy ID Product Sale.');
         // Điều hướng quay lại danh sách Product Sale
-        window.location.href = 'list-productsale.php';
+        //window.location.href = 'list-productsale.php';
     }
 });
 

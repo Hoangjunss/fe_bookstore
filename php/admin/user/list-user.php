@@ -278,7 +278,32 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                    <tr>
+                                    <td>1</td>
+                                    <td>kh01</td>
+                                    <td>kh01@exampli.com</td>
+                                    <td>Nguyen B</td>
+                                    <td>customer</td>
+                                    <td>active</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
+                                           Khóa
+                                        </button>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>2</td>
+                                    <td>kh02</td>
+                                    <td>kh02@exampli.com</td>
+                                    <td>Nguyen C</td>
+                                    <td>customer</td>
+                                    <td>lock</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
+                                           Mở Khóa
+                                        </button>
+                                    </td>
+                                    </tr>               <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>
 

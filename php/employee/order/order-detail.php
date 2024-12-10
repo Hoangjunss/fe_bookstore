@@ -320,19 +320,19 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Đơn Hàng</th>
-                                        <td id="order-id">#</td>
+                                        <td id="order-id">1</td>
                                         <th>Email Người Dùng</th>
-                                        <td id="user-email">#</td>
+                                        <td id="user-email">abc@example.com</td>
                                     </tr>
                                     <tr>
                                         <th>Số Lượng Sản Phẩm</th>
-                                        <td id="order-quantity">#</td>
+                                        <td id="order-quantity">1</td>
                                         <th>Tổng Giá Trị</th>
-                                        <td id="order-total-price">#</td>
+                                        <td id="order-total-price">100000</td>
                                     </tr>
                                     <tr>
                                         <th>Ngày Tạo</th>
-                                        <td id="order-created-date">#</td>
+                                        <td id="order-created-date">20/12/2024</td>
                                         <th>Trạng Thái</th>
                                         <td>
                                         PENDING
@@ -340,7 +340,7 @@
                                     </tr>
                                     <tr>
                                         <th>Địa Chỉ Giao Hàng</th>
-                                        <td colspan="3" id="order-address">#</td>
+                                        <td colspan="3" id="order-address">Abc, xyz</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -363,6 +363,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        <td>1</td>
+                                        <td>Công chúa bong bóng</td>
+                                        <td><img src="../../../static/client_assets/img/products/defbookcover-min.jpg" alt="Product Image" class="avatar-img"></td>
+                                        <td>1</td>
+                                        <td>100000</td>
+                                        <td>100000</td>
                                     <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                     </tbody>
                                 </table>
