@@ -107,7 +107,7 @@
             const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
             const formattedQuantity = order.quantity;
             const username = order.address.fullName;
-            const address = order.address!= null ? order.address.detailAddress : "" ;
+            const address = order.address!= null ? order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province : "" ;
             const phone = order.address!= null ? order.address.phone : "";
             const orderStatus = order.orderStatus;
             const orderId = order.id;
@@ -117,8 +117,8 @@
             orderItem.innerHTML = `
                 <div class="blog_item_img">
                     <a href="#" class="blog_item_date">
-                        <h3>${new Date().getDate()}</h3>
-                        <p>${new Date().toLocaleString('default', { month: 'short' })}</p>
+                        <h3>${new Date(order.date).getDate()}</h3>
+                        <p>${new Date(order.date).toLocaleString('default', { month: 'short' })}</p>
                     </a>
                 </div>
                 <div class="blog_details">

@@ -295,13 +295,57 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
+    let provinceText = '';
+    let districtText = '';
+    let wardText = '';
+
     // Lấy dữ liệu từ form
     const fullName = document.getElementById("fullName").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const email = document.getElementById("email").value.trim();
-    const province = document.getElementById("province").value;
-    const district = document.getElementById("district").value;
-    const ward = document.getElementById("ward").value;
+// Lấy phần tử DOM của các thẻ <select>
+const provinceElement = document.getElementById("province");
+const districtElement = document.getElementById("district");
+const wardElement = document.getElementById("ward");
+
+// Kiểm tra xem các phần tử có tồn tại không trước khi thao tác
+if (provinceElement && districtElement && wardElement) {
+    // Lấy giá trị (value) của từng thẻ <select>
+    const provinceValue = provinceElement.value;
+    const districtValue = districtElement.value;
+    const wardValue = wardElement.value;
+
+        //Tỉnh thành
+        if(provinceValue == null || provinceValue == ''){
+            showNotification('Vui lòng chọn tỉnh thành.', 'error');
+            return;
+        }
+    
+        // Quận huyện
+        if(districtValue == null || districtValue == ''){
+            showNotification('Vui lòng chọn quận huyện.', 'error');
+            return;
+        }
+    
+        // Phư��ng xã
+        if(wardValue == null || wardValue == ''){
+            showNotification('Vui lòng chọn phường xã.', 'error');
+            return;
+        }
+
+    // Lấy văn bản (text) của từng lựa chọn đã chọn
+    provinceText = provinceElement.options[provinceElement.selectedIndex].text;
+    districtText = districtElement.options[districtElement.selectedIndex].text;
+    wardText = wardElement.options[wardElement.selectedIndex].text;
+
+    // In ra console để kiểm tra
+    console.log("Province:", provinceValue, provinceText);
+    console.log("District:", districtValue, districtText);
+    console.log("Ward:", wardValue, wardText);
+} else {
+    console.error("Không tìm thấy một hoặc nhiều phần tử <select>.");
+}
+
     const detailAddress = document.getElementById("detailAddress").value.trim();
     //const voucherCode = document.getElementById("voucherCode").value.trim();
     const paymentMethod = handlePaymentMethodSelection();
@@ -325,24 +369,6 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phone)) {
         showNotification('Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.', 'error');
-        return;
-    }
-
-    //Tỉnh thành
-    if(province == null || province == ''){
-        showNotification('Vui lòng chọn tỉnh thành.', 'error');
-        return;
-    }
-
-    // Quận huyện
-    if(district == null || district == ''){
-        showNotification('Vui lòng chọn quận huyện.', 'error');
-        return;
-    }
-
-    // Phư��ng xã
-    if(ward == null || ward == ''){
-        showNotification('Vui lòng chọn phường xã.', 'error');
         return;
     }
 
@@ -372,9 +398,9 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
             address: {
                 fullName: fullName,
                 email: email,
-                province: province, 
-                district: district,
-                ward: ward,
+                province: provinceText, 
+                district: districtText,
+                ward: wardText,
                 detailAddress: detailAddress,
                 phone: phone
             },
@@ -443,9 +469,9 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
             address: {
                 fullName: fullName,
                 email: email,
-                province: province, 
-                district: district,
-                ward: ward,
+                province: provinceText, 
+                district: districtText,
+                ward: wardText,
                 detailAddress: detailAddress,
                 phone: phone
             },

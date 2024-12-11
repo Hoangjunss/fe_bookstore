@@ -100,8 +100,8 @@ function renderOrderDetails(order) {
     
     // Nếu OrdersDTO không có trường ngày, bạn cần thêm nó vào DTO và backend
     // Giả sử có trường createdDate trong OrdersDTO
-    if (order.createdDate) {
-        const orderDate = new Date(order.createdDate);
+    if (order.date) {
+        const orderDate = new Date(order.date);
         document.getElementById("orderDate").textContent = orderDate.toLocaleDateString('vi-VN');
     } else {
         document.getElementById("orderDate").textContent = "N/A";
@@ -110,7 +110,7 @@ function renderOrderDetails(order) {
     document.getElementById("customerName").textContent = order.address.fullName
     ;
     document.getElementById("customerPhone").textContent = order.address !=null ? order.address.phone : "Thông tin liên hệ.";
-    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.detailAddress : "Thông tin liên hệ.";
+    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province: "Thông tin liên hệ.";
 
     // Cập nhật bảng chi tiết đơn hàng
     const orderDetailsBody = document.getElementById("orderDetailsBody");

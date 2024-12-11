@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
 
       // Trạng thái sản phẩm
-      const statusText = product.status ? "Available" : "Out of Stock";
+      const statusText = product.quantity;
 
       productDetailsContainer.innerHTML = `
           <div class="container product-details-container">
@@ -124,10 +124,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p class="product-price">${formattedPrice} VND</p>
                 <p><strong>Author:</strong> ${product.product.author || 'Unknown'}</p>
                 <p><strong>Pages:</strong> ${product.product.page || 'N/A'}</p>
-                <p><strong>Publication Date:</strong> ${product.product.datePublic || 'N/A'}</p>
+                <p><strong>Category:</strong> ${product.product.category.name || 'N/A'}</p>
                 <p><strong>Size:</strong> ${product.product.size || 'N/A'}</p>
                 <p><strong>Description:</strong> ${product.product.description || 'Detailed description of the product.'}</p>
-                <p><strong>Status:</strong> ${statusText}</p>
+                <p><strong>Quantity:</strong> ${statusText}</p>
                 <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
                 <button class="btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
             </div>
