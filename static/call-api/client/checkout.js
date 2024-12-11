@@ -497,6 +497,7 @@ function handlePaymentMethodSelection() {
 async function callVNPAY(price, id) {
     try {
         const token = localStorage.getItem('token');
+        console.log(token);
     if (!token) {
         return; // Nếu chưa đăng nhập, không cần cập nhật
     }

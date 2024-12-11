@@ -204,9 +204,9 @@ function renderCart(cart) {
                   <td>${formattedPrice}</td>
                   <td>
                       <div class="quantity-container">
-                          <button onclick="changeQuantity(${detail.id}, -1, ${detail.product.id})">-</button>
-                          <input type="text" value="${quantity}" onchange="updateQuantityFromInput(${detail.id}, this.value, ${detail.product.id})">
-                          <button onclick="changeQuantity(${detail.id}, 1, ${detail.product.id})">+</button>
+                          <button onclick="changeQuantity(${detail.id}, -1, ${detail.product.id}, ${detail.product.quantity})">-</button>
+                          <input type="text" value="${quantity}" onchange="updateQuantityFromInput(${detail.id}, this.value, ${detail.product.id}, ${detail.product.quantity})">
+                          <button onclick="changeQuantity(${detail.id}, 1, ${detail.product.id}, ${detail.product.quantity})">+</button>
                       </div>
                   </td>
                   <td>${formattedTotalPrice}</td>
@@ -224,7 +224,7 @@ function renderCart(cart) {
 }
 
 // Hàm thay đổi số lượng sản phẩm
-async function changeQuantity(cartDetailId, delta, productSaleId) {
+async function changeQuantity(cartDetailId, delta, productSaleId, productSaleQuantity) {
     try {
         // Lấy hàng tương ứng trong bảng
         const row = document.querySelector(`tr[data-cart-detail-id="${cartDetailId}"]`);
@@ -237,9 +237,14 @@ async function changeQuantity(cartDetailId, delta, productSaleId) {
             showNotification('Số lượng tối thiểu là 1.', 'error');
             return;
         }
+        console.log(newQuantity + " "+ productSaleQuantity)
+        if(newQuantity > productSaleQuantity){
+            showNotification('Sản phẩm này chỉ còn'+ productSaleQuantity +'sản phẩm.', 'error');
+            return;
+        }
 
         // Gọi API để cập nhật số lượng
-        await updateQuantity(cartDetailId, newQuantity, productSaleId);
+        await updateQuantity(cartDetailId, newQuantity, productSaleId, productSaleQuantity);
 
     } catch (error) {
         console.error('Error changing quantity:', error);
@@ -247,8 +252,12 @@ async function changeQuantity(cartDetailId, delta, productSaleId) {
 }
 
 // Hàm cập nhật số lượng sản phẩm
-async function updateQuantity(cartDetailId, newQuantity, productSaleId) {
+async function updateQuantity(cartDetailId, newQuantity, productSaleId, productSaleQuantity) {
     try {
+        if(newQuantity > productSaleQuantity){
+            showNotification('Sản phẩm này chỉ còn'+ productSaleQuantity +'sản phẩm.', 'error');
+            return;
+        }
         const token = localStorage.getItem('token');
         // Gọi API PUT để cập nhật số lượng
         const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn
@@ -324,11 +333,18 @@ async function removeFromCart(cartDetailId) {
 }
 
 // Hàm cập nhật số lượng thông qua sự kiện onchange của input
-async function updateQuantityFromInput(cartDetailId, newQuantity, productSaleId) {
+async function updateQuantityFromInput(cartDetailId, newQuantity, productSaleId, productSaleQuantity) {
     newQuantity = parseInt(newQuantity);
+
     if (isNaN(newQuantity) || newQuantity < 1) {
         showNotification('Số lượng không hợp lệ.', 'error');
         fetchCartData(); // Lấy lại dữ liệu giỏ hàng để reset giá trị
+        return;
+    }
+
+    if(newQuantity > productSaleQuantity){
+        showNotification('Sản phẩm này chỉ còn '+ productSaleQuantity +' sản phẩm.', 'error');
+        fetchCartData();
         return;
     }
     await updateQuantity(cartDetailId, newQuantity, productSaleId);

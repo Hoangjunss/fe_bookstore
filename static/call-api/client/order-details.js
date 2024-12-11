@@ -94,8 +94,9 @@ function fetchOrderDetails(orderId) {
 }
 
 function renderOrderDetails(order) {
+    console.log(order);
     // Cập nhật thông tin đơn hàng
-    document.getElementById("orderId").textContent = `#${order.id}`;
+    document.getElementById("orderId").textContent = `${order.id}`;
     
     // Nếu OrdersDTO không có trường ngày, bạn cần thêm nó vào DTO và backend
     // Giả sử có trường createdDate trong OrdersDTO
@@ -106,9 +107,10 @@ function renderOrderDetails(order) {
         document.getElementById("orderDate").textContent = "N/A";
     }
 
-    document.getElementById("customerName").textContent = order.username;
+    document.getElementById("customerName").textContent = order.address.fullName
+    ;
     document.getElementById("customerPhone").textContent = order.address !=null ? order.address.phone : "Thông tin liên hệ.";
-    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.address : "Thông tin liên hệ.";
+    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.detailAddress : "Thông tin liên hệ.";
 
     // Cập nhật bảng chi tiết đơn hàng
     const orderDetailsBody = document.getElementById("orderDetailsBody");

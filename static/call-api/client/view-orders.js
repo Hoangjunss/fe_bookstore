@@ -68,7 +68,7 @@
     function fetchOrders(page, size, status) {
         currentPage = page;
         currentStatus = status;
-        const url = `http://localhost:8080/api/v1/orders/current`;
+        const url = `http://localhost:8080/api/v1/orders/user?idUser=-1521463666`;
 
         const token = localStorage.getItem('token');
         const options = {
@@ -97,7 +97,7 @@
     function renderOrders(orders) {
         const orderContainer = document.getElementById("orderContainer");
         orderContainer.innerHTML = ""; // Xóa nội dung hiện tại
-
+        console.log(orders);
         if (orders.length === 0) {
             orderContainer.innerHTML = "<p>Không có đơn hàng nào để hiển thị.</p>";
             return;
@@ -106,8 +106,8 @@
         orders.forEach(order => {
             const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
             const formattedQuantity = order.quantity;
-            const username = order.username;
-            const address = order.address!= null ? order.address.address : "" ;
+            const username = order.address.fullName;
+            const address = order.address!= null ? order.address.detailAddress : "" ;
             const phone = order.address!= null ? order.address.phone : "";
             const orderStatus = order.orderStatus;
             const orderId = order.id;
