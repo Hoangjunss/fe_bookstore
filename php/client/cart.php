@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 <head>
-  <meta charset="utf-8" />
+<meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Shop | eCommerce</title>
   <meta name="description" content="" />  
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="shortcut icon" type="image/x-icon" href="../../static/client_assets/img/icon/favicon.png">
+
+  <!-- App CSS -->
   <link rel="stylesheet" href="../../static/client_assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../static/client_assets/css/owl.carousel.min.css">
   <link rel="stylesheet" href="../../static/client_assets/css/slicknav.css">
@@ -19,8 +21,10 @@
   <link rel="stylesheet" href="../../static/client_assets/css/slick.css">
   <link rel="stylesheet" href="../../static/client_assets/css/nice-select.css">
   <link rel="stylesheet" href="../../static/client_assets/css/style.css">
+  
+  <!-- ionRangeSlider CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <script src="../../static/call-api/client/cart.js"></script>
   <style>
     .quantity-container {
       display: flex;
@@ -165,7 +169,7 @@
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                            <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                             <li class="cart">
                                 <a href="cart.php">
                                     <span class="flaticon-shopping-cart"></span>
@@ -173,6 +177,9 @@
                                     <span class="cart-count">0</span>
                                 </a>
                             </li>
+                            <li id="auth-button">
+                                    <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
+                                </li>
 
                         </ul>
                     </div>
@@ -334,11 +341,14 @@
 <script src="../../static/client_assets/js/jquery.ajaxchimp.min.js"></script>
 <script src="../../static/client_assets/js/plugins.js"></script>
 <script src="../../static/client_assets/js/main.js"></script>
-<script src="../../static/client_assets/js/jquery-3.7.1.min.js"></script>
 <script src="../../static/client_assets/js/axios.min.js"></script>
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+
+<script src="../../static/call-api/client/cart.js"></script>
+
+
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {

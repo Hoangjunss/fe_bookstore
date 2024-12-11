@@ -185,13 +185,16 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                                <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">
                                     <a href="cart.php">
                                         <span class="flaticon-shopping-cart"></span>
                                         <!-- Thêm số lượng sản phẩm trong giỏ hàng -->
                                         <span class="cart-count">0</span>
                                     </a>
+                                </li>
+                                <li id="auth-button">
+                                    <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
                                 </li>
                             </ul>
                         </div>
@@ -398,7 +401,6 @@
     <script src="../../static/client_assets/js/jquery.ajaxchimp.min.js"></script>
     <script src="../../static/client_assets/js/plugins.js"></script>
     <script src="../../static/client_assets/js/main.js"></script>
-    <script src="../../static/client_assets/js/jquery-3.7.1.min.js"></script>
     <script src="../../static/client_assets/js/axios.min.js"></script>
 
     <!-- Google Analytics -->

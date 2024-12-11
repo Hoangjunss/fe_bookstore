@@ -5,9 +5,66 @@ document.addEventListener("DOMContentLoaded", function () {
     const paginationUl = document.getElementById('pagination');
     const userGreeting = document.getElementById('user-greeting');
     const searchForm = document.getElementById('searchForm');
+    const cartLink = document.querySelector('a[href="cart.php"]');
+    
+    function checkAuthAndRedirect(link, targetUrl) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = targetUrl;
+        } else {
+            showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
+        }
+    }
+    
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
+    });
 
+    cartLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(cartLink, "cart.php");
+    });
+
+    updateAuthButton();
     let currentPage = 0;
     const pageSize = 12; 
+
+    function updateAuthButton() {
+        const authButtonContainer = document.getElementById("auth-button");
+        const token = localStorage.getItem('token');
+    
+        if (token) {
+            // Nếu có token, hiển thị nút Logout
+            authButtonContainer.innerHTML = `
+                <a href="javascript:void(0);" id="logout-button">
+                        <i class="btn btn-light"> Logout</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng xuất
+            document.getElementById("logout-button").addEventListener("click", function() {
+                localStorage.removeItem('token');  // Xóa token
+                alert("Đã đăng xuất thành công.");
+                updateAuthButton();  // Cập nhật nút
+            });
+        } else {
+            // Nếu không có token, hiển thị nút Login
+            authButtonContainer.innerHTML = `
+                <a href="../auth/login.php" id="login-button">
+                        <i class="btn btn-light">Login</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+            document.getElementById("login-button").addEventListener("click", function(event) {
+                event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+                window.location.href = "../auth/login.php";
+            });
+        }
+    }
+    
 
     // Hàm để cập nhật dropdown danh mục
     function populateCategoryDropdown(categories) {
@@ -45,10 +102,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const saleStartPrice = document.getElementById('saleStartPrice').value;
         const saleEndPrice = document.getElementById('saleEndPrice').value;
 
+        if(saleStartPrice < 0){
+            alert("Giá bán thấp nhất không được bé hơn 0.");
+            document.getElementById('saleStartPrice').value = '';
+            return;
+        }
+        if(saleEndPrice && saleEndPrice < saleStartPrice){
+            alert("Giá bán đến thấp nhất phải lớn hơn hoặc bằng giá bán từ.");
+            document.getElementById('saleEndPrice').value = '';
+            return;
+        }
+
         console.log('Fetching products:', page,pageSize);
 
         // Xây dựng URL với các tham số query
-        let url = `http://localhost:8080/api/v1/productsales?page=${page}&size=${pageSize}`;
+        let url = `http://localhost:8080/api/v1/product?page=${page}&size=${pageSize}`;
 
         if (productName) url += `&name=${encodeURIComponent(productName)}`;
         if (categoryId && categoryId !== '0') url += `&categoryId=${categoryId}`;
@@ -82,29 +150,28 @@ document.addEventListener("DOMContentLoaded", function () {
         products.forEach(product => {
             console.log(product);
             categoriesSet.add(JSON.stringify({
-                id: product.product.category.id,
-                name: product.product.category.name
+                id: product.category.id,
+                name: product.category.name
             }));
             const col = document.createElement('div');
             col.className = 'col-lg-4 col-md-6 col-sm-6';
             col.innerHTML = `
-                <div class="single-items mb-30">
-                    <div class="thumb">
-                        <a href="product-details.php?id=${product.id}">
-                            <img style="width: 100%; height: 250px;" src="${product.product.image.url}" alt="${product.product.name}">
-                        </a>
-                        <div class="actions">
-                            <button class="add-to-cart-link" data-id="${product.id}">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <h4><a href="product-details.php?id=${product.id}">${product.product.name}</a></h4>
-                        <p>Tác giả: ${product.product.author}</p>
-                        <p class="price">${formatPrice(product.price)} VND</p>
-                        <p>Danh mục: ${product.product.category.name}</p>
-                        <p>Số lượng: ${product.quantity}</p>
-                    </div>
-                </div>
+               <div class="single-items mb-30">
+    <div class="thumb">
+        <a href="product-details.php?id=${product.id}">
+            <img style="width: 100%; height: 250px; object-fit: cover;" src="${product.image}" alt="${product.name}">
+        </a>
+        <div class="actions">
+            <button class="add-to-cart-link" data-id="${product.id}">Add to Cart</button>
+        </div>
+    </div>
+    <div class="content text-center">
+        <h4 class="product-title"><a href="product-details.php?id=${product.id}">${product.name}</a></h4>
+        <p class="author">Tác giả: ${product.author}</p>
+        <p class="price">${formatPrice(product.price)} VND</p>
+    </div>
+</div>
+
             `;
             productContainer.appendChild(col);
         });
@@ -170,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const addedCartDetail = await response.json();
             showNotification('Đã thêm sản phẩm vào giỏ hàng thành công!', 'success');
             // Cập nhật biểu tượng giỏ hàng
-            updateCartCount();
+            //updateCartCount();
         } catch (error) {
             console.error('Error adding to cart:', error);
             showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.', 'error');
@@ -312,6 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+
     // Xử lý sự kiện lọc khi form lọc được submit
     if (filterForm) {
         filterForm.addEventListener('submit', function (e) {
@@ -335,6 +403,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userGreeting) {
         fetchUserInfo();
     }
-    updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+    //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
     fetchCategories();
 });

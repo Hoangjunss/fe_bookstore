@@ -1,8 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
-    updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
+    //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
     fetchCategoriesAndDisplayTabs();
+
+    const cartLink = document.querySelector('a[href="cart.php"]');
+    
+    function checkAuthAndRedirect(link, targetUrl) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = targetUrl;
+        } else {
+            showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
+        }
+    }
+
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
+    });
+
+    cartLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(cartLink, "cart.php");
+    });
+
+    updateAuthButton();
 });
+
+function updateAuthButton() {
+    const authButtonContainer = document.getElementById("auth-button");
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        // Nếu có token, hiển thị nút Logout
+        authButtonContainer.innerHTML = `
+            <a href="javascript:void(0);" id="logout-button">
+                    <i class="btn btn-light"> Logout</i>
+                </a>
+        `;
+
+        // Xử lý sự kiện đăng xuất
+        document.getElementById("logout-button").addEventListener("click", function() {
+            localStorage.removeItem('token');  // Xóa token
+            alert("Đã đăng xuất thành công.");
+            updateAuthButton();  // Cập nhật nút
+        });
+    } else {
+        // Nếu không có token, hiển thị nút Login
+        authButtonContainer.innerHTML = `
+            <a href="../auth/login.php" id="login-button">
+                    <i class="btn btn-light">Login</i>
+                </a>
+        `;
+
+        // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+        document.getElementById("login-button").addEventListener("click", function(event) {
+            event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+            window.location.href = "../auth/login.php";
+        });
+    }
+}
+
 
 /**
  * Hàm hiển thị thông báo
@@ -49,7 +108,7 @@ function showNotification(message, type = 'info') {
  */
 async function fetchProducts() {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/productsales?page=0&size=12', {
+        const response = await fetch('http://localhost:8080/api/v1/product?page=0&size=12', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,9 +146,9 @@ function renderProducts(products) {
     products.forEach(productSale => {
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = product.name || 'Tên sản phẩm';
+        const productName = productSale.name || 'Tên sản phẩm';
         const salePrice = productSale.price || 0;
-        const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
@@ -119,17 +178,11 @@ function renderProducts(products) {
 async function fetchCategoriesAndDisplayTabs() {
     
     try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            return; // Nếu chưa đăng nhập, không cần cập nhật
-        }
         const response = await fetch("http://localhost:8080/api/v1/category", {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            credentials: 'include',
+                'Content-Type': 'application/json'
+            }
         });
         
         const categories = await response.json();
@@ -163,7 +216,7 @@ async function fetchCategoriesAndDisplayTabs() {
 
 async function fetchProductsByCategory(categoryId) {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/productsales?categoryId=${categoryId}&page=0&size=12`);
+        const response = await fetch(`http://localhost:8080/api/v1/product?categoryId=${categoryId}&page=0&size=12`);
         const productPage = await response.json();
         renderTrendingProducts(productPage.content);
     } catch (error) {
@@ -190,9 +243,9 @@ function renderTrendingProducts(products) {
     trendingProducts.forEach(productSale => {
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = product.name || 'Tên sản phẩm';
+        const productName = productSale.name || 'Tên sản phẩm';
         const salePrice = productSale.price || 0;
-        const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
@@ -241,9 +294,9 @@ function renderYouMayLikeProducts(products) {
     youMayLikeProducts.forEach(productSale => {
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = product.name || 'Tên sản phẩm';
+        const productName = productSale.name || 'Tên sản phẩm';
         const salePrice = productSale.price || 0;
-        const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
@@ -332,7 +385,7 @@ async function addToCart(productSaleId) {
         const addedCartDetail = await response.json();
         showNotification('Đã thêm sản phẩm vào giỏ hàng thành công!', 'success');
         // Cập nhật biểu tượng giỏ hàng nếu cần
-        updateCartCount();
+        //updateCartCount();
     } catch (error) {
         console.error('Error adding to cart:', error);
         showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.', 'error');

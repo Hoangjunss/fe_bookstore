@@ -1,23 +1,84 @@
     document.addEventListener("DOMContentLoaded", () => {
         fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
+
+    const cartLink = document.querySelector('a[href="cart.php"]');
+    
+    function checkAuthAndRedirect(link, targetUrl) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = targetUrl;
+        } else {
+            showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
+        }
+    }
+
+
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
     });
+
+    cartLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(cartLink, "cart.php");
+    });
+        updateAuthButton();
+    });
+
+    function updateAuthButton() {
+        const authButtonContainer = document.getElementById("auth-button");
+        const token = localStorage.getItem('token');
+    
+        if (token) {
+            // Nếu có token, hiển thị nút Logout
+            authButtonContainer.innerHTML = `
+                <a href="javascript:void(0);" id="logout-button">
+                        <i class="btn btn-light"> Logout</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng xuất
+            document.getElementById("logout-button").addEventListener("click", function() {
+                localStorage.removeItem('token');  // Xóa token
+                alert("Đã đăng xuất thành công.");
+                updateAuthButton();  // Cập nhật nút
+                window.location.href = 'index.php';
+            });
+        } else {
+            // Nếu không có token, hiển thị nút Login
+            authButtonContainer.innerHTML = `
+                <a href="../auth/login.php" id="login-button">
+                        <i class="btn btn-light">Login</i>
+                    </a>
+            `;
+    
+            // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+            document.getElementById("login-button").addEventListener("click", function(event) {
+                event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+                window.location.href = "../auth/login.php";
+            });
+        }
+    }
 
     let currentPage = 0;
     let pageSize = 10;
-    let currentStatus = 'ALL';
+    let currentStatus = 'SUCCESS';
 
     function fetchOrders(page, size, status) {
         currentPage = page;
         currentStatus = status;
-        const url = `http://localhost:8080/orders?page=${page}&size=${size}&status=${status}`;
+        const url = `http://localhost:8080/api/v1/orders/current`;
 
-        fetch(url, {
-            method: "GET",
+        const token = localStorage.getItem('token');
+        const options = {
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json"
-                // Thêm các header cần thiết nếu có, ví dụ: Authorization
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
-        })
+        };
+        fetch(url, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -25,8 +86,8 @@
             return response.json();
         })
         .then(data => {
-            renderOrders(data.content);
-            renderPagination(data);
+            renderOrders(data);
+            //renderPagination(data);
         })
         .catch(error => {
             console.error("There was a problem with the fetch operation:", error);
@@ -46,8 +107,8 @@
             const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
             const formattedQuantity = order.quantity;
             const username = order.username;
-            const address = order.address.address;
-            const phone = order.address.phone;
+            const address = order.address!= null ? order.address.address : "" ;
+            const phone = order.address!= null ? order.address.phone : "";
             const orderStatus = order.orderStatus;
             const orderId = order.id;
 
@@ -56,12 +117,12 @@
             orderItem.innerHTML = `
                 <div class="blog_item_img">
                     <a href="#" class="blog_item_date">
-                        <h3>${new Date(order.createdDate).getDate()}</h3>
-                        <p>${new Date(order.createdDate).toLocaleString('default', { month: 'short' })}</p>
+                        <h3>${new Date().getDate()}</h3>
+                        <p>${new Date().toLocaleString('default', { month: 'short' })}</p>
                     </a>
                 </div>
                 <div class="blog_details">
-                    <a class="d-inline-block" href="/client/order_detail.html?id=${orderId}">
+                    <a class="d-inline-block" href="order-details.php?id=${orderId}">
                         <h2 class="order-head" style="color: #2d2d2d">Số tiền phải trả: ${formattedTotalPrice}</h2>
                     </a>
                     <p>Người dùng: ${username}</p>
