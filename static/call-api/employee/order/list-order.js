@@ -55,7 +55,7 @@ async function getOrders(page, size, objectFilter) {
             status: objectFilter.status // Lọc theo trạng thái
         });
 
-        let response = await fetch(`http://localhost:8080/api/v1/orders?${queryParams.toString()}`, {
+        let response = await fetch(`http://localhost:8081/api/v1/orders?${queryParams.toString()}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -303,7 +303,7 @@ async function updateOrderStatus(orderId, newStatus) {
     }
 
     try {
-        let response = await fetch(`http://localhost:8080/api/v1/orders?id=${orderId}&status=${newStatus}`, {
+        let response = await fetch(`http://localhost:8081/api/v1/orders?id=${orderId}&status=${newStatus}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

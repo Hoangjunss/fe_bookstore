@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function getProductSaleDetails(id) {
     try {
-        let response = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${id}`, {
+        let response = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ async function getProductSaleDetails(id) {
         console.error(error);
         alert('Có lỗi xảy ra khi tải dữ liệu Product Sale.');
         // Điều hướng quay lại danh sách Product Sale
-        window.location.href = 'list-productsale.php';
+        // window.location.href = 'list-productsale.php';
     }
 }
 

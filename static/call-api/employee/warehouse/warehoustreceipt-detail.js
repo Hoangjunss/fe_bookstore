@@ -54,7 +54,7 @@
      */
     async function fetchWarehouseReceipt(receiptId) {
         try {
-            const response = await axios.get(`http://localhost:8080/api/v1/warehouse-receipts/id?id=${receiptId}`);
+            const response = await axios.get(`http://localhost:8081/api/v1/warehouse-receipts/id?id=${receiptId}`);
             const warehouseReceipt = response.data;
 
             populateWarehouseInfo(warehouseReceipt);

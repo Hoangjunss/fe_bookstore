@@ -8,7 +8,7 @@
         } else {
             alert('Không tìm thấy ID đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            //window.location.href = 'list-order.php';
+            // window.location.href = 'list-order.php';
         }
     });
 
@@ -18,7 +18,7 @@
      */
     async function getOrderDetails(orderId) {
         try {
-            let response = await fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, {
+            let response = await fetch(`http://localhost:8081/api/v1/orders/id?idOrder=${orderId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +39,7 @@
             console.error(error);
             alert('Có lỗi xảy ra khi tải dữ liệu đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.php';
+            // window.location.href = 'list-order.php';
         }
     }
 
@@ -134,12 +134,12 @@
     /**
      * Hàm cập nhật trạng thái đơn hàng khi người dùng thay đổi select
      */
-    document.getElementById('order-status').addEventListener('change', function () {
-        let orderId = this.getAttribute('data-order-id');
-        let newStatus = this.value;
+    // document.getElementById('order-status').addEventListener('change', function () {
+    //     let orderId = this.getAttribute('data-order-id');
+    //     let newStatus = this.value;
 
-        updateOrderStatus(orderId, newStatus, this);
-    });
+    //     updateOrderStatus(orderId, newStatus, this);
+    // });
 
     /**
      * Hàm gửi yêu cầu cập nhật trạng thái đơn hàng tới backend
@@ -149,7 +149,7 @@
      */
     async function updateOrderStatus(orderId, newStatus, selectElement) {
         try {
-            let response = await fetch(`http://localhost:8080/api/orders/${orderId}/status`, {
+            let response = await fetch(`http://localhost:8081/api/orders/${orderId}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

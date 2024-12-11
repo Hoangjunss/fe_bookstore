@@ -345,8 +345,8 @@
                                     
 
                                     <div class="col-md-3 mb-3">
-                                        <label for="status">Trạng thái:</label>
-                                        <select class="form-control" id="status" name="status">
+                                    <label for="supplyName">Tên nhà cung cấp:</label>
+                                        <select class="form-control" id="supplyName" name="supplyName">
                                             <option value="">Tất cả</option>
                                             <option value="true">ACTIVE</option>
                                             <option value="false">INACTIVE</option>

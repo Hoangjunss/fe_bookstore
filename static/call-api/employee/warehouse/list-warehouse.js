@@ -44,7 +44,7 @@
      */
     async function fetchProducts() {
         try {
-            const response = await axios.get('http://localhost:8080/api/v1/warehouses?page=0&size=100');
+            const response = await axios.get('http://localhost:8081/api/v1/warehouses?page=0&size=100');
             const products = response.data.content;
             console.log(products);
 
@@ -68,9 +68,10 @@
      */
     async function fetchWarehouses(page, size) {
         const productName = document.getElementById('productName').value.trim();
-        const quantity = document.getElementById('quantity').value.trim();
+        const quantityElement = document.getElementById('quantity');
         const status = document.getElementById('status').value;
 
+        const quantity = quantityElement ? quantityElement.value.trim() : null;
         const params = {
             page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
             size: size,
@@ -80,10 +81,9 @@
         };
 
         try {
-            const response = await axios.get('http://localhost:8080/api/v1/warehouses', { params });
+            const response = await axios.get('http://localhost:8081/api/v1/warehouses', { params });
 
             const data = response.data;
-            console.log(data);
 
             populateWarehouseTable(data.content);
             renderPagination(data.totalPages, data.number, size);
@@ -243,7 +243,7 @@
     async function deleteWarehouse(warehouseId) {
         if (confirm("Bạn có chắc chắn là muốn xoá sản phẩm trong kho này không?")) {
             try {
-                const response = await axios.delete(`http://localhost:8080/api/warehouses/${warehouseId}`);
+                const response = await axios.delete(`http://localhost:8081/api/warehouses/${warehouseId}`);
 
                 if (response.status === 200) {
                     showNotification('Xóa sản phẩm trong kho thành công!', 'success');
