@@ -89,8 +89,8 @@
             const role = "customer"; // Thiết lập vai trò mặc định là "customer"
 
             // Kiểm tra mật khẩu
-            if (password.length < 6 || !isValidPassword(password)) {
-                document.querySelector('.error-password').innerText = 'Mật khẩu phải bao gồm ít nhất 6 kí tự, có chữ hoa, chữ thường, số và kí tự đặc biệt.';
+            if (password.length < 6) {
+                document.querySelector('.error-password').innerText = 'Mật khẩu phải bao gồm ít nhất 6 kí tự.';
                 return;
             } else {
                 document.querySelector('.error-password').innerText = '';
@@ -130,8 +130,7 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(userRegistrationData),
-                    credentials: "include"
+                    body: JSON.stringify(userRegistrationData)
                 })
                 .then(response => {
                     console.log(response);

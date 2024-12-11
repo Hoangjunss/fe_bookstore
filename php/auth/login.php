@@ -70,7 +70,6 @@
         </form>
         <div class="form-group">
             <div>--or--</div>
-            <a href="/oauth2/authorization/google"><i class="fa fa-google-plus" style="color: red; font-size: 35px; margin-top: 20px"></i></a>
         </div>
         <p class="text-center"><a href="register.php">Create an Account</a></p>
     </div>
