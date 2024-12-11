@@ -50,7 +50,7 @@ function initializeDataTable(categoryId) {
         processing: true, // Hiển thị thông báo đang xử lý
         serverSide: true, // Bật chế độ server-side
         ajax: {
-            url: 'http://localhost:8080/api/v1/productsales', // Endpoint để lấy sản phẩm sale
+            url: 'http://localhost:8080/api/v1/product/category', // Endpoint để lấy sản phẩm sale
             type: 'GET',
             data: function (d) {
                 // Chuyển đổi các tham số từ DataTables thành các tham số phù hợp cho API của bạn

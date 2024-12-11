@@ -335,30 +335,32 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Bảng Danh Sách Sản Phẩm -->
-                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Ảnh</th>
-                                        <th>Tiêu Đề</th>
-                                        <th>Số Lượng</th>
-                                        <th>Giá</th>
-                                        <th>Ngày Tạo</th>
-                                        <th>Trạng Thái</th>
-                                        <th>Hành Động</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Phân trang sẽ được chèn qua JavaScript -->
-                                </ul>
-                            </nav>
+                            <!-- Bảng danh sách sản phẩm -->
+                                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Hình Ảnh</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Mô Tả</th>
+                                                <th>Tác Giả</th>
+                                                <th>Số Trang</th>
+                                                <th>Kích Thước</th>
+                                                <th>Nhà Cung Cấp</th>
+                                                <th>Ngày Xuất Bản</th>
+                                                <th>Trạng Thái</th>
+                                                <th>Hành Động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Nội dung được điền bởi JavaScript -->
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Phân trang -->
+                                    <ul id="pageId" class="pagination">
+                                        <!-- Các nút phân trang được điền bởi JavaScript -->
+                                    </ul>
                         </div>
                     </div>
                 </div>

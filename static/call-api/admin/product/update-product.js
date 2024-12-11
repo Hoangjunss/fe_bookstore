@@ -110,12 +110,11 @@ function populateForm(product) {
     document.getElementById('description').value = product.description;
     document.getElementById('author').value = product.author;
     document.getElementById('page').value = product.page;
-    document.getElementById('datePublic').value = product.datePublic ? product.datePublic.substring(0, 10) : '';
     document.getElementById('size').value = product.size || '';
     document.getElementById('category').value = product.categoryId || '';
     document.getElementById('supply').value = product.supply || '';
     document.getElementById('status').value = product.status ? '1' : '0';
-    document.getElementById('imagePreview').src = product.imageUrl || '../../../static/assets_admin/images/default-thumbnail.png';
+    document.getElementById('imagePreview').src = product.image || '../../../static/assets_admin/images/default-thumbnail.png';
 }
 
 /**

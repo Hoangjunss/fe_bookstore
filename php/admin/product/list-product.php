@@ -328,7 +328,6 @@
                                     <th style="width: 200px;">Tên sách</th>
                                     <th>Tác giả</th>
                                     <th>Số trang</th>
-                                    <th>Ngày xuất bản</th>
                                     <th>Thể loại</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>

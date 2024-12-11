@@ -277,12 +277,12 @@
                                 </div>
 
                                 <!-- Ngày xuất bản -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="datePublic">Ngày xuất bản <span style="color: red;">*</span></label>
                                     <input type="date" class="form-control" required
                                            name="datePublic" id="datePublic"/>
                                     <div class="error-message" id="error-datePublic"></div>
-                                </div>
+                                </div> -->
 
                                 <!-- Thể loại sách -->
                                 <div class="form-group">

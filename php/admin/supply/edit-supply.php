@@ -342,6 +342,8 @@
                                 </div>
 
                                 <!-- Địa chỉ -->
+                                <input type="hidden" class="form-control" required
+                                placeholder="Nhập địa chỉ" name="addressId" id="addressId"/>
                                 <div class="form-group">
                                     <label for="address">Địa chỉ <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
@@ -380,7 +382,7 @@
                                             Lưu thay đổi
                                         </button>
                                         <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-supply.html">Danh sách nhà cung cấp</a>
+                                            <a href="list-supply.php">Danh sách nhà cung cấp</a>
                                         </button>
                                     </div>
                                 </div>

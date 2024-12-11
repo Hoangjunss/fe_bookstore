@@ -119,7 +119,7 @@ function validateForm() {
     const description = document.getElementById('description').value.trim();
     const author = document.getElementById('author').value.trim();
     const page = document.getElementById('page').value;
-    const datePublic = document.getElementById('datePublic').value;
+    //const datePublic = document.getElementById('datePublic').value;
     const categoryId = document.getElementById('category').value;
     const supplyId = document.getElementById('supply').value;
     const image = document.getElementById('image').files[0];
@@ -153,10 +153,10 @@ function validateForm() {
     }
 
     // Kiểm tra ngày xuất bản
-    if (!datePublic) {
+    /* if (!datePublic) {
         document.getElementById('error-datePublic').textContent = 'Ngày xuất bản không được để trống.';
         hasError = true;
-    }
+    } */
 
     // Kiểm tra thể loại
     if (!categoryId) {

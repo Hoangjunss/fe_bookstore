@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const response = await axios.get(`http://localhost:8080/api/v1/supplies/id?id=${id}`);
             const supply = response.data;
 
+            document.getElementById('addressId').value = supply.addressDTO.id;
             document.getElementById('name').value = supply.name;
             document.getElementById('address').value = supply.addressDTO.address;
             document.getElementById('phone').value = supply.addressDTO.phone;
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
 
         // Lấy giá trị từ form
+        const addressId = document.getElementById('addressId').value;
         const name = document.getElementById('name').value.trim();
         const address = document.getElementById('address').value.trim();
         const phone = document.getElementById('phone').value.trim();
@@ -117,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
             id: parseInt(supplyId),
             name: name,
             addressDTO: {
-                id: null, // Do mỗi supply có địa chỉ riêng, bạn có thể để null hoặc bỏ qua
+                id: addressId, // Do mỗi supply có địa chỉ riêng, bạn có thể để null hoặc bỏ qua
                 address: address,
                 phone: phone
             },

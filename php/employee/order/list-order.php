@@ -311,7 +311,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../order/list-order.php">
+                        <a href="../voucher/list-voucher.php">
                             <i class="fe-percent"></i>
                             Quản lý Voucher
                         </a>
