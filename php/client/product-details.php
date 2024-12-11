@@ -85,6 +85,83 @@
                 font-size: 12px;
                 font-weight: bold;
             } */
+            .product-details-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 400px;
+    background-color: #fff;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fits without distortion */
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    color: #dc3545;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.add-to-cart-btn, .share-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838;
+}
+
+.share-btn {
+    background-color: #007bff;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.share-btn:hover {
+    background-color: #0069d9;
+}
+
     </style>
 </head>
 
@@ -173,13 +250,16 @@
                                         </a>
                                     </div>
                                 </li>
-                                <li><a href="profile.php"><span class="flaticon-user"></span></a></li>
+                                <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">
                                     <a href="cart.php">
                                         <span class="flaticon-shopping-cart"></span>
                                         <!-- Bỏ comment để hiển thị số lượng sản phẩm trong giỏ hàng -->
                                         <!-- <span class="cart-count">0</span> -->
                                     </a>
+                                </li>
+                                <li id="auth-button">
+                                    <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
                                 </li>
                             </ul>
                         </div>

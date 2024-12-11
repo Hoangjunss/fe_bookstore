@@ -7,16 +7,77 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         displayError("Không tìm thấy ID đơn hàng trong URL.");
     }
+
+    const cartLink = document.querySelector('a[href="cart.php"]');
+    
+    function checkAuthAndRedirect(link, targetUrl) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            window.location.href = targetUrl;
+        } else {
+            showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
+        }
+    }
+
+    const profileLink = document.getElementById("profileLink");
+    profileLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(profileLink, "/profile.php");
+    });
+
+    cartLink.addEventListener("click", function(event) {
+        event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+        checkAuthAndRedirect(cartLink, "cart.php");
+    });
+
+    updateAuthButton();
 });
 
+function updateAuthButton() {
+    const authButtonContainer = document.getElementById("auth-button");
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        // Nếu có token, hiển thị nút Logout
+        authButtonContainer.innerHTML = `
+            <a href="javascript:void(0);" id="logout-button">
+                    <i class="btn btn-light"> Logout</i>
+                </a>
+        `;
+
+        // Xử lý sự kiện đăng xuất
+        document.getElementById("logout-button").addEventListener("click", function() {
+            localStorage.removeItem('token');  // Xóa token
+            alert("Đã đăng xuất thành công.");
+            updateAuthButton();  // Cập nhật nút
+            window.location.href = 'index.php';
+        });
+    } else {
+        // Nếu không có token, hiển thị nút Login
+        authButtonContainer.innerHTML = `
+            <a href="../auth/login.php" id="login-button">
+                    <i class="btn btn-light">Login</i>
+                </a>
+        `;
+
+        // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+        document.getElementById("login-button").addEventListener("click", function(event) {
+            event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+            window.location.href = "../auth/login.php";
+        });
+    }
+}
+
 function fetchOrderDetails(orderId) {
-    fetch(`http://localhost:8080/orders/id?id=${orderId}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-            // Thêm các header cần thiết nếu có, ví dụ: Authorization
-        }
-    })
+    const token = localStorage.getItem('token');
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+    fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, options)
     .then(response => {
         if (!response.ok) {
             throw new Error("Không thể lấy dữ liệu đơn hàng.");
@@ -46,8 +107,8 @@ function renderOrderDetails(order) {
     }
 
     document.getElementById("customerName").textContent = order.username;
-    document.getElementById("customerPhone").textContent = order.address.phone;
-    document.getElementById("customerAddress").textContent = order.address.address;
+    document.getElementById("customerPhone").textContent = order.address !=null ? order.address.phone : "Thông tin liên hệ.";
+    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.address : "Thông tin liên hệ.";
 
     // Cập nhật bảng chi tiết đơn hàng
     const orderDetailsBody = document.getElementById("orderDetailsBody");
@@ -79,11 +140,12 @@ function renderOrderDetails(order) {
         const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     } else {
-        // Nếu không có phí ship, bạn có thể tính theo quy định hoặc bỏ qua
-        document.querySelector(".shipping-fee").textContent = "N/A";
+        order.shippingFee = 32000;
+        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
+        document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     }
 
-    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
+    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.shippingFee);
     document.querySelector(".total-cost").textContent = formattedTotalCost;
 
     // Cập nhật trạng thái đơn hàng

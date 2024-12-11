@@ -126,7 +126,7 @@ $total = 299000; // Tổng tiền đơn hàng
                                     </a>
                                 </div>
                             </li>
-                            <li><a href="client/profile.php"><span class="flaticon-user"></span></a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
+                            <li><a href="client/profile.php" id="profileLink"><span class="flaticon-user"></span></a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
                             <li class="cart"><a href="client/cart.php"><span class="flaticon-shopping-cart"></span></a></li><!-- Đã thay thế th:href bằng href với đường dẫn tĩnh -->
                         </ul>
                     </div>
