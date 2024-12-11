@@ -124,12 +124,24 @@
                 })
                 .then(data => {
                     // Lưu token vào localStorage
+
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('refreshToken', data.refreshToken);
+                    localStorage.setItem('username', data.username);
                     alert("Đăng nhập thành công!");
 
-                    // Chuyển hướng hoặc thực hiện các thao tác tiếp theo
-                    window.location.href = '../client/index.php'; // chuyển đến trang chủ hoặc trang mong muốn
+                    if(data.role == 'admin'){
+                        window.location.href = '../admin/dashboard.php'; // chuyển đến trang quản lý
+                    } else if(data.role == 'employee'){
+                        window.location.href = '../employee/order/list-order.php'; // chuyển đến trang quản lý nhân viên
+                    }else if(data.role == 'customer'){
+                        window.location.href = '../client/index.php'; // chuyển đến trang chủ hoặc trang mong muốn
+                    } else{
+                        alert("Không tìm thấy quyền hạn cho tài khoản này.");
+                        throw new Error("Không tìm thấy quyền hạn cho tài khoản này."); // Ngăn không xử lý tiếp nếu có l��i
+                    }
+                    
+                    
                 })
                 .catch(error => {
                     console.error('Lỗi đăng nhập:', error);

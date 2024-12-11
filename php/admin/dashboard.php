@@ -167,7 +167,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="#" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -424,6 +424,18 @@
     <!-- ============================================================== -->
 
 </div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../auth/login.php'; // Chuyển về trang login
+        });
+    });
+</script>
+
 <!-- END wrapper -->
 
 <!-- Vendor js -->

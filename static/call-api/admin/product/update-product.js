@@ -46,6 +46,12 @@ function showNotification(message, type) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
     // Lấy ID sản phẩm từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');

@@ -72,8 +72,8 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
-            <!-- Ngôn ngữ và thông báo giữ nguyên -->
-            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
+            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
+            <!-- ... -->
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
@@ -95,7 +95,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="#" class="dropdown-item notify-item">
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -103,8 +103,8 @@
                 </div>
             </li>
 
-            <!-- Các mục menu khác giữ nguyên -->
-            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
+            <!-- Cài đặt và sidebar (giữ nguyên) -->
+            <!-- ... -->
 
         </ul>
 

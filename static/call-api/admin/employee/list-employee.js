@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var fullname = document.getElementById('fullname').value.trim();
         searchEmployees(0, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 /**

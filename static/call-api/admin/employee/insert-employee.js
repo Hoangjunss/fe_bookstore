@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
+});
+
 /**
      * Hàm hiển thị thông báo
      * @param {string} message - Thông điệp
