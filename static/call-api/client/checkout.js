@@ -187,8 +187,8 @@ function renderCart(cart) {
 
     cart.cartDetailDTOList.forEach((detail, index) => {
         const product = detail.product; // ProductSaleDTO.product là Product
-        const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
-        const productName = product.name || 'Tên sản phẩm';
+        const imageUrl = product.product.image ? product.product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const productName = product.product.name || 'Tên sản phẩm';
         const price = product.price || 0;
         const quantity = detail.quantity || 0;
         const totalPrice = price * quantity;
@@ -277,6 +277,14 @@ function handlePaymentMethodSelection() {
     return selectedMethod;
 }
 
+function convertVNDStringToNumber(vndStr) {
+    // Loại bỏ dấu chấm và các ký tự không phải số
+    const numericString = vndStr.replace(/[^0-9]/g, '');
+    // Chuyển đổi chuỗi số thành kiểu số nguyên
+    const number = parseInt(numericString, 10);
+    return number;
+}
+
 // Hàm xử lý khi người dùng nhấn nút "Place Order"
 document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -295,8 +303,10 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
     const district = document.getElementById("district").value;
     const ward = document.getElementById("ward").value;
     const detailAddress = document.getElementById("detailAddress").value.trim();
-    const voucherCode = document.getElementById("voucherCode").value.trim();
+    //const voucherCode = document.getElementById("voucherCode").value.trim();
     const paymentMethod = handlePaymentMethodSelection();
+    const totalPrice = document.getElementById('subtotalText').textContent;
+    const fee = document.getElementById('shippingFeeText').textContent;
 
     // Kiểm tra dữ liệu nhập
     if (!fullName || !phone || !email || !province || !district || !ward || !detailAddress) {
@@ -348,34 +358,31 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
+    console.log(totalPrice + fee);
+
     const price = calculateTotalPrice(); // Hàm tính tổng giá tiền đơn hàng
-
-    // Tạo đối tượng đơn hàng
-    const orderData = {
-        fullName,
-        phone,
-        email,
-        province,
-        district,
-        ward,
-        detailAddress,
-        voucherCode,
-        paymentMethod
-        // Thêm các trường cần thiết khác nếu có
-    };
-
-    console.log(orderData);
+    const formattedTotalPrice = convertVNDStringToNumber(totalPrice); // "650.000 ₫"
+    const formattedFee = convertVNDStringToNumber(fee); 
 
     // Xử lý dựa trên phương thức thanh toán
     if (paymentMethod === "CASH") {
         const ordersCreateDTO = {
+            quantity: 1,
+            totalPrice: formattedTotalPrice,
             address: {
-                address: detailAddress,
+                fullName: fullName,
+                email: email,
+                province: province, 
+                district: district,
+                ward: ward,
+                detailAddress: detailAddress,
                 phone: phone
             },
             paymentStatus: "CASH",
-            orderStatus: "PENDING"
+            orderStatus: "PENDING",
+            fee: formattedFee
         }
+        console.log(ordersCreateDTO);
         try {
             const response = await fetch('http://localhost:8080/api/v1/orders', {
                 method: 'POST',
@@ -431,12 +438,20 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
 
     } else if (paymentMethod === "VNPAY") {
         const ordersCreateDTO = {
+            quantity: 1,
+            totalPrice: formattedTotalPrice,
             address: {
-                address: detailAddress,
+                fullName: fullName,
+                email: email,
+                province: province, 
+                district: district,
+                ward: ward,
+                detailAddress: detailAddress,
                 phone: phone
             },
-            paymentStatus: "VNPAY",
-            orderStatus: "PENDING"
+            paymentStatus: "CASH",
+            orderStatus: "PENDING",
+            fee: formattedFee
         }
         sessionStorage.setItem('ordersCreateDTO', JSON.stringify(ordersCreateDTO));
         // Xử lý thanh toán khi chọn VNPAY
@@ -935,11 +950,7 @@ function updateTotalPrice(shippingFee) {
 
 // Hàm áp dụng voucher (nếu backend hỗ trợ)
 async function applyVoucher() {
-    const voucherCode = document.getElementById("voucherCode").value.trim();
-    if (!voucherCode) {
-        showNotification('Vui lòng nhập mã voucher.', 'error');
-        return;
-    }
+    
 
     try {
         const token = localStorage.getItem('token');

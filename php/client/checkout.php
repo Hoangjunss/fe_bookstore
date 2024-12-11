@@ -281,13 +281,13 @@
                                 </div>
 
                                 <!-- Voucher Section -->
-                                <div class="voucher-section">
+                                <!-- <div class="voucher-section">
                                     <h4>Apply Voucher</h4>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="voucherCode" name="voucherCode" placeholder="Enter voucher code"/>
                                         <button type="button" class="btn btn-primary mt-2" onclick="applyVoucher()">Apply Voucher</button>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Payment Method Section -->
                                 <div class="payment-method">

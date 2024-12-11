@@ -108,7 +108,7 @@ function showNotification(message, type = 'info') {
  */
 async function fetchProducts() {
     try {
-        const response = await fetch('http://localhost:8080/api/v1/product?page=0&size=12', {
+        const response = await fetch(`http://localhost:8080/api/v1/productsales?page=0&size=10`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -116,10 +116,12 @@ async function fetchProducts() {
             }
         });
 
+
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const productPage = await response.json();
         const products = productPage.content;
+        console.log(products);
 
         renderProducts(products);
         renderTrendingProducts(products);
@@ -142,13 +144,13 @@ function renderProducts(products) {
         productsContainer.innerHTML = "<p class='text-center'>Không có sản phẩm nào để hiển thị.</p>";
         return;
     }
-
     products.forEach(productSale => {
+        
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = productSale.name || 'Tên sản phẩm';
+        const productName = product.name || 'Tên sản phẩm';
         const salePrice = productSale.price || 0;
-        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
@@ -216,7 +218,7 @@ async function fetchCategoriesAndDisplayTabs() {
 
 async function fetchProductsByCategory(categoryId) {
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/product?categoryId=${categoryId}&page=0&size=12`);
+        const response = await fetch(`http://localhost:8080/api/v1/productsales?categoryId=${categoryId}&page=0&size=12`);
         const productPage = await response.json();
         renderTrendingProducts(productPage.content);
     } catch (error) {
@@ -239,40 +241,44 @@ function renderTrendingProducts(products) {
     }
 
     const trendingProducts = products.slice(0, 3); // Lấy 3 sản phẩm đầu tiên làm trending
-
     trendingProducts.forEach(productSale => {
-        const product = productSale.product;
-        const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = productSale.name || 'Tên sản phẩm';
-        const salePrice = productSale.price || 0;
-        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
-
-        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
-
-        const trendingHTML = `
-            <div class="properties pb-30">
-                <div class="properties-card">
-                    <div class="properties-img">
-                        <a href="product-details.php?id=${productSaleId}">
-                            <img src="${thumbnail}" alt="${productName}" style="max-width: 100%; max-height: 100%; width: 350px;height: 300px;">
-                        </a>
-                        <div class="socal_icon">
-                            <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})"><i class="ti-shopping-cart"></i></a>
+        console.log("ProductSale:", productSale);
+        console.log("Product:", productSale.product);
+        if(productSale !== undefined && productSale.product !== undefined) {
+            const product = productSale.product;
+            const productSaleId = productSale.id; // Sử dụng id của productSale
+            const productName = product.name || 'Tên sản phẩm';
+            const salePrice = productSale.price || 0;
+            const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+    
+            const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
+    
+            const trendingHTML = `
+                <div class="properties pb-30">
+                    <div class="properties-card">
+                        <div class="properties-img">
+                            <a href="product-details.php?id=${productSaleId}">
+                                <img src="${thumbnail}" alt="${productName}" style="max-width: 100%; max-height: 100%; width: 350px;height: 300px;">
+                            </a>
+                            <div class="socal_icon">
+                                <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})"><i class="ti-shopping-cart"></i></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="properties-caption properties-caption2">
-                        <h3><a href="product-details.php?id=${productSaleId}">${productName}</a></h3>
-                        <div class="properties-footer">
-                            <div class="price">
-                                <span>${formattedPrice}</span>
+                        <div class="properties-caption properties-caption2">
+                            <h3><a href="product-details.php?id=${productSaleId}">${productName}</a></h3>
+                            <div class="properties-footer">
+                                <div class="price">
+                                    <span>${formattedPrice}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        `;
-
-        trendingContainer.insertAdjacentHTML('beforeend', trendingHTML);
+            `;
+    
+            trendingContainer.insertAdjacentHTML('beforeend', trendingHTML);
+        }
+        
     });
 }
 
@@ -294,9 +300,9 @@ function renderYouMayLikeProducts(products) {
     youMayLikeProducts.forEach(productSale => {
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
-        const productName = productSale.name || 'Tên sản phẩm';
+        const productName = product.name || 'Tên sản phẩm';
         const salePrice = productSale.price || 0;
-        const thumbnail = productSale.image ? productSale.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
