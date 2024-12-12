@@ -36,89 +36,112 @@
     </div>
 </div>
 
-<header>
-    <div class="header-area">
-        <div class="header-top d-none d-sm-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="d-flex justify-content-between flex-wrap align-items-center">
-                            <div class="header-info-left">
-                                <ul>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Privacy</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                </ul>
-                            </div>
-                            <div class="header-info-right d-flex">
-                                <ul class="order-list">
-                                    <li><span id="userEmail">Hello, user@example.com</span></li>
-                                    <li><a href="/client/track-order.html">Track Your Order</a></li>
-                                </ul>
-                                <ul class="header-social">
-                                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                                </ul>
+    <!-- Header -->
+    <header>
+        <div class="header-area">
+            <!-- Header Top -->
+            <div class="header-top d-none d-sm-block">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                <div class="header-info-left">
+                                    <ul>
+                                        <li><a href="#">About Us</a></li>
+                                        <li><a href="#">Privacy</a></li>
+                                        <li><a href="#">FAQ</a></li>
+                                        <li><a href="#">Careers</a></li>
+                                    </ul>
+                                </div>
+                                <div class="header-info-right d-flex">
+                                    <ul class="order-list">
+                                        <li><span id="userEmail">Hello, user@example.com</span></li>
+                                        <li><a href="view-orders.php">Track Your Order</a></li>
+                                    </ul>
+                                    <ul class="header-social">
+                                        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="header-mid header-sticky">
-            <div class="container">
-                <div class="menu-wrapper">
-                    <div class="logo">
-                        <a href="/client/home.html"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
-                    </div>
-                    <div class="main-menu d-none d-lg-block">
-                        <nav>
-                            <ul id="navigation">
-                                <li><a href="/client/home.html">Home</a></li>
-                                <li><a href="/client/product.html">Products</a></li>
-                                <li><a href="/client/orders.html">Orders</a></li>
-                                <!-- Thêm các liên kết khác nếu cần -->
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="header-right">
-                        <ul>
-                            <li>
-                                <div class="nav-search search-switch hearer_icon">
-                                    <a id="search_1" href="javascript:void(0)">
-                                        <span class="flaticon-search"></span>
+
+            <!-- Header Mid -->
+            <div class="header-mid header-sticky">
+                <div class="container">
+                    <div class="menu-wrapper">
+
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.php"><img src="../../static/client_assets/img/logo/logo.png" alt="Logo"></a>
+                        </div>
+
+                        <!-- Main Menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="index.php">Home</a></li>
+                                    <li><a href="view-products.php">Products</a></li>
+                                    <!-- Thêm các liên kết khác nếu cần -->
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <!-- Header Right -->
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <!-- <li>
+                                    <div class="nav-search search-switch hearer_icon">
+                                        <a id="search_1" href="javascript:void(0)">
+                                            <span class="flaticon-search"></span>
+                                        </a>
+                                    </div>
+                                </li> -->
+                                <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
+                                <li class="cart">
+                                    <a href="cart.php">
+                                        <span class="flaticon-shopping-cart"></span>
+                                        <!-- Biểu tượng số lượng sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
+                                        <!-- <span class="cart-count">3</span> -->
                                     </a>
-                                </div>
-                            </li>
-                            <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="cart.php"><span class="flaticon-shopping-cart"></span></a></li>
-                            <li id="auth-button">
+                                </li>
+                                <li id="auth-button">
                                     <!-- Nút Login hoặc Logout sẽ được cập nhật qua JavaScript -->
                                 </li>
-                        </ul>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="search_input" id="search_input_box">
+                        <form class="search-inner d-flex justify-content-between">
+                            <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                            <button type="submit" class="btn"></button>
+                            <span class="ti-close" id="close_search" title="Close Search"></span>
+                        </form>
+                    </div>
+
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
                     </div>
                 </div>
-                <div class="search_input" id="search_input_box">
-                    <form class="search-inner d-flex justify-content-between" action="/client/search.html" method="get">
-                        <input type="text" class="form-control" id="search_input" name="query" placeholder="Search Here" required />
-                        <button type="submit" class="btn"><i class="fas fa-search"></i></button>
-                        <span class="ti-close" id="close_search" title="Close Search"></span>
-                    </form>
-                </div>
-                <div class="col-12">
-                    <div class="mobile_menu d-block d-lg-none"></div>
-                </div>
+            </div>
+
+            <!-- Header Bottom -->
+            <div class="header-bottom text-center">
+                <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="btn btn-light">Shop Now</a></p>
             </div>
         </div>
-        <div class="header-bottom text-center">
-            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer <a href="#" class="browse-btn">Shop Now</a></p>
-        </div>
-    </div>
-</header>
+    </header>
 
 <main>
     <div class="hero-area section-bg2">

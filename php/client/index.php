@@ -336,13 +336,13 @@
                         <!-- Header Right -->
                         <div class="header-right">
                             <ul>
-                                <li>
+                                <!-- <li>
                                     <div class="nav-search search-switch hearer_icon">
                                         <a id="search_1" href="javascript:void(0)">
                                             <span class="flaticon-search"></span>
                                         </a>
                                     </div>
-                                </li>
+                                </li> -->
                                 <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">
                                     <a href="cart.php">

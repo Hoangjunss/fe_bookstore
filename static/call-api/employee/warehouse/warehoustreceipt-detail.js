@@ -10,6 +10,13 @@
         } else {
             showNotification('Không tìm thấy ID phiếu nhập kho.', 'error');
         }
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../../auth/login.php'; // Chuyển về trang login
+        });
     });
 
     /**
@@ -54,7 +61,7 @@
      */
     async function fetchWarehouseReceipt(receiptId) {
         try {
-            const response = await axios.get(`http://localhost:8081/api/v1/warehouse-receipts/id?id=${receiptId}`);
+            const response = await axios.get(`http://localhost:8080/api/v1/warehouse-receipts/id?id=${receiptId}`);
             const warehouseReceipt = response.data;
 
             populateWarehouseInfo(warehouseReceipt);

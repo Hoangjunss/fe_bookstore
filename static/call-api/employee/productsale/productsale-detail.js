@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Điều hướng quay lại danh sách Product Sale
         //window.location.href = 'list-productsale.php';
     }
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 /**
@@ -18,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function getProductSaleDetails(id) {
     try {
-        let response = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${id}`, {
+        let response = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

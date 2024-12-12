@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         searchCondition(0, 5); // Khi nhấn tìm kiếm, bắt đầu từ trang 0 với kích thước 5
     });
+
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 /**

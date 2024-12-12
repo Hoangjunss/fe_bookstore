@@ -412,11 +412,11 @@
                         <div class="header-right">
                             <ul>
                                 <li>
-                                    <div class="nav-search search-switch hearer_icon">
+                                    <!-- <div class="nav-search search-switch hearer_icon">
                                         <a id="search_1" href="javascript:void(0)">
                                             <span class="flaticon-search"></span>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">

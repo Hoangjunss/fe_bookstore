@@ -1,4 +1,10 @@
     document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../../auth/login.php'; // Chuyển về trang login
+        });
         // Lấy ID đơn hàng từ URL (ví dụ: order-detail.html?orderId=1)
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('orderId');
