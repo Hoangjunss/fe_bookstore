@@ -370,11 +370,6 @@
                             <!-- Form Tìm Kiếm -->
                                 <div class="mb-3">
                                     <div class="form-row">
-                                        <!-- Tìm kiếm theo Email -->
-                                        <div class="col-md-4 mb-3">
-                                            <label for="email">Email:</label>
-                                            <input type="text" class="form-control" id="email" placeholder="Nhập email">
-                                        </div>
                                         <!-- Lọc theo Trạng Thái -->
                                         <div class="col-md-4 mb-3">
                                             <label for="status">Trạng thái:</label>

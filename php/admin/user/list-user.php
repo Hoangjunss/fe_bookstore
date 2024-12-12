@@ -255,8 +255,8 @@
                             <div class="mb-3">
                                 <div class="form-row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="fullname">Họ và tên:</label>
-                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
+                                        <label for="fullname">Tên đăng nhập:</label>
+                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập tên đăng nhập">
                                     </div>
                                 </div>
                                 <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>

@@ -18,7 +18,7 @@
      */
     async function getOrderDetails(orderId) {
         try {
-            let response = await fetch(`http://localhost:8081/api/v1/orders/id?idOrder=${orderId}`, {
+            let response = await fetch(`http://localhost:8080/api/v1/orders/id?idOrder=${orderId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,8 +53,8 @@
         document.getElementById('user-email').textContent = order.username;
         document.getElementById('order-quantity').textContent = order.quantity;
         document.getElementById('order-total-price').textContent = formatCurrency(order.totalPrice);
-        document.getElementById('order-created-date').textContent = formatDate(order.createdDate);
-        document.getElementById('order-address').textContent = order.address.address;
+        document.getElementById('order-created-date').textContent = formatDate(order.date);
+        document.getElementById('order-address').textContent = order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province;
 
         // Cập nhật trạng thái đơn hàng
         // const statusSelect = document.getElementById('order-status');
@@ -149,7 +149,7 @@
      */
     async function updateOrderStatus(orderId, newStatus, selectElement) {
         try {
-            let response = await fetch(`http://localhost:8081/api/orders/${orderId}/status`, {
+            let response = await fetch(`http://localhost:8080/api/orders/${orderId}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

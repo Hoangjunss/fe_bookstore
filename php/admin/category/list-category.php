@@ -219,19 +219,6 @@
                             </button>
                             </div>
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="name">Tên loại sản phẩm:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
-                                    </div>
-                                </div>
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-
-                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
-                            <!-- Bảng Danh Sách Loại Sản Phẩm -->
                                 <!-- Bảng Danh Sách Loại Sản Phẩm -->
                                 <table id="datatable-buttons"
                                     class="table table-striped table-bordered dt-responsive nowrap"
@@ -378,10 +365,15 @@
 <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
 
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
 <!-- Required datatable js -->
+<script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
 <script src="../../../static/assets_admin/libs/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
 <script src="../../../static/assets_admin/libs/datatables/dataTables.buttons.min.js"></script>
@@ -401,14 +393,11 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<script src="../../../static/call-api/admin/category/list-category.js"></script>
-
-
 <!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+
+<script src="../../../static/call-api/admin/category/list-category.js"></script>
 
 <!-- Modal Thêm Loại Sản Phẩm -->
 <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
