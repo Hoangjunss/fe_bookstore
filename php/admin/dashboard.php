@@ -314,31 +314,7 @@
                 </div>
                 <!-- end page title -->
 
-                <div class="row">
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card-box tilebox-one">
-                            <i class="fe-box float-right"></i>
-                            <h5 class="text-muted text-uppercase mb-3 mt-0">Số khách hàng hiện tại</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countCustomers}" bằng giá trị tĩnh hoặc JavaScript -->
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card-box tilebox-one">
-                            <i class="fe-layers float-right"></i>
-                            <h5 class="text-muted text-uppercase mb-3 mt-0">Số sản phẩm hiện có</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countProducts}" bằng giá trị tĩnh hoặc JavaScript -->
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-3">
-                        <div class="card-box tilebox-one">
-                            <i class="fe-tag float-right"></i>
-                            <h5 class="text-muted text-uppercase mb-3 mt-0">Tổng số hoá đơn</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countOrders}" bằng giá trị tĩnh hoặc JavaScript -->
-                        </div>
-                    </div>
+                
 
 
                 </div>
@@ -352,10 +328,10 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="text-center mt-3">
-                                        <h6 class="font-normal text-muted font-14">Trung bình số tiền mỗi đơn hàng trong tháng hiện tại</h6>
+                                        <h6 class="font-normal text-muted font-14">Tổng Số Lượng sản phẩm đã bán trong tháng này</h6>
                                         <h6 class="font-18">
                                             <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
-                                            <span class="text-dark">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                            <span class="text-dark quantitySaleMonth"></span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
                                         </h6>
                                     </div>
 
@@ -365,7 +341,27 @@
                                         <h6 class="font-normal text-muted font-14">Tổng số tiền thu được trong tháng hiện tại</h6>
                                         <h6 class="font-18">
                                             <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
-                                            <span class="text-dark">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                            <span class="text-dark priceSaleMonth">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng Số Lượng sản phẩm đã bán trong năm này</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark quantityPSaleYear"></span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng số tiền thu được trong năm hiện tại</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark priceSaleYear">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
                                         </h6>
                                     </div>
                                 </div>
@@ -398,6 +394,79 @@
                     </div>
                 </div>
                 <!-- end row -->
+                <div class="row">
+                    <div class="col-xl-7">
+                        <div class="card-box">
+                            <h4 class="header-title">Thống kê nhập hàng</h4>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng Số Lượng sản phẩm đã nhập trong tháng này</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark quantityWarehouseMonth"></span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng số tiền nhập hàng trong tháng hiện tại</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark priceWarehouseMonth">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng Số Lượng sản phẩm đã nhập trong năm này</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark quantityWarehouseYear"></span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-center mt-3">
+                                        <h6 class="font-normal text-muted font-14">Tổng số tiền nhập hàng trong năm hiện tại</h6>
+                                        <h6 class="font-18">
+                                            <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
+                                            <span class="text-dark priceWarehouseYear">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <canvas id="financeChart"></canvas>
+                            <script>
+                                // Dữ liệu tĩnh hoặc lấy từ nguồn khác
+                                const financeData = {
+                                    labels: ['01-10-2023', '02-10-2023', '03-10-2023', '04-10-2023', '05-10-2023'],
+                                    datasets: [{
+                                        label: 'Tổng số tiền',
+                                        data: [1000000, 1500000, 1300000, 1700000, 1600000],
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }]
+                                };
+
+                                const ctx = document.getElementById('financeChart').getContext('2d');
+                                new Chart(ctx, {
+                                    type: 'line',
+                                    data: financeData,
+                                    options: {
+                                        responsive: true
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
 
             </div> <!-- end container-fluid -->
 
@@ -433,6 +502,128 @@
             localStorage.removeItem('username');
             window.location.href = '../auth/login.php'; // Chuyển về trang login
         });
+        async function fetchStatisticsMonth() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            const params = {
+           month:month,
+           year:year
+        };
+
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/orders/statistics",{params});
+    const data = await response.json();
+   
+
+    // Assuming the total revenue is in the 'totalRevenue' property of the response
+    const totalRevenue = data.totalPrice;
+    const totalQuantity= data.totalQuantity;
+
+  
+    // Update the HTML element with the fetched data
+    const revenueElement = document.querySelector('.priceSaleMonth');
+    revenueElement.textContent = totalRevenue + ' VND';
+    const quantityElement = document.querySelector('.quantitySaleMonth');
+    quantityElement.textContent = totalQuantity ;
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+    // Handle errors, e.g., display an error message
+  }
+}
+async function fetchStatisticsYear() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            const params = {
+           month:null,
+           year:year
+        };
+
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/orders/statistics",{params});
+    const data = await response.json();
+   
+
+    // Assuming the total revenue is in the 'totalRevenue' property of the response
+    const totalRevenue = data.totalPrice;
+    const totalQuantity= data.totalQuantity;
+
+  
+    // Update the HTML element with the fetched data
+    const revenueElement = document.querySelector('.priceSaleYear');
+    revenueElement.textContent = totalRevenue + ' VND';
+    const quantityElement = document.querySelector('.quantitySaleYear');
+    quantityElement.textContent = totalQuantity ;
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+    // Handle errors, e.g., display an error message
+  }
+}
+async function fetchStatisticsWarehouseMonth() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            const params = {
+           month:month,
+           year:year
+        };
+
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/warehouse/statistics",{params});
+    const data = await response.json();
+   
+
+    // Assuming the total revenue is in the 'totalRevenue' property of the response
+    const totalRevenue = data.totalPrice;
+    const totalQuantity= data.totalQuantity;
+
+  
+    // Update the HTML element with the fetched data
+    const revenueElement = document.querySelector('.priceWarehouseMonth');
+    revenueElement.textContent = totalRevenue + ' VND';
+    const quantityElement = document.querySelector('.quantityWarehouseMonth');
+    quantityElement.textContent = totalQuantity ;
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+    // Handle errors, e.g., display an error message
+  }
+}
+async function fetchStatisticsWarehouseYear() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            const params = {
+           month:null,
+           year:year
+        };
+
+  try {
+    const response = await fetch("http://localhost:8080/api/v1/Warehouse/statistics",{params});
+    const data = await response.json();
+   
+
+    // Assuming the total revenue is in the 'totalRevenue' property of the response
+    const totalRevenue = data.totalPrice;
+    const totalQuantity= data.totalQuantity;
+
+  
+    // Update the HTML element with the fetched data
+    const revenueElement = document.querySelector('.priceWarehouseYear');
+    revenueElement.textContent = totalRevenue + ' VND';
+    const quantityElement = document.querySelector('.quantityWarehouseYear');
+    quantityElement.textContent = totalQuantity ;
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+    // Handle errors, e.g., display an error message
+  }
+}
+
+// Call the function to fetch data on page load or when needed
+fetchStatisticsMonth();
+fetchStatisticsYear();
+fetchStatisticsWarehouseMonth();
+fetchStatisticsWarehouseYear();
     });
 </script>
 
