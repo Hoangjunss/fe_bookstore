@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 async function fetchProductSales(defaultId) {
     try {
-        let response = await fetch(`http://localhost:8080/api/v1/productsales?page=0&size=100`, {
+        let response = await fetch(`http://localhost:8081/api/v1/productsales?page=0&size=100`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ async function fetchProductSales(defaultId) {
  */
 async function getProductSaleDetails(id) {
     try {
-        let response = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${id}`, {
+        let response = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +118,7 @@ async function getProductSaleDetails(id) {
 async function getWarehousesByProductId(productSaleId) {
     try {
         // Lấy Product từ ProductSale
-        let productResponse = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${productSaleId}`, {
+        let productResponse = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${productSaleId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ async function getWarehousesByProductId(productSaleId) {
         const productId = productSaleData.product.id;
 
         // Fetch danh sách Warehouse theo productId
-        let warehouseResponse = await fetch(`http://localhost:8080/api/v1/warehouses/by-product?productId=${productId}&page=0&size=100`, {
+        let warehouseResponse = await fetch(`http://localhost:8081/api/v1/warehouses/id?idProduct=${productId}&page=0&size=100`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -145,7 +145,8 @@ async function getWarehousesByProductId(productSaleId) {
         }
 
         let warehouseData = await warehouseResponse.json();
-        displayWarehouseTable(warehouseData.content);
+        const warehouses = warehouseData || [];
+        displayWarehouseTable(warehouses);
 
     } catch (error) {
         console.error(error);
@@ -177,8 +178,14 @@ function displayProductSaleInfo(productSale) {
  * @param {Array} warehouses - Danh sách Warehouse
  */
 function displayWarehouseTable(warehouses) {
+    console.log("warehouses danh sach : ",warehouses);
     let bodyTable = document.querySelector('#warehouse-table tbody');
     bodyTable.innerHTML = ''; // Xóa dữ liệu cũ
+
+     // Nếu không phải mảng, chuyển thành mảng
+     if (!Array.isArray(warehouses)) {
+        warehouses = [warehouses]; // Đưa object vào mảng
+    }
 
     if (warehouses.length === 0) {
         bodyTable.innerHTML = '<tr><td colspan="5" class="text-center">Không có sản phẩm trong kho.</td></tr>';
@@ -229,7 +236,7 @@ async function exportProductSale(productSaleId, price, quantity) {
         // TODO: Xác định warehouseId từ người dùng chọn hoặc thêm logic để phân phối số lượng xuất từ các kho khác nhau
 
         // Gửi yêu cầu POST để xuất hàng
-        let response = await fetch(`http://localhost:8080/api/v1/productsales/export`, {
+        let response = await fetch(`http://localhost:8081/api/v1/productsales/export`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

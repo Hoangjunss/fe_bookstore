@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchProductSales(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
     fetchProducts(); // Lấy danh sách sản phẩm để điền vào dropdown tìm kiếm
+
+
 });
+
+
+
+
 
 /**
  * Hàm hiển thị thông báo
@@ -111,6 +117,9 @@ function populateProductSaleTable(productSales) {
 
     productSales.forEach(ps => {
         const tr = document.createElement('tr');
+        const actionButton = ps.status ?
+            `<button class="btn btn-danger btn-sm toggle-button" data-id="${ps.id}" data-action="deactivate">Mở</button>` :
+            `<button class="btn btn-success btn-sm toggle-button" data-id="${ps.id}" data-action="activate">Khóa</button>`;
 
         tr.innerHTML = `
                 <td>${ps.id}</td>
@@ -120,7 +129,7 @@ function populateProductSaleTable(productSales) {
                 <td>${formatPrice(ps.price)}</td>
                 <td>
                     <button class="btn btn-warning btn-sm edit-button" data-id="${ps.id}">Sửa</button>
-                    <button class="btn btn-info btn-sm detail-button" data-id="${ps.id}">Chi tiết</button>
+                    ${actionButton}
                     <button class="btn btn-danger btn-sm add-button" data-id="${ps.id}">Nhập hàng</button>
                 </td>
             `;
@@ -136,10 +145,12 @@ function populateProductSaleTable(productSales) {
         });
     });
 
-    document.querySelectorAll('.detail-button').forEach(button => {
+    // Thêm sự kiện cho các nút Mở khóa/Khóa
+    document.querySelectorAll('.toggle-button').forEach(button => {
         button.addEventListener('click', function () {
             const productSaleId = this.getAttribute('data-id');
-            window.location.href = `productsale-detail.php?id=${productSaleId}`;
+            const action = this.getAttribute('data-action');
+            toggleProductSaleStatus(productSaleId, action);
         });
     });
 
@@ -149,6 +160,16 @@ function populateProductSaleTable(productSales) {
             window.location.href = `add-productsale.php?id=${productSaleId}`;
         });
     });
+
+}
+
+/**
+ * Hàm chuyển đổi trạng thái từ boolean sang văn bản
+ * @param {boolean} status - Trạng thái: true (ACTIVE) hoặc false (INACTIVE)
+ * @returns {string} - Văn bản trạng thái
+ */
+function getStatusText(status) {
+    return status ? 'ACTIVE' : 'INACTIVE';
 }
 
 /**
