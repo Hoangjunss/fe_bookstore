@@ -55,7 +55,7 @@ function showNotification(message, type) {
  */
 async function fetchProducts() {
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/product?page=0&size=10');
+        const response = await axios.get('http://localhost:8081/api/v1/product?page=0&size=10');
         const products = response.data.content;
 
         const productSelect = document.getElementById('productName');

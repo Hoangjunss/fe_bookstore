@@ -228,20 +228,19 @@
                             </div>
 
                             <!-- Dropdown Select Product Sale -->
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <h5>Chọn Product Sale</h5>
                                 <select id="productsale-select" class="form-control">
                                     <option value="">-- Chọn Product Sale --</option>
                                     <option value="">Công chúa bong bóng</option>
-                                    <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                 </select>
-                            </div>
+                            </div> -->
 
                             <!-- Thông Tin Product Sale -->
                             <div class="mb-4">
                                 <h5>Thông Tin Product Sale</h5>
                                 <table class="table table-bordered">
-                                    <tbody>
+                                    <tbody class="hello">
                                     <tr>
                                         <th>ID Product Sale</th>
                                         <td id="productsale-id">1</td>

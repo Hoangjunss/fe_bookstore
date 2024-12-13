@@ -51,7 +51,7 @@ function showNotification(message, type) {
  */
 async function fetchSupplies() {
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/warehouse-receipts/warehouse?page=0&size=100');
+        const response = await axios.get('http://localhost:8081/api/v1/warehouse-receipts/warehouse?page=0&size=100');
         const supplies = response.data.content;
 
         const supplySelect = document.getElementById('supplyName');
@@ -92,7 +92,7 @@ async function fetchWarehouses(page, size) {
     };
 
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/warehouse-receipts/warehouse', { params });
+        const response = await axios.get('http://localhost:8081/api/v1/warehouse-receipts/warehouse', { params });
 
         const data = response.data;
         console.log(data);
@@ -262,7 +262,7 @@ document.getElementById('btnSearch').addEventListener('click', function (e) {
 async function deleteWarehouseReceipt(warehouseReceiptId) {
     if (confirm("Bạn có chắc chắn là muốn xoá phiếu nhập kho này không?")) {
         try {
-            const response = await axios.delete(`http://localhost:8080/api/warehousereceipts/${warehouseReceiptId}`);
+            const response = await axios.delete(`http://localhost:8081/api/warehousereceipts/${warehouseReceiptId}`);
 
             if (response.status === 200) {
                 showNotification('Xóa phiếu nhập kho thành công!', 'success');
