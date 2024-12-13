@@ -308,7 +308,7 @@
                                 <div class="form-group">
                                     <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
                                     <br>
-                                    <img id="imagePreview" src="../../../static/assets_admin/images/default-thumbnail.png"
+                                    <img id="imagePreview" src="../../../static/client_assets/img/products/defbookcover-min.jpg"
                                          alt="Thumbnail" class="image-preview">
                                     <br><br>
                                     <input type="file" name="image" id="image" accept="image/*"

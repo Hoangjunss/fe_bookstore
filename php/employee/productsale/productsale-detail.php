@@ -167,10 +167,10 @@
     </a>
 </li>
 <li>
-    <a href="../order/list-order.php">
+   <!--  <a href="../order/list-order.php">
         <i class="fe-percent"></i>
         Quản lý Voucher
-    </a>
+    </a> -->
 </li>
 </ul>
 

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             size: 100
         };
         try {
-            let response = await axios.get('http://localhost:8081/api/v1/supplies', { params }); // Endpoint để lấy danh sách nhà cung cấp
+            let response = await axios.get('http://localhost:8080/api/v1/supplies', { params }); // Endpoint để lấy danh sách nhà cung cấp
             let suppliers = response.data.content; // Giả sử trả về { content: [...], ... }
 
             const supplySelect = document.getElementById('supply');
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hàm để tìm kiếm sản phẩm
     async function searchProducts(query) {
         try {
-            let response = await axios.get(`http://localhost:8081/api/v1/product/search?bookName=${encodeURIComponent(query)}`); // Endpoint tìm kiếm sản phẩm
+            let response = await axios.get(`http://localhost:8080/api/v1/product/search?bookName=${encodeURIComponent(query)}`); // Endpoint tìm kiếm sản phẩm
             let products = response.data.content; // Giả sử trả về { content: [...], ... }
 
             const productList = document.getElementById('product-list');
@@ -233,8 +233,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         productRows.forEach(row => {
             const productId = parseInt(row.getAttribute('data-id'));
-            const quantity = parseInt(row.querySelector('.quantity-input').value) || 0;
-            const unitPrice = parseFloat(row.querySelector('.unit-price-input').value) || 0;
+            const quantity = parseInt(row.querySelector('.quantity-input').value,10) || 0;
+            const unitPrice = parseFloat(row.querySelector('.unit-price-input').value,10) || 0;
+            console.log(unitPrice);
             const totalPrice = quantity * unitPrice;
 
             if (quantity < 1) {
@@ -284,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         try {
-            const response = await axios.post('http://localhost:8081/api/v1/warehouse-receipts', warehouseReceiptCreateDTO, {
+            const response = await axios.post('http://localhost:8080/api/v1/warehouse-receipts', warehouseReceiptCreateDTO, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

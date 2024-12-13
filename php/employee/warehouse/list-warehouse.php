@@ -197,10 +197,10 @@
                             </a>
                         </li>
                         <li>
-                            <a href="../voucher/list-voucher.php">
+                            <!-- <a href="../voucher/list-voucher.php">
                                 <i class="fe-percent"></i>
                                 Quản lý Voucher
-                            </a>
+                            </a> -->
                         </li>
                     </ul>
 

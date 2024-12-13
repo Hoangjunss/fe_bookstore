@@ -127,20 +127,32 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
         }
     } catch (error) {
         console.error(error);
-        // Kiểm tra nếu lỗi là validation từ backend
-        if (error.response && error.response.data && error.response.data.errors) {
-            const errors = error.response.data.errors;
-            for (const key in errors) {
-                if (errors.hasOwnProperty(key)) {
-                    const errorMessage = errors[key];
-                    const errorElement = document.getElementById(`error-${key}`);
-                    if (errorElement) {
-                        errorElement.textContent = errorMessage;
+        
+        if (error.response) {
+            if (error.response.status === 409) {
+                // Xử lý lỗi 409 Conflict
+                const conflictMessage ='Tài khoản đã tồn tại';
+                showNotification(conflictMessage, 'error');
+            } else if (error.response.data && error.response.data.errors) {
+                // Xử lý lỗi validation từ backend
+                const errors = error.response.data.errors;
+                for (const key in errors) {
+                    if (errors.hasOwnProperty(key)) {
+                        const errorMessage = errors[key];
+                        const errorElement = document.getElementById(`error-${key}`);
+                        if (errorElement) {
+                            errorElement.textContent = errorMessage;
+                        }
                     }
                 }
+            } else {
+                // Xử lý các lỗi khác
+                showNotification('Tạo phiếu nhập thất bại. Vui lòng thử lại.', 'error');
             }
         } else {
-            showNotification('Thêm nhân viên thất bại. Vui lòng thử lại.', 'error');
+            // Xử lý lỗi không có phản hồi từ server (ví dụ: mạng)
+            showNotification('Có lỗi xảy ra khi kết nối tới server.', 'error');
         }
     }
+    
 });

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     exportForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const selectedId = productSaleIdFromURL;
-        const price = parseFloat(document.getElementById('export-price').value);
+        const price = parseFloat(document.getElementById('export-price').value,10);
         const quantity = parseInt(document.getElementById('export-quantity').value, 10);
         const rows = document.querySelectorAll('#warehouse-table tbody tr');
         var quantitywarehouse = 0;
@@ -93,7 +93,7 @@ const helloo = table.querySelectorAll('tr');
  */
 async function fetchProductSales(defaultId) {
     try {
-        let response = await fetch(`http://localhost:8081/api/v1/productsales?page=0&size=100`, {
+        let response = await fetch(`http://localhost:8080/api/v1/productsales?page=0&size=100`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -126,7 +126,7 @@ async function fetchProductSales(defaultId) {
  */
 async function getProductSaleDetails(id) {
     try {
-        let response = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${id}`, {
+        let response = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ async function getWarehousesByProductId(productSaleId) {
     console.log("productSaleId", productSaleId)
     try {
         // Lấy Product từ ProductSale
-        let productResponse = await fetch(`http://localhost:8081/api/v1/productsales/id?id=${productSaleId}`, {
+        let productResponse = await fetch(`http://localhost:8080/api/v1/productsales/id?id=${productSaleId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ async function getWarehousesByProductId(productSaleId) {
         const productId = productSaleData.product.id;
 
         // Fetch danh sách Warehouse theo productId
-        let warehouseResponse = await fetch(`http://localhost:8081/api/v1/warehouses/id?idProduct=${productId}&page=0&size=100`, {
+        let warehouseResponse = await fetch(`http://localhost:8080/api/v1/warehouses/id?idProduct=${productId}&page=0&size=100`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -278,7 +278,7 @@ async function exportProductSale(productSaleId, price, quantity) {
         // TODO: Xác định warehouseId từ người dùng chọn hoặc thêm logic để phân phối số lượng xuất từ các kho khác nhau
 
         // Gửi yêu cầu POST để xuất hàng
-        let response = await fetch(`http://localhost:8081/api/v1/productsales`, {
+        let response = await fetch(`http://localhost:8080/api/v1/productsales`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

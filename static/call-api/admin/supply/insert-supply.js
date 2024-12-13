@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const supplyCreateDTO = {
             name: name,
             addressCreateDTO: {
-                address: address,
+                detailAddress: address,
                 phone: phone
             },
         };
