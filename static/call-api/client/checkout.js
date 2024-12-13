@@ -277,6 +277,15 @@ function handlePaymentMethodSelection() {
     return selectedMethod;
 }
 
+function convertVNDStringToNumber(vndStr) {
+    // Loại bỏ dấu chấm và các ký tự không phải số
+    const numericString = vndStr.replace(/[^0-9]/g, '');
+    // Chuyển đổi chuỗi số thành kiểu số nguyên
+    const number = parseInt(numericString, 10);
+    return number;
+}
+
+
 // Hàm xử lý khi người dùng nhấn nút "Place Order"
 document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -287,16 +296,62 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
+    let provinceText = '';
+    let districtText = '';
+    let wardText = '';
+
     // Lấy dữ liệu từ form
     const fullName = document.getElementById("fullName").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const email = document.getElementById("email").value.trim();
-    const province = document.getElementById("province").value;
-    const district = document.getElementById("district").value;
-    const ward = document.getElementById("ward").value;
+// Lấy phần tử DOM của các thẻ <select>
+const provinceElement = document.getElementById("province");
+const districtElement = document.getElementById("district");
+const wardElement = document.getElementById("ward");
+
+// Kiểm tra xem các phần tử có tồn tại không trước khi thao tác
+if (provinceElement && districtElement && wardElement) {
+    // Lấy giá trị (value) của từng thẻ <select>
+    const provinceValue = provinceElement.value;
+    const districtValue = districtElement.value;
+    const wardValue = wardElement.value;
+
+        //Tỉnh thành
+        if(provinceValue == null || provinceValue == ''){
+            showNotification('Vui lòng chọn tỉnh thành.', 'error');
+            return;
+        }
+    
+        // Quận huyện
+        if(districtValue == null || districtValue == ''){
+            showNotification('Vui lòng chọn quận huyện.', 'error');
+            return;
+        }
+    
+        // Phư��ng xã
+        if(wardValue == null || wardValue == ''){
+            showNotification('Vui lòng chọn phường xã.', 'error');
+            return;
+        }
+
+    // Lấy văn bản (text) của từng lựa chọn đã chọn
+    provinceText = provinceElement.options[provinceElement.selectedIndex].text;
+    districtText = districtElement.options[districtElement.selectedIndex].text;
+    wardText = wardElement.options[wardElement.selectedIndex].text;
+
+    // In ra console để kiểm tra
+    console.log("Province:", provinceValue, provinceText);
+    console.log("District:", districtValue, districtText);
+    console.log("Ward:", wardValue, wardText);
+} else {
+    console.error("Không tìm thấy một hoặc nhiều phần tử <select>.");
+}
+
     const detailAddress = document.getElementById("detailAddress").value.trim();
-    const voucherCode = document.getElementById("voucherCode").value.trim();
+    //const voucherCode = document.getElementById("voucherCode").value.trim();
     const paymentMethod = handlePaymentMethodSelection();
+    const totalPrice = document.getElementById('subtotalText').textContent;
+    const fee = document.getElementById('shippingFeeText').textContent;
 
     // Kiểm tra dữ liệu nhập
     if (!fullName || !phone || !email || !province || !district || !ward || !detailAddress) {
@@ -318,24 +373,6 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
-    //Tỉnh thành
-    if(province == null || province == ''){
-        showNotification('Vui lòng chọn tỉnh thành.', 'error');
-        return;
-    }
-
-    // Quận huyện
-    if(district == null || district == ''){
-        showNotification('Vui lòng chọn quận huyện.', 'error');
-        return;
-    }
-
-    // Phư��ng xã
-    if(ward == null || ward == ''){
-        showNotification('Vui lòng chọn phường xã.', 'error');
-        return;
-    }
-
     //Detail address
     if(detailAddress == null || detailAddress == ''){
         showNotification('Vui lòng nhập địa chỉ chi tiết.', 'error');
@@ -348,34 +385,31 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
         return;
     }
 
+    console.log(totalPrice + fee);
+
     const price = calculateTotalPrice(); // Hàm tính tổng giá tiền đơn hàng
-
-    // Tạo đối tượng đơn hàng
-    const orderData = {
-        fullName,
-        phone,
-        email,
-        province,
-        district,
-        ward,
-        detailAddress,
-        voucherCode,
-        paymentMethod
-        // Thêm các trường cần thiết khác nếu có
-    };
-
-    console.log(orderData);
+    const formattedTotalPrice = convertVNDStringToNumber(totalPrice); // "650.000 ₫"
+    const formattedFee = convertVNDStringToNumber(fee); 
 
     // Xử lý dựa trên phương thức thanh toán
     if (paymentMethod === "CASH") {
         const ordersCreateDTO = {
+            quantity: 1,
+            totalPrice: formattedTotalPrice,
             address: {
-                address: detailAddress,
+                fullName: fullName,
+                email: email,
+                province: provinceText, 
+                district: districtText,
+                ward: wardText,
+                detailAddress: detailAddress,
                 phone: phone
             },
             paymentStatus: "CASH",
-            orderStatus: "PENDING"
+            orderStatus: "PENDING",
+            fee: formattedFee
         }
+        console.log(ordersCreateDTO);
         try {
             const response = await fetch('http://localhost:8080/api/v1/orders', {
                 method: 'POST',
@@ -431,12 +465,20 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
 
     } else if (paymentMethod === "VNPAY") {
         const ordersCreateDTO = {
+            quantity: 1,
+            totalPrice: formattedTotalPrice,
             address: {
-                address: detailAddress,
+                fullName: fullName,
+                email: email,
+                province: provinceText, 
+                district: districtText,
+                ward: wardText,
+                detailAddress: detailAddress,
                 phone: phone
             },
-            paymentStatus: "VNPAY",
-            orderStatus: "PENDING"
+            paymentStatus: "CASH",
+            orderStatus: "PENDING",
+            fee: formattedFee
         }
         sessionStorage.setItem('ordersCreateDTO', JSON.stringify(ordersCreateDTO));
         // Xử lý thanh toán khi chọn VNPAY

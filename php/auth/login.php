@@ -63,14 +63,9 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Log in</button>
             </div>
-            <div class="clearfix">
-                <label class="pull-left checkbox-inline"><input type="checkbox">Remember me</label>
-                <a href="#" class="pull-right">Forgot Password?</a>
-            </div>
         </form>
         <div class="form-group">
             <div>--or--</div>
-            <a href="/oauth2/authorization/google"><i class="fa fa-google-plus" style="color: red; font-size: 35px; margin-top: 20px"></i></a>
         </div>
         <p class="text-center"><a href="register.php">Create an Account</a></p>
     </div>
@@ -96,10 +91,10 @@
             passwordError.textContent = '';
         }
 
-        function isValidPassword(password) {
+        /* function isValidPassword(password) {
             var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
             return passwordRegex.test(password);
-        }
+        } */
 
         var user = {
             name: username,

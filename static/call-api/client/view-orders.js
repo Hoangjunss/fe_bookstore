@@ -94,20 +94,21 @@
         });
     }
 
+
     function renderOrders(orders) {
         const orderContainer = document.getElementById("orderContainer");
         orderContainer.innerHTML = ""; // Xóa nội dung hiện tại
-
+        console.log(orders);
         if (orders.length === 0) {
             orderContainer.innerHTML = "<p>Không có đơn hàng nào để hiển thị.</p>";
             return;
         }
 
         orders.forEach(order => {
-            const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice);
+            const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + (order.fee!=null ? order.fee : 0));
             const formattedQuantity = order.quantity;
-            const username = order.username;
-            const address = order.address!= null ? order.address.address : "" ;
+            const username = order.address.fullName;
+            const address = order.address!= null ? order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province : "" ;
             const phone = order.address!= null ? order.address.phone : "";
             const orderStatus = order.orderStatus;
             const orderId = order.id;
@@ -117,8 +118,8 @@
             orderItem.innerHTML = `
                 <div class="blog_item_img">
                     <a href="#" class="blog_item_date">
-                        <h3>${new Date().getDate()}</h3>
-                        <p>${new Date().toLocaleString('default', { month: 'short' })}</p>
+                        <h3>${new Date(order.date).getDate()}</h3>
+                        <p>${new Date(order.date).toLocaleString('default', { month: 'short' })}</p>
                     </a>
                 </div>
                 <div class="blog_details">

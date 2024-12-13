@@ -129,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p><strong>Description:</strong> ${product.description || 'Detailed description of the product.'}</p>
                 <p><strong>Status:</strong> ${statusText}</p>
                 <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
-                <button class="btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
             </div>
         </div>
     </div>

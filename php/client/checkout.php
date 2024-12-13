@@ -262,6 +262,7 @@
                                             <option disabled selected value="">Chọn tỉnh/thành</option>
                                         </select>
                                     </div>
+                                    <!-- Chọn tỉnh thành -->
                                     <div class="col-md-12 form-group p_star">
                                         <label for="district">District</label>
                                         <select id="district" name="district" class="form-control" required>
@@ -281,13 +282,13 @@
                                 </div>
 
                                 <!-- Voucher Section -->
-                                <div class="voucher-section">
+                                <!-- <div class="voucher-section">
                                     <h4>Apply Voucher</h4>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="voucherCode" name="voucherCode" placeholder="Enter voucher code"/>
                                         <button type="button" class="btn btn-primary mt-2" onclick="applyVoucher()">Apply Voucher</button>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Payment Method Section -->
                                 <div class="payment-method">
@@ -296,12 +297,6 @@
                                         <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="CASH" checked>
                                         <label class="form-check-label" for="cash">
                                             Cash on Delivery (CASH)
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="PAYPAL">
-                                        <label class="form-check-label" for="paypal">
-                                            PayPal
                                         </label>
                                     </div>
                                     <div class="form-check">

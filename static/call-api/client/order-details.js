@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (orderId) {
         fetchOrderDetails(orderId);
     } else {
-        displayError("Không tìm thấy ID đơn hàng trong URL.");
+        
     }
 
     const cartLink = document.querySelector('a[href="cart.php"]');
@@ -94,21 +94,23 @@ function fetchOrderDetails(orderId) {
 }
 
 function renderOrderDetails(order) {
+    console.log(order);
     // Cập nhật thông tin đơn hàng
-    document.getElementById("orderId").textContent = `#${order.id}`;
+    document.getElementById("orderId").textContent = `${order.id}`;
     
     // Nếu OrdersDTO không có trường ngày, bạn cần thêm nó vào DTO và backend
     // Giả sử có trường createdDate trong OrdersDTO
-    if (order.createdDate) {
-        const orderDate = new Date(order.createdDate);
+    if (order.date) {
+        const orderDate = new Date(order.date);
         document.getElementById("orderDate").textContent = orderDate.toLocaleDateString('vi-VN');
     } else {
         document.getElementById("orderDate").textContent = "N/A";
     }
 
-    document.getElementById("customerName").textContent = order.username;
+    document.getElementById("customerName").textContent = order.address.fullName
+    ;
     document.getElementById("customerPhone").textContent = order.address !=null ? order.address.phone : "Thông tin liên hệ.";
-    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.address : "Thông tin liên hệ.";
+    document.getElementById("customerAddress").textContent = order.address !=null ? order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province: "Thông tin liên hệ.";
 
     // Cập nhật bảng chi tiết đơn hàng
     const orderDetailsBody = document.getElementById("orderDetailsBody");
@@ -136,16 +138,15 @@ function renderOrderDetails(order) {
     // Cập nhật phí ship và tổng tiền
     // Giả sử OrdersDTO có trường shippingFee, nếu không cần chỉnh sửa
     // Nếu không có, bạn có thể loại bỏ hoặc thêm tính toán theo yêu cầu
-    if (order.shippingFee !== undefined && order.shippingFee !== null) {
-        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
+    if (order.fee !== undefined && order.fee !== null) {
+        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.fee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     } else {
-        order.shippingFee = 32000;
-        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
+        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.fee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     }
 
-    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.shippingFee);
+    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.fee);
     document.querySelector(".total-cost").textContent = formattedTotalCost;
 
     // Cập nhật trạng thái đơn hàng
