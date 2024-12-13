@@ -82,7 +82,6 @@
                     <td>${data.name}</td>
                     <td>${data.totalBooks || 0}</td>
                     <td>
-                        <a href="detail-category.php?id=${data.id}" class="btn btn-info btn-sm">Chi tiết</a>
                         <button class="btn btn-danger delete-button btn-sm" data-id="${data.id}">Xóa</button>
                     </td>
                 </tr>`;
@@ -151,8 +150,6 @@
     function searchCondition(page, size) {
         let filter = {};
         filter.name = $("#name").val().trim() === '' ? null : $("#name").val().trim();
-        let statusVal = $("#status").val();
-        filter.status = statusVal === '' ? null : parseInt(statusVal);
         getCategories(page, size, filter);
     }
 
@@ -160,9 +157,3 @@
         event.preventDefault();
         searchCondition(page, size);
     }
-
-    // Xử lý sự kiện tìm kiếm khi nhấn nút "Tìm kiếm"
-    document.getElementById('btnSearch').addEventListener('click', function (e) {
-        e.preventDefault();
-        searchCondition(0, 5);
-    });

@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchProductSales(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
     fetchProducts(); // Lấy danh sách sản phẩm để điền vào dropdown tìm kiếm
 
-
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 
@@ -50,7 +55,7 @@ function showNotification(message, type) {
  */
 async function fetchProducts() {
     try {
-        const response = await axios.get('http://localhost:8081/api/v1/product?page=0&size=10');
+        const response = await axios.get('http://localhost:8080/api/v1/product?page=0&size=10');
         const products = response.data.content;
 
         const productSelect = document.getElementById('productName');
@@ -259,7 +264,7 @@ document.getElementById('btnSearch').addEventListener('click', function (e) {
 async function deleteProductSale(productSaleId) {
     if (confirm("Bạn có chắc chắn là muốn xoá sản phẩm giảm giá này không?")) {
         try {
-            const response = await axios.delete(`http://localhost:8081/api/v1//productsales/${productSaleId}`);
+            const response = await axios.delete(`http://localhost:8081/api/v1/productsales/${productSaleId}`);
 
             if (response.status === 200) {
                 showNotification('Xóa sản phẩm giảm giá thành công!', 'success');

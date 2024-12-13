@@ -148,7 +148,7 @@ function populateSupplyTable(supplies) {
         tr.innerHTML = `
             <td>${supply.id}</td>
             <td>${supply.name}</td>
-            <td>${supply.addressDTO ? `${supply.addressDTO.address} (${supply.addressDTO.phone})` : 'N/A'}</td>
+            <td>${supply.addressDTO ? supply.addressDTO.province + ", "+ supply.addressDTO.district+", "+ supply.addressDTO.detailAddress : 'N/A'}</td>
             <td>${supply.addressDTO ? supply.addressDTO.phone : 'N/A'}</td>
             <td>${getStatusText(supply.status)}</td>
             <td>

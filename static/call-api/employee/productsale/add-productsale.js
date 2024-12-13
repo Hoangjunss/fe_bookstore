@@ -48,6 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
         getProductSaleDetails(productSaleIdFromURL);
         getWarehousesByProductId(productSaleIdFromURL);
     }
+
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 /**

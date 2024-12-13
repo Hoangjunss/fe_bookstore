@@ -289,7 +289,7 @@
                                 <!-- Thể loại sản phẩm -->
                                 <div class="form-group">
                                     <label for="category">Thể loại sản phẩm <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="category" name="categoryId" required>
+                                    <select class="form-control" id="category" name="categoryId">
                                         <option value="">Chọn thể loại sản phẩm</option>
                                         <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                     </select>
@@ -299,7 +299,7 @@
                                 <!-- Nhà cung cấp -->
                                 <div class="form-group">
                                     <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="supply" name="supplyId" required>
+                                    <select class="form-control" id="supply" name="supplyId">
                                         <option value="">Chọn nhà cung cấp</option>
                                         <!-- Các tùy chọn sẽ được chèn qua JavaScript -->
                                     </select>
@@ -322,7 +322,7 @@
                                          alt="Thumbnail" class="image-preview">
                                     <br><br>
                                     <input type="file" name="image" id="image" accept="image/*"
-                                           onchange="previewImage(this)" required/>
+                                           onchange="previewImage(this)"/>
                                     <div class="error-message" id="error-image"></div>
                                 </div>
 

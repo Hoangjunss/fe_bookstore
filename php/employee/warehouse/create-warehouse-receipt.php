@@ -87,7 +87,6 @@
         <!-- Topbar Start -->
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
-
                 <li class="dropdown d-none d-lg-block">
                     <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
@@ -228,6 +227,125 @@
                         <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                     </span>
                 </a>
+            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
+            <!-- ... -->
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
+                   href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <span class="ml-1">
+                    employee@example.com  <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                    <!-- item-->
+                    <div class="dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Chào mừng!</h6>
+                    </div>
+
+                    <!-- item-->
+                    <a href="../profile.php" class="dropdown-item notify-item">
+                        <i class="fe-user"></i>
+                        <span>Thông tin cá nhân</span>
+                    </a>
+
+                    <!-- item-->
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
+                        <i class="fe-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </li>
+
+            <!-- Cài đặt và sidebar (giữ nguyên) -->
+            <!-- ... -->
+
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="/admin/home.html" class="logo text-center">
+                <span class="logo-lg">
+                    <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                </span>
+                <span class="logo-sm">
+                    <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
+                </span>
+            </a>
+        </div>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li class="d-none d-sm-block">
+                <form class="app-search">
+                    <div class="app-search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit">
+                                    <i class="fe-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+    <!-- end Topbar -->
+
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+
+        <div class="slimscroll-menu">
+
+            <!--- Sidemenu -->
+            <div id="sidebar-menu">
+
+                <ul class="metismenu" id="side-menu">
+
+                    <li class="menu-title">QUẢN LÝ</li>
+
+                    <li>
+                        <a href="../order/list-order.php">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../productsale/list-productsale.php">
+                            <i class="fe-tag"></i>
+                            Quản lý sản phẩm bán
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fe-archive"></i>
+                            Quản lý kho hàng 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../warehouse/list-warehousereceipt.php">
+                            <i class="fe-file-plus"></i>
+                            Quản lý phiếu nhập 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../voucher/list-voucher.php">
+                            <i class="fe-percent"></i>
+                            Quản lý Voucher
+                        </a>
+                    </li>
+                </ul>
+
             </div>
 
             <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
