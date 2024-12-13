@@ -17,7 +17,6 @@ function previewImage(input) {
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch danh sách thể loại và nhà cung cấp từ server
     fetchCategories();
-    fetchSuppliers();
 
     // Xử lý submit form
     document.getElementById('createBookForm').addEventListener('submit', function (e) {
@@ -139,7 +138,7 @@ function validateForm() {
     const author = document.getElementById('author').value.trim();
     const page = document.getElementById('page').value;
     const categoryId = document.getElementById('category').value;
-    const supplyId = document.getElementById('supply').value;
+    //const supplyId = document.getElementById('supply').value;
     const image = document.getElementById('image').files[0];
     const status = document.getElementById('status').value;
     const quantity = document.getElementById('quantity') ? document.getElementById('quantity').value : null;
@@ -178,10 +177,10 @@ function validateForm() {
     }
 
     // Kiểm tra nhà cung cấp
-    if (!supplyId) {
-        document.getElementById('error-supplyId').textContent = 'Vui lòng chọn nhà cung cấp.';
-        hasError = true;
-    }
+    // if (!supplyId) {
+    //     document.getElementById('error-supplyId').textContent = 'Vui lòng chọn nhà cung cấp.';
+    //     hasError = true;
+    // }
 
     // Kiểm tra ảnh
     if (!image) {

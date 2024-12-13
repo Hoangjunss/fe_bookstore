@@ -76,12 +76,12 @@
     function displayOrderInfo(order) {
         console.log(order);
         document.getElementById('order-id').textContent = order.id;
-        document.getElementById('user-email').textContent = order.username;
+        document.getElementById('user-email').textContent = order.address.fullName;
         document.getElementById('order-quantity').textContent = order.quantity;
-        document.getElementById('order-total-price').textContent = formatCurrency(order.totalPrice);
-        document.getElementById('order-created-date').textContent = formatDate(order.createdDate);
-        document.getElementById('order-address').textContent = order.address.address;
-
+        document.getElementById('order-total-price').textContent = formatCurrency(order.totalPrice + (order.fee!=null ? order.fee : 0)); 
+        document.getElementById('order-created-date').textContent = formatDate(order.date);
+        document.getElementById('order-address').textContent = order.address.detailAddress +", "+ order.address.district + ", "+ order.address.ward+ ", "+ order.address.province;
+        document.getElementById('order-phone').textContent = order.address.phone;
         // Cập nhật trạng thái đơn hàng
         // const statusSelect = document.getElementById('order-status');
         // statusSelect.value = order.orderStatus;
@@ -160,12 +160,12 @@
     /**
      * Hàm cập nhật trạng thái đơn hàng khi người dùng thay đổi select
      */
-    document.getElementById('order-status').addEventListener('change', function () {
+    /* document.getElementById('order-status').addEventListener('change', function () {
         let orderId = this.getAttribute('data-order-id');
         let newStatus = this.value;
 
         updateOrderStatus(orderId, newStatus, this);
-    });
+    }); */
 
     /**
      * Hàm gửi yêu cầu cập nhật trạng thái đơn hàng tới backend

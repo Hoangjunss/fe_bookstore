@@ -73,14 +73,11 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
-
-            <!-- Ngôn ngữ và thông báo giữ nguyên -->
-            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
-
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -89,13 +86,6 @@
                     <div class="dropdown-header noti-title">
                         <h6 class="text-overflow m-0">Chào mừng!</h6>
                     </div>
-
-                    <!-- item-->
-                    <a href="../profile.php" class="dropdown-item notify-item">
-                        <i class="fe-user"></i>
-                        <span>Thông tin cá nhân</span>
-                    </a>
-
                     <!-- item-->
                     <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
@@ -105,8 +95,12 @@
                 </div>
             </li>
 
-            <!-- Cài đặt và sidebar giữ nguyên -->
-            <!-- ... (Giữ nguyên phần Topbar như trước) ... -->
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
 
         </ul>
 
@@ -115,8 +109,10 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
+                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -128,26 +124,9 @@
                     <i class="fe-menu"></i>
                 </button>
             </li>
-
-            <li class="d-none d-sm-block">
-                <form class="app-search">
-                    <div class="app-search-box">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button class="btn" type="submit">
-                                    <i class="fe-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </li>
-
         </ul>
     </div>
     <!-- end Topbar -->
-
 
     <!-- ========== Left Sidebar Start ========== -->
     <div class="left-side-menu">
@@ -157,63 +136,44 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
 
-<ul class="metismenu" id="side-menu">
+                <ul class="metismenu" id="side-menu">
 
-    <li class="menu-title">QUẢN LÝ</li>
+                    <li class="menu-title">QUẢN LÝ</li>
 
-    <li>
-        <a href="../dashboard.php">
-            <i class="fe-airplay"></i>
-            <span> Dashboard </span>
-        </a>
-    </li>
+                    <li>
+                        <a href="../dashboard.php">
+                            <i class="fe-airplay"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
 
-    <li>
-        <a href="../order/list-order.php">
-            <i class="fe-shopping-cart"></i>
-            Quản lý đơn hàng
-        </a>
-    </li>
+                    <li>
+                        <a href="../order/list-order.php">
+                            <i class="fe-shopping-cart"></i>
+                            Quản lý đơn hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fas fa-user"></i>
+                            Quản lý khách hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../category/list-category.php">
+                            <i class="fe-disc"></i>
+                            Quản lý loại sản phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../product/list-product.php">
+                            <i class="fe-box"></i>
+                            Quản lý sản phẩm
+                        </a>
+                    </li>
+                </ul>
 
-    <li>
-        <a href="../employee/list-employee.php">
-            <i class="fe-briefcase"></i>
-            Quản lý nhân viên
-        </a>
-    </li>
-    <li>
-        <a href="../user/list-user.php">
-            <i class="fas fa-user"></i>
-            Quản lý khách hàng
-        </a>
-    </li>
-    <li>
-        <a href="../category/list-category.php">
-            <i class="fe-disc"></i>
-            Quản lý loại sản phẩm
-        </a>
-    </li>
-    <li>
-        <a href="../product/list-product.php">
-            <i class="fe-box"></i>
-            Quản lý sản phẩm
-        </a>
-    </li>
-    <li>
-        <a href="../voucher/list-voucher.php">
-            <i class="fe-percent"></i>
-            Quản lý Voucher
-        </a>
-    </li>
-    <li>
-        <a href="../supply/list-supply.php">
-            <i class="fe-layout"></i>
-            Quản lý nhà cung cấp
-        </a>
-    </li>
-</ul>
-
-</div>
+            </div>
             <!-- End Sidebar -->
 
             <div class="clearfix"></div>
@@ -297,21 +257,12 @@
                                     <div class="error-message" id="error-categoryId"></div>
                                 </div>
 
-                                <!-- Nhà cung cấp -->
-                                <div class="form-group">
-                                    <label for="supply">Nhà cung cấp <span style="color: red;">*</span></label>
-                                    <select class="form-control" id="supply" name="supplyId" required>
-                                        <option value="">Chọn nhà cung cấp</option>
-                                        <!-- Các tùy chọn sẽ được thêm bằng JavaScript -->
-                                    </select>
-                                    <div class="error-message" id="error-supplyId"></div>
-                                </div>
 
                                 <!-- Ảnh thumbnail -->
                                 <div class="form-group">
                                     <label for="image">Ảnh thumbnail <span style="color: red;">*</span></label>
                                     <br>
-                                    <img id="imagePreview" src="../../../static/assets_admin/images/default-thumbnail.png"
+                                    <img id="imagePreview" src="../../../static/client_assets/img/products/defbookcover-min.jpg"
                                          alt="Thumbnail" class="image-preview">
                                     <br><br>
                                     <input type="file" name="image" id="image" accept="image/*"

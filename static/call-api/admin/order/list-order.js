@@ -112,7 +112,7 @@ async function getOrders(page, size, objectFilter) {
             }
         } else {
             orders.forEach(order => {
-                let formattedTotalPrice = formatCurrency(order.totalPrice);
+                let formattedTotalPrice = formatCurrency(order.totalPrice + (order.fee!=null ? order.fee : 0));
                 let statusText = getStatusText(order.orderStatus);
 
                 // Tạo một hàng mới trong bảng

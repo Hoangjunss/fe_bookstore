@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetch danh sách thể loại và nhà cung cấp từ server
     fetchCategories();
-    fetchSuppliers();
+    //fetchSuppliers();
 
     // Khởi tạo Parsley cho form
     $('#updateProductForm').parsley();
@@ -131,7 +131,7 @@ function populateForm(product) {
     document.getElementById('page').value = product.page;
     document.getElementById('size').value = product.size || '';
     document.getElementById('category').value = product.categoryId || '';
-    document.getElementById('supply').value = product.supplyId || '';
+    //document.getElementById('supply').value = product.supplyId || '';
     document.getElementById('status').value = product.status ? '1' : '0';
     document.getElementById('imagePreview').src = product.image || '../../../static/assets_admin/images/default-thumbnail.png';
     document.getElementById('quantity').value = product.quantity || 0;

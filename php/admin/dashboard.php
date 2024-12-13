@@ -173,10 +173,8 @@
 
     <div class="content-page">
         <div class="content">
-
             <!-- Start Content-->
             <div class="container-fluid">
-
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -194,34 +192,33 @@
                 <!-- end page title -->
 
                 <div class="row">
+                    <!-- Số khách hàng hiện tại -->
                     <div class="col-md-6 col-xl-3">
                         <div class="card-box tilebox-one">
                             <i class="fe-box float-right"></i>
                             <h5 class="text-muted text-uppercase mb-3 mt-0">Số khách hàng hiện tại</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countCustomers}" bằng giá trị tĩnh hoặc JavaScript -->
+                            <h3 class="mb-3" id="countCustomers">0</h3> <!-- Thêm id -->
                         </div>
                     </div>
 
-
+                    <!-- Số sản phẩm hiện có -->
                     <div class="col-md-6 col-xl-3">
                         <div class="card-box tilebox-one">
                             <i class="fe-layers float-right"></i>
                             <h5 class="text-muted text-uppercase mb-3 mt-0">Số sản phẩm hiện có</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countProducts}" bằng giá trị tĩnh hoặc JavaScript -->
+                            <h3 class="mb-3" id="countProducts">0</h3> <!-- Thêm id -->
                         </div>
                     </div>
 
+                    <!-- Tổng số hoá đơn -->
                     <div class="col-md-6 col-xl-3">
                         <div class="card-box tilebox-one">
                             <i class="fe-tag float-right"></i>
                             <h5 class="text-muted text-uppercase mb-3 mt-0">Tổng số hoá đơn</h5>
-                            <h3 class="mb-3">0</h3> <!-- Thay thế th:text="${countOrders}" bằng giá trị tĩnh hoặc JavaScript -->
+                            <h3 class="mb-3" id="countOrders">0</h3> <!-- Thêm id -->
                         </div>
                     </div>
-
-
                 </div>
-
 
                 <div class="row">
                     <div class="col-xl-7">
@@ -234,54 +231,27 @@
                                         <h6 class="font-normal text-muted font-14">Trung bình số tiền mỗi đơn hàng trong tháng hiện tại</h6>
                                         <h6 class="font-18">
                                             <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
-                                            <span class="text-dark">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                            <span class="text-dark" id="averageOrderValue">0 VND</span> <!-- Thêm id -->
                                         </h6>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="text-center mt-3">
                                         <h6 class="font-normal text-muted font-14">Tổng số tiền thu được trong tháng hiện tại</h6>
                                         <h6 class="font-18">
                                             <i class="mdi mdi-arrow-up-bold-hexagon-outline text-success"></i>
-                                            <span class="text-dark">0 VND</span> <!-- Thay thế th:text bằng giá trị tĩnh hoặc JavaScript -->
+                                            <span class="text-dark" id="totalRevenue">0 VND</span> <!-- Thêm id -->
                                         </h6>
                                     </div>
                                 </div>
                             </div>
 
-                            <canvas id="financeChart"></canvas>
-                            <script>
-                                // Dữ liệu tĩnh hoặc lấy từ nguồn khác
-                                const financeData = {
-                                    labels: ['01-10-2023', '02-10-2023', '03-10-2023', '04-10-2023', '05-10-2023'],
-                                    datasets: [{
-                                        label: 'Tổng số tiền',
-                                        data: [1000000, 1500000, 1300000, 1700000, 1600000],
-                                        fill: false,
-                                        borderColor: 'rgb(75, 192, 192)',
-                                        tension: 0.1
-                                    }]
-                                };
-
-                                const ctx = document.getElementById('financeChart').getContext('2d');
-                                new Chart(ctx, {
-                                    type: 'line',
-                                    data: financeData,
-                                    options: {
-                                        responsive: true
-                                    }
-                                });
-                            </script>
                         </div>
                     </div>
                 </div>
                 <!-- end row -->
-
             </div> <!-- end container-fluid -->
-
         </div> <!-- end content -->
-
 
         <!-- Footer Start -->
         <footer class="footer">
@@ -290,13 +260,12 @@
                     <div class="col-md-12">
                         2017 - 2019 &copy; Abstack theme by <a href="">Coderthemes</a>
                     </div>
-
                 </div>
             </div>
         </footer>
         <!-- end Footer -->
-
     </div>
+
 
     <!-- ============================================================== -->
     <!-- End Page content -->
@@ -304,6 +273,9 @@
 
 </div>
 <!-- END wrapper -->
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!-- Vendor js -->
 <script src="../../static/assets_admin/js/vendor.min.js"></script>
@@ -316,6 +288,8 @@
 
 <!-- App js -->
 <script src="../../static/assets_admin/js/app.min.js"></script>
+
+<script src="../../static/call-api/admin/dashboard.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

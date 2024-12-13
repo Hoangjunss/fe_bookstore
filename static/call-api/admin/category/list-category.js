@@ -91,10 +91,7 @@
                         let row = `<tr>
                             <td>${data.id}</td>
                             <td>${data.name}</td>
-                            <td>${data.countProducts || 0}</td>
-                            <td>${new Date()}</td>
                             <td>
-                                <a href="detail-category.php?id=${data.id}" class="btn btn-info btn-sm">Chi tiết</a>
                                 <button class="btn btn-danger delete-button btn-sm" data-id="${data.id}">Xóa</button>
                             </td>
                         </tr>`;
@@ -155,8 +152,19 @@
         return date.toLocaleDateString('vi-VN');
     }
 
+
+    function getToken() {
+        return localStorage.getItem('token');
+    }
+
     function deleteCategory(id) {
-        axios.delete(`http://localhost:8080/api/v1/categories/${id}`)
+        const accessToken = getToken();
+        axios.delete(`http://localhost:8080/api/v1/category/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        })
             .then(response => {
                 alert('Xóa loại sản phẩm thành công!');
                 // Tải lại danh sách sau khi xóa

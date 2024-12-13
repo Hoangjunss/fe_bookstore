@@ -206,7 +206,7 @@
                                     <tr>
                                         <th>ID Đơn Hàng</th>
                                         <td id="order-id">#</td>
-                                        <th>Email Người Dùng</th>
+                                        <th>Tên người Dùng</th>
                                         <td id="user-email">#</td>
                                     </tr>
                                     <tr>
@@ -225,7 +225,9 @@
                                     </tr>
                                     <tr>
                                         <th>Địa Chỉ Giao Hàng</th>
-                                        <td colspan="3" id="order-address">#</td>
+                                        <td id="order-address">#</td>
+                                        <th>Số điện thoại liên hệ</th>
+                                        <td id="order-phone">#</td>
                                     </tr>
                                     </tbody>
                                 </table>
