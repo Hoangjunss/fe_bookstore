@@ -131,7 +131,7 @@
                     <li class="menu-title">QUẢN LÝ</li>
 
                     <li>
-                        <a href="../dashboard.phps">
+                        <a href="../dashboard.php">
                             <i class="fe-airplay"></i>
                             <span> Dashboard </span>
                         </a>

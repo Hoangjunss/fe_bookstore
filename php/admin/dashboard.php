@@ -476,7 +476,7 @@ async function fetchStatisticsWarehouseMonth() {
         };
 
   try {
-    const response = await fetch("http://localhost:8080/api/v1/warehouse/statistics",{params});
+    const response = await fetch("http://localhost:8080/api/v1/warehouse-receipts/statistics",{params});
     const data = await response.json();
    
 
@@ -505,7 +505,7 @@ async function fetchStatisticsWarehouseYear() {
         };
 
   try {
-    const response = await fetch("http://localhost:8080/api/v1/Warehouse/statistics",{params});
+    const response = await fetch("http://localhost:8080/api/v1/warehouse-receipts/statistics",{params});
     const data = await response.json();
    
 

@@ -251,21 +251,21 @@
                                 <div class="form-group">
                                     <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Nhập tên đăng nhập" name="username" id="username"/>
+                                           placeholder="Nhập tên đăng nhập" name="username" id="username" required/>
                                     <div class="error-message" id="error-username"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email <span class="text-danger">*</span></label>
                                     <input type="email" class="form-control" required
-                                           placeholder="Nhập email" name="email" id="email"/>
+                                           placeholder="Nhập email" name="email" id="email" required/>
                                     <div class="error-message" id="error-email"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="fullname">Họ và tên <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" required
-                                           placeholder="Nhập họ và tên" name="fullname" id="fullname"/>
+                                           placeholder="Nhập họ và tên" name="fullname" id="fullname" required/>
                                     <div class="error-message" id="error-fullname"></div>
                                 </div>
 
