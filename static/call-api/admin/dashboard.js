@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const countOrders = countResponse.data;
-            document.getElementById('countCustomers').textContent = countOrders;
-            const countUserResponse = await axios.get('http://localhost:8080/api/v1/user/count', {
+            document.getElementById('countOrders').textContent = countOrders;
+            const countUserResponse = await axios.get('http://localhost:8080/api/v1/users/count', {
                 headers: {
                     'Content-Type': 'application/json',
                     // Thêm Authorization header nếu cần
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const countProductOrders = countProductResponse.data;
-            document.getElementById('countOrders').textContent = countProductOrders;
+            document.getElementById('countProducts').textContent = countProductOrders;
 
 
             // Gọi API để lấy thống kê doanh thu

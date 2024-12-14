@@ -210,7 +210,6 @@
                                 <tr>
                                     <th style="width: 100px;">ID</th>
                                     <th style="width: 300px;">Tên loại sản phẩm</th>
-                                    <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>

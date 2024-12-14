@@ -91,9 +91,6 @@
                         let row = `<tr>
                             <td>${data.id}</td>
                             <td>${data.name}</td>
-                            <td>
-                                <button class="btn btn-danger delete-button btn-sm" data-id="${data.id}">Xóa</button>
-                            </td>
                         </tr>`;
                         $('#datatable-buttons tbody').append(row);
                     }

@@ -205,7 +205,7 @@ function renderCart(cart) {
                   <td>
                       <div class="quantity-container">
                           <button onclick="changeQuantity(${detail.id}, -1, ${detail.product.id}, ${detail.product.quantity})">-</button>
-                          <input type="text" value="${quantity}" onchange="updateQuantityFromInput(${detail.id}, this.value, ${detail.product.id}, ${detail.product.quantity})
+                          <input type="text" value="${quantity}" onchange="updateQuantityFromInput(${detail.id}, this.value, ${detail.product.id}, ${detail.product.quantity})">
                           <button onclick="changeQuantity(${detail.id}, 1, ${detail.product.id}, ${detail.product.quantity})">+</button>
                       </div>
                   </td>

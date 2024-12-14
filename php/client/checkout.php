@@ -245,39 +245,39 @@
                                 <h3>Billing Details</h3>
                                 <div class="row">
                                     <div class="col-md-6 form-group p_star">
-                                        <label for="fullName">Full Name</label>
-                                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Full Name" required/>
+                                        <label for="fullName">Tên</label>
+                                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Tên" required/>
                                     </div>
                                     <div class="col-md-6 form-group p_star">
-                                        <label for="phone">Phone Number</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" required/>
+                                        <label for="phone">Số điện thoạir</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại" required/>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <label for="email">Email Address</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required/>
+                                        <label for="email">Địa chỉ email</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Địa chỉ email" required/>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <label for="province">Province/City</label>
+                                        <label for="province">Tỉnh</label>
                                         <select id="province" name="province" class="form-control" required>
                                             <option disabled selected value="">Chọn tỉnh/thành</option>
                                         </select>
                                     </div>
                                     <!-- Chọn tỉnh thành -->
                                     <div class="col-md-12 form-group p_star">
-                                        <label for="district">District</label>
+                                        <label for="district">quận</label>
                                         <select id="district" name="district" class="form-control" required>
                                             <option disabled selected value="">Chọn quận/huyện</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <label for="ward">Ward</label>
+                                        <label for="ward">Phường</label>
                                         <select id="ward" name="ward" class="form-control" required>
                                             <option disabled selected value="">Chọn phường/xã</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <label for="detailAddress">Detailed Address</label>
-                                        <input type="text" class="form-control" id="detailAddress" name="detailAddress" placeholder="Street Address" required/>
+                                        <label for="detailAddress">Thông tin chi tiết</label>
+                                        <input type="text" class="form-control" id="detailAddress" name="detailAddress" placeholder="Thông tin chi tiết" required/>
                                     </div>
                                 </div>
 
@@ -292,11 +292,11 @@
 
                                 <!-- Payment Method Section -->
                                 <div class="payment-method">
-                                    <h4>Select Payment Method</h4>
+                                    <h4>Phương thức thanh toán</h4>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="CASH" checked>
                                         <label class="form-check-label" for="cash">
-                                            Cash on Delivery (CASH)
+                                           Thanh toán khi nhận hàng
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -311,16 +311,16 @@
                             <!-- Order Summary -->
                             <div class="col-lg-4">
                                 <div class="order_box">
-                                    <h2>Your Order</h2>
+                                    <h2>Đơn hàng của bạn</h2>
                                     <ul class="list" id="cart-items">
                                         <!-- Cart items sẽ được fetch và thêm vào đây bởi JavaScript -->
                                     </ul>
                                     <ul class="list list_2">
-                                        <li><a href="#">Subtotal <span id="subtotalText">0 VND</span></a></li>
-                                        <li><a href="#">Shipping <span id="shippingFeeText">0 VND</span></a></li>
-                                        <li><a href="#">Total <span id="totalText">0 VND</span></a></li>
+                                        <li><a href="#">Số tiền <span id="subtotalText">0 VND</span></a></li>
+                                        <li><a href="#">Phí Ship <span id="shippingFeeText">0 VND</span></a></li>
+                                        <li><a href="#">Tổng tiền <span id="totalText">0 VND</span></a></li>
                                     </ul>
-                                    <button class="btn w-100" type="submit" id="checkout-btn">Place Order</button>
+                                    <button class="btn w-100" type="submit" id="checkout-btn">Đặt hàng</button>
                                 </div>
                             </div>
                         </div>

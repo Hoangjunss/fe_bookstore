@@ -269,7 +269,7 @@
                                                 <option value="PENDING">PENDING</option>
                                                 <option value="REJECT">REJECT</option>
                                                 <option value="ACCESS">ACCESS</option>
-                                                <option value="SUCCESS">SUCCESS</option>
+                                                <option value="SUCCESS">Giao Hàng</option>
                                             </select>
                                         </div>
                                     </div>

@@ -125,7 +125,13 @@ async function getOrders(page, size, objectFilter) {
                         <button class="btn btn-success btn-sm accept-button" data-id="${order.id}">Duyệt</button>
                         <button class="btn btn-danger btn-sm reject-button" data-id="${order.id}">Từ chối</button>
                     `;
-                } else {
+                }else if(order.orderStatus === 'ACCESS'){
+                    actionButtons = `
+                        <button class="btn btn-success btn-sm giaohang-button" data-id="${order.id}">GiaoHang</button>
+                       
+                    `;
+                }
+                 else {
                     actionButtons = `<span class="badge badge-info">${statusText}</span>`;
                 }
 
@@ -162,6 +168,14 @@ async function getOrders(page, size, objectFilter) {
                 updateOrderStatus(orderId, 'REJECT');
             });
         });
+        const giaohangButtons = document.querySelectorAll('.giaohang-button');
+        giaohangButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const orderId = event.target.getAttribute('data-id');
+                updateOrderStatus(orderId, 'SUCCESS');
+            });
+        });
+    
 
         // Thêm sự kiện cho các nút "Duyệt"
         const acceptButtons = document.querySelectorAll('.accept-button');
