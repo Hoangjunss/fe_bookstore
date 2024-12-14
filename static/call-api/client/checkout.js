@@ -541,6 +541,8 @@ async function callVNPAY(price, id) {
 
         const paymentUrl = await response.text(); // Assuming the backend returns the URL as plain text
         // Redirect người dùng đến trang thanh toán VNPAY
+        console.log(paymentUrl);
+        debugger;
         window.location.href = paymentUrl;
 
         // Khi redirect thành công, bạn có thể xử lý thêm nếu cần

@@ -323,7 +323,6 @@
         <div class="related-products-area pt-50 pb-50">
             <div class="container">
                 <div class="section-title text-center mb-40">
-                    <h2>Related Products</h2>
                 </div>
                 <div class="row" id="relatedProductContainer">
                     <!-- Sản phẩm liên quan sẽ được nạp qua JavaScript -->

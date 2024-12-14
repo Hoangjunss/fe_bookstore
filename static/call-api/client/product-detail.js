@@ -124,10 +124,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p class="product-price">${formattedPrice} VND</p>
                 <p><strong>Author:</strong> ${product.author || 'Unknown'}</p>
                 <p><strong>Pages:</strong> ${product.page || 'N/A'}</p>
-                <p><strong>Publication Date:</strong> ${product.datePublic || 'N/A'}</p>
+                <p><strong>Category:</strong> ${product.category || 'N/A'}</p>
                 <p><strong>Size:</strong> ${product.size || 'N/A'}</p>
                 <p><strong>Description:</strong> ${product.description || 'Detailed description of the product.'}</p>
-                <p><strong>Status:</strong> ${statusText}</p>
+                <p><strong>Quantity:</strong> ${product.quantity}</p>
                 <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
             </div>
         </div>
