@@ -91,6 +91,7 @@
             passwordError.textContent = '';
         }
 
+<<<<<<< HEAD
         /* function isValidPassword(password) {
             var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
             return passwordRegex.test(password);
@@ -167,6 +168,54 @@
         }
     }
 </script>
+=======
+            // Gọi API với fetch
+            fetch('http://localhost:8080/api/v1/users/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(errorText => {
+                            // Kiểm tra lỗi cụ thể
+                            if (errorText.includes("User not found")) {
+                                alert("Tài khoản chưa tồn tại, vui lòng đăng ký.");
+                            } else {
+                                alert("Sai mật khẩu, vui lòng thử lại.");
+                            }
+                            throw new Error(errorText); // Ngăn không xử lý tiếp nếu có lỗi
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Lưu token vào localStorage
+
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('refreshToken', data.refreshToken);
+                    localStorage.setItem('username', data.username);
+                    alert("Đăng nhập thành công!");
+
+                    if(data.role == 'admin'){
+                        window.location.href = '../admin/dashboard.php'; // chuyển đến trang quản lý
+                    } else if(data.role == 'employee'){
+                        window.location.href = '../employee/order/list-order.php'; // chuyển đến trang quản lý nhân viên
+                    }else if(data.role == 'customer'){
+                        window.location.href = '../client/index.php'; // chuyển đến trang chủ hoặc trang mong muốn
+                    } else{
+                        alert("Không tìm thấy quyền hạn cho tài khoản này.");
+                        throw new Error("Không tìm thấy quyền hạn cho tài khoản này."); // Ngăn không xử lý tiếp nếu có l��i
+                    }
+                    
+                    
+                })
+                .catch(error => {
+                    console.error('Lỗi đăng nhập:', error);
+                });
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
 </body>
 

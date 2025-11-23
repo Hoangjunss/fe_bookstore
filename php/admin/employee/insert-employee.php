@@ -83,6 +83,7 @@
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
 
+<<<<<<< HEAD
                 <li class="dropdown d-none d-lg-block">
                     <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
@@ -221,6 +222,16 @@
                     <span class="logo-sm">
                         <!-- <span class="logo-sm-text-dark">U</span> -->
                         <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
+=======
+            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
+            <!-- ... -->
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
+                   href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <span class="ml-1">
+                        admin@example.com <i class="mdi mdi-chevron-down"></i>
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                     </span>
                 </a>
             </div>
@@ -232,6 +243,7 @@
                     </button>
                 </li>
 
+<<<<<<< HEAD
                 <li class="d-none d-sm-block">
                     <form class="app-search">
                         <div class="app-search-box">
@@ -242,6 +254,50 @@
                                         <i class="fe-search"></i>
                                     </button>
                                 </div>
+=======
+                    <!-- item-->
+                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
+                        <i class="fe-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </li>
+
+            <!-- Cài đặt và sidebar (giữ nguyên) -->
+            <!-- ... -->
+
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="/admin/home.html" class="logo text-center">
+                <span class="logo-lg">
+                    <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                </span>
+                <span class="logo-sm">
+                    <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
+                </span>
+            </a>
+        </div>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+
+            <li class="d-none d-sm-block">
+                <form class="app-search">
+                    <div class="app-search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit">
+                                    <i class="fe-search"></i>
+                                </button>
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                             </div>
                         </div>
                     </form>
@@ -488,6 +544,7 @@
             <hr class="mb-0" />
 
 
+<<<<<<< HEAD
             <div class="p-3">
                 <div class="custom-control custom-checkbox mb-2">
                     <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
@@ -544,6 +601,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- App JS -->
     <script src="../../../static/assets_admin/js/app.min.js"></script>
+=======
+<!-- Axios JS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- App JS -->
+<script src="../../../static/assets_admin/js/app.min.js"></script>
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
     <script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
 

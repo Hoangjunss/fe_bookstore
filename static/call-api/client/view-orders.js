@@ -68,7 +68,11 @@
     function fetchOrders(page, size, status) {
         currentPage = page;
         currentStatus = status;
+<<<<<<< HEAD
         const url = `http://localhost:8080/api/v1/orders/current`;
+=======
+        const url = `http://localhost:8080/api/v1/orders/user?idUser=-1521463666`;
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
         const token = localStorage.getItem('token');
         const options = {

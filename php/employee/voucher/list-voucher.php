@@ -346,31 +346,6 @@
                                         <label for="nameVoucher">Tên voucher:</label>
                                         <input type="text" class="form-control" id="nameVoucher" placeholder="Nhập tên voucher">
                                     </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="percent">Phần trăm giảm:</label>
-                                        <input type="number" class="form-control" id="percent" placeholder="Nhập phần trăm giảm">
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="startDate">Ngày bắt đầu:</label>
-                                        <input type="date" class="form-control" id="startDate">
-                                    </div>
-
-                                    <div class="col-md-3 mb-3">
-                                        <label for="endDate">Ngày kết thúc:</label>
-                                        <input type="date" class="form-control" id="endDate">
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="product">Sản phẩm áp dụng:</label>
-                                        <select class="form-control" id="product" multiple>
-                                            <!-- Các tùy chọn sản phẩm sẽ được thêm vào đây bằng JavaScript -->
-                                        </select>
-                                    </div>
-
                                     <div class="col-md-3 mb-3">
                                         <label for="status">Trạng thái:</label>
                                         <select class="form-control" id="status" name="status">
@@ -395,12 +370,21 @@
                                     <th>Phần trăm giảm (%)</th>
                                     <th>Ngày bắt đầu</th>
                                     <th>Ngày kết thúc</th>
-                                    <th>Sản phẩm áp dụng</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    <td>1</td>
+                                    <td>12H23#</td>
+                                    <td>5%</td>
+                                    <td>20-11-2024</td>
+                                    <td>20-12-2024</td>
+                                    <td>Hoạt động</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm edit-button" data-id="${voucher.id}">Áp dụng</button>
+                                        <button class="btn btn-danger btn-sm delete-button" data-id="${voucher.id}">Tạm ngưng</button>
+                                    </td>
                                 <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
                                 </tbody>
                             </table>

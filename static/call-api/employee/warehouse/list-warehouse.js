@@ -1,6 +1,13 @@
     document.addEventListener('DOMContentLoaded', function () {
         fetchWarehouses(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
         fetchProducts(); // Lấy danh sách sản phẩm để điền vào dropdown tìm kiếm
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../../auth/login.php'; // Chuyển về trang login
+        });
     });
 
     /**
@@ -68,9 +75,10 @@
      */
     async function fetchWarehouses(page, size) {
         const productName = document.getElementById('productName').value.trim();
-        const quantity = document.getElementById('quantity').value.trim();
+        const quantityElement = document.getElementById('quantity');
         const status = document.getElementById('status').value;
 
+        const quantity = quantityElement ? quantityElement.value.trim() : null;
         const params = {
             page: page - 1, // Giả sử backend sử dụng chỉ số trang bắt đầu từ 0
             size: size,
@@ -83,7 +91,6 @@
             const response = await axios.get('http://localhost:8080/api/v1/warehouses', { params });
 
             const data = response.data;
-            console.log(data);
 
             populateWarehouseTable(data.content);
             renderPagination(data.totalPages, data.number, size);

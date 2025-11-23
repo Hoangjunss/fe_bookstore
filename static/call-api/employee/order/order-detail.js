@@ -1,4 +1,10 @@
     document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../../auth/login.php'; // Chuyển về trang login
+        });
         // Lấy ID đơn hàng từ URL (ví dụ: order-detail.html?orderId=1)
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('orderId');
@@ -8,7 +14,7 @@
         } else {
             alert('Không tìm thấy ID đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.php';
+            // window.location.href = 'list-order.php';
         }
     });
 
@@ -39,7 +45,7 @@
             console.error(error);
             alert('Có lỗi xảy ra khi tải dữ liệu đơn hàng.');
             // Điều hướng quay lại danh sách đơn hàng
-            window.location.href = 'list-order.php';
+            // window.location.href = 'list-order.php';
         }
     }
 
@@ -53,8 +59,8 @@
         document.getElementById('user-email').textContent = order.username;
         document.getElementById('order-quantity').textContent = order.quantity;
         document.getElementById('order-total-price').textContent = formatCurrency(order.totalPrice);
-        document.getElementById('order-created-date').textContent = formatDate(order.createdDate);
-        document.getElementById('order-address').textContent = order.address.address;
+        document.getElementById('order-created-date').textContent = formatDate(order.date);
+        document.getElementById('order-address').textContent = order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province;
 
         // Cập nhật trạng thái đơn hàng
         // const statusSelect = document.getElementById('order-status');
@@ -134,12 +140,12 @@
     /**
      * Hàm cập nhật trạng thái đơn hàng khi người dùng thay đổi select
      */
-    document.getElementById('order-status').addEventListener('change', function () {
-        let orderId = this.getAttribute('data-order-id');
-        let newStatus = this.value;
+    // document.getElementById('order-status').addEventListener('change', function () {
+    //     let orderId = this.getAttribute('data-order-id');
+    //     let newStatus = this.value;
 
-        updateOrderStatus(orderId, newStatus, this);
-    });
+    //     updateOrderStatus(orderId, newStatus, this);
+    // });
 
     /**
      * Hàm gửi yêu cầu cập nhật trạng thái đơn hàng tới backend

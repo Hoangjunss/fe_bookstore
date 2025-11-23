@@ -87,6 +87,7 @@
             const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
+<<<<<<< HEAD
             const role = "customer"; // Thiết lập vai trò mặc định là "USER"
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -96,6 +97,9 @@
             } else {
                 document.querySelector('.error-email').innerText = '';
             }
+=======
+            const role = "customer"; // Thiết lập vai trò mặc định là "customer"
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
             // Kiểm tra mật khẩu
             if (password.length < 6) {
