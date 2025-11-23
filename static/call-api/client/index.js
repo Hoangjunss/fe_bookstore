@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchCategoriesAndDisplayTabs();
 
     const cartLink = document.querySelector('a[href="cart.php"]');
-    
+
     function checkAuthAndRedirect(link, targetUrl) {
         const token = localStorage.getItem('token');
         if (token) {
@@ -15,16 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const profileLink = document.getElementById("profileLink");
-    profileLink.addEventListener("click", function(event) {
+    profileLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-<<<<<<< HEAD
         checkAuthAndRedirect(profileLink, "profile.php");
-=======
-        checkAuthAndRedirect(profileLink, "/profile.php");
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     });
 
-    cartLink.addEventListener("click", function(event) {
+    cartLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(cartLink, "cart.php");
     });
@@ -45,7 +41,7 @@ function updateAuthButton() {
         `;
 
         // Xử lý sự kiện đăng xuất
-        document.getElementById("logout-button").addEventListener("click", function() {
+        document.getElementById("logout-button").addEventListener("click", function () {
             localStorage.removeItem('token');  // Xóa token
             alert("Đã đăng xuất thành công.");
             updateAuthButton();  // Cập nhật nút
@@ -59,7 +55,7 @@ function updateAuthButton() {
         `;
 
         // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
-        document.getElementById("login-button").addEventListener("click", function(event) {
+        document.getElementById("login-button").addEventListener("click", function (event) {
             event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
             window.location.href = "../auth/login.php";
         });
@@ -112,11 +108,7 @@ function showNotification(message, type = 'info') {
  */
 async function fetchProducts() {
     try {
-<<<<<<< HEAD
         const response = await fetch('http://localhost:8080/api/v1/product?page=0&size=12', {
-=======
-        const response = await fetch(`http://localhost:8080/api/v1/productsales?page=0&size=10`, {
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -153,7 +145,7 @@ function renderProducts(products) {
         return;
     }
     products.forEach(productSale => {
-        
+
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
         const productName = productSale.name || 'Tên sản phẩm';
@@ -186,7 +178,7 @@ function renderProducts(products) {
  * Hàm lấy danh sách danh mục từ API và hiển thị chúng dưới dạng tab
  */
 async function fetchCategoriesAndDisplayTabs() {
-    
+
     try {
         const response = await fetch("http://localhost:8080/api/v1/category", {
             method: 'GET',
@@ -194,9 +186,9 @@ async function fetchCategoriesAndDisplayTabs() {
                 'Content-Type': 'application/json'
             }
         });
-        
+
         const categories = await response.json();
-        
+
         const navTab = document.getElementById("nav-tab");
         categories.forEach((category, index) => {
             const isActive = index === 0 ? "active" : ""; // Đánh dấu tab đầu tiên là active
@@ -250,7 +242,6 @@ function renderTrendingProducts(products) {
 
     const trendingProducts = products.slice(0, 3); // Lấy 3 sản phẩm đầu tiên làm trending
     trendingProducts.forEach(productSale => {
-<<<<<<< HEAD
         const product = productSale.product;
         const productSaleId = productSale.id; // Sử dụng id của productSale
         const productName = productSale.name || 'Tên sản phẩm';
@@ -268,29 +259,6 @@ function renderTrendingProducts(products) {
                         </a>
                         <div class="socal_icon">
                             <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})"><i class="ti-shopping-cart"></i></a>
-=======
-        console.log("ProductSale:", productSale);
-        console.log("Product:", productSale.product);
-        if(productSale !== undefined && productSale.product !== undefined) {
-            const product = productSale.product;
-            const productSaleId = productSale.id; // Sử dụng id của productSale
-            const productName = product.name || 'Tên sản phẩm';
-            const salePrice = productSale.price || 0;
-            const thumbnail = product.image ? product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
-    
-            const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
-    
-            const trendingHTML = `
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="product-details.php?id=${productSaleId}">
-                                <img src="${thumbnail}" alt="${productName}" style="max-width: 100%; max-height: 100%; width: 350px;height: 300px;">
-                            </a>
-                            <div class="socal_icon">
-                                <a href="javascript:void(0);" class="add-to-cart-link" onclick="addToCart(${productSaleId})"><i class="ti-shopping-cart"></i></a>
-                            </div>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                         </div>
                         <div class="properties-caption properties-caption2">
                             <h3><a href="product-details.php?id=${productSaleId}">${productName}</a></h3>
@@ -303,11 +271,11 @@ function renderTrendingProducts(products) {
                     </div>
                 </div>
             `;
-    
-            trendingContainer.insertAdjacentHTML('beforeend', trendingHTML);
-        }
-        
-    });
+
+        trendingContainer.insertAdjacentHTML('beforeend', trendingHTML);
+    }
+
+    );
 }
 
 /**

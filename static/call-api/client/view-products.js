@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userGreeting = document.getElementById('user-greeting');
     const searchForm = document.getElementById('searchForm');
     const cartLink = document.querySelector('a[href="cart.php"]');
-    
-<<<<<<< HEAD
+
     function checkAuthAndRedirect(link, targetUrl) {
         const token = localStorage.getItem('token');
         if (token) {
@@ -16,32 +15,26 @@ document.addEventListener("DOMContentLoaded", function () {
             showNotification('Vui lòng đăng nhập để truy cập trang này.', 'error');
         }
     }
-    
+
     const profileLink = document.getElementById("profileLink");
-    profileLink.addEventListener("click", function(event) {
+    profileLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(profileLink, "/profile.php");
     });
 
-    cartLink.addEventListener("click", function(event) {
+    cartLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(cartLink, "cart.php");
     });
 
     updateAuthButton();
     let currentPage = 0;
-    const pageSize = 12; 
+    const pageSize = 12;
 
-=======
-    let currentPage = 0;
-    const pageSize = 12; 
-
-    // Cập nhật nút Auth
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     function updateAuthButton() {
         const authButtonContainer = document.getElementById("auth-button");
         const token = localStorage.getItem('token');
-    
+
         if (token) {
             // Nếu có token, hiển thị nút Logout
             authButtonContainer.innerHTML = `
@@ -49,17 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         <i class="btn btn-light"> Logout</i>
                     </a>
             `;
-    
+
             // Xử lý sự kiện đăng xuất
-            document.getElementById("logout-button").addEventListener("click", function() {
+            document.getElementById("logout-button").addEventListener("click", function () {
                 localStorage.removeItem('token');  // Xóa token
                 alert("Đã đăng xuất thành công.");
                 updateAuthButton();  // Cập nhật nút
-<<<<<<< HEAD
-=======
-                fetchUserInfo(); // Cập nhật thông tin người dùng
-                updateCartCount(); // Cập nhật số lượng giỏ hàng
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             });
         } else {
             // Nếu không có token, hiển thị nút Login
@@ -68,18 +56,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         <i class="btn btn-light">Login</i>
                     </a>
             `;
-    
+
             // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
-            document.getElementById("login-button").addEventListener("click", function(event) {
+            document.getElementById("login-button").addEventListener("click", function (event) {
                 event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
                 window.location.href = "../auth/login.php";
             });
         }
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
+
 
     // Hàm để cập nhật dropdown danh mục
     function populateCategoryDropdown(categories) {
@@ -97,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const response = await fetch("http://localhost:8080/api/v1/category");
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            
+
             const categories = await response.json();
             populateCategoryDropdown(categories);
         } catch (error) {
@@ -107,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Hàm để lấy và hiển thị sản phẩm sử dụng async/await
-    async function fetchProducts(page = 0, categoryId = null) { 
+    async function fetchProducts(page = 0, categoryId = null) {
         currentPage = page; // Cập nhật trang hiện tại
 
         // Lấy giá trị từ form lọc
@@ -115,30 +100,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const saleStartPrice = document.getElementById('saleStartPrice').value;
         const saleEndPrice = document.getElementById('saleEndPrice').value;
 
-<<<<<<< HEAD
-        if(saleStartPrice < 0){
-=======
         if (saleStartPrice < 0) {
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             alert("Giá bán thấp nhất không được bé hơn 0.");
             document.getElementById('saleStartPrice').value = '';
             return;
         }
-<<<<<<< HEAD
-        if(saleEndPrice && saleEndPrice < saleStartPrice){
-=======
         if (saleEndPrice && saleEndPrice < saleStartPrice) {
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             alert("Giá bán đến thấp nhất phải lớn hơn hoặc bằng giá bán từ.");
             document.getElementById('saleEndPrice').value = '';
             return;
         }
 
-<<<<<<< HEAD
-        console.log('Fetching products:', page,pageSize);
-=======
         console.log('Fetching products:', page, pageSize);
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
         // Xây dựng URL với các tham số query
         let url = `http://localhost:8080/api/v1/product?page=${page}&size=${pageSize}`;
@@ -171,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-<<<<<<< HEAD
         products.forEach(product => {
             console.log(product);
             categoriesSet.add(JSON.stringify({
@@ -197,40 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 </div>
 
-=======
-        products.forEach(productSale => {
-            console.log("ProductSale:", productSale);
-            console.log("Product:", productSale.product);
-
-            const product = productSale.product;
-
-            // Kiểm tra xem product có tồn tại không
-            if (!product) {
-                console.warn(`ProductSale với ID ${productSale.id} không có thuộc tính 'product'.`);
-                // Bạn có thể hiển thị một thông báo hoặc bỏ qua sản phẩm này
-                productContainer.innerHTML += `<p class='text-center'>Dữ liệu sản phẩm không hợp lệ.</p>`;
-                return; // Bỏ qua phần tiếp theo của vòng lặp
-            }
-
-            const col = document.createElement('div');
-            col.className = 'col-lg-4 col-md-6 col-sm-6';
-            col.innerHTML = `
-                <div class="single-items mb-30">
-                    <div class="thumb">
-                        <a href="product-details.php?id=${productSale.id}">
-                            <img style="width: 100%; height: 250px; object-fit: cover;" src="${product.image ? product.image.url : 'https://via.placeholder.com/350x300?text=No+Image'}" alt="${product.name}">
-                        </a>
-                        <div class="actions">
-                            <button class="add-to-cart-link" data-id="${productSale.id}">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="content text-center">
-                        <h4 class="product-title"><a href="product-details.php?id=${productSale.id}">${product.name}</a></h4>
-                        <p class="author">Tác giả: ${product.author}</p>
-                        <p class="price">${formatPrice(productSale.price)} VND</p>
-                    </div>
-                </div>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             `;
             productContainer.appendChild(col);
         });
@@ -316,16 +254,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/cart-details', { 
+            const response = await fetch('http://localhost:8080/api/v1/cart-details', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     id: null, // ID sẽ do hệ thống tự tạo
                     quantity: 1, // Số lượng mặc định là 1
-                    productSaleId: productId 
+                    productSaleId: productId
                 })
             });
 
@@ -351,12 +289,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const addedCartDetail = await response.json();
             showNotification('Đã thêm sản phẩm vào giỏ hàng thành công!', 'success');
-<<<<<<< HEAD
             // Cập nhật biểu tượng giỏ hàng
             //updateCartCount();
-=======
-            updateCartCount(); // Cập nhật số lượng giỏ hàng
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         } catch (error) {
             console.error('Error adding to cart:', error);
             showNotification('Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.', 'error');
@@ -474,16 +408,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-<<<<<<< HEAD
-=======
-    // Hàm để thêm sự kiện khi chọn danh mục
-    if (categorySelect) {
-        categorySelect.addEventListener('change', function () {
-            currentPage = 0; // Reset trang về đầu
-            fetchProducts(0, categorySelect.value);
-        });
-    }
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
     // Xử lý sự kiện lọc khi form lọc được submit
     if (filterForm) {
@@ -510,11 +434,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (userGreeting) {
         fetchUserInfo();
     }
-<<<<<<< HEAD
     //updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
-=======
-    updateAuthButton();
-    updateCartCount(); // Cập nhật số lượng giỏ hàng khi trang được tải
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     fetchCategories();
 });

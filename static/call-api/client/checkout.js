@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //fetchUserInfo();
     initializeAddressForm();
     const cartLink = document.querySelector('a[href="cart.php"]');
-    
+
     function checkAuthAndRedirect(link, targetUrl) {
         const token = localStorage.getItem('token');
         if (token) {
@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const profileLink = document.getElementById("profileLink");
-    profileLink.addEventListener("click", function(event) {
+    profileLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(profileLink, "/profile.php");
     });
 
-    cartLink.addEventListener("click", function(event) {
+    cartLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(cartLink, "cart.php");
     });
@@ -40,7 +40,7 @@ function updateAuthButton() {
         `;
 
         // Xử lý sự kiện đăng xuất
-        document.getElementById("logout-button").addEventListener("click", function() {
+        document.getElementById("logout-button").addEventListener("click", function () {
             localStorage.removeItem('token');  // Xóa token
             alert("Đã đăng xuất thành công.");
             updateAuthButton();  // Cập nhật nút
@@ -55,7 +55,7 @@ function updateAuthButton() {
         `;
 
         // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
-        document.getElementById("login-button").addEventListener("click", function(event) {
+        document.getElementById("login-button").addEventListener("click", function (event) {
             event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
             window.location.href = "../auth/login.php";
         });
@@ -187,13 +187,8 @@ function renderCart(cart) {
 
     cart.cartDetailDTOList.forEach((detail, index) => {
         const product = detail.product; // ProductSaleDTO.product là Product
-<<<<<<< HEAD
-        const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
-        const productName = product.name || 'Tên sản phẩm';
-=======
         const imageUrl = product.product.image ? product.product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
         const productName = product.product.name || 'Tên sản phẩm';
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         const price = product.price || 0;
         const quantity = detail.quantity || 0;
         const totalPrice = price * quantity;
@@ -290,10 +285,6 @@ function convertVNDStringToNumber(vndStr) {
     return number;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 // Hàm xử lý khi người dùng nhấn nút "Place Order"
 document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -312,48 +303,48 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
     const fullName = document.getElementById("fullName").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const email = document.getElementById("email").value.trim();
-// Lấy phần tử DOM của các thẻ <select>
-const provinceElement = document.getElementById("province");
-const districtElement = document.getElementById("district");
-const wardElement = document.getElementById("ward");
+    // Lấy phần tử DOM của các thẻ <select>
+    const provinceElement = document.getElementById("province");
+    const districtElement = document.getElementById("district");
+    const wardElement = document.getElementById("ward");
 
-// Kiểm tra xem các phần tử có tồn tại không trước khi thao tác
-if (provinceElement && districtElement && wardElement) {
-    // Lấy giá trị (value) của từng thẻ <select>
-    const provinceValue = provinceElement.value;
-    const districtValue = districtElement.value;
-    const wardValue = wardElement.value;
+    // Kiểm tra xem các phần tử có tồn tại không trước khi thao tác
+    if (provinceElement && districtElement && wardElement) {
+        // Lấy giá trị (value) của từng thẻ <select>
+        const provinceValue = provinceElement.value;
+        const districtValue = districtElement.value;
+        const wardValue = wardElement.value;
 
         //Tỉnh thành
-        if(provinceValue == null || provinceValue == ''){
+        if (provinceValue == null || provinceValue == '') {
             showNotification('Vui lòng chọn tỉnh thành.', 'error');
             return;
         }
-    
+
         // Quận huyện
-        if(districtValue == null || districtValue == ''){
+        if (districtValue == null || districtValue == '') {
             showNotification('Vui lòng chọn quận huyện.', 'error');
             return;
         }
-    
+
         // Phư��ng xã
-        if(wardValue == null || wardValue == ''){
+        if (wardValue == null || wardValue == '') {
             showNotification('Vui lòng chọn phường xã.', 'error');
             return;
         }
 
-    // Lấy văn bản (text) của từng lựa chọn đã chọn
-    provinceText = provinceElement.options[provinceElement.selectedIndex].text;
-    districtText = districtElement.options[districtElement.selectedIndex].text;
-    wardText = wardElement.options[wardElement.selectedIndex].text;
+        // Lấy văn bản (text) của từng lựa chọn đã chọn
+        provinceText = provinceElement.options[provinceElement.selectedIndex].text;
+        districtText = districtElement.options[districtElement.selectedIndex].text;
+        wardText = wardElement.options[wardElement.selectedIndex].text;
 
-    // In ra console để kiểm tra
-    console.log("Province:", provinceValue, provinceText);
-    console.log("District:", districtValue, districtText);
-    console.log("Ward:", wardValue, wardText);
-} else {
-    console.error("Không tìm thấy một hoặc nhiều phần tử <select>.");
-}
+        // In ra console để kiểm tra
+        console.log("Province:", provinceValue, provinceText);
+        console.log("District:", districtValue, districtText);
+        console.log("Ward:", wardValue, wardText);
+    } else {
+        console.error("Không tìm thấy một hoặc nhiều phần tử <select>.");
+    }
 
     const detailAddress = document.getElementById("detailAddress").value.trim();
     //const voucherCode = document.getElementById("voucherCode").value.trim();
@@ -382,7 +373,7 @@ if (provinceElement && districtElement && wardElement) {
     }
 
     //Detail address
-    if(detailAddress == null || detailAddress == ''){
+    if (detailAddress == null || detailAddress == '') {
         showNotification('Vui lòng nhập địa chỉ chi tiết.', 'error');
         return;
     }
@@ -397,7 +388,7 @@ if (provinceElement && districtElement && wardElement) {
 
     const price = calculateTotalPrice(); // Hàm tính tổng giá tiền đơn hàng
     const formattedTotalPrice = convertVNDStringToNumber(totalPrice); // "650.000 ₫"
-    const formattedFee = convertVNDStringToNumber(fee); 
+    const formattedFee = convertVNDStringToNumber(fee);
 
     // Xử lý dựa trên phương thức thanh toán
     if (paymentMethod === "CASH") {
@@ -407,7 +398,7 @@ if (provinceElement && districtElement && wardElement) {
             address: {
                 fullName: fullName,
                 email: email,
-                province: provinceText, 
+                province: provinceText,
                 district: districtText,
                 ward: wardText,
                 detailAddress: detailAddress,
@@ -478,7 +469,7 @@ if (provinceElement && districtElement && wardElement) {
             address: {
                 fullName: fullName,
                 email: email,
-                province: provinceText, 
+                province: provinceText,
                 district: districtText,
                 ward: wardText,
                 detailAddress: detailAddress,
@@ -532,13 +523,9 @@ function handlePaymentMethodSelection() {
 async function callVNPAY(price, id) {
     try {
         const token = localStorage.getItem('token');
-<<<<<<< HEAD
-=======
-        console.log(token);
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
-    if (!token) {
-        return; // Nếu chưa đăng nhập, không cần cập nhật
-    }
+        if (!token) {
+            return; // Nếu chưa đăng nhập, không cần cập nhật
+        }
         const response = await fetch(`http://localhost:8080/api/v1/vnpay/pay?price=${price}&id=${id}`, {
             method: 'GET',
             headers: {
@@ -553,11 +540,8 @@ async function callVNPAY(price, id) {
 
         const paymentUrl = await response.text(); // Assuming the backend returns the URL as plain text
         // Redirect người dùng đến trang thanh toán VNPAY
-<<<<<<< HEAD
         console.log(paymentUrl);
         debugger;
-=======
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         window.location.href = paymentUrl;
 
         // Khi redirect thành công, bạn có thể xử lý thêm nếu cần
@@ -684,8 +668,8 @@ function initializeAddressForm() {
             .catch((error) => console.error("Error calling API:", error));
     };
 
-    let callApiDistrict = (provinceId) => callAPI("district", {'province_id': provinceId});
-    let callApiWard = (districtId) => callAPI("ward", {'district_id': districtId});
+    let callApiDistrict = (provinceId) => callAPI("district", { 'province_id': provinceId });
+    let callApiWard = (districtId) => callAPI("ward", { 'district_id': districtId });
 
     let renderDataProvince = () => {
         callAPI("province")
@@ -866,8 +850,8 @@ function initializeAddressForm() {
             .catch((error) => console.error("Error calling API:", error));
     };
 
-    let callApiDistrict = (provinceId) => callAPI("district", {'province_id': provinceId});
-    let callApiWard = (districtId) => callAPI("ward", {'district_id': districtId});
+    let callApiDistrict = (provinceId) => callAPI("district", { 'province_id': provinceId });
+    let callApiWard = (districtId) => callAPI("ward", { 'district_id': districtId });
 
     let renderDataProvince = () => {
         callAPI("province")
@@ -994,7 +978,7 @@ function updateTotalPrice(shippingFee) {
 
 // Hàm áp dụng voucher (nếu backend hỗ trợ)
 async function applyVoucher() {
-    
+
 
     try {
         const token = localStorage.getItem('token');

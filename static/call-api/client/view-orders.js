@@ -1,8 +1,8 @@
-    document.addEventListener("DOMContentLoaded", () => {
-        fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
+document.addEventListener("DOMContentLoaded", () => {
+    fetchOrders(0, 10, 'ALL'); // Khởi tạo với trang 0, kích thước 10, trạng thái ALL
 
     const cartLink = document.querySelector('a[href="cart.php"]');
-    
+
     function checkAuthAndRedirect(link, targetUrl) {
         const token = localStorage.getItem('token');
         if (token) {
@@ -14,75 +14,71 @@
 
 
     const profileLink = document.getElementById("profileLink");
-    profileLink.addEventListener("click", function(event) {
+    profileLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(profileLink, "/profile.php");
     });
 
-    cartLink.addEventListener("click", function(event) {
+    cartLink.addEventListener("click", function (event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
         checkAuthAndRedirect(cartLink, "cart.php");
     });
-        updateAuthButton();
-    });
+    updateAuthButton();
+});
 
-    function updateAuthButton() {
-        const authButtonContainer = document.getElementById("auth-button");
-        const token = localStorage.getItem('token');
-    
-        if (token) {
-            // Nếu có token, hiển thị nút Logout
-            authButtonContainer.innerHTML = `
+function updateAuthButton() {
+    const authButtonContainer = document.getElementById("auth-button");
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        // Nếu có token, hiển thị nút Logout
+        authButtonContainer.innerHTML = `
                 <a href="javascript:void(0);" id="logout-button">
                         <i class="btn btn-light"> Logout</i>
                     </a>
             `;
-    
-            // Xử lý sự kiện đăng xuất
-            document.getElementById("logout-button").addEventListener("click", function() {
-                localStorage.removeItem('token');  // Xóa token
-                alert("Đã đăng xuất thành công.");
-                updateAuthButton();  // Cập nhật nút
-                window.location.href = 'index.php';
-            });
-        } else {
-            // Nếu không có token, hiển thị nút Login
-            authButtonContainer.innerHTML = `
+
+        // Xử lý sự kiện đăng xuất
+        document.getElementById("logout-button").addEventListener("click", function () {
+            localStorage.removeItem('token');  // Xóa token
+            alert("Đã đăng xuất thành công.");
+            updateAuthButton();  // Cập nhật nút
+            window.location.href = 'index.php';
+        });
+    } else {
+        // Nếu không có token, hiển thị nút Login
+        authButtonContainer.innerHTML = `
                 <a href="../auth/login.php" id="login-button">
                         <i class="btn btn-light">Login</i>
                     </a>
             `;
-    
-            // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
-            document.getElementById("login-button").addEventListener("click", function(event) {
-                event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-                window.location.href = "../auth/login.php";
-            });
-        }
+
+        // Xử lý sự kiện đăng nhập (chuyển hướng tới trang đăng nhập)
+        document.getElementById("login-button").addEventListener("click", function (event) {
+            event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
+            window.location.href = "../auth/login.php";
+        });
     }
+}
 
-    let currentPage = 0;
-    let pageSize = 10;
-    let currentStatus = 'SUCCESS';
+let currentPage = 0;
+let pageSize = 10;
+let currentStatus = 'SUCCESS';
 
-    function fetchOrders(page, size, status) {
-        currentPage = page;
-        currentStatus = status;
-<<<<<<< HEAD
-        const url = `http://localhost:8080/api/v1/orders/current`;
-=======
-        const url = `http://localhost:8080/api/v1/orders/user?idUser=-1521463666`;
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
+function fetchOrders(page, size, status) {
+    currentPage = page;
+    currentStatus = status;
+    const url = `http://localhost:8080/api/v1/orders/current`;
 
-        const token = localStorage.getItem('token');
-        const options = {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        };
-        fetch(url, options)
+    const token = localStorage.getItem('token');
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    };
+    fetch(url, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -96,30 +92,30 @@
         .catch(error => {
             console.error("There was a problem with the fetch operation:", error);
         });
+}
+
+
+function renderOrders(orders) {
+    const orderContainer = document.getElementById("orderContainer");
+    orderContainer.innerHTML = ""; // Xóa nội dung hiện tại
+    console.log(orders);
+    if (orders.length === 0) {
+        orderContainer.innerHTML = "<p>Không có đơn hàng nào để hiển thị.</p>";
+        return;
     }
 
+    orders.forEach(order => {
+        const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + (order.fee != null ? order.fee : 0));
+        const formattedQuantity = order.quantity;
+        const username = order.address.fullName;
+        const address = order.address != null ? order.address.detailAddress + ", " + order.address.ward + ", " + order.address.district + ", " + order.address.province : "";
+        const phone = order.address != null ? order.address.phone : "";
+        const orderStatus = order.orderStatus;
+        const orderId = order.id;
 
-    function renderOrders(orders) {
-        const orderContainer = document.getElementById("orderContainer");
-        orderContainer.innerHTML = ""; // Xóa nội dung hiện tại
-        console.log(orders);
-        if (orders.length === 0) {
-            orderContainer.innerHTML = "<p>Không có đơn hàng nào để hiển thị.</p>";
-            return;
-        }
-
-        orders.forEach(order => {
-            const formattedTotalPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + (order.fee!=null ? order.fee : 0));
-            const formattedQuantity = order.quantity;
-            const username = order.address.fullName;
-            const address = order.address!= null ? order.address.detailAddress+", "+order.address.ward+", "+ order.address.district+", "+ order.address.province : "" ;
-            const phone = order.address!= null ? order.address.phone : "";
-            const orderStatus = order.orderStatus;
-            const orderId = order.id;
-
-            const orderItem = document.createElement("article");
-            orderItem.className = "blog_item";
-            orderItem.innerHTML = `
+        const orderItem = document.createElement("article");
+        orderItem.className = "blog_item";
+        orderItem.innerHTML = `
                 <div class="blog_item_img">
                     <a href="#" class="blog_item_date">
                         <h3>${new Date(order.date).getDate()}</h3>
@@ -139,55 +135,55 @@
                     </ul>
                 </div>
             `;
-            orderContainer.appendChild(orderItem);
-        });
-    }
+        orderContainer.appendChild(orderItem);
+    });
+}
 
-    function renderPagination(data) {
-        const pagination = document.getElementById("pagination");
-        pagination.innerHTML = ""; // Xóa nội dung hiện tại
+function renderPagination(data) {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = ""; // Xóa nội dung hiện tại
 
-        const totalPages = data.totalPages;
-        const currentPage = data.number;
-        const hasNext = data.hasNext;
-        const hasPrevious = data.hasPrevious;
+    const totalPages = data.totalPages;
+    const currentPage = data.number;
+    const hasNext = data.hasNext;
+    const hasPrevious = data.hasPrevious;
 
-        // Nút "Previous"
-        const prevLi = document.createElement("li");
-        prevLi.className = `page-item ${!hasPrevious ? 'disabled' : ''}`;
-        prevLi.innerHTML = `
+    // Nút "Previous"
+    const prevLi = document.createElement("li");
+    prevLi.className = `page-item ${!hasPrevious ? 'disabled' : ''}`;
+    prevLi.innerHTML = `
             <a class="page-link" href="#" aria-label="Previous" onclick="handlePageChange(${currentPage - 1})">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         `;
-        pagination.appendChild(prevLi);
+    pagination.appendChild(prevLi);
 
-        // Các trang số
-        for (let i = 0; i < totalPages; i++) {
-            const pageLi = document.createElement("li");
-            pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
-            pageLi.innerHTML = `
+    // Các trang số
+    for (let i = 0; i < totalPages; i++) {
+        const pageLi = document.createElement("li");
+        pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        pageLi.innerHTML = `
                 <a class="page-link" href="#" onclick="handlePageChange(${i})">${i + 1}</a>
             `;
-            pagination.appendChild(pageLi);
-        }
+        pagination.appendChild(pageLi);
+    }
 
-        // Nút "Next"
-        const nextLi = document.createElement("li");
-        nextLi.className = `page-item ${!hasNext ? 'disabled' : ''}`;
-        nextLi.innerHTML = `
+    // Nút "Next"
+    const nextLi = document.createElement("li");
+    nextLi.className = `page-item ${!hasNext ? 'disabled' : ''}`;
+    nextLi.innerHTML = `
             <a class="page-link" href="#" aria-label="Next" onclick="handlePageChange(${currentPage + 1})">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         `;
-        pagination.appendChild(nextLi);
-    }
+    pagination.appendChild(nextLi);
+}
 
-    function handlePageChange(page) {
-        if (page < 0 || page >= currentPage.totalPages) {
-            return;
-        }
-        fetchOrders(page, pageSize, currentStatus);
+function handlePageChange(page) {
+    if (page < 0 || page >= currentPage.totalPages) {
+        return;
     }
+    fetchOrders(page, pageSize, currentStatus);
+}
 
-    // Nếu bạn muốn thêm bộ lọc trạng thái, bạn có thể thêm các sự kiện ở đây
+// Nếu bạn muốn thêm bộ lọc trạng thái, bạn có thể thêm các sự kiện ở đây
