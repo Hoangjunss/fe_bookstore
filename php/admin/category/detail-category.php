@@ -56,13 +56,101 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
-            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
-            <!-- ... -->
+            <li class="dropdown d-none d-lg-block">
+                <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
+                   role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
+                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
+                                class="align-middle">English</span>
+                    </a>
+                </div>
+            </li>
+
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                   role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-bell noti-icon"></i>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            <span class="float-right">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll noti-scroll">
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
+                                ago</small></p>
+                        </a>
+
+                    </div>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        View all
+                        <i class="fi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </li>
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -87,8 +175,12 @@
                 </div>
             </li>
 
-            <!-- Cài đặt và sidebar (giữ nguyên) -->
-            <!-- ... -->
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
 
         </ul>
 
@@ -97,8 +189,10 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
+                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -143,21 +237,12 @@
 
     <li class="menu-title">QUẢN LÝ</li>
 
-<<<<<<< HEAD
     <li>
         <a href="../dashboard.php">
             <i class="fe-airplay"></i>
             <span> Dashboard </span>
         </a>
     </li>
-=======
-                    <li>
-                        <a href="../dashboard.php">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
     <li>
         <a href="../order/list-order.php">
@@ -248,6 +333,7 @@
                                 <div class="col-md-6">
                                     <p><strong>ID:</strong> <span id="category-id"></span></p>
                                     <p><strong>Tên Category:</strong> <span id="category-name"></span></p>
+                                    <p><strong>Trạng Thái:</strong> <span id="category-status"></span></p>
                                 </div>
                                 <!-- Bạn có thể thêm các thông tin khác nếu cần -->
                             </div>
@@ -262,32 +348,49 @@
                     <div class="col-12">
                         <div class="card-box table-responsive">
 
-                            <!-- Bảng danh sách sản phẩm -->
-                                    <table id="datatable-buttons" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Hình Ảnh</th>
-                                                <th>Tên Sản Phẩm</th>
-                                                <th>Mô Tả</th>
-                                                <th>Tác Giả</th>
-                                                <th>Số Trang</th>
-                                                <th>Kích Thước</th>
-                                                <th>Nhà Cung Cấp</th>
-                                                <th>Ngày Xuất Bản</th>
-                                                <th>Trạng Thái</th>
-                                                <th>Hành Động</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Nội dung được điền bởi JavaScript -->
-                                        </tbody>
-                                    </table>
+                            <!-- Form Tìm Kiếm (Nếu cần thiết) -->
+                            <div class="mb-3">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="productTitle">Tiêu đề sản phẩm:</label>
+                                        <input type="text" class="form-control" id="productTitle" placeholder="Nhập tiêu đề sản phẩm để tìm kiếm">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="saleStartPrice">Giá Bắt Đầu:</label>
+                                        <input type="number" class="form-control" id="saleStartPrice" placeholder="Nhập giá bắt đầu">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="saleEndPrice">Giá Kết Thúc:</label>
+                                        <input type="number" class="form-control" id="saleEndPrice" placeholder="Nhập giá kết thúc">
+                                    </div>
+                                </div>
+                                <button id="btnSearchProduct" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
 
-                                    <!-- Phân trang -->
-                                    <ul id="pageId" class="pagination">
-                                        <!-- Các nút phân trang được điền bởi JavaScript -->
-                                    </ul>
+                            <!-- Bảng Danh Sách Sản Phẩm -->
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Ảnh</th>
+                                        <th>Tiêu Đề</th>
+                                        <th>Số Lượng</th>
+                                        <th>Giá</th>
+                                        <th>Ngày Tạo</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Hành Động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                </tbody>
+                            </table>
+                            <!-- Phân Trang -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end" id="pageId">
+                                    <!-- Phân trang sẽ được chèn qua JavaScript -->
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -329,11 +432,6 @@
 
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
-<!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 
 <!-- Required datatable js -->
 <script src="../../../static/assets_admin/libs/datatables/jquery.dataTables.min.js"></script>
@@ -352,7 +450,7 @@
 <script src="../../../static/assets_admin/libs/datatables/responsive.bootstrap4.min.js"></script>
 
 <!-- Your Custom JS -->
-<script src="../../../static/call-api/admin/category/detail-category.js"></script>
+<script src="../../../static/call-api/admin/category/category-details.js"></script>
 
 <!-- Datatables init -->
 <script src="../../../static/assets_admin/js/pages/datatables.init.js"></script>

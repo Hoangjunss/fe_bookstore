@@ -114,200 +114,192 @@
             <div class="slimscroll-menu">
 
                 <!--- Sidemenu -->
-                <ul class="metismenu" id="side-menu">
+                <div id="sidebar-menu">
+                    <ul class="metismenu" id="side-menu">
 
-                    <li class="menu-title">QUẢN LÝ</li>
+                        <li class="menu-title">QUẢN LÝ</li>
 
-                    <li>
-                        <a href="../dashboard.php">
-                            <i class="fe-airplay"></i>
-                            <span> Dashboard </span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/php/admin/dashboard.php">
+                                <i class="fe-airplay"></i>
+                                <span> Dashboard </span>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="../order/list-order.php">
-                            <i class="fe-shopping-cart"></i>
-                            Quản lý đơn hàng
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/php/admin/order/list-order.php">
+                                <i class="fe-shopping-cart"></i>
+                                <span>Quản lý đơn hàng</span>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="../employee/list-employee.php">
-                            <i class="fe-briefcase"></i>
-                            Quản lý nhân viên
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../user/list-user.php">
-                            <i class="fas fa-user"></i>
-                            Quản lý khách hàng
-                        </a>
-                    </li>
-                    <!-- <li>
-        <a href="../category/list-category.php">
-            <i class="fe-disc"></i>
-            Quản lý loại sản phẩm
-        </a>
-    </li> -->
-                    <li>
-                        <a href="../product/list-product.php">
-                            <i class="fe-box"></i>
-                            Quản lý sản phẩm
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a href="../voucher/list-voucher.php">
-                            <i class="fe-percent"></i>
-                            Quản lý Voucher
-                        </a>
-                    </li> -->
-                    <li>
-                        <a href="../supply/list-supply.php">
-                            <i class="fe-layout"></i>
-                            Quản lý nhà cung cấp
-                        </a>
-                    </li>
-                </ul>
+                        <li>
+                            <a href="/php/admin/employee/list-employee.php">
+                                <i class="fe-briefcase"></i>
+                                <span>Quản lý nhân viên</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/php/admin/user/list-user.php">
+                                <i class="fas fa-user"></i>
+                                <span>Quản lý khách hàng</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/php/admin/product/list-product.php">
+                                <i class="fe-box"></i>
+                                <span>Quản lý sản phẩm</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/php/admin/supply/list-supply.php">
+                                <i class="fe-layout"></i>
+                                <span>Quản lý nhà cung cấp</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- End Sidebar -->
+
+                <div class="clearfix"></div>
 
             </div>
-            <!-- End Sidebar -->
-
-            <div class="clearfix"></div>
+            <!-- Sidebar -left -->
 
         </div>
-        <!-- Sidebar -left -->
+        <!-- Left Sidebar End -->
 
-    </div>
-    <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
 
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
+        <div class="content-page">
+            <div class="content">
 
-    <div class="content-page">
-        <div class="content">
-
-            <!-- Start Content-->
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
-                                    <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
-                                </ol>
+                <!-- Start Content-->
+                <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+                                        <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Chi tiết đơn hàng</h4>
                             </div>
-                            <h4 class="page-title">Chi tiết đơn hàng</h4>
                         </div>
                     </div>
-                </div>
-                <!-- end page title -->
+                    <!-- end page title -->
 
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box table-responsive">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box table-responsive">
 
-                            <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
-                            <div class="btn-back">
-                                <button class="btn btn-light">
-                                    <a href="list-order.php">Quay lại danh sách đơn hàng</a>
-                                </button>
+                                <!-- Nút Quay Lại Danh Sách Đơn Hàng -->
+                                <div class="btn-back">
+                                    <button class="btn btn-light">
+                                        <a href="list-order.php">Quay lại danh sách đơn hàng</a>
+                                    </button>
+                                </div>
+
+                                <!-- Thông Tin Chung của Đơn Hàng -->
+                                <div class="mb-4">
+                                    <h5>Thông Tin Đơn Hàng</h5>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>ID Đơn Hàng</th>
+                                                <td id="order-id">#</td>
+                                                <th>Tên người Dùng</th>
+                                                <td id="user-email">#</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Số Lượng Sản Phẩm</th>
+                                                <td id="order-quantity">#</td>
+                                                <th>Tổng Giá Trị</th>
+                                                <td id="order-total-price">#</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Ngày Tạo</th>
+                                                <td id="order-created-date">#</td>
+                                                <th>Trạng Thái</th>
+                                                <td>
+                                                    PENDING
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Địa Chỉ Giao Hàng</th>
+                                                <td id="order-address">#</td>
+                                                <th>Số điện thoại liên hệ</th>
+                                                <td id="order-phone">#</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Danh Sách Sản Phẩm trong Đơn Hàng -->
+                                <div class="mb-4">
+                                    <h5>Danh Sách Sản Phẩm</h5>
+                                    <table id="order-details-table"
+                                        class="table table-striped table-bordered dt-responsive nowrap"
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>ID Sản Phẩm</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Hình Ảnh</th>
+                                                <th>Số Lượng</th>
+                                                <th>Đơn Giá</th>
+                                                <th>Tổng Giá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Thông Báo Lỗi Chung -->
+                                <div class="form-group mt-3">
+                                    <div class="error-message" id="error-message"></div>
+                                </div>
+
                             </div>
-
-                            <!-- Thông Tin Chung của Đơn Hàng -->
-                            <div class="mb-4">
-                                <h5>Thông Tin Đơn Hàng</h5>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th>ID Đơn Hàng</th>
-                                            <td id="order-id">#</td>
-                                            <th>Tên người Dùng</th>
-                                            <td id="user-email">#</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Số Lượng Sản Phẩm</th>
-                                            <td id="order-quantity">#</td>
-                                            <th>Tổng Giá Trị</th>
-                                            <td id="order-total-price">#</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Ngày Tạo</th>
-                                            <td id="order-created-date">#</td>
-                                            <th>Trạng Thái</th>
-                                            <td>
-                                                PENDING
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Địa Chỉ Giao Hàng</th>
-                                            <td id="order-address">#</td>
-                                            <th>Số điện thoại liên hệ</th>
-                                            <td id="order-phone">#</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Danh Sách Sản Phẩm trong Đơn Hàng -->
-                            <div class="mb-4">
-                                <h5>Danh Sách Sản Phẩm</h5>
-                                <table id="order-details-table"
-                                    class="table table-striped table-bordered dt-responsive nowrap"
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Sản Phẩm</th>
-                                            <th>Tên Sản Phẩm</th>
-                                            <th>Hình Ảnh</th>
-                                            <th>Số Lượng</th>
-                                            <th>Đơn Giá</th>
-                                            <th>Tổng Giá</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Thông Báo Lỗi Chung -->
-                            <div class="form-group mt-3">
-                                <div class="error-message" id="error-message"></div>
-                            </div>
-
                         </div>
                     </div>
-                </div>
-                <!-- end row -->
-            </div> <!-- end container-fluid -->
+                    <!-- end row -->
+                </div> <!-- end container-fluid -->
 
-        </div> <!-- end content -->
+            </div> <!-- end content -->
 
 
-        <!-- Footer Start -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        2017 - 2019 &copy; Abstack theme by <a href="https://coderthemes.com/">Coderthemes</a>
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            2017 - 2019 &copy; Abstack theme by <a href="https://coderthemes.com/">Coderthemes</a>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-        </footer>
-        <!-- end Footer -->
+            </footer>
+            <!-- end Footer -->
 
-    </div>
+        </div>
 
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
 
     </div>
     <!-- END wrapper -->

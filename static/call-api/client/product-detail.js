@@ -102,37 +102,24 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(product);
 
       // Lấy URL hình ảnh từ đối tượng Image nếu tồn tại
-<<<<<<< HEAD
       const imageUrl = product.image ? product.image || '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg' : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
-=======
-      const imageUrl = product.product.image ? product.product.image.url || '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg' : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
       // Định dạng giá tiền
       const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price);
 
       // Trạng thái sản phẩm
-<<<<<<< HEAD
       const statusText = product.status ? "Available" : "Out of Stock";
-=======
-      const statusText = product.quantity;
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
       productDetailsContainer.innerHTML = `
           <div class="container product-details-container">
     <div class="row">
         <div class="col-lg-6">
             <div class="image-container">
-<<<<<<< HEAD
                 <img src="${imageUrl}" alt="${product.name || 'Product Image'}" class="product-image">
-=======
-                <img src="${imageUrl}" alt="${product.product.name || 'Product Image'}" class="product-image">
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             </div>
         </div>
         <div class="col-lg-6">
             <div class="product-info">
-<<<<<<< HEAD
                 <h2 class="product-title">${product.name || 'Sample Product'}</h2>
                 <p class="product-price">${formattedPrice} VND</p>
                 <p><strong>Author:</strong> ${product.author || 'Unknown'}</p>
@@ -141,16 +128,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p><strong>Size:</strong> ${product.size || 'N/A'}</p>
                 <p><strong>Description:</strong> ${product.description || 'Detailed description of the product.'}</p>
                 <p><strong>Quantity:</strong> ${product.quantity}</p>
-=======
-                <h2 class="product-title">${product.product.name || 'Sample Product'}</h2>
-                <p class="product-price">${formattedPrice} VND</p>
-                <p><strong>Author:</strong> ${product.product.author || 'Unknown'}</p>
-                <p><strong>Pages:</strong> ${product.product.page || 'N/A'}</p>
-                <p><strong>Category:</strong> ${product.product.category.name || 'N/A'}</p>
-                <p><strong>Size:</strong> ${product.product.size || 'N/A'}</p>
-                <p><strong>Description:</strong> ${product.product.description || 'Detailed description of the product.'}</p>
-                <p><strong>Quantity:</strong> ${statusText}</p>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                 <button class="btn add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
             </div>
         </div>
@@ -358,26 +335,23 @@ document.addEventListener("DOMContentLoaded", function() {
           const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(salePrice);
 
           const relatedProductHTML = `
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="single-items mb-30">
-            <div class="thumb">
-                <a href="product-details.php?id=${productSaleId}">
-                    <img style="width: 100%; height: 200px;" src="${thumbnail}" alt="${productName}">
-                </a>
-                <div class="actions">
-                    <button class="add-to-cart-link" data-id="${productSaleId}">
-                        <i class="fas fa-shopping-cart"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-            <div class="content">
-                <h4><a href="product-details.php?id=${productSaleId}">${productName}</a></h4>
-                <p class="price">${formattedPrice}</p>
-            </div>
-        </div>
-    </div>
-`;
-
+              <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="single-items mb-30">
+                      <div class="thumb">
+                          <a href="product-details.php?id=${productSaleId}">
+                              <img style="width: 100%; height: 200px;" src="${thumbnail}" alt="${productName}">
+                          </a>
+                          <div class="actions">
+                              <button class="add-to-cart-link" data-id="${productSaleId}">Add to Cart</button>
+                          </div>
+                      </div>
+                      <div class="content">
+                          <h4><a href="product-details.php?id=${productSaleId}">${productName}</a></h4>
+                          <p class="price">${formattedPrice}</p>
+                      </div>
+                  </div>
+              </div>
+          `;
 
           relatedProductContainer.insertAdjacentHTML('beforeend', relatedProductHTML);
       });

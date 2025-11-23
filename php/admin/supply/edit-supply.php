@@ -77,6 +77,8 @@
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
 
+
+
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                         href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -160,61 +162,52 @@
 
                 <!--- Sidemenu -->
                 <div id="sidebar-menu">
-
                     <ul class="metismenu" id="side-menu">
 
                         <li class="menu-title">QUẢN LÝ</li>
 
                         <li>
-                            <a href="../dashboard.php">
+                            <a href="/php/admin/dashboard.php">
                                 <i class="fe-airplay"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="../order/list-order.php">
+                            <a href="/php/admin/order/list-order.php">
                                 <i class="fe-shopping-cart"></i>
-                                Quản lý đơn hàng
+                                <span>Quản lý đơn hàng</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="../employee/list-employee.php">
+                            <a href="/php/admin/employee/list-employee.php">
                                 <i class="fe-briefcase"></i>
-                                Quản lý nhân viên
+                                <span>Quản lý nhân viên</span>
                             </a>
                         </li>
+
                         <li>
-                            <a href="../user/list-user.php">
+                            <a href="/php/admin/user/list-user.php">
                                 <i class="fas fa-user"></i>
-                                Quản lý khách hàng
+                                <span>Quản lý khách hàng</span>
                             </a>
                         </li>
-                        <!-- <li>
-        <a href="../category/list-category.php">
-            <i class="fe-disc"></i>
-            Quản lý loại sản phẩm
-        </a>
-    </li> -->
+
                         <li>
-                            <a href="../product/list-product.php">
+                            <a href="/php/admin/product/list-product.php">
                                 <i class="fe-box"></i>
-                                Quản lý sản phẩm
+                                <span>Quản lý sản phẩm</span>
                             </a>
                         </li>
-                        <!-- <li>
-                            <a href="../voucher/list-voucher.php">
-                                <i class="fe-percent"></i>
-                                Quản lý Voucher
-                            </a>
-                        </li> -->
+
                         <li>
-                            <a href="../supply/list-supply.php">
+                            <a href="/php/admin/supply/list-supply.php">
                                 <i class="fe-layout"></i>
-                                Quản lý nhà cung cấp
+                                <span>Quản lý nhà cung cấp</span>
                             </a>
                         </li>
+
                     </ul>
 
                 </div>

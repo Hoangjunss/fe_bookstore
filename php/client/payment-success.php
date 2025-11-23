@@ -247,10 +247,6 @@
                                 <li>
                                     <div class="nav-search search-switch hearer_icon">
                                         <a id="search_1" href="javascript:void(0)">
-<<<<<<< HEAD
-=======
-                                            <span class="flaticon-search"></span>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                                         </a>
                                     </div>
                                 </li>

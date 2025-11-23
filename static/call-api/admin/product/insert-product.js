@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function (event) {
+        logoutButton.addEventListener("click", function(event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage

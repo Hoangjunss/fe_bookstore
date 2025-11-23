@@ -29,11 +29,6 @@ function showNotification(message, type) {
         });
     });
 }
-/**
- * Hàm lấy danh sách Warehouse từ backend
- * @param {number} page - Trang hiện tại
- * @param {number} size - Số lượng Warehouse mỗi trang
- */
 
 document.addEventListener('DOMContentLoaded', function () {
     // Khởi tạo Parsley cho form
@@ -41,12 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Hàm để tải danh sách nhà cung cấp từ backend
     async function loadSuppliers() {
-        const params = {
-            page: 0,
-            size: 100
-        };
         try {
-            let response = await axios.get('http://localhost:8080/api/v1/supplies', { params }); // Endpoint để lấy danh sách nhà cung cấp
+            let response = await axios.get('http://localhost:8080/api/v1/supplies'); // Endpoint để lấy danh sách nhà cung cấp
             let suppliers = response.data.content; // Giả sử trả về { content: [...], ... }
 
             const supplySelect = document.getElementById('supply');
@@ -68,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hàm để tìm kiếm sản phẩm
     async function searchProducts(query) {
         try {
-            let response = await axios.get(`http://localhost:8080/api/v1/product/search?bookName=${encodeURIComponent(query)}`); // Endpoint tìm kiếm sản phẩm
+            let response = await axios.get(`http://localhost:8080/api/v1/products/search?name=${encodeURIComponent(query)}`); // Endpoint tìm kiếm sản phẩm
             let products = response.data.content; // Giả sử trả về { content: [...], ... }
 
             const productList = document.getElementById('product-list');
@@ -103,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sự kiện khi người dùng nhập vào ô tìm kiếm sản phẩm
     document.getElementById('product-search').addEventListener('input', function () {
         const query = this.value.trim();
-        console.log(query);
         if (query.length >= 2) { // Tìm kiếm khi từ khóa có ít nhất 2 ký tự
             searchProducts(query);
         } else {
@@ -186,18 +176,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Hàm để tính tổng giá trị phiếu nhập
     function calculateOverallTotal() {
-        const rows = document.querySelectorAll('#product-table-body tr');
+        const totalPriceCells = document.querySelectorAll('.total-price');
         let overallTotal = 0;
 
-        rows.forEach(row => {
-            const quantity = parseInt(row.querySelector('.quantity-input').value) || 0;
-            const unitPrice = parseFloat(row.querySelector('.unit-price-input').value) || 0;
-            overallTotal += quantity * unitPrice;
+        totalPriceCells.forEach(cell => {
+            const value = parseFloat(cell.textContent.replace(/[^0-9.-]+/g,"")) || 0;
+            overallTotal += value;
         });
 
         document.getElementById('total-price').value = formatCurrency(overallTotal);
     }
-
 
     // Hàm để định dạng số thành tiền tệ VND
     function formatCurrency(value) {
@@ -224,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Lấy giá trị từ form
         const supplyId = document.getElementById('supply').value;
         const date = document.getElementById('date').value;
-        const totalPrice = parseFloat(document.getElementById('total-price').value.replace(/[^0-9.-]+/g, "")) || 0;
+        const totalPrice = parseFloat(document.getElementById('total-price').value.replace(/[^0-9.-]+/g,"")) || 0;
 
         // Lấy danh sách sản phẩm
         const productRows = document.querySelectorAll('#product-table-body tr');
@@ -233,9 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         productRows.forEach(row => {
             const productId = parseInt(row.getAttribute('data-id'));
-            const quantity = parseInt(row.querySelector('.quantity-input').value,10) || 0;
-            const unitPrice = parseFloat(row.querySelector('.unit-price-input').value,10) || 0;
-            console.log(unitPrice);
+            const quantity = parseInt(row.querySelector('.quantity-input').value) || 0;
+            const unitPrice = parseFloat(row.querySelector('.unit-price-input').value) || 0;
             const totalPrice = quantity * unitPrice;
 
             if (quantity < 1) {
@@ -280,9 +267,6 @@ document.addEventListener('DOMContentLoaded', function () {
             date: date,
             wareHouseReceiptDetailDTOS: wareHouseReceiptDetailDTOS
         };
-        // Log payload gửi đi
-        console.log("Payload sent to backend:", JSON.stringify(warehouseReceiptCreateDTO, null, 2));
-
 
         try {
             const response = await axios.post('http://localhost:8080/api/v1/warehouse-receipts', warehouseReceiptCreateDTO, {

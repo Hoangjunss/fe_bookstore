@@ -49,17 +49,11 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
-<<<<<<< HEAD
-=======
-
-            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
-            <!-- ... -->
-
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">
+                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
+                        <!-- Ví dụ: admin@example.com -->
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -69,15 +63,6 @@
                         <h6 class="text-overflow m-0">Chào mừng!</h6>
                     </div>
                     <!-- item-->
-<<<<<<< HEAD
-=======
-                    <a href="../profile.php" class="dropdown-item notify-item">
-                        <i class="fe-user"></i>
-                        <span>Thông tin cá nhân</span>
-                    </a>
-
-                    <!-- item-->
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                     <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
@@ -86,8 +71,12 @@
                 </div>
             </li>
 
-            <!-- Cài đặt và sidebar (giữ nguyên) -->
-            <!-- ... -->
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
 
         </ul>
 
@@ -96,8 +85,10 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
+                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>

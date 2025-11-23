@@ -179,11 +179,11 @@
                         <div class="header-right">
                             <ul>
                                 <li>
-                                    <!-- <div class="nav-search search-switch hearer_icon">
+                                    <div class="nav-search search-switch hearer_icon">
                                         <a id="search_1" href="javascript:void(0)">
                                             <span class="flaticon-search"></span>
                                         </a>
-                                    </div> -->
+                                    </div>
                                 </li>
                                 <li><a href="profile.php" id="profileLink"><span class="flaticon-user"></span></a></li>
                                 <li class="cart">
@@ -296,16 +296,8 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="paymentMethod" id="cash" value="CASH" checked>
                                         <label class="form-check-label" for="cash">
-<<<<<<< HEAD
                                            Thanh toán khi nhận hàng
                                         </label>
-=======
-                                            Cash on Delivery (CASH)
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                       
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="paymentMethod" id="vnpay" value="VNPAY">

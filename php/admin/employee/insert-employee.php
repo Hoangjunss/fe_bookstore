@@ -82,88 +82,6 @@
         <!-- Topbar Start -->
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
-                <!-- 
-                <li class="dropdown d-none d-lg-block">
-                    <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
-                        <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
-                                class="align-middle">English</span>
-                        </a>
-                    </div>
-                </li> -->
-
-
-                <!-- <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false">
-                        <i class="fe-bell noti-icon"></i>
-                        <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-lg"> -->
-
-                <!-- item-->
-                <!-- <div class="dropdown-item noti-title">
-                            <h5 class="m-0">
-                                <span class="float-right">
-                                    <a href="" class="text-dark">
-                                        <small>Clear All</small>
-                                    </a>
-                                </span>Notification
-                            </h5>
-                        </div>
-
-                        <div class="slimscroll noti-scroll">
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
-                                <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
-                                        ago</small></p>
-                            </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
-                                <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
-                                </p>
-                            </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
-                                <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
-                                        ago</small></p>
-                            </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
-                                <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
-                                        ago</small></p>
-                            </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
-                                <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
-                                </p>
-                            </a>
-
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
-                                <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
-                                        ago</small></p>
-                            </a>
-
-                        </div>
-
-                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                            View all
-                            <i class="fi-arrow-right"></i>
-                        </a>
-
-                    </div>
-                </li> -->
 
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
@@ -203,14 +121,15 @@
 
             </ul>
 
-
             <!-- LOGO -->
             <div class="logo-box">
                 <a href="/admin/home.html" class="logo text-center">
                     <span class="logo-lg">
                         <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
+                        <!-- <span class="logo-lg-text-light">UBold</span> -->
                     </span>
                     <span class="logo-sm">
+                        <!-- <span class="logo-sm-text-dark">U</span> -->
                         <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                     </span>
                 </a>
@@ -234,6 +153,7 @@
                                     </button>
                                 </div>
                             </div>
+                        </div>
                     </form>
                 </li>
 
@@ -255,55 +175,47 @@
                         <li class="menu-title">QUẢN LÝ</li>
 
                         <li>
-                            <a href="../dashboard.php">
+                            <a href="/php/admin/dashboard.php">
                                 <i class="fe-airplay"></i>
                                 <span> Dashboard </span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="../order/list-order.php">
+                            <a href="/php/admin/order/list-order.php">
                                 <i class="fe-shopping-cart"></i>
-                                Quản lý đơn hàng
+                                <span>Quản lý đơn hàng</span>
                             </a>
                         </li>
 
                         <li>
-                            <a href="../employee/list-employee.php">
+                            <a href="/php/admin/employee/list-employee.php">
                                 <i class="fe-briefcase"></i>
-                                Quản lý nhân viên
+                                <span>Quản lý nhân viên</span>
                             </a>
                         </li>
+
                         <li>
-                            <a href="../user/list-user.php">
+                            <a href="/php/admin/user/list-user.php">
                                 <i class="fas fa-user"></i>
-                                Quản lý khách hàng
+                                <span>Quản lý khách hàng</span>
                             </a>
                         </li>
-                        <!-- <li>
-        <a href="../category/list-category.php">
-            <i class="fe-disc"></i>
-            Quản lý loại sản phẩm
-        </a>
-    </li> -->
+
                         <li>
-                            <a href="../product/list-product.php">
+                            <a href="/php/admin/product/list-product.php">
                                 <i class="fe-box"></i>
-                                Quản lý sản phẩm
+                                <span>Quản lý sản phẩm</span>
                             </a>
                         </li>
-                        <!-- <li>
-                            <a href="../voucher/list-voucher.php">
-                                <i class="fe-percent"></i>
-                                Quản lý Voucher
-                            </a>
-                        </li> -->
+
                         <li>
-                            <a href="../supply/list-supply.php">
+                            <a href="/php/admin/supply/list-supply.php">
                                 <i class="fe-layout"></i>
-                                Quản lý nhà cung cấp
+                                <span>Quản lý nhà cung cấp</span>
                             </a>
                         </li>
+
                     </ul>
 
                 </div>
@@ -477,6 +389,7 @@
             <h5 class="pl-3">Basic Settings</h5>
             <hr class="mb-0" />
 
+
             <div class="p-3">
                 <div class="custom-control custom-checkbox mb-2">
                     <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
@@ -533,8 +446,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- App JS -->
     <script src="../../../static/assets_admin/js/app.min.js"></script>
-    <!-- Axios JS -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="../../../static/call-api/admin/employee/insert-employee.js"></script>
 

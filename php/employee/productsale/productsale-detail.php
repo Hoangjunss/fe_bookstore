@@ -55,14 +55,101 @@
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
 
-            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
-            <!-- ... -->
+            <li class="dropdown d-none d-lg-block">
+                <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
+                   role="button" aria-haspopup="false" aria-expanded="false">
+                    <img src="../../../static/assets_admin/images/flags/vietnam.jpg" alt="user-image" class="mr-1" height="12">
+                    <span class="align-middle">Vietnam <i class="mdi mdi-chevron-down"></i> </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <img src="../../../static/assets_admin/images/flags/us.jpg" alt="user-image" class="mr-1" height="12"> <span
+                                class="align-middle">English</span>
+                    </a>
+                </div>
+            </li>
+
+
+            <li class="dropdown notification-list">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"
+                   role="button" aria-haspopup="false" aria-expanded="false">
+                    <i class="fe-bell noti-icon"></i>
+                    <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                    <!-- item-->
+                    <div class="dropdown-item noti-title">
+                        <h5 class="m-0">
+                            <span class="float-right">
+                                <a href="" class="text-dark">
+                                    <small>Clear All</small>
+                                </a>
+                            </span>Notification
+                        </h5>
+                    </div>
+
+                    <div class="slimscroll noti-scroll">
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-info"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">5 hours ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-danger"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">3 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-warning"><i class="mdi mdi-comment-account-outline"></i></div>
+                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">4 days
+                                ago</small></p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-purple"><i class="mdi mdi-account-plus"></i></div>
+                            <p class="notify-details">New user registered.<small class="text-muted">7 days ago</small>
+                            </p>
+                        </a>
+
+                        <!-- item-->
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-primary"><i class="mdi mdi-heart"></i></div>
+                            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">13 days
+                                ago</small></p>
+                        </a>
+
+                    </div>
+
+                    <!-- All-->
+                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        View all
+                        <i class="fi-arrow-right"></i>
+                    </a>
+
+                </div>
+            </li>
 
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="ml-1">
-                    employee@example.com  <i class="mdi mdi-chevron-down"></i>
+                        admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -78,7 +165,7 @@
                     </a>
 
                     <!-- item-->
-                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
+                    <a href="#" class="dropdown-item notify-item">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
                     </a>
@@ -86,8 +173,12 @@
                 </div>
             </li>
 
-            <!-- Cài đặt và sidebar (giữ nguyên) -->
-            <!-- ... -->
+            <li class="dropdown notification-list">
+                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
+                    <i class="fe-settings noti-icon"></i>
+                </a>
+            </li>
+
 
         </ul>
 
@@ -138,41 +229,50 @@
             <!--- Sidemenu -->
             <div id="sidebar-menu">
 
-            <ul class="metismenu" id="side-menu">
+                <ul class="metismenu" id="side-menu">
 
-<li class="menu-title">QUẢN LÝ</li>
+                    <li class="menu-title">QUẢN LÝ</li>
 
-<li>
-    <a href="../order/list-order.php">
-        <i class="fe-shopping-cart"></i>
-        Quản lý đơn hàng
-    </a>
-</li>
-<li>
-    <a href="#">
-        <i class="fe-tag"></i>
-        Quản lý sản phẩm bán
-    </a>
-</li>
-<li>
-    <a href="../warehouse/list-warehouse.php">
-        <i class="fe-archive"></i>
-        Quản lý kho hàng 
-    </a>
-</li>
-<li>
-    <a href="../warehouse/list-warehousereceipt.php">
-        <i class="fe-file-plus"></i>
-        Quản lý phiếu nhập 
-    </a>
-</li>
-<li>
-   <!--  <a href="../order/list-order.php">
-        <i class="fe-percent"></i>
-        Quản lý Voucher
-    </a> -->
-</li>
-</ul>
+                    <li>
+                        <a href="../dashboard.php">
+                            <i class="fe-airplay"></i>
+                            <span> Dashboard </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../user/list-user.php">
+                            <i class="fe-briefcase"></i>
+                            Quản lý user
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../category/list-category.php">
+                            <i class="fe-disc"></i>
+                            Quản lý loại sản phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../product/list-product.php">
+                            <i class="fe-box"></i>
+                            Quản lý sản phẩm
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../order/list-order.php">
+                            <i class="fe-layout"></i>
+                            Quản lý đơn hàng
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="../productsale/list-productsale.php">
+                            <i class="fe-tag"></i>
+                            Quản lý Product Sale
+                        </a>
+                    </li>
+                </ul>
 
             </div>
             <!-- End Sidebar -->
@@ -230,15 +330,15 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Product Sale</th>
-                                        <td id="productsale-id">1</td>
+                                        <td id="productsale-id">#</td>
                                         <th>Giá Bán</th>
-                                        <td id="productsale-price">100000</td>
+                                        <td id="productsale-price">#</td>
                                     </tr>
                                     <tr>
                                         <th>Số Lượng</th>
-                                        <td id="productsale-quantity">10</td>
+                                        <td id="productsale-quantity">#</td>
                                         <th>Trạng Thái</th>
-                                        <td id="productsale-status" class="status-badge">active</td>
+                                        <td id="productsale-status" class="status-badge">#</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -251,24 +351,23 @@
                                     <tbody>
                                     <tr>
                                         <th>ID Sản Phẩm</th>
-                                        <td id="product-id">1</td>
+                                        <td id="product-id">#</td>
                                         <th>Tên Sản Phẩm</th>
-                                        <td id="product-name">Công chúa bong bóng</td>
+                                        <td id="product-name">#</td>
                                     </tr>
                                     <tr>
                                         <th>Tác Giả</th>
-                                        <td id="product-author">ABC</td>
+                                        <td id="product-author">#</td>
                                         <th>Ngày Xuất Bản</th>
-                                        <td id="product-date-public">11-12-2020</td>
+                                        <td id="product-date-public">#</td>
                                     </tr>
                                     <tr>
                                         <th>Mô Tả</th>
-                                        <td colspan="3" id="product-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus doloribus id suscipit deleniti minus quas quod maiores cumque, voluptatibus ad modi unde illo quia voluptatem nesciunt similique. Dolorem, nesciunt non!</td>
+                                        <td colspan="3" id="product-description">#</td>
                                     </tr>
                                     <tr>
                                         <th>Hình Ảnh</th>
                                         <td colspan="3" id="product-image">
-                                        <img src="../../../static/client_assets/img/products/defbookcover-min.jpg" alt="${product.name}" class="product-image">
                                             <!-- Hình ảnh sẽ được chèn qua JavaScript -->
                                         </td>
                                     </tr>

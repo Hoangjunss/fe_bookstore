@@ -1,16 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     initData();
     document.getElementById('btnSearch').addEventListener('click', function (e) {
         e.preventDefault();
         searchCondition(0, 5); // Khi nhấn tìm kiếm, bắt đầu từ trang 0 với kích thước 5
-    });
-
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
     });
 });
 
@@ -292,9 +284,9 @@ function showNotification(message, type) {
  */
 function searchCondition(page, size) {
     let filter = {};
-    //let emailInput = document.getElementById('email').value.trim();
+    let emailInput = document.getElementById('email').value.trim();
     let statusInput = document.getElementById('status').value.trim();
-    //filter.email = emailInput === '' ? null : emailInput;
+    filter.email = emailInput === '' ? null : emailInput;
     filter.status = statusInput === '' ? 'PENDING' : statusInput; // Trạng thái mặc định nếu không chọn
     getOrders(page, size, filter);
 }

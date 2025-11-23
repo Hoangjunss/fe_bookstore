@@ -142,20 +142,11 @@ function renderOrderDetails(order) {
         const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.fee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     } else {
-<<<<<<< HEAD
         const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.fee);
         document.querySelector(".shipping-fee").textContent = formattedShippingFee;
     }
 
     const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.fee);
-=======
-        order.shippingFee = 32000;
-        const formattedShippingFee = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.shippingFee);
-        document.querySelector(".shipping-fee").textContent = formattedShippingFee;
-    }
-
-    const formattedTotalCost = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(order.totalPrice + order.shippingFee);
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     document.querySelector(".total-cost").textContent = formattedTotalCost;
 
     // Cập nhật trạng thái đơn hàng
