@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchEmployees(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
-    document.getElementById('btnSearch').addEventListener('click', function() {
+    document.getElementById('btnSearch').addEventListener('click', function () {
         var fullname = document.getElementById('fullname').value.trim();
         searchEmployees(1, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -122,10 +122,10 @@ function populateEmployeeTable(employees) {
     }
 
     employees.forEach(employee => {
-        if(employee.role == 'customer') {
+        if (employee.role == 'customer') {
             const tr = document.createElement('tr');
 
-        tr.innerHTML = `
+            tr.innerHTML = `
             <td>${employee.id}</td>
             <td>${employee.username}</td>
             <td>${employee.email}</td>
@@ -139,7 +139,7 @@ function populateEmployeeTable(employees) {
             </td>
         `;
 
-        tbody.appendChild(tr);
+            tbody.appendChild(tr);
         }
     });
     document.querySelectorAll('.toggle-lock-button').forEach(button => {
@@ -164,7 +164,7 @@ function renderPagination(totalPage, currentPage, size) {
     let prevClass = currentPage === 0 ? 'disabled' : '';
     let prevLi = document.createElement('li');
     prevLi.className = `page-item ${prevClass}`;
-    prevLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage}, ${size}, event)">Previous</a>`;
+    prevLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1}, ${size}, event)">Previous</a>`;
     pagination.appendChild(prevLi);
 
     // Các nút trang
@@ -180,7 +180,7 @@ function renderPagination(totalPage, currentPage, size) {
     let nextClass = currentPage === totalPage - 1 ? 'disabled' : '';
     let nextLi = document.createElement('li');
     nextLi.className = `page-item ${nextClass}`;
-    nextLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 2}, ${size}, event)">Next</a>`;
+    nextLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1}, ${size}, event)">Next</a>`;
     pagination.appendChild(nextLi);
 }
 
@@ -249,11 +249,11 @@ async function lockEmployee(employeeId) {
     }
 }
 
-    /**
-     * 
-     * Search nhân viên
-     * @param {fullname}
-     */
+/**
+ * 
+ * Search nhân viên
+ * @param {fullname}
+ */
 async function searchEmployees(page, size, fullname) {
     const accessToken = getToken();
     if (!accessToken) {
