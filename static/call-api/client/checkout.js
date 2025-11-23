@@ -187,8 +187,13 @@ function renderCart(cart) {
 
     cart.cartDetailDTOList.forEach((detail, index) => {
         const product = detail.product; // ProductSaleDTO.product là Product
+<<<<<<< HEAD
         const imageUrl = product.image ? product.image : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
         const productName = product.name || 'Tên sản phẩm';
+=======
+        const imageUrl = product.product.image ? product.product.image.url : '../../static/client_assets/img/gallery/sample_product_thumbnail.jpg';
+        const productName = product.product.name || 'Tên sản phẩm';
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         const price = product.price || 0;
         const quantity = detail.quantity || 0;
         const totalPrice = price * quantity;
@@ -285,7 +290,10 @@ function convertVNDStringToNumber(vndStr) {
     return number;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 // Hàm xử lý khi người dùng nhấn nút "Place Order"
 document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -524,6 +532,10 @@ function handlePaymentMethodSelection() {
 async function callVNPAY(price, id) {
     try {
         const token = localStorage.getItem('token');
+<<<<<<< HEAD
+=======
+        console.log(token);
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     if (!token) {
         return; // Nếu chưa đăng nhập, không cần cập nhật
     }
@@ -541,8 +553,11 @@ async function callVNPAY(price, id) {
 
         const paymentUrl = await response.text(); // Assuming the backend returns the URL as plain text
         // Redirect người dùng đến trang thanh toán VNPAY
+<<<<<<< HEAD
         console.log(paymentUrl);
         debugger;
+=======
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         window.location.href = paymentUrl;
 
         // Khi redirect thành công, bạn có thể xử lý thêm nếu cần
@@ -979,11 +994,7 @@ function updateTotalPrice(shippingFee) {
 
 // Hàm áp dụng voucher (nếu backend hỗ trợ)
 async function applyVoucher() {
-    const voucherCode = document.getElementById("voucherCode").value.trim();
-    if (!voucherCode) {
-        showNotification('Vui lòng nhập mã voucher.', 'error');
-        return;
-    }
+    
 
     try {
         const token = localStorage.getItem('token');

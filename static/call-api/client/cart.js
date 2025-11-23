@@ -252,8 +252,12 @@ async function changeQuantity(cartDetailId, delta, productSaleId, productSaleQua
 }
 
 // Hàm cập nhật số lượng sản phẩm
-async function updateQuantity(cartDetailId, newQuantity, productSaleId) {
+async function updateQuantity(cartDetailId, newQuantity, productSaleId, productSaleQuantity) {
     try {
+        if(newQuantity > productSaleQuantity){
+            showNotification('Sản phẩm này chỉ còn'+ productSaleQuantity +'sản phẩm.', 'error');
+            return;
+        }
         const token = localStorage.getItem('token');
         // Gọi API PUT để cập nhật số lượng
         const response = await fetch('http://localhost:8080/api/v1/cart-details', { // Điều chỉnh URL theo cấu hình backend của bạn

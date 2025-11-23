@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchEmployees(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
-    document.getElementById('btnSearch').addEventListener('click', function() {
+    document.getElementById('btnSearch').addEventListener('click', function () {
         var fullname = document.getElementById('fullname').value.trim();
         searchEmployees(1, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -121,12 +121,12 @@ function populateEmployeeTable(employees) {
         tbody.innerHTML = '<tr><td colspan="6" class="text-center">Không tìm thấy dữ liệu.</td></tr>';
         return;
     }
-
+    console.log(employees);
     employees.forEach(employee => {
-        if(employee.role == 'employee'){
+        if (employee.role == 'employee') {
             const tr = document.createElement('tr');
 
-        tr.innerHTML = `
+            tr.innerHTML = `
             <td>${employee.id}</td>
             <td>${employee.username}</td>
             <td>${employee.email}</td>
@@ -141,9 +141,9 @@ function populateEmployeeTable(employees) {
             </td>
         `;
 
-        tbody.appendChild(tr);
+            tbody.appendChild(tr);
         }
-        
+
     });
 
     // Thêm sự kiện cho các nút Sửa và Khóa

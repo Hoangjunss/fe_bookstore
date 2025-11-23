@@ -4,6 +4,7 @@
             e.preventDefault(); // Ngăn chặn hành vi mặc định của form
             addCategory();
         });
+<<<<<<< HEAD
         const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
@@ -23,6 +24,14 @@
     } else {
         console.error("Phần tử logoutButton không tồn tại trong DOM.");
     }
+=======
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('username');
+            window.location.href = '../../auth/login.php'; // Chuyển về trang login
+        });
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     });
 
 
@@ -74,6 +83,7 @@
         getCategories(page, size, objFilter);
     }
 
+<<<<<<< HEAD
         function getCategories(page, size, objectFilter) {
             let bodyTable = $('#datatable-buttons > tbody');
             bodyTable.empty();
@@ -141,7 +151,49 @@
                     console.error(error);
                     alert('Có lỗi xảy ra khi tải dữ liệu.');
                 });
+=======
+    async function getCategories() {
+        let bodyTable = $('#datatable-buttons > tbody');
+        bodyTable.empty(); // Xóa dữ liệu cũ
+    
+        try {
+            const response = await axios.get(`http://localhost:8080/api/v1/category/statistics`);
+            console.log(response.data);
+    
+            let categories = response.data;
+    
+            if (categories.length === 0) {
+                bodyTable.append(`<tr><td colspan="4" class="text-center">Không có dữ liệu</td></tr>`);
+                return;
+            }
+            
+            categories.forEach(data => {
+                let row = `<tr>
+                    <td>${data.id}</td>
+                    <td>${data.name}</td>
+                    <td>${data.totalBooks || 0}</td>
+                    <td>
+                        <button class="btn btn-danger delete-button btn-sm" data-id="${data.id}">Xóa</button>
+                    </td>
+                </tr>`;
+                bodyTable.append(row);
+            });
+    
+            // Thêm sự kiện xóa sau khi thêm hàng mới
+            $('.delete-button').off('click').on('click', function () {
+                let id = $(this).data('id');
+                if (confirm("Bạn có chắc chắn muốn xoá loại sản phẩm này không?")) {
+                    deleteCategory(id);
+                }
+            });
+    
+        } catch (error) {
+            console.error(error);
+            bodyTable.append(`<tr><td colspan="4" class="text-center text-danger">Có lỗi xảy ra khi tải dữ liệu.</td></tr>`);
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
         }
+    }
+    
 
     function formatDate(dateString) {
         if (!dateString) return '';
@@ -149,6 +201,7 @@
         return date.toLocaleDateString('vi-VN');
     }
 
+<<<<<<< HEAD
 
     function getToken() {
         return localStorage.getItem('token');
@@ -171,13 +224,49 @@
                 console.error('Error deleting category:', error);
                 alert('Xóa loại sản phẩm thất bại. Vui lòng thử lại sau.');
             });
+=======
+    async function deleteCategory(id) {
+        try {
+            const response = await axios.delete(`http://localhost:8080/api/v1/category/${id}`);
+    
+            if (response.status === 204) {
+                alert('Xóa loại sản phẩm thành công!', 'success');
+                getCategories(); // Tải lại danh sách loại sản phẩm sau khi xóa
+            } else {
+                // Xử lý các mã trạng thái khác nếu có
+                alert('Xóa loại sản phẩm thành công!', 'success');
+                getCategories();
+            }
+        } catch (error) {
+            if (error.response) {
+                const status = error.response.status;
+                switch (status) {
+                    case 400:
+                        alert('Không thể xóa loại sản phẩm này vì còn sản phẩm liên kết.', 'error');
+                        break;
+                    case 404:
+                        alert('Không tìm thấy loại sản phẩm này.', 'error');
+                        break;
+                    default:
+                        alert('Có lỗi xảy ra khi xóa loại sản phẩm. Vui lòng thử lại sau.', 'error');
+                }
+            } else if (error.request) {
+                // Yêu cầu đã được gửi nhưng không nhận được phản hồi
+                alert('Không nhận được phản hồi từ server. Vui lòng kiểm tra kết nối mạng.', 'error');
+            } else {
+                // Có lỗi xảy ra khi thiết lập yêu cầu
+                alert('Có lỗi xảy ra khi thiết lập yêu cầu.', 'error');
+            }
+    
+            console.error('Error deleting category:', error);
+        }
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     }
+    
 
     function searchCondition(page, size) {
         let filter = {};
         filter.name = $("#name").val().trim() === '' ? null : $("#name").val().trim();
-        let statusVal = $("#status").val();
-        filter.status = statusVal === '' ? null : parseInt(statusVal);
         getCategories(page, size, filter);
     }
 
@@ -185,9 +274,3 @@
         event.preventDefault();
         searchCondition(page, size);
     }
-
-    // Xử lý sự kiện tìm kiếm khi nhấn nút "Tìm kiếm"
-    document.getElementById('btnSearch').addEventListener('click', function (e) {
-        e.preventDefault();
-        searchCondition(0, 5);
-    });

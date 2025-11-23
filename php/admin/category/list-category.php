@@ -42,11 +42,17 @@
     <!-- Topbar Start -->
     <div class="navbar-custom">
         <ul class="list-unstyled topnav-menu float-right mb-0">
+<<<<<<< HEAD
+=======
+
+            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
+            <!-- ... -->
+
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
             <li class="dropdown notification-list">
                 <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1"> <!-- Thay thế th:text="${email}" bằng nội dung tĩnh hoặc JavaScript -->
-                        <!-- Ví dụ: admin@example.com -->
+                    <span class="ml-1">
                         admin@example.com <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -56,6 +62,15 @@
                         <h6 class="text-overflow m-0">Chào mừng!</h6>
                     </div>
                     <!-- item-->
+<<<<<<< HEAD
+=======
+                    <a href="../profile.php" class="dropdown-item notify-item">
+                        <i class="fe-user"></i>
+                        <span>Thông tin cá nhân</span>
+                    </a>
+
+                    <!-- item-->
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                     <a href="#" class="dropdown-item notify-item" id="logout-btn">
                         <i class="fe-log-out"></i>
                         <span>Logout</span>
@@ -64,12 +79,8 @@
                 </div>
             </li>
 
-            <li class="dropdown notification-list">
-                <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
-                    <i class="fe-settings noti-icon"></i>
-                </a>
-            </li>
-
+            <!-- Cài đặt và sidebar (giữ nguyên) -->
+            <!-- ... -->
 
         </ul>
 
@@ -78,10 +89,8 @@
             <a href="/admin/home.html" class="logo text-center">
                 <span class="logo-lg">
                     <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                    <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-sm">
-                    <!-- <span class="logo-sm-text-dark">U</span> -->
                     <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
                 </span>
             </a>
@@ -191,17 +200,24 @@
                             </button>
                             </div>
 
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="name">Tên loại sản phẩm:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Nhập tên loại sản phẩm">
-                                    </div>
-                                </div>
-                                <button id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
+                                <!-- Bảng Danh Sách Loại Sản Phẩm -->
+                                <table id="datatable-buttons"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 100px;">ID</th>
+                                        <th style="width: 300px;">Tên loại sản phẩm</th>
+                                        <th>Tổng số sản phẩm</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Dữ liệu sẽ được thêm vào đây thông qua JavaScript -->
+                                    </tbody>
+                                </table>
 
+<<<<<<< HEAD
                             <!-- Bảng Danh Sách Loại Sản Phẩm -->
                             <table id="datatable-buttons"
                                    class="table table-striped table-bordered dt-responsive nowrap"
@@ -216,6 +232,8 @@
 
                                 </tbody>
                             </table>
+=======
+>>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
                             <!-- Phân Trang -->
                             <nav aria-label="Page navigation example">
@@ -345,6 +363,10 @@
 <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
 
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
 <!-- Vendor JS -->
 <script src="../../../static/assets_admin/js/vendor.min.js"></script>
 
@@ -369,14 +391,11 @@
 <!-- App JS -->
 <script src="../../../static/assets_admin/js/app.min.js"></script>
 
-<script src="../../../static/call-api/admin/category/list-category.js"></script>
-
-
 <!-- Axios JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+
+<script src="../../../static/call-api/admin/category/list-category.js"></script>
 
 <!-- Modal Thêm Loại Sản Phẩm -->
 <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModalLabel" aria-hidden="true">

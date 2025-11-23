@@ -8,8 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         alert('Không tìm thấy ID Product Sale.');
         // Điều hướng quay lại danh sách Product Sale
-        window.location.href = 'list-productsale.php';
+        //window.location.href = 'list-productsale.php';
     }
+    document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('username');
+        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+    });
 });
 
 /**
@@ -39,7 +45,7 @@ async function getProductSaleDetails(id) {
         console.error(error);
         alert('Có lỗi xảy ra khi tải dữ liệu Product Sale.');
         // Điều hướng quay lại danh sách Product Sale
-        window.location.href = 'list-productsale.php';
+        // window.location.href = 'list-productsale.php';
     }
 }
 
