@@ -226,12 +226,12 @@
                                 Quản lý sản phẩm
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="../voucher/list-voucher.php">
                                 <i class="fe-percent"></i>
                                 Quản lý Voucher
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="../supply/list-supply.php">
                                 <i class="fe-layout"></i>

@@ -46,11 +46,10 @@ function showNotification(message, type) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-<<<<<<< HEAD
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -66,14 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Phần tử logoutButton không tồn tại trong DOM.");
     }
-=======
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
-    });
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     // Lấy ID sản phẩm từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
@@ -143,7 +134,6 @@ function populateForm(product) {
     //document.getElementById('supply').value = product.supplyId || '';
     document.getElementById('status').value = product.status ? '1' : '0';
     document.getElementById('imagePreview').src = product.image || '../../../static/assets_admin/images/default-thumbnail.png';
-<<<<<<< HEAD
     document.getElementById('quantity').value = product.quantity || 0;
     document.getElementById('price').value = product.price || 0.00;
 }
@@ -151,8 +141,6 @@ function populateForm(product) {
 
 function getToken() {
     return localStorage.getItem('token');
-=======
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 }
 
 /**

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('logout-btn').addEventListener('click', function() {
+    document.getElementById('logout-btn').addEventListener('click', function () {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('username');
@@ -100,7 +100,7 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
         hasError = true;
     }
 
-    if (password!== reenter_password) {
+    if (password !== reenter_password) {
         document.getElementById('error-reenter-password').textContent = 'Mật khẩu nhập lại không đúng.';
         hasError = true;
     }
@@ -120,21 +120,17 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
         // status: status === "true" // Loại bỏ nếu không cần
     };
     const accessToken = getToken();
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userDTO)
-            };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userDTO)
+    };
     try {
-<<<<<<< HEAD
-        
+
         const response = await fetch('http://localhost:8080/api/v1/users/register', options);
-=======
-        const response = await axios.post('http://localhost:8080/api/v1/users/employee', createUserRequest);
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
         if (response.status === 200 || response.status === 201) {
             showNotification('Thêm nhân viên thành công!', 'success');
@@ -145,11 +141,11 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
         }
     } catch (error) {
         console.error(error);
-        
+
         if (error.response) {
             if (error.response.status === 409) {
                 // Xử lý lỗi 409 Conflict
-                const conflictMessage ='Tài khoản đã tồn tại';
+                const conflictMessage = 'Tài khoản đã tồn tại';
                 showNotification(conflictMessage, 'error');
             } else if (error.response.data && error.response.data.errors) {
                 // Xử lý lỗi validation từ backend
@@ -172,5 +168,5 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
             showNotification('Có lỗi xảy ra khi kết nối tới server.', 'error');
         }
     }
-    
+
 });

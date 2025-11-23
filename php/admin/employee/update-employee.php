@@ -83,7 +83,6 @@
         <div class="navbar-custom">
             <ul class="list-unstyled topnav-menu float-right mb-0">
 
-<<<<<<< HEAD
                 <li class="dropdown d-none d-lg-block">
                     <a class="nav-link dropdown-toggle mr-0 waves-effect waves-light" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
@@ -222,16 +221,6 @@
                     <span class="logo-sm">
                         <!-- <span class="logo-sm-text-dark">U</span> -->
                         <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
-=======
-            <!-- Ngôn ngữ và thông báo (giữ nguyên) -->
-            <!-- ... -->
-
-            <li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
-                   href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="ml-1">
-                        admin@example.com <i class="mdi mdi-chevron-down"></i>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                     </span>
                 </a>
             </div>
@@ -243,7 +232,6 @@
                     </button>
                 </li>
 
-<<<<<<< HEAD
                 <li class="d-none d-sm-block">
                     <form class="app-search">
                         <div class="app-search-box">
@@ -254,50 +242,6 @@
                                         <i class="fe-search"></i>
                                     </button>
                                 </div>
-=======
-                    <!-- item-->
-                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
-                    </a>
-
-                </div>
-            </li>
-
-            <!-- Cài đặt và sidebar (giữ nguyên) -->
-            <!-- ... -->
-
-        </ul>
-
-        <!-- LOGO -->
-        <div class="logo-box">
-            <a href="/admin/home.html" class="logo text-center">
-                <span class="logo-lg">
-                    <img src="../../../static/assets_admin/images/logo-light.png" alt="Logo" height="16">
-                </span>
-                <span class="logo-sm">
-                    <img src="../../../static/assets_admin/images/logo-sm.png" alt="Logo" height="24">
-                </span>
-            </a>
-        </div>
-
-        <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-            <li>
-                <button class="button-menu-mobile waves-effect waves-light">
-                    <i class="fe-menu"></i>
-                </button>
-            </li>
-
-            <li class="d-none d-sm-block">
-                <form class="app-search">
-                    <div class="app-search-box">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button class="btn" type="submit">
-                                    <i class="fe-search"></i>
-                                </button>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                             </div>
                         </div>
                     </form>
@@ -358,12 +302,12 @@
                                 Quản lý sản phẩm
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="../voucher/list-voucher.php">
                                 <i class="fe-percent"></i>
                                 Quản lý Voucher
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="../supply/list-supply.php">
                                 <i class="fe-layout"></i>
@@ -414,60 +358,11 @@
                                     <!-- Hidden field để lưu ID nhân viên -->
                                     <input type="hidden" name="id" id="id" value="">
 
-<<<<<<< HEAD
                                     <div class="form-group">
                                         <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" required
                                             placeholder="Nhập tên đăng nhập" name="username" id="username" />
                                         <div class="error-message" id="error-username"></div>
-=======
-                                <div class="form-group">
-                                    <label for="username">Tên đăng nhập <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập tên đăng nhập" name="username" id="username" required/>
-                                    <div class="error-message" id="error-username"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" required
-                                           placeholder="Nhập email" name="email" id="email" required/>
-                                    <div class="error-message" id="error-email"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="fullname">Họ và tên <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" required
-                                           placeholder="Nhập họ và tên" name="fullname" id="fullname" required/>
-                                    <div class="error-message" id="error-fullname"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="status">Trạng thái <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="status" name="status" required>
-                                        <option value="">-- Chọn trạng thái --</option>
-                                        <option value="true">ACTIVE</option>
-                                        <option value="false">INACTIVE</option>
-                                    </select>
-                                    <div class="error-message" id="error-status"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password">Mật khẩu</label>
-                                    <input type="password" class="form-control"
-                                           placeholder="Nhập mật khẩu mới nếu muốn thay đổi" name="password" id="password"/>
-                                    <div class="error-message" id="error-password"></div>
-                                </div>
-
-                                <div class="form-group mb-0">
-                                    <div>
-                                        <button type="submit" class="btn btn-gradient waves-effect waves-light">
-                                            Lưu thay đổi
-                                        </button>
-                                        <button type="reset" class="btn btn-light waves-effect ml-1">
-                                            <a href="list-employee.php">Danh sách nhân viên</a>
-                                        </button>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                                     </div>
 
                                     <div class="form-group">
@@ -574,7 +469,6 @@
     <!-- Plugin JS-->
     <script src="../../../static/assets_admin/assets/libs/parsleyjs/parsley.min.js"></script>
 
-<<<<<<< HEAD
     <!-- Validation init JS-->
     <script src="../../../static/assets_admin/assets/js/pages/form-validation.init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -585,14 +479,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- App JS -->
     <script src="../../../static/assets_admin/js/app.min.js"></script>
-=======
-<!-- Vendor JS -->
-<script src="../../../static/assets_admin/js/vendor.min.js"></script>
-<!-- Axios JS -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- App JS -->
-<script src="../../../static/assets_admin/js/app.min.js"></script>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
     <script src="../../../static/call-api/admin/employee/update-employee.js" defer></script>
 

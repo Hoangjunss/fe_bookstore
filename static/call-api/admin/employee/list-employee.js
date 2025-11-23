@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     fetchEmployees(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
-    document.getElementById('btnSearch').addEventListener('click', function() {
+    document.getElementById('btnSearch').addEventListener('click', function () {
         var fullname = document.getElementById('fullname').value.trim();
         searchEmployees(1, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
-<<<<<<< HEAD
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -24,14 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Phần tử logoutButton không tồn tại trong DOM.");
     }
-=======
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
-    });
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 });
 
 function getToken() {
@@ -99,17 +90,8 @@ async function fetchEmployees(page, size) {
     };
 
     try {
-<<<<<<< HEAD
         // Gửi yêu cầu fetch với URL chứa tham số truy vấn và options
         const response = await fetch(`http://localhost:8080/api/v1/users?${queryParams.toString()}`, options);
-=======
-        const response = await axios.get('http://localhost:8080/api/v1/users',
-            {
-                params,
-                
-             }
-        );
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
         if (!response.ok) {
             throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -141,10 +123,10 @@ function populateEmployeeTable(employees) {
     }
     console.log(employees);
     employees.forEach(employee => {
-        if(employee.role == 'employee'){
+        if (employee.role == 'employee') {
             const tr = document.createElement('tr');
 
-        tr.innerHTML = `
+            tr.innerHTML = `
             <td>${employee.id}</td>
             <td>${employee.username}</td>
             <td>${employee.email}</td>
@@ -154,18 +136,14 @@ function populateEmployeeTable(employees) {
             <td>
             <button class="btn btn-primary btn-sm edit-button" data-id="${employee.id}">Sửa</button>
                 <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-<<<<<<< HEAD
                     ${employee.locked === true ? 'Mở Khóa' : 'Khóa'}
-=======
-                    ${employee.locked == false ? 'Khóa' : 'Mở khóa'}
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                 </button>
             </td>
         `;
 
-        tbody.appendChild(tr);
+            tbody.appendChild(tr);
         }
-        
+
     });
 
     // Thêm sự kiện cho các nút Sửa và Khóa
@@ -224,11 +202,7 @@ function renderPagination(totalPage, currentPage, size) {
  * @returns {string} - Văn bản trạng thái
  */
 function getStatusText(status) {
-<<<<<<< HEAD
     return status === false ? 'ACTIVE' : 'INACTIVE';
-=======
-    return status == false ? 'ACTIVE' : 'INACTIVE';
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 }
 
 /**
@@ -254,7 +228,6 @@ async function lockEmployee(employeeId) {
             return;
         }
 
-<<<<<<< HEAD
         // Tạo chuỗi tham số truy vấn
         const queryParams = new URLSearchParams({
             integer: employeeId // Tên tham số 'integer' theo BE của bạn
@@ -275,10 +248,6 @@ async function lockEmployee(employeeId) {
 
             if (response.ok) {
                 showNotification('Khóa nhân viên thành công!', 'success');
-=======
-            if (response.status === 200) {
-                showNotification('Thay đổi trạng thái nhân viên thành công!', 'success');
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                 // Tải lại danh sách nhân viên sau khi khóa
                 fetchEmployees(1, 10);
             } else {

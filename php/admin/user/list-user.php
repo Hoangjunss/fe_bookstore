@@ -146,7 +146,6 @@
         </div>
         <!-- end Topbar -->
 
-<<<<<<< HEAD
         <!-- ========== Left Sidebar Start ========== -->
         <div class="left-side-menu">
 
@@ -197,12 +196,12 @@
                                 Quản lý sản phẩm
                             </a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="../voucher/list-voucher.php">
                                 <i class="fe-percent"></i>
                                 Quản lý Voucher
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="../supply/list-supply.php">
                                 <i class="fe-layout"></i>
@@ -210,13 +209,6 @@
                             </a>
                         </li>
                     </ul>
-=======
-                    <!-- item-->
-                    <a href="#" class="dropdown-item notify-item" id="logout-btn">
-                        <i class="fe-log-out"></i>
-                        <span>Logout</span>
-                    </a>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
                 </div>
                 <!-- End Sidebar -->
@@ -236,7 +228,6 @@
         <div class="content-page">
             <div class="content">
 
-<<<<<<< HEAD
                 <!-- Start Content-->
                 <div class="container-fluid">
                     <!-- start page title -->
@@ -249,100 +240,9 @@
                                         <li class="breadcrumb-item"><a href="#">Khách hàng</a></li>
                                         <li class="breadcrumb-item active">Danh Sách Khách hàng</li>
                                     </ol>
-=======
-    <div class="content-page">
-        <div class="content">
-
-            <!-- Start Content-->
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Khách hàng</a></li>
-                                    <li class="breadcrumb-item active">Danh Sách Khách hàng</li>
-                                </ol>
-                            </div>
-                            <h4 class="page-title">Danh Sách Khách hàng</h4>
-                        </div>
-                    </div>
-                </div>
-                <!-- end page title -->
-
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box table-responsive">
-
-                            <!-- Form Tìm Kiếm -->
-                            <div class="mb-3">
-                                <div class="form-row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="fullname">Tên đăng nhập:</label>
-                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập tên đăng nhập">
-                                    </div>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                                 </div>
                                 <h4 class="page-title">Danh Sách Khách hàng</h4>
                             </div>
-<<<<<<< HEAD
-=======
-
-                            <!-- Bảng Danh Sách Nhân Viên -->
-                            <table id="datatable-buttons"
-                                   class="table table-striped table-bordered dt-responsive nowrap"
-                                   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th style="width: 100px;">ID</th>
-                                    <th style="width: 200px;">Tên đăng nhập</th>
-                                    <th style="width: 200px;">Email</th>
-                                    <th>Họ và tên</th>
-                                    <th>Chức vụ</th>
-                                    <th>Trạng thái</th>
-                                    <th>Hành động</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <td>1</td>
-                                    <td>kh01</td>
-                                    <td>kh01@exampli.com</td>
-                                    <td>Nguyen B</td>
-                                    <td>customer</td>
-                                    <td>active</td>
-                                    <td>
-                                        <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-                                           Khóa
-                                        </button>
-                                    </td>
-                                    </tr>
-                                    <tr>
-                                    <td>2</td>
-                                    <td>kh02</td>
-                                    <td>kh02@exampli.com</td>
-                                    <td>Nguyen C</td>
-                                    <td>customer</td>
-                                    <td>lock</td>
-                                    <td>
-                                        <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
-                                           Mở Khóa
-                                        </button>
-                                    </td>
-                                    </tr>               <!-- Nội dung bảng sẽ được chèn qua JavaScript -->
-                                </tbody>
-                            </table>
-
-                            <!-- Phân Trang -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end" id="pageId">
-                                    <!-- Các nút phân trang sẽ được thêm vào đây bằng JavaScript -->
-                                </ul>
-                            </nav>
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                         </div>
                     </div>
                     <!-- end page title -->

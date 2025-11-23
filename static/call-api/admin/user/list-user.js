@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var fullname = document.getElementById('fullname').value.trim();
         searchEmployees(1, 10, fullname); // Khởi tạo tìm kiếm từ trang 1 với kích thước trang 10 và tên nhân viên tìm kiếm
     });
-<<<<<<< HEAD
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
@@ -24,15 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Phần tử logoutButton không tồn tại trong DOM.");
     }
-=======
-
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
-    });
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 });
 
 function getToken() {
@@ -143,13 +133,8 @@ function populateEmployeeTable(employees) {
             <td>${employee.role}</td>
             <td>${getStatusText(employee.locked)}</td>
             <td>
-<<<<<<< HEAD
                 <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.status}">
                 ${employee.locked === true ? 'Mở Khóa' : 'Khóa'}
-=======
-                <button class="btn btn-warning btn-sm toggle-lock-button" data-id="${employee.id}" data-status="${employee.locked}">
-                    ${employee.locked == false ? 'Khóa' : 'Mở khóa'}
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
                 </button>
             </td>
         `;
@@ -205,11 +190,7 @@ function renderPagination(totalPage, currentPage, size) {
  * @returns {string} - Văn bản trạng thái
  */
 function getStatusText(status) {
-<<<<<<< HEAD
     return status === false ? 'ACTIVE' : 'INACTIVE';
-=======
-    return status ==false ? 'ACTIVE' : 'INACTIVE';
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 }
 
 /**

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchEmployeeData(employeeId);
     } else {
         alert('Không tìm thấy ID nhân viên.');
-       // window.location.href = 'list-employee.php';
+        // window.location.href = 'list-employee.php';
     }
 
     // Xử lý submit form
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Fetch và populate danh sách chức vụ vào dropdown
     //fetchRoles();
-    document.getElementById('logout-btn').addEventListener('click', function() {
+    document.getElementById('logout-btn').addEventListener('click', function () {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('username');
@@ -65,11 +65,7 @@ async function fetchEmployeeData(employeeId) {
         }
     };
     try {
-<<<<<<< HEAD
         const response = await fetch(`http://localhost:8080/api/v1/user/${employeeId}`, options);
-=======
-        const response = await axios.get(`http://localhost:8080/api/v1/users/${employeeId}`);
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 
         if (response.status === 200) {
             const response = await response.json();
@@ -103,13 +99,13 @@ function populateForm(employee) {
 async function fetchRoles() {
     try {
         const accessToken = getToken();
-    const options = {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        }
-    };
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        };
         // Giả sử bạn có endpoint để lấy danh sách chức vụ
         const response = await fetch('http://localhost:8080/api/v1/roles', options);
 
@@ -146,22 +142,22 @@ function populateRoleDropdown(roles) {
  */
 async function updateEmployee(employeeId) {
 
-        // Lấy từng trường từ form
-        const id = parseInt(document.getElementById('id').value);
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const fullname = document.getElementById('fullname').value.trim();
-        const locked = document.getElementById('status').value === 'true';
-    
-        // Tạo đối tượng userDTO
-        const userDTO = {
-            id: id,
-            username: username,
-            email: email,
-            fullname: fullname,
-            role: 'employee',
-            locked: locked
-        };
+    // Lấy từng trường từ form
+    const id = parseInt(document.getElementById('id').value);
+    const username = document.getElementById('username').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const fullname = document.getElementById('fullname').value.trim();
+    const locked = document.getElementById('status').value === 'true';
+
+    // Tạo đối tượng userDTO
+    const userDTO = {
+        id: id,
+        username: username,
+        email: email,
+        fullname: fullname,
+        role: 'employee',
+        locked: locked
+    };
 
     const form = document.getElementById('updateEmployeeForm');
     const formData = new FormData(form);

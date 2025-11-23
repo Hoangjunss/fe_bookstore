@@ -1,46 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
 
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', function () {
-    fetchSupplies(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
-    const logoutButton = document.getElementById("logout-btn");
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchSupplies(1, 10); // Khởi tạo với trang 1 và kích thước trang 10
+        const logoutButton = document.getElementById("logout-btn");
 
-    if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
-            // Xóa token và refreshToken khỏi localStorage
-            localStorage.removeItem("token");
-            localStorage.removeItem("refreshToken");
+                // Xóa token và refreshToken khỏi localStorage
+                localStorage.removeItem("token");
+                localStorage.removeItem("refreshToken");
 
-            // Thông báo đăng xuất thành công (tùy chọn)
-            alert("Bạn đã đăng xuất thành công!");
+                // Thông báo đăng xuất thành công (tùy chọn)
+                alert("Bạn đã đăng xuất thành công!");
 
-            // Chuyển hướng đến trang đăng nhập
-            window.location.href = "../../auth/login.php";
-        });
-    } else {
-        console.error("Phần tử logoutButton không tồn tại trong DOM.");
-    }
-=======
-    // Thêm sự kiện cho nút "Tìm kiếm"
-    const btnSearch = document.getElementById('btnSearch');
-    if (btnSearch) {
-        btnSearch.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleSearch();
-        });
-    }
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
+                // Chuyển hướng đến trang đăng nhập
+                window.location.href = "../../auth/login.php";
+            });
+        } else {
+            console.error("Phần tử logoutButton không tồn tại trong DOM.");
+        }
     });
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 });
-
 /**
  * Hàm khởi tạo ứng dụng khi trang được tải
  */
@@ -172,7 +155,7 @@ function populateSupplyTable(supplies) {
         tr.innerHTML = `
             <td>${supply.id}</td>
             <td>${supply.name}</td>
-            <td>${supply.addressDTO ? supply.addressDTO.province + ", "+ supply.addressDTO.district+", "+ supply.addressDTO.detailAddress : 'N/A'}</td>
+            <td>${supply.addressDTO ? supply.addressDTO.province + ", " + supply.addressDTO.district + ", " + supply.addressDTO.detailAddress : 'N/A'}</td>
             <td>${supply.addressDTO ? supply.addressDTO.phone : 'N/A'}</td>
             <td>${getStatusText(supply.status)}</td>
             <td>

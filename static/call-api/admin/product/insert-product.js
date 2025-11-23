@@ -23,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); // Ngăn form submit mặc định
         createProduct();
     });
-<<<<<<< HEAD
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -43,15 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Phần tử logoutButton không tồn tại trong DOM.");
     }
-=======
-
-    document.getElementById('logout-btn').addEventListener('click', function() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('username');
-        window.location.href = '../../auth/login.php'; // Chuyển về trang login
-    });
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
 });
 
 /**
@@ -147,10 +137,6 @@ function validateForm() {
     const description = document.getElementById('description').value.trim();
     const author = document.getElementById('author').value.trim();
     const page = document.getElementById('page').value;
-<<<<<<< HEAD
-=======
-    //const datePublic = document.getElementById('datePublic').value;
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     const categoryId = document.getElementById('category').value;
     //const supplyId = document.getElementById('supply').value;
     const image = document.getElementById('image').files[0];
@@ -184,16 +170,6 @@ function validateForm() {
         document.getElementById('error-page').textContent = 'Số trang phải lớn hơn 0.';
         hasError = true;
     }
-<<<<<<< HEAD
-=======
-
-    // Kiểm tra ngày xuất bản
-    /* if (!datePublic) {
-        document.getElementById('error-datePublic').textContent = 'Ngày xuất bản không được để trống.';
-        hasError = true;
-    } */
-
->>>>>>> 0621c00fa46de7d2f4e66054945f8709ee9bca5e
     // Kiểm tra thể loại
     if (!categoryId) {
         document.getElementById('error-categoryId').textContent = 'Vui lòng chọn thể loại sách.';
