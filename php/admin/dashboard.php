@@ -45,7 +45,7 @@
             cursor: pointer;
         }
 
-        body.enlarged .left-side-menu #side-menu li a span {
+        /* body.enlarged .left-side-menu #side-menu li a span {
             display: none !important;
         }
 
@@ -58,7 +58,7 @@
 
         body.enlarged .left-side-menu #side-menu .menu-title {
             display: none !important;
-        }
+        } */
 
         @keyframes disappear {
             from {
@@ -149,31 +149,54 @@
                         <li class="menu-title">QUẢN LÝ</li>
 
                         <li>
-                            <a href="#">
+                            <a href="dashboard.php">
                                 <i class="fe-airplay"></i>
-                                <span> Dashboard </span> </a>
+                                <span> Dashboard </span>
+                            </a>
                         </li>
 
                         <li>
                             <a href="order/list-order.php">
                                 <i class="fe-shopping-cart"></i>
-                                <span>Quản lý đơn hàng</span> </a>
+                                Quản lý đơn hàng
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="employee/list-employee.php">
+                                <i class="fe-briefcase"></i>
+                                Quản lý nhân viên
+                            </a>
                         </li>
                         <li>
-                            <a href="user/list-user.php">
+                            <a href="../user/list-user.php">
                                 <i class="fas fa-user"></i>
-                                <span>Quản lý khách hàng</span> </a>
+                                Quản lý khách hàng
+                            </a>
                         </li>
                         <!-- <li>
-                        <a href="category/list-category.php">
-                            <i class="fe-disc"></i>
-                            Quản lý loại sản phẩm
-                        </a>
-                    </li> -->
+        <a href="../category/list-category.php">
+            <i class="fe-disc"></i>
+            Quản lý loại sản phẩm
+        </a>
+    </li> -->
                         <li>
-                            <a href="product/list-product.php">
+                            <a href="../product/list-product.php">
                                 <i class="fe-box"></i>
-                                <span>Quản lý sản phẩm</span> </a>
+                                Quản lý sản phẩm
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../voucher/list-voucher.php">
+                                <i class="fe-percent"></i>
+                                Quản lý Voucher
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../supply/list-supply.php">
+                                <i class="fe-layout"></i>
+                                Quản lý nhà cung cấp
+                            </a>
                         </li>
                     </ul>
 
