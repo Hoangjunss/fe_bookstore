@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileLink = document.getElementById("profileLink");
     profileLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-        checkAuthAndRedirect(profileLink, "/profile.php");
+        checkAuthAndRedirect(profileLink, "profile.php");
     });
 
     cartLink.addEventListener("click", function(event) {
@@ -424,7 +424,7 @@ if (provinceElement && districtElement && wardElement) {
                 const data = await response.json(); // Phân tích cú pháp JSON từ phản hồi
                 console.log(data); // Kiểm tra dữ liệu nhận được từ backend
                 alert('Đơn hàng của bạn đã được đặt thành công!');
-                window.location.href = 'http://localhost:8000/php/client/order-details.php?id=' + data.id;
+                window.location.href = 'http://localhost:8000/fe_bookstore/php/client/order-details.php?id=' + data.id;
             } else {
                 const errorData = await response.json();
                 showNotification(errorData.message || 'Đặt hàng thất bại.', 'error');
