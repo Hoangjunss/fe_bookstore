@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutButton = document.getElementById("logout-btn");
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", function(event) {
+        logoutButton.addEventListener("click", function (event) {
             event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
 
             // Xóa token và refreshToken khỏi localStorage
@@ -133,7 +133,7 @@ function populateSupplyTable(supplies) {
     tbody.querySelectorAll('.edit-button').forEach(button => {
         button.addEventListener('click', function () {
             const supplyId = this.getAttribute('data-id');
-            window.location.href = `edit-supply.html?id=${supplyId}`;
+            window.location.href = `edit-supply.php?id=${supplyId}`;
         });
     });
 
