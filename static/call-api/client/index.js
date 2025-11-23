@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileLink = document.getElementById("profileLink");
     profileLink.addEventListener("click", function(event) {
         event.preventDefault();  // Ngăn chặn chuyển hướng mặc định
-        checkAuthAndRedirect(profileLink, "/profile.php");
+        checkAuthAndRedirect(profileLink, "profile.php");
     });
 
     cartLink.addEventListener("click", function(event) {
