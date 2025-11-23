@@ -126,7 +126,7 @@ document.getElementById('myForm').addEventListener('submit', async function (e) 
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userDTO)
+        body: JSON.stringify(createUserRequest)
     };
     try {
 

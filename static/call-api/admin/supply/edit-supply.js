@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const response = await axios.get(`http://localhost:8080/api/v1/supplies/id?id=${id}`);
             const supply = response.data;
-
-            document.getElementById('addressId').value = supply.addressDTO.id;
+            console.log(supply);
+            // document.getElementById('addressId').value = supply.addressDTO.id;
             document.getElementById('name').value = supply.name;
             document.getElementById('address').value = supply.addressDTO.address;
             document.getElementById('phone').value = supply.addressDTO.phone;
